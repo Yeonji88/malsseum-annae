@@ -1,20 +1,37 @@
 (function () {
-// 같은 대화에서는 말씀을 유지합니다. 추후 AI 선택기도 이 입력/출력 경계를 사용할 수 있습니다.
-window.Malsseum.services.selectVerse = function(classification, candidates, options = {}) {
- const {previousId = null, continueConversation = false, history = [], verses = window.Malsseum.data.verses} = options;
- const previous = continueConversation && verses.find(verse => verse.id === previousId);
- let verse = previous;
- if(!verse) {
-  const bestScore = Math.max(...candidates.map(candidate => candidate.score));
-  // 적합도가 비슷한 후보에만 반복 감점을 적용합니다. 무관한 말씀을 다양성 때문에 선택하지 않습니다.
-  const eligible = candidates.filter(candidate => candidate.score >= bestScore * .8);
-  const ranked = eligible.map(candidate => {
-   const repetitions = history.slice(-5).filter(id => id === candidate.verse.id).length;
-   return {...candidate, adjustedScore:candidate.score * Math.pow(.75, repetitions)};
-  }).sort((a,b)=>b.adjustedScore-a.adjustedScore||b.score-a.score||b.last-a.last);
-  verse = ranked[0]?.verse;
+window.Malsseum.services.selectVerse=function(analysis,candidates,options={}){
+ const {previousId=null,previousAnalysis=null,continueConversation=false,history=[],verses=window.Malsseum.data.verses}=options;
+ const policy=window.Malsseum.services.recommendationPolicy;
+ const result={status:'needs_clarification',verse:null,matched:analysis.matched,mixed:analysis.mixed,continued:false,analysis,reviews:[]};
+ // Every turn passes the safety gate before continuity or ranking.
+ if(analysis.riskSignals.length)return {...result,status:'safety_first',message:analysis.riskSignals.includes('self_harm')?'지금은 말씀 추천보다 안전을 먼저 살피고 싶어요. 혼자 견디기보다 믿을 만한 사람이나 긴급 도움을 받을 수 있는 곳에 연결해 주세요. 지금 안전한 곳에 있나요?':policy.safetyMessage};
+ if(continueConversation&&previousAnalysis?.riskSignals.length)return {...result,status:'safety_first',analysis:{...analysis,riskSignals:[...new Set([...analysis.riskSignals,...previousAnalysis.riskSignals])]},message:'앞서 나눈 위험 상황이 해결됐는지 이 입력만으로는 확인할 수 없어요. 말씀을 권하기 전에 현재 안전과 도움을 받을 수 있는 사람을 먼저 확인하고 싶어요.'};
+ const oldTopics=[previousAnalysis?.primaryTopic,...(previousAnalysis?.secondaryTopics||[])];
+ const importantChange=(analysis.primaryTopic&&!oldTopics.includes(analysis.primaryTopic))||analysis.secondaryTopics.some(id=>!oldTopics.includes(id))||analysis.situations.some(id=>!(previousAnalysis?.situations||[]).includes(id));
+ const previous=continueConversation&&verses.find(verse=>verse.id===previousId);
+ const acknowledgement=analysis.canContinue&&analysis.situations.length===0;
+ const contextualContinuation=previous&&previousAnalysis&&(!importantChange||acknowledgement)&&(acknowledgement||previous.topics.includes(analysis.primaryTopic));
+ // Preserve the accumulated context for continuations; unknown information is never invented.
+ const effectiveAnalysis={...analysis,primaryTopic:contextualContinuation&&acknowledgement?previousAnalysis.primaryTopic:analysis.primaryTopic,secondaryTopics:contextualContinuation&&acknowledgement?previousAnalysis.secondaryTopics:analysis.secondaryTopics,situations:[...new Set([...(continueConversation?previousAnalysis?.situations||[]:[]),...analysis.situations])]};
+ result.analysis=effectiveAnalysis;
+ const reviewed=candidates.map(candidate=>{
+  const review=policy.review(candidate.verse,effectiveAnalysis,{applicationTags:options.applicationTags||[]});
+  const suitability=(candidate.score+candidate.matchedSituations.length*2)*review.priority;
+  return {...candidate,review,suitability};
+ });
+ result.reviews=reviewed.map(({verse,review})=>({id:verse.id,...review}));
+ // Gentle, suitable alternatives rank above caution-penalised passages; severe contraindications remain excluded.
+ const eligible=reviewed.filter(candidate=>!candidate.review.excluded&&candidate.score>0);
+ if(contextualContinuation){
+  const review=policy.review(previous,effectiveAnalysis,{applicationTags:options.applicationTags||[]});
+  if(!review.excluded&&review.priority===1)return {...result,status:'selected',verse:previous,continued:true,analysis:effectiveAnalysis,reason:'기존 말씀의 적합성과 주의사항을 다시 확인해 유지함',avoidApplications:review.avoidApplications};
  }
- if(!verse) throw new Error('추천할 말씀 데이터가 없습니다.');
- return {verse,matched:classification.matched,continued:Boolean(previous)&&!classification.matched,mixed:classification.mixed};
+ if(!analysis.primaryTopic)return {...result,message:'이야기를 들려주셔서 고마워요. 지금 가장 크게 느껴지는 마음이나 어떤 일이 있었는지 조금 더 들려주실래요?'};
+ if(!eligible.length)return {...result,status:'no_suitable_candidate',message:analysis.primaryTopic==='faith'||analysis.secondaryTopics.includes('faith')?'기도가 어렵거나 의문이 드는 마음을 믿음이 부족하다는 뜻으로 단정하지 않을게요. 지금 어떤 점이 가장 어렵게 느껴지는지 더 들려주실래요?':'지금 나눈 마음에 조심스럽게 연결할 말씀을 현재 준비된 말씀에서 찾지 못했어요. 억지로 고르지 않고, 지금 어떤 위로나 도움이 필요한지 조금 더 듣고 싶어요.'};
+ const bestScore=Math.max(...eligible.map(candidate=>candidate.suitability));
+ const comparable=eligible.filter(candidate=>candidate.suitability>=bestScore*.8);
+ const ranked=comparable.map(candidate=>({...candidate,adjustedScore:candidate.suitability*Math.pow(.75,history.slice(-5).filter(id=>id===candidate.verse.id).length)})).sort((a,b)=>b.adjustedScore-a.adjustedScore||b.suitability-a.suitability||a.verse.id.localeCompare(b.verse.id));
+ const selected=ranked[0];
+ return {...result,status:'selected',verse:selected.verse,reason:selected.verse.recommendationNote,matchedTopics:selected.matchedTopics,matchedSituations:selected.matchedSituations,avoidApplications:selected.review.avoidApplications};
 };
 })();

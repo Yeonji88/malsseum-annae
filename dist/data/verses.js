@@ -1,8 +1,8 @@
 (function () {
-// recommendationNote와 cautionTags는 추천용 메타데이터이며 성경 본문이 아닙니다.
+// New entries contain user-supplied references and editorial metadata only. No unverified scripture text.
 window.Malsseum.data.verses = Object.freeze([
   {
-    "id": "rest",
+    "id": "matthew-11-28",
     "reference": "마태복음 11:28",
     "book": "마태복음",
     "chapter": 11,
@@ -10,15 +10,34 @@ window.Malsseum.data.verses = Object.freeze([
     "verseStart": 28,
     "verseEnd": 28,
     "translation": "개역한글",
-    "primaryTopic": "rest",
-    "topicTags": [
+    "recommendationNote": "지침과 부담 속에서 쉼을 구하는 상황에 연결합니다.",
+    "cautionTags": [],
+    "topics": [
       "rest"
     ],
-    "recommendationNote": "지침과 부담 속에서 쉼을 구하는 상황에 연결합니다.",
-    "cautionTags": []
+    "situations": [
+      "overload"
+    ],
+    "expressions": [
+      "너무 지쳤어요",
+      "모든 일을 혼자 감당하는 게 버거워요",
+      "잠시 쉬고 싶어요"
+    ],
+    "contextNote": "예수님이 수고하고 무거운 짐 진 이들을 자신에게 초대하는 말씀입니다. 이어지는 29~30절의 배움과 멍에 문맥과 함께 읽습니다. 모든 의무가 즉시 사라지거나 상황이 반드시 해결된다는 약속으로 확대하지 않습니다.",
+    "textStatus": "verified",
+    "textStatusLabel": "본문 검증 완료",
+    "recommendationEnabled": true,
+    "guidanceStatus": "ready",
+    "metadataStatus": "reviewed",
+    "applicationGuidance": {
+      "suitableSituations": [
+        "overload"
+      ],
+      "avoidApplications": []
+    }
   },
   {
-    "id": "fear",
+    "id": "psalm-56-3",
     "reference": "시편 56:3",
     "book": "시편",
     "chapter": 56,
@@ -26,15 +45,34 @@ window.Malsseum.data.verses = Object.freeze([
     "verseStart": 3,
     "verseEnd": 3,
     "translation": "개역한글",
-    "primaryTopic": "fear",
-    "topicTags": [
+    "recommendationNote": "두려움과 걱정을 기도로 표현하려는 상황에 연결합니다.",
+    "cautionTags": [],
+    "topics": [
       "fear"
     ],
-    "recommendationNote": "두려움과 걱정을 기도로 표현하려는 상황에 연결합니다.",
-    "cautionTags": []
+    "situations": [
+      "uncertain_future"
+    ],
+    "expressions": [
+      "앞날이 두려워요",
+      "결과를 기다리며 불안해요",
+      "걱정을 기도로 나누고 싶어요"
+    ],
+    "contextNote": "위협 속에서 두려움을 인정하면서 하나님을 의지하는 시편의 고백입니다. 믿으면 두려움이 없어져야 한다거나 위험을 견뎌야 한다는 요구, 원하는 결과를 보장하는 약속으로 적용하지 않습니다.",
+    "textStatus": "verified",
+    "textStatusLabel": "본문 검증 완료",
+    "recommendationEnabled": true,
+    "guidanceStatus": "ready",
+    "metadataStatus": "reviewed",
+    "applicationGuidance": {
+      "suitableSituations": [
+        "uncertain_future"
+      ],
+      "avoidApplications": []
+    }
   },
   {
-    "id": "hurt",
+    "id": "psalm-34-18",
     "reference": "시편 34:18",
     "book": "시편",
     "chapter": 34,
@@ -42,12 +80,1888 @@ window.Malsseum.data.verses = Object.freeze([
     "verseStart": 18,
     "verseEnd": 18,
     "translation": "개역한글",
-    "primaryTopic": "hurt",
-    "topicTags": [
-      "hurt"
-    ],
     "recommendationNote": "외로움과 상처를 나누는 상황에 연결합니다.",
-    "cautionTags": []
+    "cautionTags": [],
+    "topics": [
+      "loneliness",
+      "grief",
+      "relationship"
+    ],
+    "situations": [
+      "isolation",
+      "bereavement",
+      "separation",
+      "recent_loss",
+      "conflict"
+    ],
+    "expressions": [
+      "혼자인 것 같아요",
+      "이별해서 슬퍼요",
+      "가까운 사람에게 상처받았어요"
+    ],
+    "contextNote": "고난 가운데 하나님을 찾는 시편의 흐름에서 상한 마음과 통회하는 마음에 가까이하심을 노래합니다. 상처받은 사람에게 잘못이나 회개를 강요하거나 고통이 즉시 끝난다고 보장하지 않습니다. 화해나 용서를 서두르게 하는 근거로 사용하지 않습니다.",
+    "textStatus": "verified",
+    "textStatusLabel": "본문 검증 완료",
+    "recommendationEnabled": true,
+    "guidanceStatus": "ready",
+    "metadataStatus": "reviewed",
+    "applicationGuidance": {
+      "suitableSituations": [
+        "isolation",
+        "bereavement",
+        "separation",
+        "recent_loss",
+        "conflict"
+      ],
+      "avoidApplications": []
+    }
+  },
+  {
+    "id": "isaiah-40-31",
+    "reference": "이사야 40:31",
+    "book": "이사야",
+    "chapter": 40,
+    "verseStart": 31,
+    "verseEnd": 31,
+    "translation": null,
+    "targetTranslation": "개역개정",
+    "text": "",
+    "textStatus": "pending_verification",
+    "textStatusLabel": "본문 검증 대기",
+    "recommendationEnabled": false,
+    "guidanceStatus": "pending",
+    "metadataStatus": "draft",
+    "topics": [
+      "rest"
+    ],
+    "situations": [
+      "waiting_strength"
+    ],
+    "expressions": [
+      "기다림이 길어져 기운이 없어요",
+      "다시 시작할 힘이 필요해요"
+    ],
+    "recommendationNote": "긴 기다림으로 기운을 잃은 상황에서 회복을 기다리는 마음에 연결합니다.",
+    "cautionTags": [
+      "endurance_pressure"
+    ],
+    "contextNote": "지친 공동체에게 하나님을 바라보도록 격려하는 흐름입니다. 신앙으로 신체 한계를 넘거나 피로가 사라져야 한다는 뜻으로 적용하지 않습니다.",
+    "applicationGuidance": {
+      "suitableSituations": [
+        "waiting_strength"
+      ],
+      "avoidApplications": [
+        "endurance_pressure"
+      ]
+    }
+  },
+  {
+    "id": "psalm-55-22",
+    "reference": "시편 55:22",
+    "book": "시편",
+    "chapter": 55,
+    "verseStart": 22,
+    "verseEnd": 22,
+    "translation": null,
+    "targetTranslation": "개역개정",
+    "text": "",
+    "textStatus": "pending_verification",
+    "textStatusLabel": "본문 검증 대기",
+    "recommendationEnabled": false,
+    "guidanceStatus": "pending",
+    "metadataStatus": "draft",
+    "topics": [
+      "rest"
+    ],
+    "situations": [
+      "overload",
+      "entrusting_burdens"
+    ],
+    "expressions": [
+      "책임을 혼자 지는 게 버거워요",
+      "내려놓을 수 있는 짐이 있을까요"
+    ],
+    "recommendationNote": "혼자 책임져야 한다는 부담을 나누고 도움을 구하려는 상황에 연결합니다.",
+    "cautionTags": [
+      "guaranteed_outcome"
+    ],
+    "contextNote": "배신과 위협 속에서 도움을 구하는 시편의 흐름입니다. 현실의 책임이나 도움 요청을 포기하라는 뜻으로 확대하지 않습니다.",
+    "applicationGuidance": {
+      "suitableSituations": [
+        "overload",
+        "entrusting_burdens"
+      ],
+      "avoidApplications": [
+        "guaranteed_outcome"
+      ]
+    }
+  },
+  {
+    "id": "psalm-23-2-3",
+    "reference": "시편 23:2-3",
+    "book": "시편",
+    "chapter": 23,
+    "verseStart": 2,
+    "verseEnd": 3,
+    "translation": null,
+    "targetTranslation": "개역개정",
+    "text": "",
+    "textStatus": "pending_verification",
+    "textStatusLabel": "본문 검증 대기",
+    "recommendationEnabled": false,
+    "guidanceStatus": "pending",
+    "metadataStatus": "draft",
+    "topics": [
+      "rest"
+    ],
+    "situations": [
+      "need_rest",
+      "recovery"
+    ],
+    "expressions": [
+      "쉬어야 다시 걸을 수 있을 것 같아요",
+      "몸과 마음을 돌보고 싶어요"
+    ],
+    "recommendationNote": "회복을 위해 멈춤과 돌봄이 필요한 상황에 연결합니다.",
+    "cautionTags": [
+      "guaranteed_outcome"
+    ],
+    "contextNote": "목자의 돌봄과 인도를 노래하는 시편입니다. 고난이 없는 생활이나 즉각적인 건강 회복을 보장하지 않습니다.",
+    "applicationGuidance": {
+      "suitableSituations": [
+        "need_rest",
+        "recovery"
+      ],
+      "avoidApplications": [
+        "guaranteed_outcome"
+      ]
+    }
+  },
+  {
+    "id": "galatians-6-9",
+    "reference": "갈라디아서 6:9",
+    "book": "갈라디아서",
+    "chapter": 6,
+    "verseStart": 9,
+    "verseEnd": 9,
+    "translation": null,
+    "targetTranslation": "개역개정",
+    "text": "",
+    "textStatus": "pending_verification",
+    "textStatusLabel": "본문 검증 대기",
+    "recommendationEnabled": false,
+    "guidanceStatus": "pending",
+    "metadataStatus": "draft",
+    "topics": [
+      "rest"
+    ],
+    "situations": [
+      "prolonged_effort",
+      "discouraged_service"
+    ],
+    "expressions": [
+      "오래 좋은 일을 했는데 보람이 없어 낙심해요",
+      "봉사하며 노력한 일이 헛된 것 같아요"
+    ],
+    "recommendationNote": "좋은 일을 오래 이어가다 보람이 보이지 않아 낙심한 상황에 연결하되, 심한 소진에는 쉼을 먼저 고려합니다.",
+    "cautionTags": [
+      "endurance_pressure",
+      "guaranteed_outcome"
+    ],
+    "contextNote": "공동체 안에서 서로의 짐을 지고 선을 행하는 권면의 흐름입니다. 개인 성과를 보장하거나 건강과 안전을 희생하며 더 버티라는 요구로 적용하지 않습니다.",
+    "applicationGuidance": {
+      "suitableSituations": [
+        "prolonged_effort",
+        "discouraged_service"
+      ],
+      "avoidApplications": [
+        "endurance_pressure",
+        "guaranteed_outcome"
+      ]
+    }
+  },
+  {
+    "id": "philippians-4-6-7",
+    "reference": "빌립보서 4:6-7",
+    "book": "빌립보서",
+    "chapter": 4,
+    "verseStart": 6,
+    "verseEnd": 7,
+    "translation": null,
+    "targetTranslation": "개역개정",
+    "text": "",
+    "textStatus": "pending_verification",
+    "textStatusLabel": "본문 검증 대기",
+    "recommendationEnabled": false,
+    "guidanceStatus": "pending",
+    "metadataStatus": "draft",
+    "topics": [
+      "fear"
+    ],
+    "situations": [
+      "anxious_prayer"
+    ],
+    "expressions": [
+      "걱정을 기도로 꺼내고 싶어요",
+      "마음이 불안해서 기도가 어려워요"
+    ],
+    "recommendationNote": "불안을 숨기지 않고 기도로 표현하려는 상황에 연결합니다.",
+    "cautionTags": [
+      "faith_shaming",
+      "emotion_suppression"
+    ],
+    "contextNote": "공동체에 기도와 평안을 권면하는 흐름입니다. 불안을 신앙 실패로 여기거나 기도가 치료·현실적 도움을 대체한다고 말하지 않습니다.",
+    "applicationGuidance": {
+      "suitableSituations": [
+        "anxious_prayer"
+      ],
+      "avoidApplications": [
+        "faith_shaming",
+        "emotion_suppression"
+      ]
+    }
+  },
+  {
+    "id": "isaiah-41-10",
+    "reference": "이사야 41:10",
+    "book": "이사야",
+    "chapter": 41,
+    "verseStart": 10,
+    "verseEnd": 10,
+    "translation": null,
+    "targetTranslation": "개역개정",
+    "text": "",
+    "textStatus": "pending_verification",
+    "textStatusLabel": "본문 검증 대기",
+    "recommendationEnabled": false,
+    "guidanceStatus": "pending",
+    "metadataStatus": "draft",
+    "topics": [
+      "fear"
+    ],
+    "situations": [
+      "feeling_unsupported"
+    ],
+    "expressions": [
+      "혼자 감당해야 할까 봐 두려워요",
+      "누군가 곁에 있다는 위로가 필요해요"
+    ],
+    "recommendationNote": "혼자라는 두려움 속에서 지지와 위로가 필요한 상황에 연결합니다.",
+    "cautionTags": [
+      "guaranteed_outcome"
+    ],
+    "contextNote": "이스라엘을 향한 하나님의 위로와 붙드심의 문맥입니다. 특정 시험·사업·관계의 성공을 개인에게 보장하지 않습니다.",
+    "applicationGuidance": {
+      "suitableSituations": [
+        "feeling_unsupported"
+      ],
+      "avoidApplications": [
+        "guaranteed_outcome"
+      ]
+    }
+  },
+  {
+    "id": "matthew-6-34",
+    "reference": "마태복음 6:34",
+    "book": "마태복음",
+    "chapter": 6,
+    "verseStart": 34,
+    "verseEnd": 34,
+    "translation": null,
+    "targetTranslation": "개역개정",
+    "text": "",
+    "textStatus": "pending_verification",
+    "textStatusLabel": "본문 검증 대기",
+    "recommendationEnabled": false,
+    "guidanceStatus": "pending",
+    "metadataStatus": "draft",
+    "topics": [
+      "fear"
+    ],
+    "situations": [
+      "tomorrow_worry"
+    ],
+    "expressions": [
+      "내일 일까지 생각하니 불안해요",
+      "아직 일어나지 않은 일이 걱정돼요"
+    ],
+    "recommendationNote": "아직 오지 않은 일로 압도될 때 오늘 가능한 범위를 살피는 데 연결합니다.",
+    "cautionTags": [
+      "emotion_suppression"
+    ],
+    "contextNote": "산상수훈의 염려에 대한 가르침입니다. 계획이나 예방을 하지 말라거나 걱정하는 사람을 책망하는 말로 사용하지 않습니다.",
+    "applicationGuidance": {
+      "suitableSituations": [
+        "tomorrow_worry"
+      ],
+      "avoidApplications": [
+        "emotion_suppression"
+      ]
+    }
+  },
+  {
+    "id": "john-14-27",
+    "reference": "요한복음 14:27",
+    "book": "요한복음",
+    "chapter": 14,
+    "verseStart": 27,
+    "verseEnd": 27,
+    "translation": null,
+    "targetTranslation": "개역개정",
+    "text": "",
+    "textStatus": "pending_verification",
+    "textStatusLabel": "본문 검증 대기",
+    "recommendationEnabled": false,
+    "guidanceStatus": "pending",
+    "metadataStatus": "draft",
+    "topics": [
+      "fear"
+    ],
+    "situations": [
+      "separation_anxiety"
+    ],
+    "expressions": [
+      "떠나보낼 생각에 불안해요",
+      "변화를 앞두고 마음이 흔들려요"
+    ],
+    "recommendationNote": "이별이나 변화 앞에서 불안한 마음을 나누는 상황에 연결합니다.",
+    "cautionTags": [
+      "emotion_suppression"
+    ],
+    "contextNote": "제자들과의 이별을 앞둔 예수님의 말씀이라는 문맥입니다. 갈등이나 슬픔이 곧 사라져야 한다는 요구로 적용하지 않습니다.",
+    "applicationGuidance": {
+      "suitableSituations": [
+        "separation_anxiety"
+      ],
+      "avoidApplications": [
+        "emotion_suppression"
+      ]
+    }
+  },
+  {
+    "id": "hebrews-13-5",
+    "reference": "히브리서 13:5",
+    "book": "히브리서",
+    "chapter": 13,
+    "verseStart": 5,
+    "verseEnd": 5,
+    "translation": null,
+    "targetTranslation": "개역개정",
+    "text": "",
+    "textStatus": "pending_verification",
+    "textStatusLabel": "본문 검증 대기",
+    "recommendationEnabled": false,
+    "guidanceStatus": "pending",
+    "metadataStatus": "draft",
+    "topics": [
+      "loneliness"
+    ],
+    "situations": [
+      "feeling_abandoned"
+    ],
+    "expressions": [
+      "버려진 것 같아 외로워요",
+      "혼자 남을까 봐 겁나요"
+    ],
+    "recommendationNote": "버려질 것 같은 마음을 나눌 때 동행의 위로에 연결합니다.",
+    "cautionTags": [
+      "guaranteed_outcome"
+    ],
+    "contextNote": "돈을 사랑하지 않는 삶과 하나님의 함께하심을 권면하는 흐름입니다. 사람의 도움이나 관계의 필요를 부정하지 않습니다.",
+    "applicationGuidance": {
+      "suitableSituations": [
+        "feeling_abandoned"
+      ],
+      "avoidApplications": [
+        "guaranteed_outcome"
+      ]
+    }
+  },
+  {
+    "id": "psalm-27-10",
+    "reference": "시편 27:10",
+    "book": "시편",
+    "chapter": 27,
+    "verseStart": 10,
+    "verseEnd": 10,
+    "translation": null,
+    "targetTranslation": "개역개정",
+    "text": "",
+    "textStatus": "pending_verification",
+    "textStatusLabel": "본문 검증 대기",
+    "recommendationEnabled": false,
+    "guidanceStatus": "pending",
+    "metadataStatus": "draft",
+    "topics": [
+      "loneliness"
+    ],
+    "situations": [
+      "family_rejection"
+    ],
+    "expressions": [
+      "가족에게도 받아들여지지 않는 것 같아요",
+      "집에서도 내 편이 없어요"
+    ],
+    "recommendationNote": "가족에게서도 지지를 받지 못한다고 느끼는 상황에 연결합니다.",
+    "cautionTags": [
+      "reconciliation_pressure"
+    ],
+    "contextNote": "위협 속에서 하나님을 찾고 의지하는 시편입니다. 실제 가족 상황을 단정하거나 위험한 가족관계를 유지하라고 권하지 않습니다.",
+    "applicationGuidance": {
+      "suitableSituations": [
+        "family_rejection"
+      ],
+      "avoidApplications": [
+        "reconciliation_pressure"
+      ]
+    }
+  },
+  {
+    "id": "isaiah-43-2",
+    "reference": "이사야 43:2",
+    "book": "이사야",
+    "chapter": 43,
+    "verseStart": 2,
+    "verseEnd": 2,
+    "translation": null,
+    "targetTranslation": "개역개정",
+    "text": "",
+    "textStatus": "pending_verification",
+    "textStatusLabel": "본문 검증 대기",
+    "recommendationEnabled": false,
+    "guidanceStatus": "pending",
+    "metadataStatus": "draft",
+    "topics": [
+      "loneliness"
+    ],
+    "situations": [
+      "hardship_companionship"
+    ],
+    "expressions": [
+      "어려운 일을 혼자 건너는 것 같아요",
+      "고난 속에서 누군가 함께했으면 해요"
+    ],
+    "recommendationNote": "어려움 속에서 혼자가 아니라는 위로가 필요한 상황에 연결합니다.",
+    "cautionTags": [
+      "guaranteed_outcome",
+      "endurance_in_danger"
+    ],
+    "contextNote": "이스라엘을 향한 구속과 동행의 약속이라는 문맥입니다. 재난이나 폭력에서도 몸이 다치지 않는다는 보장으로 읽지 않습니다.",
+    "applicationGuidance": {
+      "suitableSituations": [
+        "hardship_companionship"
+      ],
+      "avoidApplications": [
+        "guaranteed_outcome",
+        "endurance_in_danger"
+      ]
+    }
+  },
+  {
+    "id": "psalm-139-7-10",
+    "reference": "시편 139:7-10",
+    "book": "시편",
+    "chapter": 139,
+    "verseStart": 7,
+    "verseEnd": 10,
+    "translation": null,
+    "targetTranslation": "개역개정",
+    "text": "",
+    "textStatus": "pending_verification",
+    "textStatusLabel": "본문 검증 대기",
+    "recommendationEnabled": false,
+    "guidanceStatus": "pending",
+    "metadataStatus": "draft",
+    "topics": [
+      "loneliness"
+    ],
+    "situations": [
+      "displacement"
+    ],
+    "expressions": [
+      "낯선 곳에 와서 외로워요",
+      "어디에도 속하지 못하는 것 같아요"
+    ],
+    "recommendationNote": "낯선 환경이나 이동 속에서 소속감을 잃은 상황에 연결합니다.",
+    "cautionTags": [
+      "coercive_application"
+    ],
+    "contextNote": "하나님의 아심과 임재를 노래하는 시편입니다. 통제나 감시를 정당화하거나 개인의 경계와 사생활을 부정하지 않습니다.",
+    "applicationGuidance": {
+      "suitableSituations": [
+        "displacement"
+      ],
+      "avoidApplications": [
+        "coercive_application"
+      ]
+    }
+  },
+  {
+    "id": "psalm-56-8",
+    "reference": "시편 56:8",
+    "book": "시편",
+    "chapter": 56,
+    "verseStart": 8,
+    "verseEnd": 8,
+    "translation": null,
+    "targetTranslation": "개역개정",
+    "text": "",
+    "textStatus": "pending_verification",
+    "textStatusLabel": "본문 검증 대기",
+    "recommendationEnabled": false,
+    "guidanceStatus": "pending",
+    "metadataStatus": "draft",
+    "topics": [
+      "grief"
+    ],
+    "situations": [
+      "unspoken_tears"
+    ],
+    "expressions": [
+      "눈물이 멈추지 않아요",
+      "말하지 못한 슬픔이 있어요"
+    ],
+    "recommendationNote": "말로 다 하지 못한 슬픔과 눈물을 인정하는 데 연결합니다.",
+    "cautionTags": [
+      "guaranteed_outcome"
+    ],
+    "contextNote": "위협과 두려움 속에서 자신의 고통을 하나님께 아뢰는 시편입니다. 슬픔의 종료 시점이나 현실적 보상을 약속하지 않습니다.",
+    "applicationGuidance": {
+      "suitableSituations": [
+        "unspoken_tears"
+      ],
+      "avoidApplications": [
+        "guaranteed_outcome"
+      ]
+    }
+  },
+  {
+    "id": "john-11-35",
+    "reference": "요한복음 11:35",
+    "book": "요한복음",
+    "chapter": 11,
+    "verseStart": 35,
+    "verseEnd": 35,
+    "translation": null,
+    "targetTranslation": "개역개정",
+    "text": "",
+    "textStatus": "pending_verification",
+    "textStatusLabel": "본문 검증 대기",
+    "recommendationEnabled": false,
+    "guidanceStatus": "pending",
+    "metadataStatus": "draft",
+    "topics": [
+      "grief"
+    ],
+    "situations": [
+      "recent_loss",
+      "bereavement"
+    ],
+    "expressions": [
+      "장례를 치르고 계속 울고 있어요",
+      "지금은 슬퍼해도 괜찮을까요"
+    ],
+    "recommendationNote": "상실 직후 감정을 서둘러 정리하지 않고 애도할 공간에 연결합니다.",
+    "cautionTags": [
+      "guaranteed_outcome"
+    ],
+    "contextNote": "나사로의 죽음 앞에서 예수님이 슬퍼하시는 장면입니다. 이어지는 사건을 개인의 상실이 즉시 되돌려진다는 약속으로 적용하지 않습니다.",
+    "applicationGuidance": {
+      "suitableSituations": [
+        "recent_loss",
+        "bereavement"
+      ],
+      "avoidApplications": [
+        "guaranteed_outcome"
+      ]
+    }
+  },
+  {
+    "id": "psalm-147-3",
+    "reference": "시편 147:3",
+    "book": "시편",
+    "chapter": 147,
+    "verseStart": 3,
+    "verseEnd": 3,
+    "translation": null,
+    "targetTranslation": "개역개정",
+    "text": "",
+    "textStatus": "pending_verification",
+    "textStatusLabel": "본문 검증 대기",
+    "recommendationEnabled": false,
+    "guidanceStatus": "pending",
+    "metadataStatus": "draft",
+    "topics": [
+      "grief",
+      "relationship"
+    ],
+    "situations": [
+      "grief_recovery",
+      "emotional_wounds"
+    ],
+    "expressions": [
+      "슬픔 속에서 천천히 회복하고 싶어요",
+      "마음의 상처를 돌보고 싶어요"
+    ],
+    "recommendationNote": "슬픔이나 관계 상처를 서두르지 않고 돌보는 상황에 연결합니다.",
+    "cautionTags": [
+      "guaranteed_outcome"
+    ],
+    "contextNote": "공동체 회복과 하나님의 돌보심을 찬양하는 흐름입니다. 치유의 속도나 방식, 즉시 회복을 보장하지 않습니다.",
+    "applicationGuidance": {
+      "suitableSituations": [
+        "grief_recovery",
+        "emotional_wounds"
+      ],
+      "avoidApplications": [
+        "guaranteed_outcome"
+      ]
+    }
+  },
+  {
+    "id": "matthew-5-4",
+    "reference": "마태복음 5:4",
+    "book": "마태복음",
+    "chapter": 5,
+    "verseStart": 4,
+    "verseEnd": 4,
+    "translation": null,
+    "targetTranslation": "개역개정",
+    "text": "",
+    "textStatus": "pending_verification",
+    "textStatusLabel": "본문 검증 대기",
+    "recommendationEnabled": false,
+    "guidanceStatus": "pending",
+    "metadataStatus": "draft",
+    "topics": [
+      "grief"
+    ],
+    "situations": [
+      "mourning"
+    ],
+    "expressions": [
+      "애도하는 마음을 숨기고 싶지 않아요",
+      "슬픈 마음 그대로 있고 싶어요"
+    ],
+    "recommendationNote": "애통함을 부끄러워하지 않고 표현하려는 상황에 연결합니다.",
+    "cautionTags": [
+      "premature_hope"
+    ],
+    "contextNote": "산상수훈의 복 선언 문맥입니다. 모든 슬픔을 같은 원인으로 단정하거나 슬픔을 빨리 끝내야 한다고 요구하지 않습니다.",
+    "applicationGuidance": {
+      "suitableSituations": [
+        "mourning"
+      ],
+      "avoidApplications": [
+        "premature_hope"
+      ]
+    }
+  },
+  {
+    "id": "revelation-21-4",
+    "reference": "요한계시록 21:4",
+    "book": "요한계시록",
+    "chapter": 21,
+    "verseStart": 4,
+    "verseEnd": 4,
+    "translation": null,
+    "targetTranslation": "개역개정",
+    "text": "",
+    "textStatus": "pending_verification",
+    "textStatusLabel": "본문 검증 대기",
+    "recommendationEnabled": false,
+    "guidanceStatus": "pending",
+    "metadataStatus": "draft",
+    "topics": [
+      "grief"
+    ],
+    "situations": [
+      "hope_when_ready"
+    ],
+    "expressions": [
+      "슬픔 가운데 언젠가의 소망도 생각해보고 싶어요",
+      "준비가 되면 회복의 소망을 이야기하고 싶어요"
+    ],
+    "recommendationNote": "사용자가 소망을 함께 이야기할 준비가 있음을 표현할 때 연결합니다.",
+    "cautionTags": [
+      "premature_hope",
+      "guaranteed_outcome"
+    ],
+    "contextNote": "새 하늘과 새 땅의 종말론적 소망을 묘사하는 문맥입니다. 현재의 애도를 지우거나 가까운 시일 안에 고통이 끝난다고 보장하지 않습니다.",
+    "applicationGuidance": {
+      "suitableSituations": [
+        "hope_when_ready"
+      ],
+      "avoidApplications": [
+        "premature_hope",
+        "guaranteed_outcome"
+      ]
+    }
+  },
+  {
+    "id": "ephesians-4-26-27",
+    "reference": "에베소서 4:26-27",
+    "book": "에베소서",
+    "chapter": 4,
+    "verseStart": 26,
+    "verseEnd": 27,
+    "translation": null,
+    "targetTranslation": "개역개정",
+    "text": "",
+    "textStatus": "pending_verification",
+    "textStatusLabel": "본문 검증 대기",
+    "recommendationEnabled": false,
+    "guidanceStatus": "pending",
+    "metadataStatus": "draft",
+    "topics": [
+      "relationship"
+    ],
+    "situations": [
+      "anger_processing"
+    ],
+    "expressions": [
+      "화가 나는데 어떻게 다뤄야 할지 모르겠어요",
+      "갈등 뒤 분노가 남아 있어요"
+    ],
+    "recommendationNote": "분노 자체를 부정하지 않고 표현과 행동을 돌아보려는 상황에 연결합니다.",
+    "cautionTags": [
+      "immediate_forgiveness",
+      "reconciliation_pressure"
+    ],
+    "contextNote": "공동체의 새 삶과 관계에 대한 권면입니다. 피해자에게 당일 화해를 강요하거나 정당한 분노와 경계를 지우지 않습니다.",
+    "applicationGuidance": {
+      "suitableSituations": [
+        "anger_processing"
+      ],
+      "avoidApplications": [
+        "immediate_forgiveness",
+        "reconciliation_pressure"
+      ]
+    }
+  },
+  {
+    "id": "romans-12-18",
+    "reference": "로마서 12:18",
+    "book": "로마서",
+    "chapter": 12,
+    "verseStart": 18,
+    "verseEnd": 18,
+    "translation": null,
+    "targetTranslation": "개역개정",
+    "text": "",
+    "textStatus": "pending_verification",
+    "textStatusLabel": "본문 검증 대기",
+    "recommendationEnabled": false,
+    "guidanceStatus": "pending",
+    "metadataStatus": "draft",
+    "topics": [
+      "relationship"
+    ],
+    "situations": [
+      "peace_with_boundaries"
+    ],
+    "expressions": [
+      "안전한 범위에서 갈등을 줄이고 싶어요",
+      "내가 할 수 있는 만큼 평화를 찾고 싶어요"
+    ],
+    "recommendationNote": "상호 안전과 경계가 확보된 관계에서 갈등을 줄이고자 할 때 연결합니다.",
+    "cautionTags": [
+      "reconciliation_pressure"
+    ],
+    "contextNote": "악을 악으로 갚지 않는 삶의 권면이며 가능한 범위라는 조건이 있습니다. 폭력 관계 복귀나 일방적 관계 유지의 의무로 적용하지 않습니다.",
+    "applicationGuidance": {
+      "suitableSituations": [
+        "peace_with_boundaries"
+      ],
+      "avoidApplications": [
+        "reconciliation_pressure"
+      ]
+    }
+  },
+  {
+    "id": "colossians-3-13",
+    "reference": "골로새서 3:13",
+    "book": "골로새서",
+    "chapter": 3,
+    "verseStart": 13,
+    "verseEnd": 13,
+    "translation": null,
+    "targetTranslation": "개역개정",
+    "text": "",
+    "textStatus": "pending_verification",
+    "textStatusLabel": "본문 검증 대기",
+    "recommendationEnabled": false,
+    "guidanceStatus": "pending",
+    "metadataStatus": "draft",
+    "topics": [
+      "relationship"
+    ],
+    "situations": [
+      "forgiveness_when_ready"
+    ],
+    "expressions": [
+      "시간이 지난 뒤 용서를 생각해보고 싶어요",
+      "용서할 준비가 되었는지 살펴보고 싶어요"
+    ],
+    "recommendationNote": "본인이 준비되었다고 표현한 때 용서의 의미를 조심스럽게 돌아보는 데 연결합니다.",
+    "cautionTags": [
+      "immediate_forgiveness",
+      "reconciliation_pressure"
+    ],
+    "contextNote": "새 사람과 공동체의 삶에 대한 권면입니다. 즉각적인 용서, 가해자 면책, 신고 포기, 화해나 관계 재개의 의무로 적용하지 않습니다.",
+    "applicationGuidance": {
+      "suitableSituations": [
+        "forgiveness_when_ready"
+      ],
+      "avoidApplications": [
+        "immediate_forgiveness",
+        "reconciliation_pressure"
+      ]
+    }
+  },
+  {
+    "id": "proverbs-4-23",
+    "reference": "잠언 4:23",
+    "book": "잠언",
+    "chapter": 4,
+    "verseStart": 23,
+    "verseEnd": 23,
+    "translation": null,
+    "targetTranslation": "개역개정",
+    "text": "",
+    "textStatus": "pending_verification",
+    "textStatusLabel": "본문 검증 대기",
+    "recommendationEnabled": false,
+    "guidanceStatus": "pending",
+    "metadataStatus": "draft",
+    "topics": [
+      "relationship"
+    ],
+    "situations": [
+      "healthy_boundaries"
+    ],
+    "expressions": [
+      "관계에서 내 마음을 지킬 경계가 필요해요",
+      "거절해도 괜찮을지 고민돼요"
+    ],
+    "recommendationNote": "관계의 경계와 자신을 돌보는 선택을 살피려는 상황에 연결합니다.",
+    "cautionTags": [
+      "context_distortion"
+    ],
+    "contextNote": "지혜의 길과 삶의 방향을 마음에서부터 지키라는 권면입니다. 모든 관계를 끊거나 타인을 불신하라는 지시로 확대하지 않습니다.",
+    "applicationGuidance": {
+      "suitableSituations": [
+        "healthy_boundaries"
+      ],
+      "avoidApplications": [
+        "context_distortion"
+      ]
+    }
+  },
+  {
+    "id": "proverbs-3-5-6",
+    "reference": "잠언 3:5-6",
+    "book": "잠언",
+    "chapter": 3,
+    "verseStart": 5,
+    "verseEnd": 6,
+    "translation": null,
+    "targetTranslation": "개역개정",
+    "text": "",
+    "textStatus": "pending_verification",
+    "textStatusLabel": "본문 검증 대기",
+    "recommendationEnabled": false,
+    "guidanceStatus": "pending",
+    "metadataStatus": "draft",
+    "topics": [
+      "future"
+    ],
+    "situations": [
+      "decision_uncertainty"
+    ],
+    "expressions": [
+      "내 판단만으로 결정하기 어려워요",
+      "중요한 선택을 앞두고 있어요"
+    ],
+    "recommendationNote": "선택 앞에서 자신의 한계를 인정하고 방향을 구하려는 상황에 연결합니다.",
+    "cautionTags": [
+      "guaranteed_outcome"
+    ],
+    "contextNote": "지혜를 배우고 하나님을 신뢰하는 삶의 권면입니다. 사고·정보 수집을 포기하거나 원하는 진로가 확정됐다고 말하지 않습니다.",
+    "applicationGuidance": {
+      "suitableSituations": [
+        "decision_uncertainty"
+      ],
+      "avoidApplications": [
+        "guaranteed_outcome"
+      ]
+    }
+  },
+  {
+    "id": "james-1-5",
+    "reference": "야고보서 1:5",
+    "book": "야고보서",
+    "chapter": 1,
+    "verseStart": 5,
+    "verseEnd": 5,
+    "translation": null,
+    "targetTranslation": "개역개정",
+    "text": "",
+    "textStatus": "pending_verification",
+    "textStatusLabel": "본문 검증 대기",
+    "recommendationEnabled": false,
+    "guidanceStatus": "pending",
+    "metadataStatus": "draft",
+    "topics": [
+      "future"
+    ],
+    "situations": [
+      "seeking_wisdom"
+    ],
+    "expressions": [
+      "어떻게 판단해야 할지 지혜가 필요해요",
+      "기도하며 선택을 살펴보고 싶어요"
+    ],
+    "recommendationNote": "시련이나 결정 속에서 지혜를 구하는 상황에 연결합니다.",
+    "cautionTags": [
+      "faith_shaming",
+      "guaranteed_outcome"
+    ],
+    "contextNote": "시련을 대하는 지혜를 구하는 권면입니다. 특정 선택의 정답을 직접 계시받았다고 보장하거나 질문을 믿음 부족으로 단정하지 않습니다.",
+    "applicationGuidance": {
+      "suitableSituations": [
+        "seeking_wisdom"
+      ],
+      "avoidApplications": [
+        "faith_shaming",
+        "guaranteed_outcome"
+      ]
+    }
+  },
+  {
+    "id": "proverbs-16-9",
+    "reference": "잠언 16:9",
+    "book": "잠언",
+    "chapter": 16,
+    "verseStart": 9,
+    "verseEnd": 9,
+    "translation": null,
+    "targetTranslation": "개역개정",
+    "text": "",
+    "textStatus": "pending_verification",
+    "textStatusLabel": "본문 검증 대기",
+    "recommendationEnabled": false,
+    "guidanceStatus": "pending",
+    "metadataStatus": "draft",
+    "topics": [
+      "future"
+    ],
+    "situations": [
+      "plans_changed"
+    ],
+    "expressions": [
+      "계획대로 되지 않아 방향을 다시 찾고 있어요",
+      "예상하지 못한 변화를 겪었어요"
+    ],
+    "recommendationNote": "계획이 달라져 다음 걸음을 재고하는 상황에 연결합니다.",
+    "cautionTags": [
+      "context_distortion"
+    ],
+    "contextNote": "사람의 계획과 하나님의 주권을 돌아보는 지혜의 문맥입니다. 모든 실패나 피해를 하나님이 원하신 일로 단정하지 않습니다.",
+    "applicationGuidance": {
+      "suitableSituations": [
+        "plans_changed"
+      ],
+      "avoidApplications": [
+        "context_distortion"
+      ]
+    }
+  },
+  {
+    "id": "psalm-32-8",
+    "reference": "시편 32:8",
+    "book": "시편",
+    "chapter": 32,
+    "verseStart": 8,
+    "verseEnd": 8,
+    "translation": null,
+    "targetTranslation": "개역개정",
+    "text": "",
+    "textStatus": "pending_verification",
+    "textStatusLabel": "본문 검증 대기",
+    "recommendationEnabled": false,
+    "guidanceStatus": "pending",
+    "metadataStatus": "draft",
+    "topics": [
+      "future"
+    ],
+    "situations": [
+      "seeking_guidance"
+    ],
+    "expressions": [
+      "어느 방향으로 가야 할지 모르겠어요",
+      "조언을 듣고 선택을 돌아보고 싶어요"
+    ],
+    "recommendationNote": "배움과 조언에 열려 방향을 살피는 상황에 연결합니다.",
+    "cautionTags": [
+      "guaranteed_outcome"
+    ],
+    "contextNote": "죄 고백과 용서, 교훈을 담은 시편의 문맥입니다. 개인의 직업·결혼 등 특정 결정을 대신 내려주는 계시로 적용하지 않습니다.",
+    "applicationGuidance": {
+      "suitableSituations": [
+        "seeking_guidance"
+      ],
+      "avoidApplications": [
+        "guaranteed_outcome"
+      ]
+    }
+  },
+  {
+    "id": "jeremiah-29-11",
+    "reference": "예레미야 29:11",
+    "book": "예레미야",
+    "chapter": 29,
+    "verseStart": 11,
+    "verseEnd": 11,
+    "translation": null,
+    "targetTranslation": "개역개정",
+    "text": "",
+    "textStatus": "pending_verification",
+    "textStatusLabel": "본문 검증 대기",
+    "recommendationEnabled": false,
+    "guidanceStatus": "pending",
+    "metadataStatus": "draft",
+    "topics": [
+      "future"
+    ],
+    "situations": [
+      "long_wait_disrupted_plans"
+    ],
+    "expressions": [
+      "기다림이 길고 계획이 무너진 것 같아요",
+      "당장 해결되지 않는 미래가 막막해요"
+    ],
+    "recommendationNote": "긴 기다림과 달라진 계획 속에서 장기적인 소망을 살피는 상황에 연결합니다.",
+    "cautionTags": [
+      "guaranteed_outcome",
+      "premature_hope"
+    ],
+    "contextNote": "포로 공동체를 향한 편지와 긴 기다림의 문맥입니다. 개인의 즉각적 성공·합격·재정 회복을 보장하는 문장으로 떼어내지 않습니다.",
+    "applicationGuidance": {
+      "suitableSituations": [
+        "long_wait_disrupted_plans"
+      ],
+      "avoidApplications": [
+        "guaranteed_outcome",
+        "premature_hope"
+      ]
+    }
+  },
+  {
+    "id": "psalm-37-23-24",
+    "reference": "시편 37:23-24",
+    "book": "시편",
+    "chapter": 37,
+    "verseStart": 23,
+    "verseEnd": 24,
+    "translation": null,
+    "targetTranslation": "개역개정",
+    "text": "",
+    "textStatus": "pending_verification",
+    "textStatusLabel": "본문 검증 대기",
+    "recommendationEnabled": false,
+    "guidanceStatus": "pending",
+    "metadataStatus": "draft",
+    "topics": [
+      "failure"
+    ],
+    "situations": [
+      "setback_recovery"
+    ],
+    "expressions": [
+      "실패한 뒤 다시 일어나고 싶어요",
+      "넘어진 것 같아 조심스럽게 시작하고 싶어요"
+    ],
+    "recommendationNote": "실패 후 자신을 전부 부정하지 않고 다시 걸으려는 상황에 연결합니다.",
+    "cautionTags": [
+      "guaranteed_outcome"
+    ],
+    "contextNote": "악인의 형통 앞에서 의인의 길을 권면하는 시편입니다. 신앙인이 실패하지 않는다거나 재도전이 반드시 성공한다고 보장하지 않습니다.",
+    "applicationGuidance": {
+      "suitableSituations": [
+        "setback_recovery"
+      ],
+      "avoidApplications": [
+        "guaranteed_outcome"
+      ]
+    }
+  },
+  {
+    "id": "2-corinthians-12-9",
+    "reference": "고린도후서 12:9",
+    "book": "고린도후서",
+    "chapter": 12,
+    "verseStart": 9,
+    "verseEnd": 9,
+    "translation": null,
+    "targetTranslation": "개역개정",
+    "text": "",
+    "textStatus": "pending_verification",
+    "textStatusLabel": "본문 검증 대기",
+    "recommendationEnabled": false,
+    "guidanceStatus": "pending",
+    "metadataStatus": "draft",
+    "topics": [
+      "failure"
+    ],
+    "situations": [
+      "limits_and_weakness"
+    ],
+    "expressions": [
+      "내 한계 때문에 자신감이 없어요",
+      "약한 모습을 인정하기가 어려워요"
+    ],
+    "recommendationNote": "한계와 약함을 숨기지 않고 받아들이려는 상황에 연결합니다.",
+    "cautionTags": [
+      "endurance_in_danger",
+      "context_distortion"
+    ],
+    "contextNote": "바울의 가시와 은혜에 대한 개인적 경험의 문맥입니다. 타인의 질병·학대·고통을 유지해야 할 사명으로 단정하지 않습니다.",
+    "applicationGuidance": {
+      "suitableSituations": [
+        "limits_and_weakness"
+      ],
+      "avoidApplications": [
+        "endurance_in_danger",
+        "context_distortion"
+      ]
+    }
+  },
+  {
+    "id": "philippians-1-6",
+    "reference": "빌립보서 1:6",
+    "book": "빌립보서",
+    "chapter": 1,
+    "verseStart": 6,
+    "verseEnd": 6,
+    "translation": null,
+    "targetTranslation": "개역개정",
+    "text": "",
+    "textStatus": "pending_verification",
+    "textStatusLabel": "본문 검증 대기",
+    "recommendationEnabled": false,
+    "guidanceStatus": "pending",
+    "metadataStatus": "draft",
+    "topics": [
+      "failure"
+    ],
+    "situations": [
+      "slow_growth"
+    ],
+    "expressions": [
+      "성장이 느려서 자신이 없어요",
+      "조금 나아졌다가 다시 주저앉은 것 같아요"
+    ],
+    "recommendationNote": "성장 과정의 느림과 좌절을 돌아보는 상황에 연결합니다.",
+    "cautionTags": [
+      "guaranteed_outcome"
+    ],
+    "contextNote": "복음에 참여하는 빌립보 공동체에 대한 감사와 확신의 문맥입니다. 개인 프로젝트나 시험의 완성을 보장하지 않습니다.",
+    "applicationGuidance": {
+      "suitableSituations": [
+        "slow_growth"
+      ],
+      "avoidApplications": [
+        "guaranteed_outcome"
+      ]
+    }
+  },
+  {
+    "id": "romans-8-37",
+    "reference": "로마서 8:37",
+    "book": "로마서",
+    "chapter": 8,
+    "verseStart": 37,
+    "verseEnd": 37,
+    "translation": null,
+    "targetTranslation": "개역개정",
+    "text": "",
+    "textStatus": "pending_verification",
+    "textStatusLabel": "본문 검증 대기",
+    "recommendationEnabled": false,
+    "guidanceStatus": "pending",
+    "metadataStatus": "draft",
+    "topics": [
+      "failure"
+    ],
+    "situations": [
+      "adversity_and_worth"
+    ],
+    "expressions": [
+      "어려움 속에서 내 가치가 사라진 것 같아요",
+      "실패해도 사랑받을 수 있을까요"
+    ],
+    "recommendationNote": "고난과 실패가 자신의 가치를 모두 결정한다고 느낄 때 연결합니다.",
+    "cautionTags": [
+      "guaranteed_outcome"
+    ],
+    "contextNote": "환난 속에서도 끊을 수 없는 하나님의 사랑을 말하는 문맥입니다. 경쟁에서 승리하거나 타인보다 우월해진다는 보장으로 적용하지 않습니다.",
+    "applicationGuidance": {
+      "suitableSituations": [
+        "adversity_and_worth"
+      ],
+      "avoidApplications": [
+        "guaranteed_outcome"
+      ]
+    }
+  },
+  {
+    "id": "micah-7-8",
+    "reference": "미가 7:8",
+    "book": "미가",
+    "chapter": 7,
+    "verseStart": 8,
+    "verseEnd": 8,
+    "translation": null,
+    "targetTranslation": "개역개정",
+    "text": "",
+    "textStatus": "pending_verification",
+    "textStatusLabel": "본문 검증 대기",
+    "recommendationEnabled": false,
+    "guidanceStatus": "pending",
+    "metadataStatus": "draft",
+    "topics": [
+      "failure"
+    ],
+    "situations": [
+      "hope_after_setback"
+    ],
+    "expressions": [
+      "좌절 뒤 희망을 다시 생각하고 싶어요",
+      "넘어진 자리에서 천천히 일어서고 싶어요"
+    ],
+    "recommendationNote": "좌절을 인정하면서 다시 소망을 살필 준비가 된 상황에 연결합니다.",
+    "cautionTags": [
+      "context_distortion",
+      "premature_hope"
+    ],
+    "contextNote": "심판과 회복을 바라보는 공동체의 고백이라는 문맥입니다. 개인의 실패를 죄에 대한 벌로 단정하거나 적에게 복수할 근거로 사용하지 않습니다.",
+    "applicationGuidance": {
+      "suitableSituations": [
+        "hope_after_setback"
+      ],
+      "avoidApplications": [
+        "context_distortion",
+        "premature_hope"
+      ]
+    }
+  },
+  {
+    "id": "1-john-1-9",
+    "reference": "요한일서 1:9",
+    "book": "요한일서",
+    "chapter": 1,
+    "verseStart": 9,
+    "verseEnd": 9,
+    "translation": null,
+    "targetTranslation": "개역개정",
+    "text": "",
+    "textStatus": "pending_verification",
+    "textStatusLabel": "본문 검증 대기",
+    "recommendationEnabled": false,
+    "guidanceStatus": "pending",
+    "metadataStatus": "draft",
+    "topics": [
+      "guilt"
+    ],
+    "situations": [
+      "acknowledging_wrong"
+    ],
+    "expressions": [
+      "내가 잘못한 일을 솔직히 인정하고 싶어요",
+      "죄책감을 숨기지 않고 말하고 싶어요"
+    ],
+    "recommendationNote": "실제 잘못을 인정하고 회복을 구하려는 상황에 연결합니다.",
+    "cautionTags": [
+      "victim_blame"
+    ],
+    "contextNote": "빛 가운데 행함과 죄 고백의 문맥입니다. 피해자에게 죄를 전가하거나 고백이 책임·배상을 없앤다고 말하지 않습니다.",
+    "applicationGuidance": {
+      "suitableSituations": [
+        "acknowledging_wrong"
+      ],
+      "avoidApplications": [
+        "victim_blame"
+      ]
+    }
+  },
+  {
+    "id": "psalm-51-10",
+    "reference": "시편 51:10",
+    "book": "시편",
+    "chapter": 51,
+    "verseStart": 10,
+    "verseEnd": 10,
+    "translation": null,
+    "targetTranslation": "개역개정",
+    "text": "",
+    "textStatus": "pending_verification",
+    "textStatusLabel": "본문 검증 대기",
+    "recommendationEnabled": false,
+    "guidanceStatus": "pending",
+    "metadataStatus": "draft",
+    "topics": [
+      "guilt"
+    ],
+    "situations": [
+      "renewal_after_regret"
+    ],
+    "expressions": [
+      "후회에서 벗어나 마음을 새롭게 하고 싶어요",
+      "같은 잘못을 반복하고 싶지 않아요"
+    ],
+    "recommendationNote": "후회 뒤 자신의 태도와 삶을 바꾸고 싶은 상황에 연결합니다.",
+    "cautionTags": [
+      "victim_blame"
+    ],
+    "contextNote": "죄를 인정하며 새 마음을 구하는 참회시의 문맥입니다. 모든 고통을 본인의 죄 때문이라고 단정하지 않습니다.",
+    "applicationGuidance": {
+      "suitableSituations": [
+        "renewal_after_regret"
+      ],
+      "avoidApplications": [
+        "victim_blame"
+      ]
+    }
+  },
+  {
+    "id": "romans-8-1",
+    "reference": "로마서 8:1",
+    "book": "로마서",
+    "chapter": 8,
+    "verseStart": 1,
+    "verseEnd": 1,
+    "translation": null,
+    "targetTranslation": "개역개정",
+    "text": "",
+    "textStatus": "pending_verification",
+    "textStatusLabel": "본문 검증 대기",
+    "recommendationEnabled": false,
+    "guidanceStatus": "pending",
+    "metadataStatus": "draft",
+    "topics": [
+      "guilt"
+    ],
+    "situations": [
+      "persistent_self_condemnation"
+    ],
+    "expressions": [
+      "잘못을 돌아봤는데도 나를 계속 정죄해요",
+      "죄책감이 내 전부가 된 것 같아요"
+    ],
+    "recommendationNote": "회복을 구하면서도 지속적으로 자신을 정죄하는 상황에 연결합니다.",
+    "cautionTags": [
+      "accountability_erasure"
+    ],
+    "contextNote": "그리스도 안에서의 생명과 성령의 삶을 말하는 문맥입니다. 잘못에 대한 책임이나 타인에게 끼친 피해를 무시하는 면책으로 쓰지 않습니다.",
+    "applicationGuidance": {
+      "suitableSituations": [
+        "persistent_self_condemnation"
+      ],
+      "avoidApplications": [
+        "accountability_erasure"
+      ]
+    }
+  },
+  {
+    "id": "isaiah-1-18",
+    "reference": "이사야 1:18",
+    "book": "이사야",
+    "chapter": 1,
+    "verseStart": 18,
+    "verseEnd": 18,
+    "translation": null,
+    "targetTranslation": "개역개정",
+    "text": "",
+    "textStatus": "pending_verification",
+    "textStatusLabel": "본문 검증 대기",
+    "recommendationEnabled": false,
+    "guidanceStatus": "pending",
+    "metadataStatus": "draft",
+    "topics": [
+      "guilt"
+    ],
+    "situations": [
+      "returning_with_responsibility"
+    ],
+    "expressions": [
+      "잘못을 인정하고 바로잡고 싶어요",
+      "회복을 향해 돌아갈 수 있을까요"
+    ],
+    "recommendationNote": "책임을 인정하고 회복의 길을 찾는 상황에 연결합니다.",
+    "cautionTags": [
+      "accountability_erasure",
+      "victim_blame"
+    ],
+    "contextNote": "불의에 대한 책망과 정의를 행하라는 요청이 함께 있는 문맥입니다. 불의를 계속해도 된다는 면책이나 피해자에게 책임을 전가하는 적용을 피합니다.",
+    "applicationGuidance": {
+      "suitableSituations": [
+        "returning_with_responsibility"
+      ],
+      "avoidApplications": [
+        "accountability_erasure",
+        "victim_blame"
+      ]
+    }
+  },
+  {
+    "id": "2-corinthians-5-17",
+    "reference": "고린도후서 5:17",
+    "book": "고린도후서",
+    "chapter": 5,
+    "verseStart": 17,
+    "verseEnd": 17,
+    "translation": null,
+    "targetTranslation": "개역개정",
+    "text": "",
+    "textStatus": "pending_verification",
+    "textStatusLabel": "본문 검증 대기",
+    "recommendationEnabled": false,
+    "guidanceStatus": "pending",
+    "metadataStatus": "draft",
+    "topics": [
+      "guilt"
+    ],
+    "situations": [
+      "new_beginning"
+    ],
+    "expressions": [
+      "과거의 잘못만으로 나를 규정하고 싶지 않아요",
+      "새로운 시작을 하고 싶어요"
+    ],
+    "recommendationNote": "과거를 인정하면서 새로운 삶의 방향을 찾으려는 상황에 연결합니다.",
+    "cautionTags": [
+      "accountability_erasure",
+      "reconciliation_pressure"
+    ],
+    "contextNote": "그리스도 안의 새 창조와 화목의 사역 문맥입니다. 과거의 결과가 사라지거나 피해 관계를 즉시 복구해야 한다는 뜻으로 확대하지 않습니다.",
+    "applicationGuidance": {
+      "suitableSituations": [
+        "new_beginning"
+      ],
+      "avoidApplications": [
+        "accountability_erasure",
+        "reconciliation_pressure"
+      ]
+    }
+  },
+  {
+    "id": "romans-8-26",
+    "reference": "로마서 8:26",
+    "book": "로마서",
+    "chapter": 8,
+    "verseStart": 26,
+    "verseEnd": 26,
+    "translation": null,
+    "targetTranslation": "개역개정",
+    "text": "",
+    "textStatus": "pending_verification",
+    "textStatusLabel": "본문 검증 대기",
+    "recommendationEnabled": false,
+    "guidanceStatus": "pending",
+    "metadataStatus": "draft",
+    "topics": [
+      "faith"
+    ],
+    "situations": [
+      "wordless_prayer"
+    ],
+    "expressions": [
+      "기도할 말이 떠오르지 않아요",
+      "어떻게 기도해야 할지 모르겠어요"
+    ],
+    "recommendationNote": "기도의 말을 찾기 어려운 마음을 있는 그대로 받아들이는 데 연결합니다.",
+    "cautionTags": [
+      "faith_shaming",
+      "guaranteed_outcome"
+    ],
+    "contextNote": "탄식과 소망 속에서 성령의 도우심을 말하는 문맥입니다. 기도의 어려움을 믿음 부족으로 단정하거나 특정 응답을 보장하지 않습니다.",
+    "applicationGuidance": {
+      "suitableSituations": [
+        "wordless_prayer"
+      ],
+      "avoidApplications": [
+        "faith_shaming",
+        "guaranteed_outcome"
+      ]
+    }
+  },
+  {
+    "id": "mark-9-24",
+    "reference": "마가복음 9:24",
+    "book": "마가복음",
+    "chapter": 9,
+    "verseStart": 24,
+    "verseEnd": 24,
+    "translation": null,
+    "targetTranslation": "개역개정",
+    "text": "",
+    "textStatus": "pending_verification",
+    "textStatusLabel": "본문 검증 대기",
+    "recommendationEnabled": false,
+    "guidanceStatus": "pending",
+    "metadataStatus": "draft",
+    "topics": [
+      "faith"
+    ],
+    "situations": [
+      "mixed_belief_and_doubt"
+    ],
+    "expressions": [
+      "믿고 싶지만 의심도 들어요",
+      "믿음이 흔들리는 마음을 숨기고 싶지 않아요"
+    ],
+    "recommendationNote": "믿고 싶은 마음과 의심이 함께 있는 상황을 정직하게 표현하는 데 연결합니다.",
+    "cautionTags": [
+      "faith_shaming",
+      "guaranteed_outcome"
+    ],
+    "contextNote": "도움을 구하는 아버지와 예수님의 만남 속 고백입니다. 치유 결과를 사용자의 믿음 크기에 달린 조건으로 일반화하지 않습니다.",
+    "applicationGuidance": {
+      "suitableSituations": [
+        "mixed_belief_and_doubt"
+      ],
+      "avoidApplications": [
+        "faith_shaming",
+        "guaranteed_outcome"
+      ]
+    }
+  },
+  {
+    "id": "psalm-13-1-2",
+    "reference": "시편 13:1-2",
+    "book": "시편",
+    "chapter": 13,
+    "verseStart": 1,
+    "verseEnd": 2,
+    "translation": null,
+    "targetTranslation": "개역개정",
+    "text": "",
+    "textStatus": "pending_verification",
+    "textStatusLabel": "본문 검증 대기",
+    "recommendationEnabled": false,
+    "guidanceStatus": "pending",
+    "metadataStatus": "draft",
+    "topics": [
+      "faith"
+    ],
+    "situations": [
+      "feeling_unheard"
+    ],
+    "expressions": [
+      "기도해도 들리지 않는 것 같아요",
+      "하나님이 멀게 느껴져요"
+    ],
+    "recommendationNote": "응답을 느끼지 못하는 탄식과 질문을 표현하는 상황에 연결합니다.",
+    "cautionTags": [
+      "faith_shaming",
+      "emotion_suppression"
+    ],
+    "contextNote": "버림받은 듯한 마음을 하나님께 토로하는 탄식시입니다. 질문이나 탄식을 불신앙으로 규정하거나 즉시 긍정으로 바꾸라고 요구하지 않습니다.",
+    "applicationGuidance": {
+      "suitableSituations": [
+        "feeling_unheard"
+      ],
+      "avoidApplications": [
+        "faith_shaming",
+        "emotion_suppression"
+      ]
+    }
+  },
+  {
+    "id": "jeremiah-33-3",
+    "reference": "예레미야 33:3",
+    "book": "예레미야",
+    "chapter": 33,
+    "verseStart": 3,
+    "verseEnd": 3,
+    "translation": null,
+    "targetTranslation": "개역개정",
+    "text": "",
+    "textStatus": "pending_verification",
+    "textStatusLabel": "본문 검증 대기",
+    "recommendationEnabled": false,
+    "guidanceStatus": "pending",
+    "metadataStatus": "draft",
+    "topics": [
+      "faith"
+    ],
+    "situations": [
+      "prayer_in_confinement"
+    ],
+    "expressions": [
+      "막힌 상황에서 기도를 다시 시작하고 싶어요",
+      "모르는 일 앞에서 도움을 구하고 싶어요"
+    ],
+    "recommendationNote": "막힌 상황에서 기도로 도움을 구하고 싶은 마음에 연결합니다.",
+    "cautionTags": [
+      "guaranteed_outcome",
+      "faith_shaming"
+    ],
+    "contextNote": "갇힌 예레미야에게 주어진 공동체 회복의 말씀이라는 문맥입니다. 기도로 숨겨진 정보나 개인적 성공의 비법을 얻는다고 보장하지 않습니다.",
+    "applicationGuidance": {
+      "suitableSituations": [
+        "prayer_in_confinement"
+      ],
+      "avoidApplications": [
+        "guaranteed_outcome",
+        "faith_shaming"
+      ]
+    }
+  },
+  {
+    "id": "hebrews-4-16",
+    "reference": "히브리서 4:16",
+    "book": "히브리서",
+    "chapter": 4,
+    "verseStart": 16,
+    "verseEnd": 16,
+    "translation": null,
+    "targetTranslation": "개역개정",
+    "text": "",
+    "textStatus": "pending_verification",
+    "textStatusLabel": "본문 검증 대기",
+    "recommendationEnabled": false,
+    "guidanceStatus": "pending",
+    "metadataStatus": "draft",
+    "topics": [
+      "faith"
+    ],
+    "situations": [
+      "hesitant_prayer"
+    ],
+    "expressions": [
+      "기도하러 나아가는 것조차 주저돼요",
+      "부족한 마음을 그대로 말해도 될까요"
+    ],
+    "recommendationNote": "도움을 구할 자격이 없다고 느끼며 기도를 주저하는 상황에 연결합니다.",
+    "cautionTags": [
+      "faith_shaming",
+      "guaranteed_outcome"
+    ],
+    "contextNote": "연약함을 아시는 대제사장 예수님에 대한 문맥입니다. 원하는 응답을 강하게 요구할 권리나 믿음의 크기를 평가하는 기준으로 쓰지 않습니다.",
+    "applicationGuidance": {
+      "suitableSituations": [
+        "hesitant_prayer"
+      ],
+      "avoidApplications": [
+        "faith_shaming",
+        "guaranteed_outcome"
+      ]
+    }
+  },
+  {
+    "id": "1-thessalonians-5-16-18",
+    "reference": "데살로니가전서 5:16-18",
+    "book": "데살로니가전서",
+    "chapter": 5,
+    "verseStart": 16,
+    "verseEnd": 18,
+    "translation": null,
+    "targetTranslation": "개역개정",
+    "text": "",
+    "textStatus": "pending_verification",
+    "textStatusLabel": "본문 검증 대기",
+    "recommendationEnabled": false,
+    "guidanceStatus": "pending",
+    "metadataStatus": "draft",
+    "topics": [
+      "gratitude"
+    ],
+    "situations": [
+      "gratitude_practice"
+    ],
+    "expressions": [
+      "일상에서 감사하는 습관을 만들고 싶어요",
+      "작은 기쁨을 기도로 나누고 싶어요"
+    ],
+    "recommendationNote": "자발적으로 기쁨·기도·감사의 습관을 돌아보려는 상황에 연결합니다.",
+    "cautionTags": [
+      "forced_gratitude",
+      "emotion_suppression"
+    ],
+    "contextNote": "공동체를 향한 삶의 권면입니다. 피해나 상실 자체에 감사하라고 강요하거나 슬픔과 분노를 금지하지 않습니다.",
+    "applicationGuidance": {
+      "suitableSituations": [
+        "gratitude_practice"
+      ],
+      "avoidApplications": [
+        "forced_gratitude",
+        "emotion_suppression"
+      ]
+    }
+  },
+  {
+    "id": "psalm-118-24",
+    "reference": "시편 118:24",
+    "book": "시편",
+    "chapter": 118,
+    "verseStart": 24,
+    "verseEnd": 24,
+    "translation": null,
+    "targetTranslation": "개역개정",
+    "text": "",
+    "textStatus": "pending_verification",
+    "textStatusLabel": "본문 검증 대기",
+    "recommendationEnabled": false,
+    "guidanceStatus": "pending",
+    "metadataStatus": "draft",
+    "topics": [
+      "gratitude"
+    ],
+    "situations": [
+      "celebrating_today"
+    ],
+    "expressions": [
+      "오늘의 기쁨을 나누고 싶어요",
+      "반가운 하루를 감사하고 싶어요"
+    ],
+    "recommendationNote": "사용자가 표현한 오늘의 기쁨과 감사를 나누는 데 연결합니다.",
+    "cautionTags": [
+      "forced_gratitude"
+    ],
+    "contextNote": "구원과 승리를 감사하는 공동체의 찬양 문맥입니다. 모든 날에 즐거워야 한다고 강요하거나 괴로운 경험을 부정하지 않습니다.",
+    "applicationGuidance": {
+      "suitableSituations": [
+        "celebrating_today"
+      ],
+      "avoidApplications": [
+        "forced_gratitude"
+      ]
+    }
+  },
+  {
+    "id": "james-1-17",
+    "reference": "야고보서 1:17",
+    "book": "야고보서",
+    "chapter": 1,
+    "verseStart": 17,
+    "verseEnd": 17,
+    "translation": null,
+    "targetTranslation": "개역개정",
+    "text": "",
+    "textStatus": "pending_verification",
+    "textStatusLabel": "본문 검증 대기",
+    "recommendationEnabled": false,
+    "guidanceStatus": "pending",
+    "metadataStatus": "draft",
+    "topics": [
+      "gratitude"
+    ],
+    "situations": [
+      "recognizing_gifts"
+    ],
+    "expressions": [
+      "받은 도움과 선물을 돌아보고 싶어요",
+      "일상의 좋은 것을 알아차리고 싶어요"
+    ],
+    "recommendationNote": "받은 좋은 것과 도움을 감사로 돌아보는 상황에 연결합니다.",
+    "cautionTags": [
+      "forced_gratitude",
+      "context_distortion"
+    ],
+    "contextNote": "시험·유혹과 하나님의 선하심을 구분하는 흐름입니다. 고통이나 악행까지 좋은 선물로 포장하지 않습니다.",
+    "applicationGuidance": {
+      "suitableSituations": [
+        "recognizing_gifts"
+      ],
+      "avoidApplications": [
+        "forced_gratitude",
+        "context_distortion"
+      ]
+    }
+  },
+  {
+    "id": "psalm-103-2",
+    "reference": "시편 103:2",
+    "book": "시편",
+    "chapter": 103,
+    "verseStart": 2,
+    "verseEnd": 2,
+    "translation": null,
+    "targetTranslation": "개역개정",
+    "text": "",
+    "textStatus": "pending_verification",
+    "textStatusLabel": "본문 검증 대기",
+    "recommendationEnabled": false,
+    "guidanceStatus": "pending",
+    "metadataStatus": "draft",
+    "topics": [
+      "gratitude"
+    ],
+    "situations": [
+      "remembering_grace"
+    ],
+    "expressions": [
+      "바쁘게 지내며 받은 은혜를 잊고 있었어요",
+      "감사했던 일을 기억하고 싶어요"
+    ],
+    "recommendationNote": "삶에서 받은 돌봄과 은혜를 자발적으로 회상하는 상황에 연결합니다.",
+    "cautionTags": [
+      "forced_gratitude",
+      "guaranteed_outcome"
+    ],
+    "contextNote": "하나님의 은혜를 기억하며 찬양하는 시편입니다. 감사의 기억으로 현재의 아픔을 덮거나 치유를 보장하지 않습니다.",
+    "applicationGuidance": {
+      "suitableSituations": [
+        "remembering_grace"
+      ],
+      "avoidApplications": [
+        "forced_gratitude",
+        "guaranteed_outcome"
+      ]
+    }
+  },
+  {
+    "id": "philippians-4-4",
+    "reference": "빌립보서 4:4",
+    "book": "빌립보서",
+    "chapter": 4,
+    "verseStart": 4,
+    "verseEnd": 4,
+    "translation": null,
+    "targetTranslation": "개역개정",
+    "text": "",
+    "textStatus": "pending_verification",
+    "textStatusLabel": "본문 검증 대기",
+    "recommendationEnabled": false,
+    "guidanceStatus": "pending",
+    "metadataStatus": "draft",
+    "topics": [
+      "gratitude"
+    ],
+    "situations": [
+      "shared_joy"
+    ],
+    "expressions": [
+      "함께 기쁨을 나누고 싶어요",
+      "작은 기쁨을 신앙 안에서 돌아보고 싶어요"
+    ],
+    "recommendationNote": "이미 느끼는 기쁨을 공동체와 신앙 안에서 나누려는 상황에 연결합니다.",
+    "cautionTags": [
+      "emotion_suppression",
+      "forced_gratitude"
+    ],
+    "contextNote": "공동체에 주 안에서 기뻐하라고 권면하는 문맥입니다. 늘 밝아야 한다는 감정 규율이나 슬픈 사람을 평가하는 기준으로 쓰지 않습니다.",
+    "applicationGuidance": {
+      "suitableSituations": [
+        "shared_joy"
+      ],
+      "avoidApplications": [
+        "emotion_suppression",
+        "forced_gratitude"
+      ]
+    }
   }
 ]);
 })();

@@ -14,7 +14,7 @@ try {
       if (!$previewRequest) { continue }
       while ($previewReader.ReadLine()) {}
       $previewRoute = ($previewRequest.Split(' ')[1]).Split('?')[0]
-      $previewFiles = @{'/'='index.html';'/index.html'='index.html';'/styles.css'='styles.css';'/data/topics.js'='data/topics.js';'/data/verses.js'='data/verses.js';'/data/reflections.js'='data/reflections.js';'/services/classifyConcern.js'='services/classifyConcern.js';'/services/findCandidates.js'='services/findCandidates.js';'/services/selectVerse.js'='services/selectVerse.js';'/services/recommendationHistory.js'='services/recommendationHistory.js';'/app.js'='app.js'}
+      $previewFiles = @{'/'='index.html';'/index.html'='index.html';'/styles.css'='styles.css';'/data/topics.js'='data/topics.js';'/data/verses.js'='data/verses.js';'/data/reflections.js'='data/reflections.js';'/services/classifyConcern.js'='services/classifyConcern.js';'/services/findCandidates.js'='services/findCandidates.js';'/services/selectVerse.js'='services/selectVerse.js';'/services/recommendationPolicy.js'='services/recommendationPolicy.js';'/services/recommendationHistory.js'='services/recommendationHistory.js';'/app.js'='app.js'}
       if ($previewFiles.ContainsKey($previewRoute)) {
         $previewFile = Join-Path $previewRoot $previewFiles[$previewRoute]
         $previewBody = [System.IO.File]::ReadAllBytes($previewFile)

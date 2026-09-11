@@ -5,7 +5,7 @@ const OPENINGS=window.Malsseum.data.openings, FOLLOWUPS=window.Malsseum.data.fol
 const input=document.getElementById('heart'), error=document.getElementById('error');
 const reply=document.getElementById('reply'), replyError=document.getElementById('reply-error');
 const conversation=document.getElementById('conversation');
-let previousId=null, turnCount=0;
+let previousId=null, previousAnalysis=null, turnCount=0;
 function element(tag,className,text) {
  const node=document.createElement(tag);
  if(className)node.className=className;
@@ -13,18 +13,23 @@ function element(tag,className,text) {
  return node;
 }
 function renderTurn(message,selection) {
- const {verse,matched,continued,mixed}=selection, sameVerse=previousId===verse.id;
+ const {verse,matched,continued,mixed}=selection, sameVerse=Boolean(verse)&&previousId===verse.id;
  const turn=element('article','conversation-turn'); turn.setAttribute('aria-label',(turnCount+1)+'번째 대화');
  const user=element('div','user-message');
  user.append(element('span','speaker','나의 이야기'),element('p','',message.trim()));
  const response=element('div','assistant-message');
  const empathy=element('div','empathy-bubble');
  const identity=element('span','speaker app-identity','말씀 안에');identity.prepend(sproutIcon());empathy.append(identity);
- let opening=OPENINGS[verse.primaryTopic];
+ if(!verse){
+  empathy.append(element('p','conversation-text',UserProfile.address(selection.message,turnCount)));
+  response.append(empathy);turn.append(user,response);return turn;
+ }
+ const responseTopic=verse.topics.includes(selection.analysis.primaryTopic)?selection.analysis.primaryTopic:verse.topics[0];
+ let opening=OPENINGS[responseTopic]||'나눠주신 마음을 이 말씀과 함께 조심스럽게 살펴볼게요.';
  if(continued)opening='이야기를 더 들려주셨네요. 이 말만으로 마음을 단정하기는 어려워, 앞서 읽은 말씀 곁에서 조금 더 생각해보려 해요.';
- else if(!matched)opening='이야기를 들려주셔서 고마워요. 어떤 마음인지 아직 조심스러워요. 우선 쉼으로 초대하는 말씀을 펼쳐볼게요.';
+ else if(!matched)opening='이 말씀 곁에서 마음을 조금 더 살펴볼게요.';
  else if(sameVerse)opening='나눠주신 마음을 이번에도 같은 말씀과 함께 살펴보면 좋겠어요. 마음을 서둘러 정리하지 않고 조금 더 머물러볼까요?';
- else if(turnCount)opening='이번에 나눠주신 마음에는 다른 말씀을 함께 읽어보면 좋겠어요. '+opening;
+ else if(turnCount&&previousId)opening='이번에 나눠주신 마음에는 다른 말씀을 함께 읽어보면 좋겠어요. '+opening;
  if(mixed)opening='여러 마음이 함께 담겨 있는 것 같아요. 그중 한 마음에 먼저 기대어볼게요. '+opening;
  opening=UserProfile.address(opening,turnCount);
  empathy.append(element('p','conversation-text',opening));response.append(empathy);
@@ -34,7 +39,7 @@ function renderTurn(message,selection) {
  const caption=element('figcaption','',verse.reference), link=element('a','','성경 본문 읽기 ↗');
  link.href='https://ko.wikisource.org/wiki/'+encodeURIComponent('성경 (개역한글판)/'+verse.book)+'#'+verse.chapter+'장';
  link.target='_blank';link.rel='noopener noreferrer';caption.append(link);scripture.append(caption);response.append(scripture);
- const followup=sameVerse&&turnCount%2===1?FOLLOWUPS[verse.primaryTopic]:[verse.reflection,verse.question];
+ const followup=sameVerse&&turnCount%2===1?(FOLLOWUPS[responseTopic]||[verse.reflection,verse.question]):[verse.reflection,verse.question];
  const explanation=element('div','explanation-card');
  explanation.append(element('span','speaker explanation-label','말씀 곁에서 · 앱의 설명'),element('p','conversation-text',followup[0]));
  response.append(explanation);
@@ -51,18 +56,18 @@ function updateCount(){document.getElementById('count').textContent=input.value.
 function showVerse(message,continueConversation=false) {
  const classification=classifyConcern(message);
  const candidates=findCandidates(classification);
- const selected=selectVerse(classification,candidates,{previousId,continueConversation,history:continueConversation?[]:recommendationHistory.snapshot()});
- const selection={...selected,verse:{...selected.verse,...window.Malsseum.data.reflections[selected.verse.id]}};
+ const selected=selectVerse(classification,candidates,{previousId,previousAnalysis,continueConversation,history:recommendationHistory.snapshot()});
+ const selection={...selected,verse:selected.verse?{...selected.verse,...(window.Malsseum.data.reflections[selected.verse.id]||{reflection:'말씀의 문맥을 천천히 읽어보세요.',question:'이 말씀을 읽으며 어떤 마음이 드나요?',prayer:'지금의 마음을 자신의 말로 하나님께 나누어도 좋아요.'})}:null};
  if(!continueConversation){previousId=null;turnCount=0;conversation.replaceChildren();}
  const turn=renderTurn(message,selection);conversation.append(turn);
- if(!continueConversation)recommendationHistory.record(selection.verse.id);
- previousId=selection.verse.id;turnCount++;
+ if(selection.verse&&(!continueConversation||previousId!==selection.verse.id))recommendationHistory.record(selection.verse.id);
+ previousId=selection.verse?.id||null;previousAnalysis=selection.analysis;turnCount++;
  document.getElementById('result').hidden=false;
  error.textContent='';replyError.textContent='';input.removeAttribute('aria-invalid');reply.removeAttribute('aria-invalid');
  if(!continueConversation){input.value=message;updateCount();}
  reply.value='';turn.tabIndex=-1;turn.focus({preventScroll:true});
  turn.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'});
- return {reference:selection.verse.reference,text:selection.verse.text,matched:selection.matched,continued:selection.continued};
+ return {status:selection.status,reference:selection.verse?.reference||null,text:selection.verse?.text||null,message:selection.message||null,matched:selection.matched,continued:selection.continued};
 }
 input.addEventListener('input',()=>{updateCount();error.textContent='';input.removeAttribute('aria-invalid');});
 reply.addEventListener('input',()=>{replyError.textContent='';reply.removeAttribute('aria-invalid');});
