@@ -33,37 +33,78 @@ function renderTurn(message,selection) {
  else if(turnCount&&previousId)opening='이번에 나눠주신 마음에는 다른 말씀을 함께 읽어보면 좋겠어요. '+opening;
  if(mixed)opening='여러 마음이 함께 담겨 있는 것 같아요. 그중 한 마음에 먼저 기대어볼게요. '+opening;
  opening=UserProfile.address(opening,turnCount);
- empathy.append(element('p','conversation-text',opening));response.append(empathy);
+ empathy.append(element('p','conversation-text',opening));
+ turn.classList.add('verse-result-turn');
+ const name=UserProfile.getName();
+ user.querySelector('.speaker').textContent=name?name+'님의 이야기':'나의 이야기';
+ response.append(element('p','result-arrival','오늘 '+(name?name+'님':'당신')+'에게 닿은 말씀이에요.'));
  const scripture=element('figure','scripture');
  const scriptureLabel=element('div','scripture-label','오늘 당신에게 닿은 말씀');scriptureLabel.prepend(sproutIcon());
- scripture.append(scriptureLabel,element('span','translation','성경 본문 · '+verse.translation),element('blockquote','',verse.text));
+ scripture.append(element('blockquote','',verse.text));
  const caption=element('figcaption','',verse.reference);
  // Do not link a different translation. Only use a supplied source for this record.
  if(typeof verse.sourceUrl==='string'&&verse.sourceUrl.startsWith('https://')){
   const link=element('a','','성경 본문 읽기 ↗');link.href=verse.sourceUrl;
   link.target='_blank';link.rel='noopener noreferrer';caption.append(link);
  }
- scripture.append(caption);response.append(scripture);
+ scripture.append(caption,element('span','translation','성경 본문 · '+verse.translation));response.append(scripture,user);
  const prepared=[verse.reflection||'묵상 안내 준비 중',verse.question||'묵상 질문 준비 중'];
  const followup=hasGuidance&&sameVerse&&turnCount%2===1?(FOLLOWUPS[responseTopic]||prepared):prepared;
  const explanation=element('div','explanation-card');
- explanation.append(element('span','speaker explanation-label','말씀 곁에서 · 앱의 설명'),element('p','conversation-text',followup[0]));
+ explanation.append(element('span','speaker explanation-label','이 말씀이 지금 마음에 닿는 이유'),empathy,element('p','conversation-text',followup[0]));
  response.append(explanation);
  const actions=element('div','verse-actions');
  const talk=element('button','talk-action','이 말씀으로 더 이야기하기 →');talk.type='button';
  talk.addEventListener('click',()=>{reply.focus();reply.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'center'});});
  const question=element('details','reflection-action');
- question.append(element('summary','','묵상 질문 보기'),element('p','conversation-question',followup[1]));
+ question.append(element('summary','','묵상해보기'),element('p','conversation-question',followup[1]));
  const prayer=element('details','prayer-action');
- prayer.append(element('summary','','기도로 이어가기'),element('p','',verse.prayer||'기도문 준비 중'),element('small','',verse.prayer?'앱이 준비한 기도 예시예요. 마음에 맞는 말로 바꾸어도 좋아요.':'이 말씀의 기도문은 아직 등록되지 않았어요.'));
- actions.append(talk,question,prayer);response.append(actions);turn.append(user,response);return turn;
+ prayer.append(element('summary','','기도문 보기'),element('p','',verse.prayer||'기도문 준비 중'),element('small','',verse.prayer?'앱이 준비한 기도 예시예요. 마음에 맞는 말로 바꾸어도 좋아요.':'이 말씀의 기도문은 아직 등록되지 않았어요.'));
+ const save=element('button','save-action','♡ 저장');save.type='button';save.disabled=true;save.title='저장 기능 준비 중';
+ save.append(element('small','','준비 중'));
+ actions.append(save,question,prayer,talk);response.append(actions);turn.append(response);return turn;
 }
+const resultStyles=document.createElement('link');resultStyles.rel='stylesheet';resultStyles.href='result-screen.css';document.head.append(resultStyles);
 function updateCount(){document.getElementById('count').textContent=input.value.length.toLocaleString()+' / 1,000';}
-function showVerse(message,continueConversation=false) {
+// Isolated presentation layer: no passage text, randomness, or recommendation state.
+const transitionStylesReady=new Promise(resolve=>{
+ const link=document.createElement('link');link.rel='stylesheet';link.href='verse-transition.css';
+ link.onload=()=>resolve(true);link.onerror=()=>resolve(false);document.head.append(link);
+ setTimeout(()=>resolve(false),2000);
+});
+async function playVerseTransition(){
+ if(!await transitionStylesReady)return;
+ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+ const panel=element('dialog','verse-transition');panel.setAttribute('aria-label','말씀을 펼치는 중');
+ const stage=element('div','verse-transition-stage');
+ const cards=element('div','verse-transition-cards');cards.setAttribute('aria-hidden','true');
+ for(let i=0;i<5;i++){
+  const card=element('div','verse-transition-card');card.style.setProperty('--position',i-2);
+  if(i===2)card.classList.add('verse-transition-chosen');
+  card.append(sproutIcon());cards.append(card);
+ }
+ const status=element('p','verse-transition-status','말씀을 천천히 펼쳐볼게요.');status.setAttribute('role','status');
+ stage.append(cards,status);panel.append(stage);document.body.append(panel);
+ const pause=ms=>new Promise(resolve=>setTimeout(resolve,ms));
+ let skip;const skipped=new Promise(resolve=>{skip=resolve;});
+ panel.addEventListener('cancel',event=>{event.preventDefault();skip();});
+ try{
+  panel.showModal();
+  await Promise.race([(async()=>{
+   await pause(reduced?0:1850);panel.classList.add('is-selected');
+   await pause(reduced?0:850);
+   const name=UserProfile.getName();status.textContent='오늘 '+(name?name+'님':'당신')+'에게 닿은 말씀이에요.';
+   panel.classList.add('is-revealed');await pause(reduced?650:1800);
+  })(),skipped]);
+ }finally{panel.close();panel.remove();}
+}
+async function showVerse(message,continueConversation=false,animate=false) {
  const classification=classifyConcern(message);
  const candidates=findCandidates(classification);
  const selected=selectVerse(classification,candidates,{previousId,previousAnalysis,continueConversation,history:recommendationHistory.snapshot()});
  const selection={...selected,verse:selected.verse?{...selected.verse,...(window.Malsseum.data.reflections[selected.verse.id]||{})}:null};
+ // The recommendation is already fixed; these decorative cards never select a verse.
+ if(animate&&!continueConversation&&selection.verse)await playVerseTransition();
  if(!continueConversation){previousId=null;turnCount=0;conversation.replaceChildren();}
  const turn=renderTurn(message,selection);conversation.append(turn);
  if(selection.verse&&(!continueConversation||previousId!==selection.verse.id))recommendationHistory.record(selection.verse.id);
@@ -77,7 +118,14 @@ function showVerse(message,continueConversation=false) {
 }
 input.addEventListener('input',()=>{updateCount();error.textContent='';input.removeAttribute('aria-invalid');});
 reply.addEventListener('input',()=>{replyError.textContent='';reply.removeAttribute('aria-invalid');});
-function submit(event,field,feedback,continuing){event.preventDefault();try{showVerse(field.value,continuing);}catch(e){feedback.textContent=e.message;field.setAttribute('aria-invalid','true');field.focus();}}
+let submitting=false;
+async function submit(event,field,feedback,continuing){
+ event.preventDefault();if(submitting)return;
+ submitting=true;const button=event.currentTarget.querySelector('button[type="submit"],button.primary');
+ if(button)button.disabled=true;
+ try{await showVerse(field.value,continuing,true);}catch(e){feedback.textContent=e.message;field.setAttribute('aria-invalid','true');field.focus();}
+ finally{submitting=false;if(button)button.disabled=false;}
+}
  document.getElementById('heart-form').addEventListener('submit',event=>submit(event,input,error,false));
  document.getElementById('reply-form').addEventListener('submit',event=>submit(event,reply,replyError,true));
 if(document.modelContext?.registerTool){
