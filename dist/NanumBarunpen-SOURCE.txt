@@ -1,0 +1,4 @@
+나눔바른펜 Regular
+Copyright NAVER Corporation.
+Source: https://hangeul.pstatic.net/hangeul_static/webfont/NanumBarunpen/NanumBarunpenR.woff
+License and attribution: https://hangeul.naver.com/font
