@@ -13,12 +13,12 @@ function app() {
  const choose=(message,options={})=>{const analysis=s.classifyConcern(message);return s.selectVerse(analysis,s.findCandidates(analysis,options.verses),options);};
  return {data,s,choose};
 }
-test('catalogue has ten topics, 49 unique verses, 3 ready and 46 pending',()=>{
+test('catalogue has ten topics, 49 unique verses, all texts ready and optional guidance pending',()=>{
  const {data,s}=app(); assert.equal(data.topics.length,10);assert.equal(data.verses.length,49);
  assert.equal(new Set(data.verses.map(v=>v.id)).size,49);
  assert.equal(new Set(data.verses.map(v=>v.reference)).size,49);
- assert.equal(data.verses.filter(s.recommendationPolicy.isActive).length,3);
- assert.equal(data.verses.filter(v=>v.textStatus==='pending_verification').length,46);
+ assert.equal(data.verses.filter(s.recommendationPolicy.isActive).length,49);
+ assert.equal(data.verses.filter(v=>v.textStatus==='pending_verification').length,0);
  assert.equal(data.verses.reduce((n,v)=>n+v.topics.length,0),52);
  for(const verse of data.verses){
   for(const key of ['id','reference','book','recommendationNote','contextNote'])assert.ok(typeof verse[key]==='string'&&verse[key].length);
@@ -27,18 +27,18 @@ test('catalogue has ten topics, 49 unique verses, 3 ready and 46 pending',()=>{
   for(const id of verse.topics)assert.ok(data.topics.some(t=>t.id===id));
   assert.ok(verse.verseEnd>=verse.verseStart);
   assert.equal(new Set(verse.topics).size,verse.topics.length);
-  if(verse.textStatus==='verified'){
-   assert.ok(verse.text.trim());assert.equal(verse.translation,'개역한글');
+  assert.equal(verse.textStatus,'verified');assert.ok(verse.text.trim());assert.equal(verse.translation,'개역개정');
+  assert.equal(verse.textVerificationSource,'user_supplied');assert.equal(verse.recommendationEnabled,true);
+  if(data.reflections[verse.id]){
    for(const key of ['reflection','question','prayer'])assert.ok(data.reflections[verse.id][key]);
+   assert.equal(verse.guidanceStatus,'ready');
   }else{
-   assert.equal(verse.text,'');assert.equal(verse.translation,null);assert.equal(verse.targetTranslation,'개역개정');
-   assert.equal(verse.textStatusLabel,'본문 검증 대기');assert.equal(verse.recommendationEnabled,false);
    assert.equal(verse.guidanceStatus,'pending');assert.equal(verse.metadataStatus,'draft');
-   assert.equal(data.reflections[verse.id],undefined);
+   for(const key of ['reflection','question','prayer'])assert.equal(verse[key],undefined);
   }
  }
 });
-for(const [message,id] of [['너무 지쳤어요','matthew-11-28'],['불안하고 두려워요','psalm-56-3'],['외로워요','psalm-34-18'],['어제 엄마가 돌아가셨어요','psalm-34-18'],['친구에게 상처받았어요','psalm-34-18']]){
+for(const [message,id] of [['너무 지쳤어요','matthew-11-28'],['불안하고 두려워요','isaiah-41-10'],['외로워요','psalm-34-18'],['어제 엄마가 돌아가셨어요','john-11-35'],['친구에게 상처받았어요','psalm-34-18']]){
  test('appropriate selection: '+message,()=>assert.equal(app().choose(message).verse.id,id));
 }
 test('multiple topics and loss timing are explicit',()=>{
@@ -47,7 +47,7 @@ test('multiple topics and loss timing are explicit',()=>{
  assert.ok(Array.isArray(a.riskSignals)&&Array.isArray(a.uncertainties));
  assert.ok(s.classifyConcern('슬퍼요').uncertainties.includes('상실의 시점을 알 수 없음'));
 });
-for(const message of ['오늘 날씨 이야기','감사하고 기뻐요','진로를 선택하고 싶어요','실패해서 좌절했어요','잘못한 일이 후회돼요','기도가 어렵고 믿음이 흔들려요']){
+for(const message of ['오늘 날씨 이야기','12345','어떻게 말해야 할지 모르겠어요']){
  test('no forced default: '+message,()=>{const r=app().choose(message);assert.equal(r.verse,null);assert.ok(['needs_clarification','no_suitable_candidate'].includes(r.status));});
 }
 test('negated emotion does not produce a recommendation',()=>assert.equal(app().choose('불안하지 않아요').verse,null));
@@ -60,8 +60,8 @@ test('continuity is preserved for acknowledgements and same concern',()=>{
 });
 test('new concern replaces old verse; an acknowledgement prefix does not hide it',()=>{
  const {choose}=app();const first=choose('지쳤어요');const options={continueConversation:true,previousId:first.verse.id,previousAnalysis:first.analysis};
- assert.equal(choose('고마워요. 어제 가족이 돌아가셨어요',options).verse.id,'psalm-34-18');
- assert.equal(choose('이제 실패한 일이 후회돼요',options).verse,null);
+ assert.equal(choose('고마워요. 어제 가족이 돌아가셨어요',options).verse.id,'john-11-35');
+ assert.notEqual(choose('이제 실패한 일이 후회돼요',options).verse.id,first.verse.id);
  assert.equal(choose('배우자가 때려요',options).status,'safety_first');
 });
 test('unresolved risk is not silently forgotten on next turn',()=>{
@@ -100,7 +100,8 @@ test('recent loss context survives followups before applying cautions',()=>{
 test('repetition is considered only among comparable suitable candidates',()=>{
  const {choose,data}=app();const original=data.verses[0], second={...original,id:'test-rest-2'};
  assert.equal(choose('지쳤어요',{verses:[original,second],history:[original.id]}).verse.id,second.id);
- assert.equal(choose('지쳤어요',{history:Array(10).fill(original.id)}).verse.id,original.id);
+ assert.equal(choose('지쳤어요',{verses:[original],history:Array(10).fill(original.id)}).verse.id,original.id);
+ assert.notEqual(choose('지쳤어요',{history:Array(10).fill(original.id)}).verse.id,original.id);
 });
 test('invalid input is rejected and history contains IDs only',()=>{
  const {s}=app();for(const value of ['',null,' '.repeat(10),'가'.repeat(1001)])assert.throws(()=>s.classifyConcern(value));
@@ -120,11 +121,12 @@ test('duplicate psalm is merged and prior topic links are preserved',()=>{
  const expected={rest:5,fear:5,loneliness:5,grief:6,relationship:6,future:5,failure:5,guilt:5,faith:5,gratitude:5};
  for(const [topic,count] of Object.entries(expected))assert.equal(data.verses.filter(v=>v.topics.includes(topic)).length,count,topic);
 });
-test('all 46 pending passages stay outside actual candidate collection',()=>{
+test('a pending copy of any newly activated passage stays outside every selection path',()=>{
  const {s,data}=app();
- for(const verse of data.verses.filter(v=>v.textStatus==='pending_verification')){
+ for(const record of data.verses.filter(v=>v.guidanceStatus==='pending')){
+  const verse={...record,textStatus:'pending_verification'};
   const analysis={primaryTopic:verse.topics[0],secondaryTopics:verse.topics.slice(1),situations:verse.situations,riskSignals:[],uncertainties:[],matched:true,mixed:false};
-  assert.ok(!s.findCandidates(analysis).some(c=>c.verse.id===verse.id),verse.id);
+  assert.ok(!s.findCandidates(analysis,[verse]).some(c=>c.verse.id===verse.id),verse.id);
   const direct=s.selectVerse(analysis,[{verse,score:100,matchedTopics:verse.topics,matchedSituations:verse.situations}],{verses:[verse]});
   assert.equal(direct.verse,null,'direct injection '+verse.id);
   const followup=s.selectVerse(analysis,[],{verses:[verse],continueConversation:true,previousId:verse.id,previousAnalysis:analysis});
@@ -133,7 +135,7 @@ test('all 46 pending passages stay outside actual candidate collection',()=>{
 });
 test('every readiness gate fails closed even when other flags say active',()=>{
  const {data,s,choose}=app(),original=data.verses[0];
- for(const change of [{text:''},{text:'  '},{textStatus:'pending_verification'},{textStatus:null},{recommendationEnabled:false},{translation:null},{metadataStatus:'draft'},{guidanceStatus:'pending'}]){
+ for(const change of [{text:''},{text:'  '},{textStatus:'pending_verification'},{textStatus:null},{recommendationEnabled:false},{translation:null}]){
   const verse={...original,...change};assert.equal(s.recommendationPolicy.isActive(verse),false);assert.equal(choose('지쳤어요',{verses:[verse]}).verse,null);
  }
 });
@@ -173,7 +175,8 @@ test('warnings against distortion and guaranteed outcomes are application constr
 });
 test('faith questions are not judged as deficient faith',()=>{
  const {s,data,choose}=app();
- const result=choose('기도가 어렵고 믿음이 흔들려요');assert.equal(result.verse,null);assert.ok(result.message.includes('단정하지 않을게요'));
+ const result=choose('기도가 어렵고 믿음이 흔들려요');assert.ok(result.verse.topics.includes('faith'));assert.ok(result.avoidApplications.includes('faith_shaming'));
+ const noCandidates=choose('기도가 어렵고 믿음이 흔들려요',{verses:[]});assert.ok(noCandidates.message.includes('단정하지 않을게요'));
  const review=s.recommendationPolicy.review(data.verses[0],s.classifyConcern('지쳤어요'));
  assert.ok(review.avoidApplications.includes('faith_shaming'));
  assert.equal(choose('지쳤어요',{applicationTags:['faith_shaming']}).verse,null);
@@ -185,6 +188,67 @@ test('metadata cautions all have defined policies and guidance is never synthesi
   assert.ok(Array.isArray(verse.applicationGuidance.avoidApplications));
   for(const tag of [...verse.cautionTags,...verse.applicationGuidance.avoidApplications])assert.ok(s.recommendationPolicy.cautionRules[tag],verse.id+': '+tag);
   for(const id of verse.applicationGuidance.suitableSituations)assert.ok(verse.situations.includes(id));
-  if(verse.textStatus==='pending_verification')for(const field of ['reflection','prayer','question'])assert.equal(verse[field],undefined);
+  if(verse.guidanceStatus==='pending')for(const field of ['reflection','prayer','question'])assert.equal(verse[field],undefined);
  }
 });
+
+
+const crypto=require('node:crypto');
+const hash=text=>crypto.createHash('sha256').update(text).digest('hex');
+const normalized=text=>text.replace(/\r\n/g,'\n');
+const preserved=JSON.parse(fs.readFileSync(path.join(__dirname,'fixtures/preserved-metadata-hashes.json'),'utf8'));
+const scenarios=JSON.parse(fs.readFileSync(path.join(__dirname,'fixtures/activation-scenarios.json'),'utf8'));
+for(const {topic,message,reference} of scenarios){
+ test('activated catalogue scenario: '+message,()=>{
+  const {choose}=app(),r=choose(message);assert.equal(r.status,'selected');assert.equal(r.verse.reference,reference);assert.ok(r.verse.topics.includes(topic));
+ });
+}
+test('all 49 exact text hashes match the user-supplied reference mapping',()=>{
+ const {data}=app(),expected=JSON.parse(fs.readFileSync(path.join(__dirname,'fixtures/supplied-text-hashes.json'),'utf8'));
+ assert.equal(Object.keys(expected).length,49);
+ assert.deepEqual(data.verses.map(v=>v.reference).sort().join('|'),Object.keys(expected).sort().join('|'));
+ for(const verse of data.verses){assert.equal(hash(verse.text),expected[verse.reference],verse.reference);assert.equal(verse.translation,'개역개정');}
+});
+test('IDs and every preserved metadata field are unchanged',()=>{
+ const {data}=app();assert.equal(Object.keys(preserved.hashes).length,49);
+ for(const verse of data.verses){
+  const projection=Object.fromEntries(preserved.fields.map(key=>[key,verse[key]]));
+  assert.equal(hash(JSON.stringify(projection)),preserved.hashes[verse.id],verse.id);
+ }
+});
+test('the three original reflection/prayer entries remain byte-for-byte content equivalent',()=>{
+ const {data}=app();assert.equal(Object.keys(data.reflections).length,3);
+ assert.equal(hash(normalized(fs.readFileSync(path.join(root,'dist/data/reflections.js'),'utf8'))),preserved.reflectionsHash);
+});
+test('stylesheet and HTML markup remain unchanged',()=>{
+ assert.equal(hash(fs.readFileSync(path.join(root,'dist/styles.css'),'utf8')),preserved.stylesHash);
+ assert.equal(hash(normalized(fs.readFileSync(path.join(root,'dist/index.html'),'utf8'))),preserved.htmlHash);
+});
+test('all 49 are candidates despite 46 missing optional guidance entries',()=>{
+ const {data,s}=app();let missingGuidance=0;
+ for(const verse of data.verses){
+  const analysis={primaryTopic:verse.topics[0],secondaryTopics:verse.topics.slice(1),situations:verse.situations,riskSignals:[],uncertainties:[]};
+  assert.ok(s.findCandidates(analysis).some(c=>c.verse.id===verse.id),verse.id);
+  if(!data.reflections[verse.id]){missingGuidance++;assert.equal(verse.guidanceStatus,'pending');assert.equal(s.recommendationPolicy.isActive(verse),true);}
+ }
+ assert.equal(missingGuidance,46);
+});
+test('scenario set spans all ten topics and includes newly activated passages',()=>{
+ assert.equal(new Set(scenarios.map(x=>x.topic)).size,10);
+ for(const topic of new Set(scenarios.map(x=>x.topic)))assert.equal(scenarios.filter(x=>x.topic===topic).length,2);
+ const old=new Set(['마태복음 11:28','시편 56:3','시편 34:18']);
+ assert.equal(new Set(scenarios.map(x=>x.reference)).size,20);
+ assert.equal(new Set(scenarios.filter(x=>!old.has(x.reference)).map(x=>x.reference)).size,18);
+});
+test('Jeremiah selection retains no-guarantee and no-distortion application constraints',()=>{
+ const {data,s}=app();const verse=data.verses.find(v=>v.reference==='예레미야 29:11');
+ const analysis={primaryTopic:'future',secondaryTopics:[],situations:['long_wait_disrupted_plans'],riskSignals:[],uncertainties:[],matched:true,mixed:false};
+ const candidates=s.findCandidates(analysis);
+ const result=s.selectVerse(analysis,candidates);assert.equal(result.verse.id,verse.id);assert.ok(result.avoidApplications.includes('guaranteed_outcome'));
+ for(const tag of ['guaranteed_outcome','context_distortion'])assert.equal(s.selectVerse(analysis,candidates,{applicationTags:[tag]}).verse,null);
+});
+for(const message of ['계획대로 되지 않아 방향을 다시 찾고 있어요','성장이 느려서 자신이 없어요','잘못을 돌아봤는데도 나를 계속 정죄해요','기다림이 길고 계획이 무너진 것 같아요','기도할 말이 떠오르지 않아요']){
+ test('documented existing analyser limitation asks rather than forcing: '+message,()=>{
+  const r=app().choose(message);assert.equal(r.status,'needs_clarification');assert.equal(r.verse,null);
+ });
+}

@@ -13,7 +13,9 @@ const cautionRules=Object.freeze({
  coercive_application:{},victim_blame:{},accountability_erasure:{}
 });
 function isActive(verse){
- return verse?.textStatus==='verified'&&typeof verse.text==='string'&&Boolean(verse.text.trim())&&typeof verse.translation==='string'&&Boolean(verse.translation.trim())&&verse.recommendationEnabled===true&&verse.guidanceStatus==='ready'&&verse.metadataStatus==='reviewed';
+ // Scripture readiness is independent of optional reflection/prayer readiness.
+ // Metadata annotations retain their original state; per-candidate policy review still runs.
+ return verse?.textStatus==='verified'&&typeof verse.text==='string'&&Boolean(verse.text.trim())&&typeof verse.translation==='string'&&Boolean(verse.translation.trim())&&verse.recommendationEnabled===true;
 }
 function review(verse,analysis,{applicationTags=[]}={}){
  const reasons=[],topics=[analysis.primaryTopic,...analysis.secondaryTopics];

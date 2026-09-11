@@ -1,0 +1,102 @@
+[
+  {
+    "topic": "rest",
+    "message": "너무 지쳤어요",
+    "reference": "마태복음 11:28"
+  },
+  {
+    "topic": "rest",
+    "message": "오래 좋은 일을 했는데 보람이 없어 낙심해요",
+    "reference": "갈라디아서 6:9"
+  },
+  {
+    "topic": "fear",
+    "message": "내일 일까지 생각하니 불안해요",
+    "reference": "마태복음 6:34"
+  },
+  {
+    "topic": "fear",
+    "message": "혼자 감당해야 할까 봐 두려워요",
+    "reference": "이사야 41:10"
+  },
+  {
+    "topic": "loneliness",
+    "message": "낯선 곳에 와서 외로워요",
+    "reference": "시편 139:7-10"
+  },
+  {
+    "topic": "loneliness",
+    "message": "버려진 것 같아 외로워요",
+    "reference": "히브리서 13:5"
+  },
+  {
+    "topic": "grief",
+    "message": "어제 엄마가 돌아가셨어요",
+    "reference": "요한복음 11:35"
+  },
+  {
+    "topic": "grief",
+    "message": "슬픔 속에서 천천히 회복하고 싶어요",
+    "reference": "시편 147:3"
+  },
+  {
+    "topic": "relationship",
+    "message": "어제 친구에게 상처받았어요",
+    "reference": "시편 34:18"
+  },
+  {
+    "topic": "relationship",
+    "message": "시간이 지난 뒤 용서를 생각해보고 싶어요",
+    "reference": "골로새서 3:13"
+  },
+  {
+    "topic": "future",
+    "message": "중요한 선택을 앞두고 있어요",
+    "reference": "잠언 3:5-6"
+  },
+  {
+    "topic": "future",
+    "message": "진로 선택에 지혜가 필요해요",
+    "reference": "야고보서 1:5"
+  },
+  {
+    "topic": "failure",
+    "message": "실패한 뒤 다시 일어나고 싶어요",
+    "reference": "시편 37:23-24"
+  },
+  {
+    "topic": "failure",
+    "message": "실패해서 좌절했어요",
+    "reference": "고린도후서 12:9"
+  },
+  {
+    "topic": "guilt",
+    "message": "후회에서 벗어나 마음을 새롭게 하고 싶어요",
+    "reference": "시편 51:10"
+  },
+  {
+    "topic": "guilt",
+    "message": "잘못한 일이 후회돼요",
+    "reference": "요한일서 1:9"
+  },
+  {
+    "topic": "faith",
+    "message": "믿음이 흔들리는 마음을 숨기고 싶지 않아요",
+    "reference": "마가복음 9:24"
+  },
+  {
+    "topic": "faith",
+    "message": "하나님이 멀게 느껴져요",
+    "reference": "시편 13:1-2"
+  },
+  {
+    "topic": "gratitude",
+    "message": "오늘의 기쁨을 나누고 싶어요",
+    "reference": "시편 118:24"
+  },
+  {
+    "topic": "gratitude",
+    "message": "함께 기쁨을 나누고 싶어요",
+    "reference": "빌립보서 4:4"
+  }
+]

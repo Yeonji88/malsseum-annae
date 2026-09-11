@@ -25,7 +25,8 @@ function renderTurn(message,selection) {
   response.append(empathy);turn.append(user,response);return turn;
  }
  const responseTopic=verse.topics.includes(selection.analysis.primaryTopic)?selection.analysis.primaryTopic:verse.topics[0];
- let opening=OPENINGS[responseTopic]||'나눠주신 마음을 이 말씀과 함께 조심스럽게 살펴볼게요.';
+ const hasGuidance=Boolean(verse.reflection&&verse.question&&verse.prayer);
+ let opening=(hasGuidance&&OPENINGS[responseTopic])||'나눠주신 마음을 이 말씀과 함께 조심스럽게 살펴볼게요.';
  if(continued)opening='이야기를 더 들려주셨네요. 이 말만으로 마음을 단정하기는 어려워, 앞서 읽은 말씀 곁에서 조금 더 생각해보려 해요.';
  else if(!matched)opening='이 말씀 곁에서 마음을 조금 더 살펴볼게요.';
  else if(sameVerse)opening='나눠주신 마음을 이번에도 같은 말씀과 함께 살펴보면 좋겠어요. 마음을 서둘러 정리하지 않고 조금 더 머물러볼까요?';
@@ -35,11 +36,16 @@ function renderTurn(message,selection) {
  empathy.append(element('p','conversation-text',opening));response.append(empathy);
  const scripture=element('figure','scripture');
  const scriptureLabel=element('div','scripture-label','오늘 당신에게 닿은 말씀');scriptureLabel.prepend(sproutIcon());
- scripture.append(scriptureLabel,element('span','translation','성경 본문 · 개역한글'),element('blockquote','',verse.text));
- const caption=element('figcaption','',verse.reference), link=element('a','','성경 본문 읽기 ↗');
- link.href='https://ko.wikisource.org/wiki/'+encodeURIComponent('성경 (개역한글판)/'+verse.book)+'#'+verse.chapter+'장';
- link.target='_blank';link.rel='noopener noreferrer';caption.append(link);scripture.append(caption);response.append(scripture);
- const followup=sameVerse&&turnCount%2===1?(FOLLOWUPS[responseTopic]||[verse.reflection,verse.question]):[verse.reflection,verse.question];
+ scripture.append(scriptureLabel,element('span','translation','성경 본문 · '+verse.translation),element('blockquote','',verse.text));
+ const caption=element('figcaption','',verse.reference);
+ // Do not link a different translation. Only use a supplied source for this record.
+ if(typeof verse.sourceUrl==='string'&&verse.sourceUrl.startsWith('https://')){
+  const link=element('a','','성경 본문 읽기 ↗');link.href=verse.sourceUrl;
+  link.target='_blank';link.rel='noopener noreferrer';caption.append(link);
+ }
+ scripture.append(caption);response.append(scripture);
+ const prepared=[verse.reflection||'묵상 안내 준비 중',verse.question||'묵상 질문 준비 중'];
+ const followup=hasGuidance&&sameVerse&&turnCount%2===1?(FOLLOWUPS[responseTopic]||prepared):prepared;
  const explanation=element('div','explanation-card');
  explanation.append(element('span','speaker explanation-label','말씀 곁에서 · 앱의 설명'),element('p','conversation-text',followup[0]));
  response.append(explanation);
@@ -49,7 +55,7 @@ function renderTurn(message,selection) {
  const question=element('details','reflection-action');
  question.append(element('summary','','묵상 질문 보기'),element('p','conversation-question',followup[1]));
  const prayer=element('details','prayer-action');
- prayer.append(element('summary','','기도로 이어가기'),element('p','',verse.prayer),element('small','','앱이 준비한 기도 예시예요. 마음에 맞는 말로 바꾸어도 좋아요.'));
+ prayer.append(element('summary','','기도로 이어가기'),element('p','',verse.prayer||'기도문 준비 중'),element('small','',verse.prayer?'앱이 준비한 기도 예시예요. 마음에 맞는 말로 바꾸어도 좋아요.':'이 말씀의 기도문은 아직 등록되지 않았어요.'));
  actions.append(talk,question,prayer);response.append(actions);turn.append(user,response);return turn;
 }
 function updateCount(){document.getElementById('count').textContent=input.value.length.toLocaleString()+' / 1,000';}
@@ -57,7 +63,7 @@ function showVerse(message,continueConversation=false) {
  const classification=classifyConcern(message);
  const candidates=findCandidates(classification);
  const selected=selectVerse(classification,candidates,{previousId,previousAnalysis,continueConversation,history:recommendationHistory.snapshot()});
- const selection={...selected,verse:selected.verse?{...selected.verse,...(window.Malsseum.data.reflections[selected.verse.id]||{reflection:'말씀의 문맥을 천천히 읽어보세요.',question:'이 말씀을 읽으며 어떤 마음이 드나요?',prayer:'지금의 마음을 자신의 말로 하나님께 나누어도 좋아요.'})}:null};
+ const selection={...selected,verse:selected.verse?{...selected.verse,...(window.Malsseum.data.reflections[selected.verse.id]||{})}:null};
  if(!continueConversation){previousId=null;turnCount=0;conversation.replaceChildren();}
  const turn=renderTurn(message,selection);conversation.append(turn);
  if(selection.verse&&(!continueConversation||previousId!==selection.verse.id))recommendationHistory.record(selection.verse.id);

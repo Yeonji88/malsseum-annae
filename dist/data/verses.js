@@ -1,15 +1,15 @@
 (function () {
-// New entries contain user-supplied references and editorial metadata only. No unverified scripture text.
+// Text supplied by the user; exact reference matching, no generated or fetched scripture.
 window.Malsseum.data.verses = Object.freeze([
   {
     "id": "matthew-11-28",
     "reference": "마태복음 11:28",
     "book": "마태복음",
     "chapter": 11,
-    "text": "수고하고 무거운 짐진 자들아 다 내게로 오라 내가 너희를 쉬게 하리라",
+    "text": "수고하고 무거운 짐 진 자들아 다 내게로 오라 내가 너희를 쉬게 하리라",
     "verseStart": 28,
     "verseEnd": 28,
-    "translation": "개역한글",
+    "translation": "개역개정",
     "recommendationNote": "지침과 부담 속에서 쉼을 구하는 상황에 연결합니다.",
     "cautionTags": [],
     "topics": [
@@ -34,17 +34,18 @@ window.Malsseum.data.verses = Object.freeze([
         "overload"
       ],
       "avoidApplications": []
-    }
+    },
+    "textVerificationSource": "user_supplied"
   },
   {
     "id": "psalm-56-3",
     "reference": "시편 56:3",
     "book": "시편",
     "chapter": 56,
-    "text": "내가 두려워하는 날에는 주를 의지하리이다",
+    "text": "내가 두려워하는 날에는 내가 주를 의지하리이다",
     "verseStart": 3,
     "verseEnd": 3,
-    "translation": "개역한글",
+    "translation": "개역개정",
     "recommendationNote": "두려움과 걱정을 기도로 표현하려는 상황에 연결합니다.",
     "cautionTags": [],
     "topics": [
@@ -69,17 +70,18 @@ window.Malsseum.data.verses = Object.freeze([
         "uncertain_future"
       ],
       "avoidApplications": []
-    }
+    },
+    "textVerificationSource": "user_supplied"
   },
   {
     "id": "psalm-34-18",
     "reference": "시편 34:18",
     "book": "시편",
     "chapter": 34,
-    "text": "여호와는 마음이 상한 자에게 가까이 하시고 중심에 통회하는 자를 구원하시는도다",
+    "text": "여호와는 마음이 상한 자를 가까이 하시고 충심으로 통회하는 자를 구원하시는도다",
     "verseStart": 18,
     "verseEnd": 18,
-    "translation": "개역한글",
+    "translation": "개역개정",
     "recommendationNote": "외로움과 상처를 나누는 상황에 연결합니다.",
     "cautionTags": [],
     "topics": [
@@ -114,7 +116,8 @@ window.Malsseum.data.verses = Object.freeze([
         "conflict"
       ],
       "avoidApplications": []
-    }
+    },
+    "textVerificationSource": "user_supplied"
   },
   {
     "id": "isaiah-40-31",
@@ -123,12 +126,12 @@ window.Malsseum.data.verses = Object.freeze([
     "chapter": 40,
     "verseStart": 31,
     "verseEnd": 31,
-    "translation": null,
+    "translation": "개역개정",
     "targetTranslation": "개역개정",
-    "text": "",
-    "textStatus": "pending_verification",
-    "textStatusLabel": "본문 검증 대기",
-    "recommendationEnabled": false,
+    "text": "오직 여호와를 앙망하는 자는 새 힘을 얻으리니 독수리의 날개 치며 올라감 같을 것이요 달음박질하여도 곤비하지 아니하고 걸어가도 피곤하지 아니하리라",
+    "textStatus": "verified",
+    "textStatusLabel": "본문 검증 완료",
+    "recommendationEnabled": true,
     "guidanceStatus": "pending",
     "metadataStatus": "draft",
     "topics": [
@@ -153,7 +156,8 @@ window.Malsseum.data.verses = Object.freeze([
       "avoidApplications": [
         "endurance_pressure"
       ]
-    }
+    },
+    "textVerificationSource": "user_supplied"
   },
   {
     "id": "psalm-55-22",
@@ -162,12 +166,12 @@ window.Malsseum.data.verses = Object.freeze([
     "chapter": 55,
     "verseStart": 22,
     "verseEnd": 22,
-    "translation": null,
+    "translation": "개역개정",
     "targetTranslation": "개역개정",
-    "text": "",
-    "textStatus": "pending_verification",
-    "textStatusLabel": "본문 검증 대기",
-    "recommendationEnabled": false,
+    "text": "네 짐을 여호와께 맡기라 그가 너를 붙드시고 의인의 요동함을 영원히 허락하지 아니하시리로다",
+    "textStatus": "verified",
+    "textStatusLabel": "본문 검증 완료",
+    "recommendationEnabled": true,
     "guidanceStatus": "pending",
     "metadataStatus": "draft",
     "topics": [
@@ -194,7 +198,8 @@ window.Malsseum.data.verses = Object.freeze([
       "avoidApplications": [
         "guaranteed_outcome"
       ]
-    }
+    },
+    "textVerificationSource": "user_supplied"
   },
   {
     "id": "psalm-23-2-3",
@@ -203,12 +208,12 @@ window.Malsseum.data.verses = Object.freeze([
     "chapter": 23,
     "verseStart": 2,
     "verseEnd": 3,
-    "translation": null,
+    "translation": "개역개정",
     "targetTranslation": "개역개정",
-    "text": "",
-    "textStatus": "pending_verification",
-    "textStatusLabel": "본문 검증 대기",
-    "recommendationEnabled": false,
+    "text": "그가 나를 푸른 풀밭에 누이시며 쉴 만한 물 가로 인도하시는도다\n내 영혼을 소생시키시고 자기 이름을 위하여 의의 길로 인도하시는도다",
+    "textStatus": "verified",
+    "textStatusLabel": "본문 검증 완료",
+    "recommendationEnabled": true,
     "guidanceStatus": "pending",
     "metadataStatus": "draft",
     "topics": [
@@ -235,7 +240,8 @@ window.Malsseum.data.verses = Object.freeze([
       "avoidApplications": [
         "guaranteed_outcome"
       ]
-    }
+    },
+    "textVerificationSource": "user_supplied"
   },
   {
     "id": "galatians-6-9",
@@ -244,12 +250,12 @@ window.Malsseum.data.verses = Object.freeze([
     "chapter": 6,
     "verseStart": 9,
     "verseEnd": 9,
-    "translation": null,
+    "translation": "개역개정",
     "targetTranslation": "개역개정",
-    "text": "",
-    "textStatus": "pending_verification",
-    "textStatusLabel": "본문 검증 대기",
-    "recommendationEnabled": false,
+    "text": "우리가 선을 행하되 낙심하지 말지니 포기하지 아니하면 때가 이르매 거두리라",
+    "textStatus": "verified",
+    "textStatusLabel": "본문 검증 완료",
+    "recommendationEnabled": true,
     "guidanceStatus": "pending",
     "metadataStatus": "draft",
     "topics": [
@@ -278,7 +284,8 @@ window.Malsseum.data.verses = Object.freeze([
         "endurance_pressure",
         "guaranteed_outcome"
       ]
-    }
+    },
+    "textVerificationSource": "user_supplied"
   },
   {
     "id": "philippians-4-6-7",
@@ -287,12 +294,12 @@ window.Malsseum.data.verses = Object.freeze([
     "chapter": 4,
     "verseStart": 6,
     "verseEnd": 7,
-    "translation": null,
+    "translation": "개역개정",
     "targetTranslation": "개역개정",
-    "text": "",
-    "textStatus": "pending_verification",
-    "textStatusLabel": "본문 검증 대기",
-    "recommendationEnabled": false,
+    "text": "아무 것도 염려하지 말고 다만 모든 일에 기도와 간구로, 너희 구할 것을 감사함으로 하나님께 아뢰라\n그리하면 모든 지각에 뛰어난 하나님의 평강이 그리스도 예수 안에서 너희 마음과 생각을 지키시리라",
+    "textStatus": "verified",
+    "textStatusLabel": "본문 검증 완료",
+    "recommendationEnabled": true,
     "guidanceStatus": "pending",
     "metadataStatus": "draft",
     "topics": [
@@ -319,7 +326,8 @@ window.Malsseum.data.verses = Object.freeze([
         "faith_shaming",
         "emotion_suppression"
       ]
-    }
+    },
+    "textVerificationSource": "user_supplied"
   },
   {
     "id": "isaiah-41-10",
@@ -328,12 +336,12 @@ window.Malsseum.data.verses = Object.freeze([
     "chapter": 41,
     "verseStart": 10,
     "verseEnd": 10,
-    "translation": null,
+    "translation": "개역개정",
     "targetTranslation": "개역개정",
-    "text": "",
-    "textStatus": "pending_verification",
-    "textStatusLabel": "본문 검증 대기",
-    "recommendationEnabled": false,
+    "text": "두려워하지 말라 내가 너와 함께 함이라 놀라지 말라 나는 네 하나님이 됨이라 내가 너를 굳세게 하리라 참으로 너를 도와 주리라 참으로 나의 의로운 오른손으로 너를 붙들리라",
+    "textStatus": "verified",
+    "textStatusLabel": "본문 검증 완료",
+    "recommendationEnabled": true,
     "guidanceStatus": "pending",
     "metadataStatus": "draft",
     "topics": [
@@ -358,7 +366,8 @@ window.Malsseum.data.verses = Object.freeze([
       "avoidApplications": [
         "guaranteed_outcome"
       ]
-    }
+    },
+    "textVerificationSource": "user_supplied"
   },
   {
     "id": "matthew-6-34",
@@ -367,12 +376,12 @@ window.Malsseum.data.verses = Object.freeze([
     "chapter": 6,
     "verseStart": 34,
     "verseEnd": 34,
-    "translation": null,
+    "translation": "개역개정",
     "targetTranslation": "개역개정",
-    "text": "",
-    "textStatus": "pending_verification",
-    "textStatusLabel": "본문 검증 대기",
-    "recommendationEnabled": false,
+    "text": "그러므로 내일 일을 위하여 염려하지 말라 내일 일은 내일이 염려할 것이요 한 날의 괴로움은 그 날로 족하니라",
+    "textStatus": "verified",
+    "textStatusLabel": "본문 검증 완료",
+    "recommendationEnabled": true,
     "guidanceStatus": "pending",
     "metadataStatus": "draft",
     "topics": [
@@ -397,7 +406,8 @@ window.Malsseum.data.verses = Object.freeze([
       "avoidApplications": [
         "emotion_suppression"
       ]
-    }
+    },
+    "textVerificationSource": "user_supplied"
   },
   {
     "id": "john-14-27",
@@ -406,12 +416,12 @@ window.Malsseum.data.verses = Object.freeze([
     "chapter": 14,
     "verseStart": 27,
     "verseEnd": 27,
-    "translation": null,
+    "translation": "개역개정",
     "targetTranslation": "개역개정",
-    "text": "",
-    "textStatus": "pending_verification",
-    "textStatusLabel": "본문 검증 대기",
-    "recommendationEnabled": false,
+    "text": "평안을 너희에게 끼치노니 곧 나의 평안을 너희에게 주노라 내가 너희에게 주는 것은 세상이 주는 것과 같지 아니하니라 너희는 마음에 근심하지도 말고 두려워하지도 말라",
+    "textStatus": "verified",
+    "textStatusLabel": "본문 검증 완료",
+    "recommendationEnabled": true,
     "guidanceStatus": "pending",
     "metadataStatus": "draft",
     "topics": [
@@ -436,7 +446,8 @@ window.Malsseum.data.verses = Object.freeze([
       "avoidApplications": [
         "emotion_suppression"
       ]
-    }
+    },
+    "textVerificationSource": "user_supplied"
   },
   {
     "id": "hebrews-13-5",
@@ -445,12 +456,12 @@ window.Malsseum.data.verses = Object.freeze([
     "chapter": 13,
     "verseStart": 5,
     "verseEnd": 5,
-    "translation": null,
+    "translation": "개역개정",
     "targetTranslation": "개역개정",
-    "text": "",
-    "textStatus": "pending_verification",
-    "textStatusLabel": "본문 검증 대기",
-    "recommendationEnabled": false,
+    "text": "돈을 사랑하지 말고 있는 바를 족한 줄로 알라 그가 친히 말씀하시기를 내가 결코 너희를 버리지 아니하고 너희를 떠나지 아니하리라 하셨느니라",
+    "textStatus": "verified",
+    "textStatusLabel": "본문 검증 완료",
+    "recommendationEnabled": true,
     "guidanceStatus": "pending",
     "metadataStatus": "draft",
     "topics": [
@@ -475,7 +486,8 @@ window.Malsseum.data.verses = Object.freeze([
       "avoidApplications": [
         "guaranteed_outcome"
       ]
-    }
+    },
+    "textVerificationSource": "user_supplied"
   },
   {
     "id": "psalm-27-10",
@@ -484,12 +496,12 @@ window.Malsseum.data.verses = Object.freeze([
     "chapter": 27,
     "verseStart": 10,
     "verseEnd": 10,
-    "translation": null,
+    "translation": "개역개정",
     "targetTranslation": "개역개정",
-    "text": "",
-    "textStatus": "pending_verification",
-    "textStatusLabel": "본문 검증 대기",
-    "recommendationEnabled": false,
+    "text": "내 부모는 나를 버렸으나 여호와는 나를 영접하시리이다",
+    "textStatus": "verified",
+    "textStatusLabel": "본문 검증 완료",
+    "recommendationEnabled": true,
     "guidanceStatus": "pending",
     "metadataStatus": "draft",
     "topics": [
@@ -514,7 +526,8 @@ window.Malsseum.data.verses = Object.freeze([
       "avoidApplications": [
         "reconciliation_pressure"
       ]
-    }
+    },
+    "textVerificationSource": "user_supplied"
   },
   {
     "id": "isaiah-43-2",
@@ -523,12 +536,12 @@ window.Malsseum.data.verses = Object.freeze([
     "chapter": 43,
     "verseStart": 2,
     "verseEnd": 2,
-    "translation": null,
+    "translation": "개역개정",
     "targetTranslation": "개역개정",
-    "text": "",
-    "textStatus": "pending_verification",
-    "textStatusLabel": "본문 검증 대기",
-    "recommendationEnabled": false,
+    "text": "네가 물 가운데로 지날 때에 내가 너와 함께 할 것이라 강을 건널 때에 물이 너를 침몰하지 못할 것이며 네가 불 가운데로 지날 때에 타지도 아니할 것이요 불꽃이 너를 사르지도 못하리니",
+    "textStatus": "verified",
+    "textStatusLabel": "본문 검증 완료",
+    "recommendationEnabled": true,
     "guidanceStatus": "pending",
     "metadataStatus": "draft",
     "topics": [
@@ -555,7 +568,8 @@ window.Malsseum.data.verses = Object.freeze([
         "guaranteed_outcome",
         "endurance_in_danger"
       ]
-    }
+    },
+    "textVerificationSource": "user_supplied"
   },
   {
     "id": "psalm-139-7-10",
@@ -564,12 +578,12 @@ window.Malsseum.data.verses = Object.freeze([
     "chapter": 139,
     "verseStart": 7,
     "verseEnd": 10,
-    "translation": null,
+    "translation": "개역개정",
     "targetTranslation": "개역개정",
-    "text": "",
-    "textStatus": "pending_verification",
-    "textStatusLabel": "본문 검증 대기",
-    "recommendationEnabled": false,
+    "text": "내가 주의 영을 떠나 어디로 가며 주의 앞에서 어디로 피하리이까\n내가 하늘에 올라갈지라도 거기 계시며 스올에 내 자리를 펼지라도 거기 계시니이다\n내가 새벽 날개를 치며 바다 끝에 가서 거주할지라도\n거기서도 주의 손이 나를 인도하시며 주의 오른손이 나를 붙드시리이다",
+    "textStatus": "verified",
+    "textStatusLabel": "본문 검증 완료",
+    "recommendationEnabled": true,
     "guidanceStatus": "pending",
     "metadataStatus": "draft",
     "topics": [
@@ -594,7 +608,8 @@ window.Malsseum.data.verses = Object.freeze([
       "avoidApplications": [
         "coercive_application"
       ]
-    }
+    },
+    "textVerificationSource": "user_supplied"
   },
   {
     "id": "psalm-56-8",
@@ -603,12 +618,12 @@ window.Malsseum.data.verses = Object.freeze([
     "chapter": 56,
     "verseStart": 8,
     "verseEnd": 8,
-    "translation": null,
+    "translation": "개역개정",
     "targetTranslation": "개역개정",
-    "text": "",
-    "textStatus": "pending_verification",
-    "textStatusLabel": "본문 검증 대기",
-    "recommendationEnabled": false,
+    "text": "나의 유리함을 주께서 계수하셨사오니 나의 눈물을 주의 병에 담으소서 이것이 주의 책에 기록되지 아니하였나이까",
+    "textStatus": "verified",
+    "textStatusLabel": "본문 검증 완료",
+    "recommendationEnabled": true,
     "guidanceStatus": "pending",
     "metadataStatus": "draft",
     "topics": [
@@ -633,7 +648,8 @@ window.Malsseum.data.verses = Object.freeze([
       "avoidApplications": [
         "guaranteed_outcome"
       ]
-    }
+    },
+    "textVerificationSource": "user_supplied"
   },
   {
     "id": "john-11-35",
@@ -642,12 +658,12 @@ window.Malsseum.data.verses = Object.freeze([
     "chapter": 11,
     "verseStart": 35,
     "verseEnd": 35,
-    "translation": null,
+    "translation": "개역개정",
     "targetTranslation": "개역개정",
-    "text": "",
-    "textStatus": "pending_verification",
-    "textStatusLabel": "본문 검증 대기",
-    "recommendationEnabled": false,
+    "text": "예수께서 눈물을 흘리시더라",
+    "textStatus": "verified",
+    "textStatusLabel": "본문 검증 완료",
+    "recommendationEnabled": true,
     "guidanceStatus": "pending",
     "metadataStatus": "draft",
     "topics": [
@@ -674,7 +690,8 @@ window.Malsseum.data.verses = Object.freeze([
       "avoidApplications": [
         "guaranteed_outcome"
       ]
-    }
+    },
+    "textVerificationSource": "user_supplied"
   },
   {
     "id": "psalm-147-3",
@@ -683,12 +700,12 @@ window.Malsseum.data.verses = Object.freeze([
     "chapter": 147,
     "verseStart": 3,
     "verseEnd": 3,
-    "translation": null,
+    "translation": "개역개정",
     "targetTranslation": "개역개정",
-    "text": "",
-    "textStatus": "pending_verification",
-    "textStatusLabel": "본문 검증 대기",
-    "recommendationEnabled": false,
+    "text": "상심한 자들을 고치시며 그들의 상처를 싸매시는도다",
+    "textStatus": "verified",
+    "textStatusLabel": "본문 검증 완료",
+    "recommendationEnabled": true,
     "guidanceStatus": "pending",
     "metadataStatus": "draft",
     "topics": [
@@ -716,7 +733,8 @@ window.Malsseum.data.verses = Object.freeze([
       "avoidApplications": [
         "guaranteed_outcome"
       ]
-    }
+    },
+    "textVerificationSource": "user_supplied"
   },
   {
     "id": "matthew-5-4",
@@ -725,12 +743,12 @@ window.Malsseum.data.verses = Object.freeze([
     "chapter": 5,
     "verseStart": 4,
     "verseEnd": 4,
-    "translation": null,
+    "translation": "개역개정",
     "targetTranslation": "개역개정",
-    "text": "",
-    "textStatus": "pending_verification",
-    "textStatusLabel": "본문 검증 대기",
-    "recommendationEnabled": false,
+    "text": "애통하는 자는 복이 있나니 그들이 위로를 받을 것임이요",
+    "textStatus": "verified",
+    "textStatusLabel": "본문 검증 완료",
+    "recommendationEnabled": true,
     "guidanceStatus": "pending",
     "metadataStatus": "draft",
     "topics": [
@@ -755,7 +773,8 @@ window.Malsseum.data.verses = Object.freeze([
       "avoidApplications": [
         "premature_hope"
       ]
-    }
+    },
+    "textVerificationSource": "user_supplied"
   },
   {
     "id": "revelation-21-4",
@@ -764,12 +783,12 @@ window.Malsseum.data.verses = Object.freeze([
     "chapter": 21,
     "verseStart": 4,
     "verseEnd": 4,
-    "translation": null,
+    "translation": "개역개정",
     "targetTranslation": "개역개정",
-    "text": "",
-    "textStatus": "pending_verification",
-    "textStatusLabel": "본문 검증 대기",
-    "recommendationEnabled": false,
+    "text": "모든 눈물을 그 눈에서 닦아 주시니 다시는 사망이 없고 애통하는 것이나 곡하는 것이나 아픈 것이 다시 있지 아니하리니 처음 것들이 다 지나갔음이러라",
+    "textStatus": "verified",
+    "textStatusLabel": "본문 검증 완료",
+    "recommendationEnabled": true,
     "guidanceStatus": "pending",
     "metadataStatus": "draft",
     "topics": [
@@ -796,7 +815,8 @@ window.Malsseum.data.verses = Object.freeze([
         "premature_hope",
         "guaranteed_outcome"
       ]
-    }
+    },
+    "textVerificationSource": "user_supplied"
   },
   {
     "id": "ephesians-4-26-27",
@@ -805,12 +825,12 @@ window.Malsseum.data.verses = Object.freeze([
     "chapter": 4,
     "verseStart": 26,
     "verseEnd": 27,
-    "translation": null,
+    "translation": "개역개정",
     "targetTranslation": "개역개정",
-    "text": "",
-    "textStatus": "pending_verification",
-    "textStatusLabel": "본문 검증 대기",
-    "recommendationEnabled": false,
+    "text": "분을 내어도 죄를 짓지 말며 해가 지도록 분을 품지 말고\n마귀에게 틈을 주지 말라",
+    "textStatus": "verified",
+    "textStatusLabel": "본문 검증 완료",
+    "recommendationEnabled": true,
     "guidanceStatus": "pending",
     "metadataStatus": "draft",
     "topics": [
@@ -837,7 +857,8 @@ window.Malsseum.data.verses = Object.freeze([
         "immediate_forgiveness",
         "reconciliation_pressure"
       ]
-    }
+    },
+    "textVerificationSource": "user_supplied"
   },
   {
     "id": "romans-12-18",
@@ -846,12 +867,12 @@ window.Malsseum.data.verses = Object.freeze([
     "chapter": 12,
     "verseStart": 18,
     "verseEnd": 18,
-    "translation": null,
+    "translation": "개역개정",
     "targetTranslation": "개역개정",
-    "text": "",
-    "textStatus": "pending_verification",
-    "textStatusLabel": "본문 검증 대기",
-    "recommendationEnabled": false,
+    "text": "할 수 있거든 너희로서는 모든 사람과 더불어 화목하라",
+    "textStatus": "verified",
+    "textStatusLabel": "본문 검증 완료",
+    "recommendationEnabled": true,
     "guidanceStatus": "pending",
     "metadataStatus": "draft",
     "topics": [
@@ -876,7 +897,8 @@ window.Malsseum.data.verses = Object.freeze([
       "avoidApplications": [
         "reconciliation_pressure"
       ]
-    }
+    },
+    "textVerificationSource": "user_supplied"
   },
   {
     "id": "colossians-3-13",
@@ -885,12 +907,12 @@ window.Malsseum.data.verses = Object.freeze([
     "chapter": 3,
     "verseStart": 13,
     "verseEnd": 13,
-    "translation": null,
+    "translation": "개역개정",
     "targetTranslation": "개역개정",
-    "text": "",
-    "textStatus": "pending_verification",
-    "textStatusLabel": "본문 검증 대기",
-    "recommendationEnabled": false,
+    "text": "누가 누구에게 불만이 있거든 서로 용납하여 피차 용서하되 주께서 너희를 용서하신 것 같이 너희도 그리하고",
+    "textStatus": "verified",
+    "textStatusLabel": "본문 검증 완료",
+    "recommendationEnabled": true,
     "guidanceStatus": "pending",
     "metadataStatus": "draft",
     "topics": [
@@ -917,7 +939,8 @@ window.Malsseum.data.verses = Object.freeze([
         "immediate_forgiveness",
         "reconciliation_pressure"
       ]
-    }
+    },
+    "textVerificationSource": "user_supplied"
   },
   {
     "id": "proverbs-4-23",
@@ -926,12 +949,12 @@ window.Malsseum.data.verses = Object.freeze([
     "chapter": 4,
     "verseStart": 23,
     "verseEnd": 23,
-    "translation": null,
+    "translation": "개역개정",
     "targetTranslation": "개역개정",
-    "text": "",
-    "textStatus": "pending_verification",
-    "textStatusLabel": "본문 검증 대기",
-    "recommendationEnabled": false,
+    "text": "모든 지킬 만한 것 중에 더욱 네 마음을 지키라 생명의 근원이 이에서 남이니라",
+    "textStatus": "verified",
+    "textStatusLabel": "본문 검증 완료",
+    "recommendationEnabled": true,
     "guidanceStatus": "pending",
     "metadataStatus": "draft",
     "topics": [
@@ -956,7 +979,8 @@ window.Malsseum.data.verses = Object.freeze([
       "avoidApplications": [
         "context_distortion"
       ]
-    }
+    },
+    "textVerificationSource": "user_supplied"
   },
   {
     "id": "proverbs-3-5-6",
@@ -965,12 +989,12 @@ window.Malsseum.data.verses = Object.freeze([
     "chapter": 3,
     "verseStart": 5,
     "verseEnd": 6,
-    "translation": null,
+    "translation": "개역개정",
     "targetTranslation": "개역개정",
-    "text": "",
-    "textStatus": "pending_verification",
-    "textStatusLabel": "본문 검증 대기",
-    "recommendationEnabled": false,
+    "text": "너는 마음을 다하여 여호와를 신뢰하고 네 명철을 의지하지 말라\n너는 범사에 그를 인정하라 그리하면 네 길을 지도하시리라",
+    "textStatus": "verified",
+    "textStatusLabel": "본문 검증 완료",
+    "recommendationEnabled": true,
     "guidanceStatus": "pending",
     "metadataStatus": "draft",
     "topics": [
@@ -995,7 +1019,8 @@ window.Malsseum.data.verses = Object.freeze([
       "avoidApplications": [
         "guaranteed_outcome"
       ]
-    }
+    },
+    "textVerificationSource": "user_supplied"
   },
   {
     "id": "james-1-5",
@@ -1004,12 +1029,12 @@ window.Malsseum.data.verses = Object.freeze([
     "chapter": 1,
     "verseStart": 5,
     "verseEnd": 5,
-    "translation": null,
+    "translation": "개역개정",
     "targetTranslation": "개역개정",
-    "text": "",
-    "textStatus": "pending_verification",
-    "textStatusLabel": "본문 검증 대기",
-    "recommendationEnabled": false,
+    "text": "너희 중에 누구든지 지혜가 부족하거든 모든 사람에게 후히 주시고 꾸짖지 아니하시는 하나님께 구하라 그리하면 주시리라",
+    "textStatus": "verified",
+    "textStatusLabel": "본문 검증 완료",
+    "recommendationEnabled": true,
     "guidanceStatus": "pending",
     "metadataStatus": "draft",
     "topics": [
@@ -1036,7 +1061,8 @@ window.Malsseum.data.verses = Object.freeze([
         "faith_shaming",
         "guaranteed_outcome"
       ]
-    }
+    },
+    "textVerificationSource": "user_supplied"
   },
   {
     "id": "proverbs-16-9",
@@ -1045,12 +1071,12 @@ window.Malsseum.data.verses = Object.freeze([
     "chapter": 16,
     "verseStart": 9,
     "verseEnd": 9,
-    "translation": null,
+    "translation": "개역개정",
     "targetTranslation": "개역개정",
-    "text": "",
-    "textStatus": "pending_verification",
-    "textStatusLabel": "본문 검증 대기",
-    "recommendationEnabled": false,
+    "text": "사람이 마음으로 자기의 길을 계획할지라도 그의 걸음을 인도하시는 이는 여호와시니라",
+    "textStatus": "verified",
+    "textStatusLabel": "본문 검증 완료",
+    "recommendationEnabled": true,
     "guidanceStatus": "pending",
     "metadataStatus": "draft",
     "topics": [
@@ -1075,7 +1101,8 @@ window.Malsseum.data.verses = Object.freeze([
       "avoidApplications": [
         "context_distortion"
       ]
-    }
+    },
+    "textVerificationSource": "user_supplied"
   },
   {
     "id": "psalm-32-8",
@@ -1084,12 +1111,12 @@ window.Malsseum.data.verses = Object.freeze([
     "chapter": 32,
     "verseStart": 8,
     "verseEnd": 8,
-    "translation": null,
+    "translation": "개역개정",
     "targetTranslation": "개역개정",
-    "text": "",
-    "textStatus": "pending_verification",
-    "textStatusLabel": "본문 검증 대기",
-    "recommendationEnabled": false,
+    "text": "내가 네 갈 길을 가르쳐 보이고 너를 주목하여 훈계하리로다",
+    "textStatus": "verified",
+    "textStatusLabel": "본문 검증 완료",
+    "recommendationEnabled": true,
     "guidanceStatus": "pending",
     "metadataStatus": "draft",
     "topics": [
@@ -1114,7 +1141,8 @@ window.Malsseum.data.verses = Object.freeze([
       "avoidApplications": [
         "guaranteed_outcome"
       ]
-    }
+    },
+    "textVerificationSource": "user_supplied"
   },
   {
     "id": "jeremiah-29-11",
@@ -1123,12 +1151,12 @@ window.Malsseum.data.verses = Object.freeze([
     "chapter": 29,
     "verseStart": 11,
     "verseEnd": 11,
-    "translation": null,
+    "translation": "개역개정",
     "targetTranslation": "개역개정",
-    "text": "",
-    "textStatus": "pending_verification",
-    "textStatusLabel": "본문 검증 대기",
-    "recommendationEnabled": false,
+    "text": "여호와의 말씀이니라 너희를 향한 나의 생각을 내가 아나니 평안이요 재앙이 아니니라 너희에게 미래와 희망을 주는 것이니라",
+    "textStatus": "verified",
+    "textStatusLabel": "본문 검증 완료",
+    "recommendationEnabled": true,
     "guidanceStatus": "pending",
     "metadataStatus": "draft",
     "topics": [
@@ -1155,7 +1183,8 @@ window.Malsseum.data.verses = Object.freeze([
         "guaranteed_outcome",
         "premature_hope"
       ]
-    }
+    },
+    "textVerificationSource": "user_supplied"
   },
   {
     "id": "psalm-37-23-24",
@@ -1164,12 +1193,12 @@ window.Malsseum.data.verses = Object.freeze([
     "chapter": 37,
     "verseStart": 23,
     "verseEnd": 24,
-    "translation": null,
+    "translation": "개역개정",
     "targetTranslation": "개역개정",
-    "text": "",
-    "textStatus": "pending_verification",
-    "textStatusLabel": "본문 검증 대기",
-    "recommendationEnabled": false,
+    "text": "여호와께서 사람의 걸음을 정하시고 그의 길을 기뻐하시나니\n그는 넘어지나 아주 엎드러지지 아니함은 여호와께서 그의 손으로 붙드심이로다",
+    "textStatus": "verified",
+    "textStatusLabel": "본문 검증 완료",
+    "recommendationEnabled": true,
     "guidanceStatus": "pending",
     "metadataStatus": "draft",
     "topics": [
@@ -1194,7 +1223,8 @@ window.Malsseum.data.verses = Object.freeze([
       "avoidApplications": [
         "guaranteed_outcome"
       ]
-    }
+    },
+    "textVerificationSource": "user_supplied"
   },
   {
     "id": "2-corinthians-12-9",
@@ -1203,12 +1233,12 @@ window.Malsseum.data.verses = Object.freeze([
     "chapter": 12,
     "verseStart": 9,
     "verseEnd": 9,
-    "translation": null,
+    "translation": "개역개정",
     "targetTranslation": "개역개정",
-    "text": "",
-    "textStatus": "pending_verification",
-    "textStatusLabel": "본문 검증 대기",
-    "recommendationEnabled": false,
+    "text": "나에게 이르시기를 내 은혜가 네게 족하도다 이는 내 능력이 약한 데서 온전하여짐이라 하신지라 그러므로 도리어 크게 기뻐함으로 나의 여러 약한 것들에 대하여 자랑하리니 이는 그리스도의 능력이 내게 머물게 하려 함이라",
+    "textStatus": "verified",
+    "textStatusLabel": "본문 검증 완료",
+    "recommendationEnabled": true,
     "guidanceStatus": "pending",
     "metadataStatus": "draft",
     "topics": [
@@ -1235,7 +1265,8 @@ window.Malsseum.data.verses = Object.freeze([
         "endurance_in_danger",
         "context_distortion"
       ]
-    }
+    },
+    "textVerificationSource": "user_supplied"
   },
   {
     "id": "philippians-1-6",
@@ -1244,12 +1275,12 @@ window.Malsseum.data.verses = Object.freeze([
     "chapter": 1,
     "verseStart": 6,
     "verseEnd": 6,
-    "translation": null,
+    "translation": "개역개정",
     "targetTranslation": "개역개정",
-    "text": "",
-    "textStatus": "pending_verification",
-    "textStatusLabel": "본문 검증 대기",
-    "recommendationEnabled": false,
+    "text": "너희 안에서 착한 일을 시작하신 이가 그리스도 예수의 날까지 이루실 줄을 우리는 확신하노라",
+    "textStatus": "verified",
+    "textStatusLabel": "본문 검증 완료",
+    "recommendationEnabled": true,
     "guidanceStatus": "pending",
     "metadataStatus": "draft",
     "topics": [
@@ -1274,7 +1305,8 @@ window.Malsseum.data.verses = Object.freeze([
       "avoidApplications": [
         "guaranteed_outcome"
       ]
-    }
+    },
+    "textVerificationSource": "user_supplied"
   },
   {
     "id": "romans-8-37",
@@ -1283,12 +1315,12 @@ window.Malsseum.data.verses = Object.freeze([
     "chapter": 8,
     "verseStart": 37,
     "verseEnd": 37,
-    "translation": null,
+    "translation": "개역개정",
     "targetTranslation": "개역개정",
-    "text": "",
-    "textStatus": "pending_verification",
-    "textStatusLabel": "본문 검증 대기",
-    "recommendationEnabled": false,
+    "text": "그러나 이 모든 일에 우리를 사랑하시는 이로 말미암아 우리가 넉넉히 이기느니라",
+    "textStatus": "verified",
+    "textStatusLabel": "본문 검증 완료",
+    "recommendationEnabled": true,
     "guidanceStatus": "pending",
     "metadataStatus": "draft",
     "topics": [
@@ -1313,7 +1345,8 @@ window.Malsseum.data.verses = Object.freeze([
       "avoidApplications": [
         "guaranteed_outcome"
       ]
-    }
+    },
+    "textVerificationSource": "user_supplied"
   },
   {
     "id": "micah-7-8",
@@ -1322,12 +1355,12 @@ window.Malsseum.data.verses = Object.freeze([
     "chapter": 7,
     "verseStart": 8,
     "verseEnd": 8,
-    "translation": null,
+    "translation": "개역개정",
     "targetTranslation": "개역개정",
-    "text": "",
-    "textStatus": "pending_verification",
-    "textStatusLabel": "본문 검증 대기",
-    "recommendationEnabled": false,
+    "text": "나의 대적이여 나로 말미암아 기뻐하지 말지어다 나는 엎드러질지라도 일어날 것이요 어두운 데에 앉을지라도 여호와께서 나의 빛이 되실 것임이로다",
+    "textStatus": "verified",
+    "textStatusLabel": "본문 검증 완료",
+    "recommendationEnabled": true,
     "guidanceStatus": "pending",
     "metadataStatus": "draft",
     "topics": [
@@ -1354,7 +1387,8 @@ window.Malsseum.data.verses = Object.freeze([
         "context_distortion",
         "premature_hope"
       ]
-    }
+    },
+    "textVerificationSource": "user_supplied"
   },
   {
     "id": "1-john-1-9",
@@ -1363,12 +1397,12 @@ window.Malsseum.data.verses = Object.freeze([
     "chapter": 1,
     "verseStart": 9,
     "verseEnd": 9,
-    "translation": null,
+    "translation": "개역개정",
     "targetTranslation": "개역개정",
-    "text": "",
-    "textStatus": "pending_verification",
-    "textStatusLabel": "본문 검증 대기",
-    "recommendationEnabled": false,
+    "text": "만일 우리가 우리 죄를 자백하면 그는 미쁘시고 의로우사 우리 죄를 사하시며 우리를 모든 불의에서 깨끗하게 하실 것이요",
+    "textStatus": "verified",
+    "textStatusLabel": "본문 검증 완료",
+    "recommendationEnabled": true,
     "guidanceStatus": "pending",
     "metadataStatus": "draft",
     "topics": [
@@ -1393,7 +1427,8 @@ window.Malsseum.data.verses = Object.freeze([
       "avoidApplications": [
         "victim_blame"
       ]
-    }
+    },
+    "textVerificationSource": "user_supplied"
   },
   {
     "id": "psalm-51-10",
@@ -1402,12 +1437,12 @@ window.Malsseum.data.verses = Object.freeze([
     "chapter": 51,
     "verseStart": 10,
     "verseEnd": 10,
-    "translation": null,
+    "translation": "개역개정",
     "targetTranslation": "개역개정",
-    "text": "",
-    "textStatus": "pending_verification",
-    "textStatusLabel": "본문 검증 대기",
-    "recommendationEnabled": false,
+    "text": "하나님이여 내 속에 정한 마음을 창조하시고 내 안에 정직한 영을 새롭게 하소서",
+    "textStatus": "verified",
+    "textStatusLabel": "본문 검증 완료",
+    "recommendationEnabled": true,
     "guidanceStatus": "pending",
     "metadataStatus": "draft",
     "topics": [
@@ -1432,7 +1467,8 @@ window.Malsseum.data.verses = Object.freeze([
       "avoidApplications": [
         "victim_blame"
       ]
-    }
+    },
+    "textVerificationSource": "user_supplied"
   },
   {
     "id": "romans-8-1",
@@ -1441,12 +1477,12 @@ window.Malsseum.data.verses = Object.freeze([
     "chapter": 8,
     "verseStart": 1,
     "verseEnd": 1,
-    "translation": null,
+    "translation": "개역개정",
     "targetTranslation": "개역개정",
-    "text": "",
-    "textStatus": "pending_verification",
-    "textStatusLabel": "본문 검증 대기",
-    "recommendationEnabled": false,
+    "text": "그러므로 이제 그리스도 예수 안에 있는 자에게는 결코 정죄함이 없나니",
+    "textStatus": "verified",
+    "textStatusLabel": "본문 검증 완료",
+    "recommendationEnabled": true,
     "guidanceStatus": "pending",
     "metadataStatus": "draft",
     "topics": [
@@ -1471,7 +1507,8 @@ window.Malsseum.data.verses = Object.freeze([
       "avoidApplications": [
         "accountability_erasure"
       ]
-    }
+    },
+    "textVerificationSource": "user_supplied"
   },
   {
     "id": "isaiah-1-18",
@@ -1480,12 +1517,12 @@ window.Malsseum.data.verses = Object.freeze([
     "chapter": 1,
     "verseStart": 18,
     "verseEnd": 18,
-    "translation": null,
+    "translation": "개역개정",
     "targetTranslation": "개역개정",
-    "text": "",
-    "textStatus": "pending_verification",
-    "textStatusLabel": "본문 검증 대기",
-    "recommendationEnabled": false,
+    "text": "여호와께서 말씀하시되 오라 우리가 서로 변론하자 너희의 죄가 주홍 같을지라도 눈과 같이 희어질 것이요 진홍 같이 붉을지라도 양털 같이 희게 되리라",
+    "textStatus": "verified",
+    "textStatusLabel": "본문 검증 완료",
+    "recommendationEnabled": true,
     "guidanceStatus": "pending",
     "metadataStatus": "draft",
     "topics": [
@@ -1512,7 +1549,8 @@ window.Malsseum.data.verses = Object.freeze([
         "accountability_erasure",
         "victim_blame"
       ]
-    }
+    },
+    "textVerificationSource": "user_supplied"
   },
   {
     "id": "2-corinthians-5-17",
@@ -1521,12 +1559,12 @@ window.Malsseum.data.verses = Object.freeze([
     "chapter": 5,
     "verseStart": 17,
     "verseEnd": 17,
-    "translation": null,
+    "translation": "개역개정",
     "targetTranslation": "개역개정",
-    "text": "",
-    "textStatus": "pending_verification",
-    "textStatusLabel": "본문 검증 대기",
-    "recommendationEnabled": false,
+    "text": "그런즉 누구든지 그리스도 안에 있으면 새로운 피조물이라 이전 것은 지나갔으니 보라 새 것이 되었도다",
+    "textStatus": "verified",
+    "textStatusLabel": "본문 검증 완료",
+    "recommendationEnabled": true,
     "guidanceStatus": "pending",
     "metadataStatus": "draft",
     "topics": [
@@ -1553,7 +1591,8 @@ window.Malsseum.data.verses = Object.freeze([
         "accountability_erasure",
         "reconciliation_pressure"
       ]
-    }
+    },
+    "textVerificationSource": "user_supplied"
   },
   {
     "id": "romans-8-26",
@@ -1562,12 +1601,12 @@ window.Malsseum.data.verses = Object.freeze([
     "chapter": 8,
     "verseStart": 26,
     "verseEnd": 26,
-    "translation": null,
+    "translation": "개역개정",
     "targetTranslation": "개역개정",
-    "text": "",
-    "textStatus": "pending_verification",
-    "textStatusLabel": "본문 검증 대기",
-    "recommendationEnabled": false,
+    "text": "이와 같이 성령도 우리의 연약함을 도우시나니 우리는 마땅히 기도할 바를 알지 못하나 오직 성령이 말할 수 없는 탄식으로 우리를 위하여 친히 간구하시느니라",
+    "textStatus": "verified",
+    "textStatusLabel": "본문 검증 완료",
+    "recommendationEnabled": true,
     "guidanceStatus": "pending",
     "metadataStatus": "draft",
     "topics": [
@@ -1594,7 +1633,8 @@ window.Malsseum.data.verses = Object.freeze([
         "faith_shaming",
         "guaranteed_outcome"
       ]
-    }
+    },
+    "textVerificationSource": "user_supplied"
   },
   {
     "id": "mark-9-24",
@@ -1603,12 +1643,12 @@ window.Malsseum.data.verses = Object.freeze([
     "chapter": 9,
     "verseStart": 24,
     "verseEnd": 24,
-    "translation": null,
+    "translation": "개역개정",
     "targetTranslation": "개역개정",
-    "text": "",
-    "textStatus": "pending_verification",
-    "textStatusLabel": "본문 검증 대기",
-    "recommendationEnabled": false,
+    "text": "곧 그 아이의 아버지가 소리를 질러 이르되 내가 믿나이다 나의 믿음 없는 것을 도와 주소서 하더라",
+    "textStatus": "verified",
+    "textStatusLabel": "본문 검증 완료",
+    "recommendationEnabled": true,
     "guidanceStatus": "pending",
     "metadataStatus": "draft",
     "topics": [
@@ -1635,7 +1675,8 @@ window.Malsseum.data.verses = Object.freeze([
         "faith_shaming",
         "guaranteed_outcome"
       ]
-    }
+    },
+    "textVerificationSource": "user_supplied"
   },
   {
     "id": "psalm-13-1-2",
@@ -1644,12 +1685,12 @@ window.Malsseum.data.verses = Object.freeze([
     "chapter": 13,
     "verseStart": 1,
     "verseEnd": 2,
-    "translation": null,
+    "translation": "개역개정",
     "targetTranslation": "개역개정",
-    "text": "",
-    "textStatus": "pending_verification",
-    "textStatusLabel": "본문 검증 대기",
-    "recommendationEnabled": false,
+    "text": "여호와여 어느 때까지니이까 나를 영원히 잊으시나이까 주의 얼굴을 나에게서 어느 때까지 숨기시겠나이까\n나의 영혼이 번민하고 종일토록 마음에 근심하기를 어느 때까지 하오며 내 원수가 나를 치며 자랑하기를 어느 때까지 하리이까",
+    "textStatus": "verified",
+    "textStatusLabel": "본문 검증 완료",
+    "recommendationEnabled": true,
     "guidanceStatus": "pending",
     "metadataStatus": "draft",
     "topics": [
@@ -1676,7 +1717,8 @@ window.Malsseum.data.verses = Object.freeze([
         "faith_shaming",
         "emotion_suppression"
       ]
-    }
+    },
+    "textVerificationSource": "user_supplied"
   },
   {
     "id": "jeremiah-33-3",
@@ -1685,12 +1727,12 @@ window.Malsseum.data.verses = Object.freeze([
     "chapter": 33,
     "verseStart": 3,
     "verseEnd": 3,
-    "translation": null,
+    "translation": "개역개정",
     "targetTranslation": "개역개정",
-    "text": "",
-    "textStatus": "pending_verification",
-    "textStatusLabel": "본문 검증 대기",
-    "recommendationEnabled": false,
+    "text": "너는 내게 부르짖으라 내가 네게 응답하겠고 네가 알지 못하는 크고 은밀한 일을 네게 보이리라",
+    "textStatus": "verified",
+    "textStatusLabel": "본문 검증 완료",
+    "recommendationEnabled": true,
     "guidanceStatus": "pending",
     "metadataStatus": "draft",
     "topics": [
@@ -1717,7 +1759,8 @@ window.Malsseum.data.verses = Object.freeze([
         "guaranteed_outcome",
         "faith_shaming"
       ]
-    }
+    },
+    "textVerificationSource": "user_supplied"
   },
   {
     "id": "hebrews-4-16",
@@ -1726,12 +1769,12 @@ window.Malsseum.data.verses = Object.freeze([
     "chapter": 4,
     "verseStart": 16,
     "verseEnd": 16,
-    "translation": null,
+    "translation": "개역개정",
     "targetTranslation": "개역개정",
-    "text": "",
-    "textStatus": "pending_verification",
-    "textStatusLabel": "본문 검증 대기",
-    "recommendationEnabled": false,
+    "text": "그러므로 우리는 긍휼하심을 받고 때를 따라 돕는 은혜를 얻기 위하여 은혜의 보좌 앞에 담대히 나아갈 것이니라",
+    "textStatus": "verified",
+    "textStatusLabel": "본문 검증 완료",
+    "recommendationEnabled": true,
     "guidanceStatus": "pending",
     "metadataStatus": "draft",
     "topics": [
@@ -1758,7 +1801,8 @@ window.Malsseum.data.verses = Object.freeze([
         "faith_shaming",
         "guaranteed_outcome"
       ]
-    }
+    },
+    "textVerificationSource": "user_supplied"
   },
   {
     "id": "1-thessalonians-5-16-18",
@@ -1767,12 +1811,12 @@ window.Malsseum.data.verses = Object.freeze([
     "chapter": 5,
     "verseStart": 16,
     "verseEnd": 18,
-    "translation": null,
+    "translation": "개역개정",
     "targetTranslation": "개역개정",
-    "text": "",
-    "textStatus": "pending_verification",
-    "textStatusLabel": "본문 검증 대기",
-    "recommendationEnabled": false,
+    "text": "항상 기뻐하라\n쉬지 말고 기도하라\n범사에 감사하라 이것이 그리스도 예수 안에서 너희를 향하신 하나님의 뜻이니라",
+    "textStatus": "verified",
+    "textStatusLabel": "본문 검증 완료",
+    "recommendationEnabled": true,
     "guidanceStatus": "pending",
     "metadataStatus": "draft",
     "topics": [
@@ -1799,7 +1843,8 @@ window.Malsseum.data.verses = Object.freeze([
         "forced_gratitude",
         "emotion_suppression"
       ]
-    }
+    },
+    "textVerificationSource": "user_supplied"
   },
   {
     "id": "psalm-118-24",
@@ -1808,12 +1853,12 @@ window.Malsseum.data.verses = Object.freeze([
     "chapter": 118,
     "verseStart": 24,
     "verseEnd": 24,
-    "translation": null,
+    "translation": "개역개정",
     "targetTranslation": "개역개정",
-    "text": "",
-    "textStatus": "pending_verification",
-    "textStatusLabel": "본문 검증 대기",
-    "recommendationEnabled": false,
+    "text": "이 날은 여호와께서 정하신 것이라 이 날에 우리가 즐거워하고 기뻐하리로다",
+    "textStatus": "verified",
+    "textStatusLabel": "본문 검증 완료",
+    "recommendationEnabled": true,
     "guidanceStatus": "pending",
     "metadataStatus": "draft",
     "topics": [
@@ -1838,7 +1883,8 @@ window.Malsseum.data.verses = Object.freeze([
       "avoidApplications": [
         "forced_gratitude"
       ]
-    }
+    },
+    "textVerificationSource": "user_supplied"
   },
   {
     "id": "james-1-17",
@@ -1847,12 +1893,12 @@ window.Malsseum.data.verses = Object.freeze([
     "chapter": 1,
     "verseStart": 17,
     "verseEnd": 17,
-    "translation": null,
+    "translation": "개역개정",
     "targetTranslation": "개역개정",
-    "text": "",
-    "textStatus": "pending_verification",
-    "textStatusLabel": "본문 검증 대기",
-    "recommendationEnabled": false,
+    "text": "온갖 좋은 은사와 온전한 선물이 다 위로부터 빛들의 아버지께로부터 내려오나니 그는 변함도 없으시고 회전하는 그림자도 없으시니라",
+    "textStatus": "verified",
+    "textStatusLabel": "본문 검증 완료",
+    "recommendationEnabled": true,
     "guidanceStatus": "pending",
     "metadataStatus": "draft",
     "topics": [
@@ -1879,7 +1925,8 @@ window.Malsseum.data.verses = Object.freeze([
         "forced_gratitude",
         "context_distortion"
       ]
-    }
+    },
+    "textVerificationSource": "user_supplied"
   },
   {
     "id": "psalm-103-2",
@@ -1888,12 +1935,12 @@ window.Malsseum.data.verses = Object.freeze([
     "chapter": 103,
     "verseStart": 2,
     "verseEnd": 2,
-    "translation": null,
+    "translation": "개역개정",
     "targetTranslation": "개역개정",
-    "text": "",
-    "textStatus": "pending_verification",
-    "textStatusLabel": "본문 검증 대기",
-    "recommendationEnabled": false,
+    "text": "내 영혼아 여호와를 송축하며 그의 모든 은택을 잊지 말지어다",
+    "textStatus": "verified",
+    "textStatusLabel": "본문 검증 완료",
+    "recommendationEnabled": true,
     "guidanceStatus": "pending",
     "metadataStatus": "draft",
     "topics": [
@@ -1920,7 +1967,8 @@ window.Malsseum.data.verses = Object.freeze([
         "forced_gratitude",
         "guaranteed_outcome"
       ]
-    }
+    },
+    "textVerificationSource": "user_supplied"
   },
   {
     "id": "philippians-4-4",
@@ -1929,12 +1977,12 @@ window.Malsseum.data.verses = Object.freeze([
     "chapter": 4,
     "verseStart": 4,
     "verseEnd": 4,
-    "translation": null,
+    "translation": "개역개정",
     "targetTranslation": "개역개정",
-    "text": "",
-    "textStatus": "pending_verification",
-    "textStatusLabel": "본문 검증 대기",
-    "recommendationEnabled": false,
+    "text": "주 안에서 항상 기뻐하라 내가 다시 말하노니 기뻐하라",
+    "textStatus": "verified",
+    "textStatusLabel": "본문 검증 완료",
+    "recommendationEnabled": true,
     "guidanceStatus": "pending",
     "metadataStatus": "draft",
     "topics": [
@@ -1961,7 +2009,8 @@ window.Malsseum.data.verses = Object.freeze([
         "emotion_suppression",
         "forced_gratitude"
       ]
-    }
+    },
+    "textVerificationSource": "user_supplied"
   }
 ]);
 })();
