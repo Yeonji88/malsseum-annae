@@ -1,5 +1,10 @@
 /* 추천 데이터와 단계는 data/ 및 services/에서 불러옵니다. */
-const {classifyConcern,findCandidates,selectVerse,recommendationHistory}=window.Malsseum.services;
+const {classifyConcern,analyzeConcernWithAI,findCandidates,selectVerse,recommendationHistory}=window.Malsseum.services;
+const aiEnabled=Boolean(window.MalsseumAIEndpoint);
+document.querySelector('#privacy span').textContent=aiEnabled
+ ? '입력한 이야기는 AI 분석을 위해 Vercel 서버와 OpenAI로 전송돼요. 말씀 선택은 앱의 기존 추천 방식으로 진행돼요.'
+ : '현재 입력한 이야기는 기기 안에서만 분석해요. AI 연결 전에는 외부로 전송하지 않아요.';
+document.querySelector('.conversation-note').innerHTML='성경 본문과 앱의 묵상 안내를 구분해 보여드려요.<br>'+(aiEnabled?'AI는 고민 분석만 도우며 말씀은 기존 데이터에서 선택해요.':'현재는 준비된 분석 규칙과 말씀으로 대화를 이어갑니다.');
 const OPENINGS=window.Malsseum.data.openings, FOLLOWUPS=window.Malsseum.data.followups;
 // 사용자 입력은 textContent로 표시하고 대화는 페이지 메모리에만 유지합니다.
 const input=document.getElementById('heart'), error=document.getElementById('error');
@@ -142,7 +147,8 @@ async function playVerseTransition(){
  }finally{panel.close();panel.remove();}
 }
 async function showVerse(message,continueConversation=false,animate=false) {
- const classification=classifyConcern(message);
+ const localAnalysis=classifyConcern(message);
+ const classification=await analyzeConcernWithAI(message,localAnalysis);
  const candidates=findCandidates(classification);
  const selected=selectVerse(classification,candidates,{previousId,previousAnalysis,continueConversation,history:recommendationHistory.snapshot()});
  const selection={...selected,verse:selected.verse?{...selected.verse,...(window.Malsseum.data.reflections[selected.verse.id]||{})}:null};
@@ -174,7 +180,7 @@ async function submit(event,field,feedback,continuing){
  document.getElementById('reply-form').addEventListener('submit',event=>submit(event,reply,replyError,true));
 if(document.modelContext?.registerTool){
  const lifecycle=new AbortController();
- try{Promise.resolve(document.modelContext.registerTool({name:'show_scripture_for_feeling',title:'마음에 따라 말씀 펼치기',description:'현재 대화를 새로 시작하고 입력한 마음에 따라 준비된 성경 말씀과 묵상 안내를 표시합니다. 입력을 저장하거나 전송하지 않습니다.',inputSchema:{type:'object',properties:{message:{type:'string',minLength:1,maxLength:1000}},required:['message'],additionalProperties:false},annotations:{readOnlyHint:false,untrustedContentHint:false},execute(data){if(!data||typeof data.message!=='string')throw new Error('마음을 문자열로 입력해주세요.');return showVerse(data.message);}},{signal:lifecycle.signal})).catch(()=>{});}catch{}
+ try{Promise.resolve(document.modelContext.registerTool({name:'show_scripture_for_feeling',title:'마음에 따라 말씀 펼치기',description:'현재 대화를 새로 시작하고 입력한 마음에 따라 준비된 성경 말씀과 묵상 안내를 표시합니다. AI 연결 시 입력 문장은 분석을 위해 외부로 전송될 수 있습니다.',inputSchema:{type:'object',properties:{message:{type:'string',minLength:1,maxLength:1000}},required:['message'],additionalProperties:false},annotations:{readOnlyHint:false,untrustedContentHint:false},execute(data){if(!data||typeof data.message!=='string')throw new Error('마음을 문자열로 입력해주세요.');return showVerse(data.message);}},{signal:lifecycle.signal})).catch(()=>{});}catch{}
  window.addEventListener('pagehide',()=>lifecycle.abort(),{once:true});
 }
 

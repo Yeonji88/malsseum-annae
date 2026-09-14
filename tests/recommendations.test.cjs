@@ -350,9 +350,12 @@ test('original 49 verses have reflection guidance, three questions, and a prayer
   assert.ok(guidance.prayer.endsWith('아멘.'),verse.id);
  }
 });
-test('stylesheet and HTML markup remain unchanged',()=>{
+test('stylesheet and unrelated HTML markup remain unchanged',()=>{
  assert.equal(hash(fs.readFileSync(path.join(root,'dist/styles.css'),'utf8')),preserved.stylesHash);
- assert.equal(hash(normalized(fs.readFileSync(path.join(root,'dist/index.html'),'utf8'))),preserved.htmlHash);
+ const html=normalized(fs.readFileSync(path.join(root,'dist/index.html'),'utf8'))
+  .replace('<script defer src="ai-config.js"></script><script defer src="services/analyzeConcernWithAI.js"></script>','')
+  .replace('현재 입력한 이야기는 기기 안에서만 분석해요. AI 연결 전에는 외부로 전송하지 않아요.','입력한 이야기는 저장되거나 외부로 전송되지 않아요.');
+ assert.equal(hash(html),preserved.htmlHash);
 });
 test('original 49 are candidates with complete guidance',()=>{
  const {data,s}=app();
