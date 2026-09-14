@@ -113,7 +113,15 @@ function renderTurn(message,selection) {
  actions.append(save,question,prayer);response.append(actions);turn.append(response);return turn;
 }
 const resultStyles=document.createElement('link');resultStyles.rel='stylesheet';resultStyles.href='result-screen.css';document.head.append(resultStyles);
-function updateCount(){document.getElementById('count').textContent=input.value.length.toLocaleString()+' / 1,000';}
+const resetHeart=document.getElementById('reset-heart');
+function updateCount(){
+ document.getElementById('count').textContent=input.value.length.toLocaleString()+' / 1,000';
+ resetHeart.hidden=!input.value.length;
+}
+resetHeart.addEventListener('click',()=>{
+ input.value='';updateCount();error.textContent='';input.removeAttribute('aria-invalid');input.focus();
+});
+updateCount();
 // Isolated presentation layer: no passage text, randomness, or recommendation state.
 const transitionStylesReady=new Promise(resolve=>{
  const link=document.createElement('link');link.rel='stylesheet';link.href='verse-transition.css';

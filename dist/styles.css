@@ -287,3 +287,11 @@ label,.speaker,.scripture-label,.explanation-label,.verse-actions summary{font-w
 /* Home input-to-button spacing only: add 4px at each existing breakpoint. */
 #home-screen #heart-form>.primary{margin-top:18px}
 @media(max-height:740px){#home-screen #heart-form>.primary{margin-top:16px}}
+
+/* 홈 고민 입력을 지우는 작은 보조 액션 */
+#home-screen .input-foot{display:flex;align-items:center;justify-content:space-between;flex-wrap:nowrap;min-height:30px;gap:8px}
+#home-screen #reset-heart{display:grid;place-items:center;flex:0 0 30px;width:30px;height:30px;padding:0;border:0;border-radius:50%;background:transparent;color:#718d7b;font:400 21px/1 "Gowun Dodum",sans-serif;cursor:pointer}
+#home-screen #reset-heart[hidden]{display:none}
+#home-screen #reset-heart:hover,#home-screen #reset-heart:focus-visible{background:#eef2e9;color:#365d46}
+#home-screen #reset-heart:focus-visible{outline:2px solid #789481;outline-offset:2px}
+#home-screen #count{margin-left:auto;white-space:nowrap}
