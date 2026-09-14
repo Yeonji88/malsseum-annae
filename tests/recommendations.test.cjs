@@ -356,6 +356,7 @@ test('unrelated stylesheet and HTML markup remain unchanged',()=>{
  const html=normalized(fs.readFileSync(path.join(root,'dist/index.html'),'utf8'))
   .replace('<script defer src="ai-config.js"></script><script defer src="services/analyzeConcernWithAI.js"></script>','')
   .replace('<button id="reset-heart" type="button" hidden aria-label="고민 입력 내용 전체 초기화" title="입력 내용 전체 초기화"><span aria-hidden="true">↻</span></button>','')
+  .replace('<p id="ai-privacy-note" class="profile-help">입력한 이야기는 분석을 위해 외부 AI 서비스로 전송돼요.<br>말씀 선택은 앱의 기존 추천 방식으로 진행돼요.</p>','')
   .replace('현재 입력한 이야기는 기기 안에서만 분석해요. AI 연결 전에는 외부로 전송하지 않아요.','입력한 이야기는 저장되거나 외부로 전송되지 않아요.');
  assert.equal(hash(html),preserved.htmlHash);
 });

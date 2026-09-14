@@ -1,8 +1,8 @@
 /* 추천 데이터와 단계는 data/ 및 services/에서 불러옵니다. */
 const {classifyConcern,analyzeConcernWithAI,findCandidates,selectVerse,recommendationHistory}=window.Malsseum.services;
 const aiEnabled=Boolean(window.MalsseumAIEndpoint);
-document.querySelector('#privacy span').textContent=aiEnabled
- ? '입력한 이야기는 AI 분석을 위해 Vercel 서버와 OpenAI로 전송돼요. 말씀 선택은 앱의 기존 추천 방식으로 진행돼요.'
+document.querySelector('#privacy span').innerHTML=aiEnabled
+ ? '입력한 이야기는 마음을 이해하기 위한 AI 분석에만 사용돼요.<br>당신의 마음에 어울리는 말씀을 성경 안에서 찾아드려요.'
  : '현재 입력한 이야기는 기기 안에서만 분석해요. AI 연결 전에는 외부로 전송하지 않아요.';
 document.querySelector('.conversation-note').innerHTML='성경 본문과 앱의 묵상 안내를 구분해 보여드려요.<br>'+(aiEnabled?'AI는 고민 분석만 도우며 말씀은 기존 데이터에서 선택해요.':'현재는 준비된 분석 규칙과 말씀으로 대화를 이어갑니다.');
 const OPENINGS=window.Malsseum.data.openings, FOLLOWUPS=window.Malsseum.data.followups;
