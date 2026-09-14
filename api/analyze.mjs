@@ -1,4 +1,5 @@
 const topics = ['rest', 'fear', 'loneliness', 'grief', 'relationship', 'future', 'failure', 'guilt', 'faith', 'gratitude'];
+export const maxDuration = 20;
 const situations = ['overload', 'uncertain_future', 'decision_uncertainty', 'seeking_guidance', 'sleep_worry', 'sudden_upheaval', 'anxious_waiting', 'seeking_help', 'prolonged_waiting', 'restless_urgency', 'uncontrollable_burden', 'seeking_calm', 'releasing_worry', 'crowded_thoughts', 'isolation', 'bereavement', 'separation', 'recent_loss', 'conflict', 'anger_processing', 'healthy_boundaries', 'prolonged_effort', 'discouraged_service', 'severe_exhaustion', 'need_rest', 'fresh_relationship_wound', 'forgiveness_when_ready', 'hope_when_ready', 'waiting_strength', 'entrusting_burdens', 'recovery', 'anxious_prayer', 'feeling_unsupported', 'tomorrow_worry', 'separation_anxiety', 'feeling_abandoned', 'family_rejection', 'hardship_companionship', 'displacement', 'unspoken_tears', 'grief_recovery', 'emotional_wounds', 'mourning', 'peace_with_boundaries', 'seeking_wisdom', 'plans_changed', 'long_wait_disrupted_plans', 'setback_recovery', 'limits_and_weakness', 'slow_growth', 'adversity_and_worth', 'hope_after_setback', 'acknowledging_wrong', 'renewal_after_regret', 'persistent_self_condemnation', 'returning_with_responsibility', 'new_beginning', 'wordless_prayer', 'mixed_belief_and_doubt', 'feeling_unheard', 'prayer_in_confinement', 'hesitant_prayer', 'gratitude_practice', 'celebrating_today', 'recognizing_gifts', 'remembering_grace', 'shared_joy'];
 const risks = ['violence', 'abuse', 'coercive_control', 'self_harm'];
 const schema = {
@@ -37,7 +38,7 @@ export async function POST(request) {
   if (!process.env.OPENAI_API_KEY) return json({error: 'AI is not configured'}, 503);
   try {
     const response = await fetch('https://api.openai.com/v1/responses', {
-      method: 'POST', signal: AbortSignal.timeout(8000),
+      method: 'POST', signal: AbortSignal.timeout(16000),
       headers: {'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`, 'Content-Type': 'application/json'},
       body: JSON.stringify({
         model: process.env.OPENAI_MODEL || 'gpt-4.1-mini', store: false,

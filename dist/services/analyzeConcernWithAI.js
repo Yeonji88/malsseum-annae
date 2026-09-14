@@ -17,7 +17,7 @@
  window.Malsseum.services.analyzeConcernWithAI = async function (message, local) {
   if (!endpoint) return local;
   try {
-   const response = await fetch(endpoint, {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({message}), signal: AbortSignal.timeout(9000), cache: 'no-store'});
+   const response = await fetch(endpoint, {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({message}), signal: AbortSignal.timeout(18000), cache: 'no-store'});
    if (!response.ok) return local;
    const ai = await response.json();
    if (!validate(ai)) return local;
