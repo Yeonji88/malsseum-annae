@@ -295,3 +295,7 @@ label,.speaker,.scripture-label,.explanation-label,.verse-actions summary{font-w
 #home-screen #reset-heart:hover,#home-screen #reset-heart:focus-visible{background:#eef2e9;color:#365d46}
 #home-screen #reset-heart:focus-visible{outline:2px solid #789481;outline-offset:2px}
 #home-screen #count{margin-left:auto;white-space:nowrap}
+/* 설정 하단 AI 분석 안내 */
+#settings-dialog .ai-privacy-note{margin:20px 0 0;padding:14px 2px 0;border-top:1px solid var(--line);color:var(--muted)}
+#settings-dialog .ai-privacy-note h3{margin:0 0 7px;color:var(--green);font-size:13px;font-weight:550;line-height:1.5}
+#settings-dialog .ai-privacy-note p{margin:0;font-size:12px;line-height:1.8;overflow-wrap:anywhere}

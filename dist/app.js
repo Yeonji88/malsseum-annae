@@ -250,7 +250,7 @@ for(const [value,label] of textSizeChoices){
  option.append(radio,element('span','',label));textSizeOptions.append(option);
 }
 textSizeField.append(textSizeOptions);
-settingsDialog.querySelector('.settings-intro').after(textSizeField);
+settingsDialog.querySelector('.settings-intro').before(textSizeField);
 window.addEventListener('storage',event=>{if(event.key===textSizeKey)setTextSize(event.newValue);});
 function refreshProfile(){
  const name=UserProfile.getName();
