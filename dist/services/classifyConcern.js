@@ -9,6 +9,8 @@ function positiveMatches(clause, pattern) {
 function classifyConcern(message) {
  if(typeof message!=='string'||!message.trim()||message.length>1000)throw new Error('마음을 1~1,000자로 적어주세요.');
  const text=message.normalize('NFKC').trim().toLowerCase();
+ const shortFeeling=/^(?:화가\s*나(?:요)?|화났어요|화가\s*났어요|짜증나(?:요)?|분노해요|무서워요|두려워요|불안해요|걱정돼요|우울해요|울적해요|(?:기분|마음)이\s*가라앉아요|마음이\s*무거워요)[.!?\s]*$/.test(text);
+ const mourningContext=/상실|죽음|사별|떠나보|돌아가셨|세상을\s*떠|장례|이별|헤어졌|헤어진|헤어져/.test(text);
  const clauses=text.split(/[.!?。\n,]+|하지만|그런데|그래도|지만|보다는/).filter(Boolean);
  const data=window.Malsseum.data;
  const topics=data.topicRules.map(({id,pattern})=>{
@@ -34,7 +36,7 @@ function classifyConcern(message) {
  if(!situations.length)uncertainties.push('구체적인 상황을 알 수 없음');
  if(loss&&!recent)uncertainties.push('상실의 시점을 알 수 없음');
  if(riskSignals.length)uncertainties.push('위험의 현재성·대상·정도를 확인해야 함');
- return {method:'rules',primaryTopic:topics[0]?.id||null,secondaryTopics:topics.slice(1).map(topic=>topic.id),situations,riskSignals,uncertainties,topics,matched:topics.length>0,mixed:topics.length>1,
+ return {method:'rules',primaryTopic:topics[0]?.id||null,secondaryTopics:topics.slice(1).map(topic=>topic.id),situations,riskSignals,uncertainties,topics,matched:topics.length>0,mixed:topics.length>1,shortFeeling:shortFeeling?text.replace(/[.!?\s]+$/,''):null,mourningContext,
   canContinue:/^(?:고마워요?|감사해요|네|응|조금\s*더\s*(?:이야기하고\s*싶어요|읽고\s*싶어요|생각해볼게요)|계속\s*읽고\s*싶어요|이\s*말씀으로\s*더\s*이야기하고\s*싶어요)[.!?\s]*$/.test(text)};
 }
 window.Malsseum.services.classifyConcern=classifyConcern;

@@ -31,7 +31,7 @@ test('catalogue has ten topics, 49 unique verses, all texts ready and optional g
   assert.equal(verse.textVerificationSource,'user_supplied');assert.equal(verse.recommendationEnabled,true);
   if(data.reflections[verse.id]){
    for(const key of ['reflection','question','prayer'])assert.ok(data.reflections[verse.id][key]);
-   assert.equal(verse.guidanceStatus,'ready');
+   assert.equal(verse.guidanceStatus,['matthew-11-28','psalm-56-3','psalm-34-18'].includes(verse.id)?'ready':'pending');
   }else{
    assert.equal(verse.guidanceStatus,'pending');assert.equal(verse.metadataStatus,'draft');
    for(const key of ['reflection','question','prayer'])assert.equal(verse[key],undefined);
@@ -51,6 +51,91 @@ for(const message of ['오늘 날씨 이야기','12345','어떻게 말해야 할
  test('no forced default: '+message,()=>{const r=app().choose(message);assert.equal(r.verse,null);assert.ok(['needs_clarification','no_suitable_candidate'].includes(r.status));});
 }
 test('negated emotion does not produce a recommendation',()=>assert.equal(app().choose('불안하지 않아요').verse,null));
+for(const message of ['화가 나','화가나요','화났어요','화가 났어요','짜증나요','분노','분노가 생겨요','열받아요','너무 열받아요']){
+ test('short anger expression: '+message,()=>{
+  const {s,choose}=app(),analysis=s.classifyConcern(message);
+  assert.equal(analysis.primaryTopic,'relationship');
+  assert.ok(analysis.situations.includes('anger_processing'));
+  assert.ok(s.findCandidates(analysis).some(candidate=>candidate.verse.id==='ephesians-4-26-27'));
+  assert.equal(choose(message).status,'selected');
+ });
+}
+test('a single 화 still asks for clarification',()=>{
+ const {s,choose}=app(),analysis=s.classifyConcern('화');
+ assert.equal(analysis.primaryTopic,null);assert.equal(analysis.situations.length,0);
+ assert.equal(s.findCandidates(analysis).length,0);assert.equal(choose('화').status,'needs_clarification');
+});
+test('violence takes priority over an anger match',()=>{
+ const {s,choose}=app(),message='남편이 나를 때려서 너무 화가 나요',analysis=s.classifyConcern(message);
+ assert.ok(analysis.situations.includes('anger_processing'));
+ assert.ok(analysis.riskSignals.includes('violence'));
+ const result=choose(message);assert.equal(result.status,'safety_first');assert.equal(result.verse,null);
+});
+for(const [message,topic,situations] of [
+ ['우울해요','grief',[]],['우울해','grief',[]],['울적해요','grief',[]],
+ ['기분이 가라앉아요','grief',[]],['마음이 무거워요','grief',[]],
+ ['무기력해요','rest',[]],['아무것도 하기 싫어요','rest',[]],
+ ['슬퍼요','grief',[]],['외로워요','loneliness',['isolation']],
+ ['불안해요','fear',[]],['무서워요','fear',[]],['지쳤어요','rest',[]],
+ ['힘들어요','rest',[]],['화가나요','relationship',['anger_processing']],
+ ['짜증나요','relationship',['anger_processing']]
+]){
+ test('short feeling has broad candidates: '+message,()=>{
+  const {s,choose}=app(),analysis=s.classifyConcern(message);
+  assert.equal(analysis.primaryTopic,topic);
+  assert.equal(analysis.situations.join('|'),situations.join('|'));
+  assert.ok(s.findCandidates(analysis).length>0);
+  assert.equal(choose(message).status,'selected');
+ });
+}
+for(const [message,risk] of [['우울해요. 죽고 싶어요','self_harm'],['남편이 때려서 우울해요','violence']]){
+ test('safety precedes a short low-mood match: '+message,()=>{
+  const {s,choose}=app(),analysis=s.classifyConcern(message);
+  assert.ok(analysis.riskSignals.includes(risk));
+  const result=choose(message);assert.equal(result.status,'safety_first');assert.equal(result.verse,null);
+ });
+}
+for(const [message,situations] of [
+ ['고민이 돼요',[]],['고민돼요',[]],['고민이에요',[]],
+ ['어떻게 해야 할지 모르겠어요',[]],
+ ['결정을 못 하겠어요',['uncertain_future','decision_uncertainty']],
+ ['뭘 선택해야 할지 모르겠어요',['decision_uncertainty']],
+ ['어느 쪽이 맞는지 모르겠어요',['decision_uncertainty']],
+ ['방향을 모르겠어요',['seeking_guidance']]
+]){
+ test('short decision concern: '+message,()=>{
+  const {s,choose}=app(),analysis=s.classifyConcern(message),candidates=s.findCandidates(analysis);
+  assert.equal(analysis.primaryTopic,'future');
+  assert.equal(analysis.situations.join('|'),situations.join('|'));
+  for(const id of ['proverbs-3-5-6','james-1-5','proverbs-16-9','psalm-32-8'])assert.ok(candidates.some(candidate=>candidate.verse.id===id));
+  assert.equal(choose(message).status,'selected');
+ });
+}
+test('safety still precedes a short decision concern',()=>{
+ const {choose}=app();const result=choose('남편이 때려서 고민이 돼요');
+ assert.equal(result.status,'safety_first');assert.equal(result.verse,null);
+});
+for(const [message,id] of [
+ ['화가나요','ephesians-4-26-27'],['짜증나요','ephesians-4-26-27'],['분노해요','ephesians-4-26-27'],
+ ['무서워요','psalm-56-3'],['두려워요','psalm-56-3'],
+ ['불안해요','philippians-4-6-7'],['걱정돼요','philippians-4-6-7'],
+ ['우울해요','psalm-34-18'],['울적해요','psalm-34-18'],
+ ['마음이 가라앉아요','psalm-34-18'],['마음이 무거워요','psalm-34-18']
+]){
+ test('short expression favors its fitting passage: '+message,()=>assert.equal(app().choose(message).verse.id,id));
+}
+test('mourning, unsupported fear, and healthy boundaries keep their context',()=>{
+ const {choose}=app();
+ assert.equal(choose('어제 엄마가 돌아가셨어요').verse.id,'john-11-35');
+ assert.equal(choose('혼자 감당해야 할까 봐 두려워요').verse.id,'isaiah-41-10');
+ assert.equal(choose('관계에서 내 마음을 지킬 경계가 필요해요').verse.id,'proverbs-4-23');
+});
+test('danger still takes priority over expression preferences',()=>{
+ const {choose}=app();
+ for(const message of ['남편이 나를 때려서 너무 화가 나요','누가 때려서 무서워요','죽고 싶을 만큼 우울해요']){
+  const result=choose(message);assert.equal(result.status,'safety_first');assert.equal(result.verse,null);
+ }
+});
 for(const message of ['남편이 때려서 무서워요','학대를 당해요','휴대폰을 검사하고 못 나가게 해요','죽고 싶어요']){
  test('safety before scripture: '+message,()=>{const r=app().choose(message);assert.equal(r.status,'safety_first');assert.equal(r.verse,null);});
 }
@@ -216,22 +301,26 @@ test('IDs and every preserved metadata field are unchanged',()=>{
   assert.equal(hash(JSON.stringify(projection)),preserved.hashes[verse.id],verse.id);
  }
 });
-test('the three original reflection/prayer entries remain byte-for-byte content equivalent',()=>{
- const {data}=app();assert.equal(Object.keys(data.reflections).length,3);
- assert.equal(hash(normalized(fs.readFileSync(path.join(root,'dist/data/reflections.js'),'utf8'))),preserved.reflectionsHash);
+test('all 49 verses have reflection guidance, three questions, and a prayer without changing other passage metadata',()=>{
+ const {data}=app();assert.equal(Object.keys(data.reflections).length,49);
+ for(const verse of data.verses){
+  const guidance=data.reflections[verse.id];assert.ok(guidance,verse.id);
+  assert.ok(guidance.reflection.length>50,verse.id);
+  assert.equal(guidance.question.split('\n').length,3,verse.id);
+  assert.ok(guidance.prayer.endsWith('아멘.'),verse.id);
+ }
 });
 test('stylesheet and HTML markup remain unchanged',()=>{
  assert.equal(hash(fs.readFileSync(path.join(root,'dist/styles.css'),'utf8')),preserved.stylesHash);
  assert.equal(hash(normalized(fs.readFileSync(path.join(root,'dist/index.html'),'utf8'))),preserved.htmlHash);
 });
-test('all 49 are candidates despite 46 missing optional guidance entries',()=>{
- const {data,s}=app();let missingGuidance=0;
+test('all 49 are candidates with complete guidance',()=>{
+ const {data,s}=app();
  for(const verse of data.verses){
   const analysis={primaryTopic:verse.topics[0],secondaryTopics:verse.topics.slice(1),situations:verse.situations,riskSignals:[],uncertainties:[]};
   assert.ok(s.findCandidates(analysis).some(c=>c.verse.id===verse.id),verse.id);
-  if(!data.reflections[verse.id]){missingGuidance++;assert.equal(verse.guidanceStatus,'pending');assert.equal(s.recommendationPolicy.isActive(verse),true);}
+  assert.ok(data.reflections[verse.id],verse.id);
  }
- assert.equal(missingGuidance,46);
 });
 test('scenario set spans all ten topics and includes newly activated passages',()=>{
  assert.equal(new Set(scenarios.map(x=>x.topic)).size,10);

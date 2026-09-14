@@ -6,6 +6,40 @@ const input=document.getElementById('heart'), error=document.getElementById('err
 const reply=document.getElementById('reply'), replyError=document.getElementById('reply-error');
 const conversation=document.getElementById('conversation');
 let previousId=null, previousAnalysis=null, turnCount=0;
+// Only verse IDs are persisted. Display content always comes from the catalogue.
+const SavedVerses=(()=>{
+ const key='malsseum-annae.saved-verse-ids.v1';
+ const known=new Set(window.Malsseum.data.verses.map(verse=>verse.id));
+ function list(){
+  try{
+   const stored=JSON.parse(localStorage.getItem(key)||'[]');
+   return Array.isArray(stored)?[...new Set(stored.filter(id=>typeof id==='string'&&known.has(id)))]:[];
+  }catch{return [];}
+ }
+ return {
+  list,
+  has(id){return list().includes(id);},
+  toggle(id){
+   if(!known.has(id))return false;
+   const ids=list(), saved=!ids.includes(id);
+   const next=saved?[...ids,id]:ids.filter(item=>item!==id);
+   localStorage.setItem(key,JSON.stringify(next));
+   return saved;
+  },
+  removeMany(ids){
+   const removing=new Set(ids);
+   const next=list().filter(id=>!removing.has(id));
+   localStorage.setItem(key,JSON.stringify(next));
+  }
+ };
+})();
+function refreshSaveButtons(){
+ conversation.querySelectorAll('.save-action[data-verse-id]').forEach(button=>{
+  const saved=SavedVerses.has(button.dataset.verseId);
+  button.setAttribute('aria-pressed',String(saved));
+  button.querySelector('.save-label').textContent=saved?'저장됨':'저장하기';
+ });
+}
 function element(tag,className,text) {
  const node=document.createElement(tag);
  if(className)node.className=className;
@@ -52,16 +86,18 @@ function renderTurn(message,selection) {
  explanation.append(element('span','speaker explanation-label','이 말씀이 지금 마음에 닿는 이유'),empathy,element('p','conversation-text',followup[0]));
  response.append(explanation);
  const actions=element('div','verse-actions');
- const talk=element('button','talk-action','이 말씀으로 더 이야기하기');talk.type='button';
- const talkIcon=element('span','talk-icon');talkIcon.setAttribute('aria-hidden','true');talkIcon.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11.5a7.5 7.5 0 0 1-7.5 7.5 9 9 0 0 1-3-.5L4 21l1.7-4.5A7.5 7.5 0 1 1 20 11.5Z"/></svg>';talk.prepend(talkIcon);
- const talkArrow=element('span','talk-arrow','›');talkArrow.setAttribute('aria-hidden','true');talk.append(talkArrow);
- talk.addEventListener('click',()=>{reply.focus();reply.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'center'});});
  const question=element('details','reflection-action');
- question.append(element('summary','','묵상해보기'),element('p','conversation-question',followup[1]));
+ const questionBody=verse.question?element('ol','conversation-questions'):element('p','conversation-question',followup[1]);
+ if(verse.question)for(const text of followup[1].split(/\r?\n/).filter(Boolean))questionBody.append(element('li','',text));
+ question.append(element('summary','','묵상해보기'),questionBody);
  const prayer=element('details','prayer-action');
  prayer.append(element('summary','','기도문 보기'),element('p','',verse.prayer||'기도문 준비 중'),element('small','',verse.prayer?'앱이 준비한 기도 예시예요. 마음에 맞는 말로 바꾸어도 좋아요.':'이 말씀의 기도문은 아직 등록되지 않았어요.'));
- const save=element('button','save-action','저장하기');save.type='button';save.disabled=true;save.title='저장 기능 준비 중';
- save.append(element('small','','마음에 담아두기'));
+ const save=element('button','save-action');save.type='button';save.dataset.verseId=verse.id;
+ save.append(element('span','save-label','저장하기'));
+ save.addEventListener('click',()=>{
+  try{SavedVerses.toggle(verse.id);refreshSaveButtons();renderSavedList();}
+  catch{document.getElementById('profile-status').textContent='이 브라우저에 말씀을 저장하지 못했어요. 저장 허용 설정을 확인해주세요.';}
+ });
  question.querySelector('summary').append(element('small','','함께 생각해요'));
  prayer.querySelector('summary').append(element('small','','이 말씀으로 기도해요'));
  const actionIcons={save:'<path d="M6 3h12v18l-6-4-6 4V3Z"/>',reflection:'<path d="M12 5v16M12 5C9 3 5 3 2 4v15c4-1 7-1 10 2 3-3 6-3 10-2V4c-3-1-7-1-10 1Z"/>',prayer:'<path d="m5 21-3-4 5-6 2-7c.5-2 3-1 3 1v8l-4 6m11 2 3-4-5-6-2-7c-.5-2-3-1-3 1v8l4 6"/>'};
@@ -69,7 +105,7 @@ function renderTurn(message,selection) {
   const icon=element('span','result-action-icon');icon.setAttribute('aria-hidden','true');
   icon.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">'+actionIcons[kind]+'</svg>';target.prepend(icon);
  }
- actions.append(save,question,prayer,talk);response.append(actions);turn.append(response);return turn;
+ actions.append(save,question,prayer);response.append(actions);turn.append(response);return turn;
 }
 const resultStyles=document.createElement('link');resultStyles.rel='stylesheet';resultStyles.href='result-screen.css';document.head.append(resultStyles);
 function updateCount(){document.getElementById('count').textContent=input.value.length.toLocaleString()+' / 1,000';}
@@ -114,6 +150,7 @@ async function showVerse(message,continueConversation=false,animate=false) {
  if(animate&&!continueConversation&&selection.verse)await playVerseTransition();
  if(!continueConversation){previousId=null;turnCount=0;conversation.replaceChildren();}
  const turn=renderTurn(message,selection);conversation.append(turn);
+ refreshSaveButtons();
  if(selection.verse&&(!continueConversation||previousId!==selection.verse.id))recommendationHistory.record(selection.verse.id);
  previousId=selection.verse?.id||null;previousAnalysis=selection.analysis;turnCount++;
  document.getElementById('result').hidden=false;
@@ -161,6 +198,7 @@ const UserProfile = (() => {
   return cleaned;
  }
  return {
+  validate,
   load(){try{name=validate(localStorage.getItem(key));}catch{name='';}return name;},
   save(value){const next=validate(value);try{localStorage.setItem(key,next);}catch{throw new Error('이 브라우저에서 이름을 저장하지 못했어요. 브라우저의 저장 허용 설정을 확인한 뒤 다시 시도해주세요.');}name=next;return name;},
   reset(){try{localStorage.removeItem(key);}catch{throw new Error('이름을 삭제하지 못했어요. 브라우저의 저장 허용 설정을 확인한 뒤 다시 시도해주세요.');}name='';},
@@ -173,6 +211,33 @@ const onboarding=document.getElementById('onboarding');
 const mainContent=document.getElementById('main-content');
 const settingsButton=document.getElementById('open-settings');
 const settingsDialog=document.getElementById('settings-dialog');
+settingsDialog.querySelector('#settings-form button[type="submit"]').remove();
+const closeSettingsButton=document.getElementById('close-settings');
+const settingsHeaderActions=element('div','settings-header-actions');
+closeSettingsButton.replaceWith(settingsHeaderActions);
+const saveSettingsButton=element('button','settings-save','저장');saveSettingsButton.type='button';
+settingsHeaderActions.append(closeSettingsButton,saveSettingsButton);
+const appShell=document.querySelector('.app');
+const textSizeKey='malsseum-annae.text-size.v1';
+const textSizeChoices=[['default','기본'],['large','크게'],['xlarge','아주 크게']];
+function setTextSize(value){
+ const next=textSizeChoices.some(([id])=>id===value)?value:'default';
+ appShell.dataset.textSize=next;
+ settingsDialog.querySelectorAll('input[name="text-size"]').forEach(radio=>{radio.checked=radio.value===next;});
+}
+try{setTextSize(localStorage.getItem(textSizeKey));}catch{setTextSize('default');}
+const textSizeField=element('fieldset','text-size-field');
+textSizeField.append(element('legend','','글자 크기'));
+const textSizeOptions=element('div','text-size-options');
+for(const [value,label] of textSizeChoices){
+ const option=element('label','text-size-option');
+ const radio=element('input','');radio.type='radio';radio.name='text-size';radio.value=value;
+ radio.checked=appShell.dataset.textSize===value;
+ option.append(radio,element('span','',label));textSizeOptions.append(option);
+}
+textSizeField.append(textSizeOptions);
+settingsDialog.querySelector('.settings-intro').after(textSizeField);
+window.addEventListener('storage',event=>{if(event.key===textSizeKey)setTextSize(event.newValue);});
 function refreshProfile(){
  const name=UserProfile.getName();
  const greeting=document.getElementById('personal-greeting');
@@ -190,11 +255,37 @@ function saveProfile(event,fieldId,errorId,isOnboarding){
  }catch(e){feedback.textContent=e.message;field.setAttribute('aria-invalid','true');field.focus();}
 }
 document.getElementById('onboarding-form').addEventListener('submit',event=>saveProfile(event,'onboarding-name','onboarding-error',true));
-document.getElementById('settings-form').addEventListener('submit',event=>saveProfile(event,'settings-name','settings-error',false));
+function resetSettingsDraft(){
+ const field=document.getElementById('settings-name');field.value=UserProfile.getName();field.removeAttribute('aria-invalid');
+ document.getElementById('settings-error').textContent='';
+ settingsDialog.querySelectorAll('input[name="text-size"]').forEach(radio=>{radio.checked=radio.value===appShell.dataset.textSize;});
+}
+function saveSettings(event){
+ event.preventDefault();
+ const field=document.getElementById('settings-name'),feedback=document.getElementById('settings-error');
+ try{
+  const name=UserProfile.validate(field.value);
+  const size=settingsDialog.querySelector('input[name="text-size"]:checked').value;
+  const previousSize=localStorage.getItem(textSizeKey);
+  localStorage.setItem(textSizeKey,size);
+  try{UserProfile.save(name);}catch(error){
+   if(previousSize===null)localStorage.removeItem(textSizeKey);else localStorage.setItem(textSizeKey,previousSize);
+   throw error;
+  }
+  setTextSize(size);refreshProfile();feedback.textContent='';field.removeAttribute('aria-invalid');
+  settingsDialog.close();document.getElementById('profile-status').textContent='설정을 저장했어요.';
+ }catch(error){
+  feedback.textContent=error.message||'설정을 저장하지 못했어요. 브라우저 저장 설정을 확인해주세요.';
+  if(!field.value.trim()||field.value.trim().length>20){field.setAttribute('aria-invalid','true');field.focus();}
+ }
+}
+document.getElementById('settings-form').addEventListener('submit',event=>event.preventDefault());
+saveSettingsButton.addEventListener('click',saveSettings);
 settingsButton.addEventListener('click',()=>{
- const field=document.getElementById('settings-name');field.value=UserProfile.getName();field.removeAttribute('aria-invalid');document.getElementById('settings-error').textContent='';settingsDialog.showModal();field.focus();
+ resetSettingsDraft();settingsDialog.showModal();closeSettingsButton.focus({preventScroll:true});
 });
-document.getElementById('close-settings').addEventListener('click',()=>settingsDialog.close());
+closeSettingsButton.addEventListener('click',()=>settingsDialog.close());
+settingsDialog.addEventListener('close',resetSettingsDraft);
 for(const [fieldId,errorId] of [['onboarding-name','onboarding-error'],['settings-name','settings-error']]){
  document.getElementById(fieldId).addEventListener('input',()=>{document.getElementById(errorId).textContent='';document.getElementById(fieldId).removeAttribute('aria-invalid');});
 }
@@ -205,31 +296,260 @@ const homeScreen=document.getElementById('home-screen');
 const resultScreen=document.getElementById('result');
 const emptyScreen=document.getElementById('empty-screen');
 const bottomNav=document.getElementById('bottom-nav');
+const myScreen=element('section','my-screen');myScreen.id='my-screen';myScreen.hidden=true;
+myScreen.setAttribute('aria-labelledby','my-title');
+const myHeading=element('div','my-heading');
+const myTitle=element('h1','','저장한 말씀');myTitle.id='my-title';
+const editSaved=element('button','edit-saved','편집');editSaved.type='button';
+myHeading.append(myTitle,editSaved);
+const selectAll=element('button','select-all','전체 선택');selectAll.type='button';selectAll.hidden=true;
+const savedList=element('div','saved-verse-list');
+const bulkRemove=element('button','bulk-remove','선택한 말씀 저장 취소');bulkRemove.type='button';bulkRemove.hidden=true;
+myScreen.append(myHeading,selectAll,savedList,bulkRemove);mainContent.append(myScreen);
+const myStyles=document.createElement('link');myStyles.rel='stylesheet';myStyles.href='my-screen.css';document.head.append(myStyles);
+let editingSaved=false;
+const selectedSaved=new Set();
+function exitSavedEdit(){editingSaved=false;selectedSaved.clear();renderSavedList();}
+editSaved.addEventListener('click',()=>{
+ if(editingSaved)exitSavedEdit();
+ else{editingSaved=true;selectedSaved.clear();renderSavedList();}
+});
+selectAll.addEventListener('click',()=>{
+ const ids=SavedVerses.list();
+ if(selectedSaved.size===ids.length)selectedSaved.clear();
+ else{selectedSaved.clear();ids.forEach(id=>selectedSaved.add(id));}
+ renderSavedList();selectAll.focus();
+});
+bulkRemove.addEventListener('click',()=>{
+ if(!selectedSaved.size)return;
+ try{
+  SavedVerses.removeMany(selectedSaved);selectedSaved.clear();
+  if(!SavedVerses.list().length)editingSaved=false;
+  refreshSaveButtons();renderSavedList();
+ }catch{document.getElementById('profile-status').textContent='선택한 말씀의 저장을 취소하지 못했어요. 브라우저 저장 설정을 확인해주세요.';}
+});
+function renderSavedList(){
+ savedList.replaceChildren();
+ const verses=new Map(window.Malsseum.data.verses.map(verse=>[verse.id,verse]));
+ const ids=SavedVerses.list();
+ for(const id of selectedSaved)if(!ids.includes(id))selectedSaved.delete(id);
+ editSaved.hidden=!ids.length;editSaved.textContent=editingSaved?'완료':'편집';
+ selectAll.hidden=!editingSaved||!ids.length;
+ selectAll.textContent=selectedSaved.size===ids.length&&ids.length?'전체 선택 해제':'전체 선택';
+ selectAll.setAttribute('aria-pressed',String(Boolean(ids.length)&&selectedSaved.size===ids.length));
+ bulkRemove.hidden=!editingSaved||!ids.length;bulkRemove.disabled=!selectedSaved.size;
+ if(!ids.length){
+  const empty=element('div','saved-empty');
+  empty.append(element('p','','아직 저장한 말씀이 없어요.'),element('p','','마음에 오래 간직하고 싶은 말씀을 저장해보세요.'));
+  savedList.append(empty);return;
+ }
+ for(const id of ids){
+  const verse=verses.get(id);
+  const card=element('button','saved-verse-card');card.type='button';
+  if(editingSaved){
+   const chosen=selectedSaved.has(id);
+   card.classList.add('is-editing');card.setAttribute('aria-pressed',String(chosen));
+   card.setAttribute('aria-label',verse.reference+(chosen?' 선택됨':' 선택'));
+   const check=element('span','saved-select-indicator',chosen?'✓':'');check.setAttribute('aria-hidden','true');card.append(check);
+  }else card.setAttribute('aria-label',verse.reference+' 말씀 다시 보기');
+  card.append(element('span','saved-verse-text',verse.text),element('span','saved-verse-reference',verse.reference));
+  card.addEventListener('click',()=>{
+   if(!editingSaved){openSavedVerse(id);return;}
+   if(selectedSaved.has(id))selectedSaved.delete(id);else selectedSaved.add(id);
+   renderSavedList();savedList.children[ids.indexOf(id)]?.focus();
+  });savedList.append(card);
+ }
+}
+function openSavedVerse(id){
+ const verse=window.Malsseum.data.verses.find(item=>item.id===id);
+ if(!verse||!SavedVerses.has(id))return;
+ previousId=null;previousAnalysis=null;turnCount=0;
+ const selection={verse:{...verse,...(window.Malsseum.data.reflections[id]||{})},matched:true,continued:false,mixed:false,analysis:{primaryTopic:verse.topics[0]}};
+ const turn=renderTurn('저장한 말씀',selection);turn.classList.add('saved-verse-turn');
+ conversation.replaceChildren(turn);previousId=id;previousAnalysis=selection.analysis;turnCount=1;
+ reply.value='';replyError.textContent='';refreshSaveButtons();displayScreen('reflection');
+ turn.tabIndex=-1;turn.focus({preventScroll:true});mainContent.scrollTop=0;
+}
+renderSavedList();
+// Personal prayers are separate from scripture, recommendations, and saved verse IDs.
+const PrayerJournal=(()=>{
+ const key='malsseum-annae.personal-prayers.v1';
+ const validDate=value=>typeof value==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(value)&&Number.isFinite(Date.parse(value))&&new Date(value).toISOString().slice(0,10)===value;
+ function list(){
+  try{
+   const stored=JSON.parse(localStorage.getItem(key)||'[]');
+   if(!Array.isArray(stored))return [];
+   const seen=new Set();
+   return stored.filter(item=>{
+    if(!item||typeof item.id!=='string'||typeof item.content!=='string'||typeof item.createdAt!=='string'||!Number.isFinite(Date.parse(item.createdAt))||seen.has(item.id))return false;
+    seen.add(item.id);return true;
+   }).sort((a,b)=>Date.parse(b.createdAt)-Date.parse(a.createdAt));
+  }catch{return [];}
+ }
+ return {
+  list,
+  save(content,id){
+   const prayer=content.trim();if(!prayer)throw new Error('기도 내용을 적어주세요.');
+   const entries=list();
+   if(id){
+    const existing=entries.find(item=>item.id===id);
+    if(!existing)throw new Error('수정할 기도를 찾지 못했어요.');
+    existing.content=prayer;
+   }else{
+    let nextId;
+    do{nextId=globalThis.crypto?.randomUUID?.()||Date.now().toString(36)+'-'+Math.random().toString(36).slice(2);}
+    while(entries.some(item=>item.id===nextId));
+    entries.unshift({id:nextId,content:prayer,createdAt:new Date().toISOString()});
+   }
+   localStorage.setItem(key,JSON.stringify(entries));
+  },
+  remove(id){localStorage.setItem(key,JSON.stringify(list().filter(item=>item.id!==id)));},
+  answerFor(item){return item.answer&&validDate(item.answer.date)&&typeof item.answer.content==='string'&&item.answer.content.trim()?item.answer:null;},
+  saveAnswer(id,date,content){
+   if(!validDate(date)||!content.trim())throw new Error('응답받은 날짜와 내용을 적어주세요.');
+   const entries=list(),prayer=entries.find(item=>item.id===id);
+   if(!prayer)throw new Error('기도를 찾지 못했어요.');
+   prayer.answer={date,content:content.trim()};
+   localStorage.setItem(key,JSON.stringify(entries));
+  },
+  removeAnswer(id){
+   const entries=list(),prayer=entries.find(item=>item.id===id);
+   if(!prayer)return;
+   delete prayer.answer;
+   localStorage.setItem(key,JSON.stringify(entries));
+  }
+ };
+})();
+const prayerScreen=element('section','prayer-screen');prayerScreen.id='prayer-screen';prayerScreen.hidden=true;
+prayerScreen.setAttribute('aria-labelledby','prayer-title');
+const prayerTitle=element('h1','','나의 기도');prayerTitle.id='prayer-title';
+const prayerIntro=element('p','prayer-intro','오늘 하나님께 어떤 마음을 이야기하고 싶나요?');
+const prayerForm=element('form','prayer-form');
+const prayerLabel=element('label','sr-only','나의 기도 내용');prayerLabel.htmlFor='personal-prayer';
+const prayerInput=element('textarea','');prayerInput.id='personal-prayer';prayerInput.placeholder='오늘의 마음을 천천히 적어보세요.';
+const prayerError=element('p','error');prayerError.setAttribute('role','alert');
+const prayerSave=element('button','prayer-save','기도 저장하기');prayerSave.type='submit';
+const prayerCancel=element('button','prayer-cancel','수정 취소');prayerCancel.type='button';prayerCancel.hidden=true;
+prayerForm.append(prayerLabel,prayerInput,prayerError,prayerSave,prayerCancel);
+const prayerListTitle=element('h2','','저장한 기도');
+const prayerList=element('div','prayer-list');
+prayerScreen.append(prayerTitle,prayerIntro,prayerForm,prayerListTitle,prayerList);mainContent.append(prayerScreen);
+const prayerStyles=document.createElement('link');prayerStyles.rel='stylesheet';prayerStyles.href='prayer-screen.css';document.head.append(prayerStyles);
+let editingPrayerId=null;
+let activeAnswerId=null;
+function localToday(){const now=new Date();return now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0')+'-'+String(now.getDate()).padStart(2,'0');}
+function clearPrayerEditor(){
+ editingPrayerId=null;prayerInput.value='';prayerError.textContent='';
+ prayerSave.textContent='기도 저장하기';prayerCancel.hidden=true;
+}
+function renderPrayerList(){
+ prayerList.replaceChildren();
+ const entries=PrayerJournal.list();
+ if(!entries.length){
+  const empty=element('div','prayer-empty');
+  empty.append(element('p','','아직 작성한 기도가 없어요.'),element('p','','오늘의 마음을 하나님께 천천히 적어보세요.'));
+  prayerList.append(empty);return;
+ }
+ const dateFormat=new Intl.DateTimeFormat('ko-KR',{year:'numeric',month:'long',day:'numeric'});
+ for(const entry of entries){
+  const card=element('article','prayer-entry');
+  const date=element('time','prayer-date',dateFormat.format(new Date(entry.createdAt)));date.dateTime=entry.createdAt;
+  const body=element('p','prayer-content',entry.content);
+  const actions=element('div','prayer-entry-actions');
+  const edit=element('button','','수정');edit.type='button';edit.setAttribute('aria-label',date.textContent+' 기도 수정');
+  edit.addEventListener('click',()=>{
+   editingPrayerId=entry.id;prayerInput.value=entry.content;prayerError.textContent='';
+   prayerSave.textContent='수정 저장하기';prayerCancel.hidden=false;
+   prayerInput.focus();prayerInput.scrollIntoView({block:'center'});
+  });
+  const remove=element('button','','삭제');remove.type='button';remove.setAttribute('aria-label',date.textContent+' 기도 삭제');
+  remove.addEventListener('click',()=>{
+   try{PrayerJournal.remove(entry.id);if(editingPrayerId===entry.id)clearPrayerEditor();if(activeAnswerId===entry.id)activeAnswerId=null;renderPrayerList();}
+   catch{prayerError.textContent='기도를 삭제하지 못했어요. 브라우저 저장 설정을 확인해주세요.';}
+  });
+  const answer=PrayerJournal.answerFor(entry);
+  if(!answer){
+   const begin=element('button','','응답받았어요');begin.type='button';
+   begin.addEventListener('click',()=>{activeAnswerId=entry.id;renderPrayerList();prayerList.querySelector('.answer-form textarea')?.focus();});
+   actions.append(begin);
+  }
+  actions.append(edit,remove);card.append(date,body,actions);
+  if(answer&&activeAnswerId!==entry.id){
+   const answered=element('div','answered-prayer');
+   answered.append(element('strong','answered-label','✓ 응답받은 기도'));
+   const answeredDate=element('time','answered-date',dateFormat.format(new Date(answer.date+'T12:00:00')));answeredDate.dateTime=answer.date;
+   answered.append(answeredDate,element('p','answered-content',answer.content));
+   const answerActions=element('div','answer-actions');
+   const revise=element('button','','응답 수정');revise.type='button';
+   revise.addEventListener('click',()=>{activeAnswerId=entry.id;renderPrayerList();prayerList.querySelector('.answer-form textarea')?.focus();});
+   const discard=element('button','','응답 삭제');discard.type='button';
+   discard.addEventListener('click',()=>{
+    try{PrayerJournal.removeAnswer(entry.id);renderPrayerList();}
+    catch{prayerError.textContent='응답 기록을 삭제하지 못했어요. 브라우저 저장 설정을 확인해주세요.';}
+   });
+   answerActions.append(revise,discard);answered.append(answerActions);card.append(answered);
+  }
+  if(activeAnswerId===entry.id){
+   const answerForm=element('form','answer-form');
+   const dateLabel=element('label','','응답받은 날짜');
+   const answerDate=element('input','');answerDate.type='date';answerDate.value=answer?.date||localToday();dateLabel.append(answerDate);
+   const contentLabel=element('label','sr-only','응답 내용');
+   const answerInput=element('textarea','');answerInput.placeholder='어떻게 응답받았는지 기록해보세요.';answerInput.value=answer?.content||'';
+   const feedback=element('p','answer-error');feedback.setAttribute('role','alert');
+   const controls=element('div','answer-form-actions');
+   const submit=element('button','','응답 기록하기');submit.type='submit';
+   const cancel=element('button','','취소');cancel.type='button';cancel.addEventListener('click',()=>{activeAnswerId=null;renderPrayerList();});
+   controls.append(submit,cancel);answerForm.append(dateLabel,contentLabel,answerInput,feedback,controls);
+   answerForm.addEventListener('submit',event=>{
+    event.preventDefault();
+    try{PrayerJournal.saveAnswer(entry.id,answerDate.value,answerInput.value);activeAnswerId=null;renderPrayerList();}
+    catch(error){feedback.textContent=['기도를 찾지 못했어요.','응답받은 날짜와 내용을 적어주세요.'].includes(error.message)?error.message:'응답 기록을 저장하지 못했어요. 브라우저 저장 설정을 확인해주세요.';}
+   });
+   card.append(answerForm);
+  }
+  prayerList.append(card);
+ }
+}
+prayerInput.addEventListener('input',()=>{prayerError.textContent='';});
+prayerCancel.addEventListener('click',clearPrayerEditor);
+prayerForm.addEventListener('submit',event=>{
+ event.preventDefault();
+ if(!prayerInput.value.trim()){prayerError.textContent='기도 내용을 적어주세요.';prayerInput.focus();return;}
+ try{PrayerJournal.save(prayerInput.value,editingPrayerId);clearPrayerEditor();renderPrayerList();}
+ catch(error){prayerError.textContent=error.message==='수정할 기도를 찾지 못했어요.'?error.message:'기도를 저장하지 못했어요. 브라우저 저장 설정을 확인해주세요.';}
+});
+renderPrayerList();
 const resultBack=element('button','result-back');
 resultBack.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5m7-7-7 7 7 7"/></svg>';
 resultBack.type='button';resultBack.setAttribute('aria-label','홈 고민 입력으로 돌아가기');
 resultBack.addEventListener('click',()=>displayScreen('home'));
 document.querySelector('.app>header').prepend(resultBack);
 function displayScreen(screen){
- if(screen==='profile'){settingsButton.click();return;}
+ if(screen!=='profile'&&editingSaved)exitSavedEdit();
  homeScreen.hidden=screen!=='home';
- resultScreen.hidden=screen==='home'||!conversation.children.length;
- emptyScreen.hidden=screen==='home'||Boolean(conversation.children.length);
+ myScreen.hidden=screen!=='profile';
+ prayerScreen.hidden=screen!=='prayer';
+ if(screen==='profile')renderSavedList();
+ if(screen==='prayer')renderPrayerList();
+ resultScreen.hidden=screen==='home'||screen==='profile'||screen==='prayer'||!conversation.children.length;
+ emptyScreen.hidden=screen==='home'||screen==='profile'||screen==='prayer'||Boolean(conversation.children.length);
  bottomNav.querySelectorAll('button').forEach(button=>{if(button.dataset.screen===screen)button.setAttribute('aria-current','page');else button.removeAttribute('aria-current');});
  mainContent.scrollTop=0;
- if(screen!=='home'&&conversation.children.length){
+ if(screen==='reflection'&&conversation.children.length){
   const latest=conversation.lastElementChild;
-  const detail=latest.querySelector(screen==='prayer'?'.prayer-action':'.reflection-action');
+  const detail=latest.querySelector('.reflection-action');
   if(detail){detail.open=true;detail.scrollIntoView({block:'center'});}
  }
 }
 bottomNav.querySelectorAll('button').forEach(button=>button.addEventListener('click',()=>displayScreen(button.dataset.screen)));
 document.getElementById('empty-home').addEventListener('click',()=>displayScreen('home'));
 new MutationObserver(()=>{
- homeScreen.hidden=true;emptyScreen.hidden=true;resultScreen.hidden=false;
+ homeScreen.hidden=true;emptyScreen.hidden=true;myScreen.hidden=true;prayerScreen.hidden=true;resultScreen.hidden=false;
  bottomNav.querySelectorAll('button').forEach(button=>{if(button.dataset.screen==='reflection')button.setAttribute('aria-current','page');else button.removeAttribute('aria-current');});
  conversation.lastElementChild?.scrollIntoView({block:'start'});
 }).observe(conversation,{childList:true});
+window.addEventListener('storage',event=>{if(event.key==='malsseum-annae.saved-verse-ids.v1'){refreshSaveButtons();renderSavedList();}});
+window.addEventListener('storage',event=>{if(event.key==='malsseum-annae.personal-prayers.v1')renderPrayerList();});
 function syncNavigation(){bottomNav.hidden=mainContent.hidden;}
 new MutationObserver(syncNavigation).observe(mainContent,{attributes:true,attributeFilter:['hidden']});syncNavigation();
 
@@ -255,3 +575,4 @@ function measureBottomNavigation(){
 if(typeof ResizeObserver!=='undefined')new ResizeObserver(measureBottomNavigation).observe(bottomNav);
 window.addEventListener('resize',measureBottomNavigation);
 measureBottomNavigation();
+const readingSizeStyles=document.createElement('link');readingSizeStyles.rel='stylesheet';readingSizeStyles.href='reading-size.css';document.head.append(readingSizeStyles);

@@ -1,4 +1,6 @@
 /* Result screen: warm paper, compact scripture, and clear action hierarchy. */
+/* Keep the unused notification icon in markup for future use, but hide it in the current UI. */
+.app:has(>#main-content:not([hidden])>#home-screen:not([hidden])) .home-bell{display:none}
 .app:has(#result:not([hidden])){background:#fbf8f2}
 .app:has(#result:not([hidden]))>header{height:66px;min-height:66px;padding:11px 20px;display:flex;align-items:center;gap:10px;justify-content:flex-start;background:#fbf8f2}
 .app:has(#result:not([hidden]))>header .brand{display:flex;flex-direction:row;gap:7px;margin:0;color:#303633;font-family:'Malsseum Gowun Dodum',sans-serif;font-size:18px;font-weight:400;line-height:1.4}
@@ -33,7 +35,7 @@
 #result .verse-result-turn .app-identity{display:none}
 #result .explanation-card .conversation-text{margin:6px 0 0;font-size:13px;line-height:1.6;color:#62675f}
 #result .explanation-card .empathy-bubble+.conversation-text{margin-top:6px;padding-top:6px;border-top:1px solid #eeeae2}
-#result .verse-actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));align-items:start;gap:7px;margin:0}
+#result .verse-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-items:start;gap:7px;margin:0}
 #result .verse-actions details,#result .save-action{min-width:0;margin:0;border:1px solid #eae6de;border-radius:16px;background:#fffdfa;color:#343a36;box-shadow:0 5px 14px #554d3c0b;overflow:hidden}
 #result .verse-actions summary,#result .save-action{min-height:88px;padding:8px 4px 6px;font-size:13px;line-height:1.35;text-align:center;box-sizing:border-box}
 #result .verse-actions summary{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;cursor:pointer}
@@ -41,18 +43,23 @@
 #result .result-action-icon{display:block;width:27px;height:27px;margin:0 auto 2px;color:#4f7460}
 #result .result-action-icon svg{display:block;width:100%;height:100%}
 #result .verse-actions small{display:block;margin:2px 0 0;font-size:10px;line-height:1.3;color:#81847d}
-#result .save-action{cursor:default;opacity:.8}
+#result .save-action{grid-column:1/-1;display:flex;align-items:center;justify-content:center;gap:9px;min-height:49px;padding:10px 16px;cursor:pointer}
+#result .save-action .result-action-icon{width:21px;height:21px;margin:0;color:#315f49}
+#result .save-action .save-label{font-size:14px;line-height:1.4}
+#result .save-action[aria-pressed="true"] .result-action-icon{color:#315f49}
+#result .save-action[aria-pressed="true"] .save-label{color:#315f49}
+#result .save-action:focus-visible{outline:2px solid #315f49;outline-offset:3px}
+#result .saved-verse-turn .user-message,#result .saved-verse-turn .empathy-bubble{display:none}
+#result .saved-verse-turn .explanation-card>.conversation-text{margin-top:8px;padding-top:0;border:0}
 #result .verse-actions details[open]{grid-column:1/-1}
 #result .verse-actions details[open] summary{min-height:78px;border-bottom:1px solid #e7eadf}
 #result .verse-actions details p{margin:13px 16px;font-size:14px;line-height:1.7}
+#result .verse-actions .conversation-questions{counter-reset:reflection-question;display:grid;gap:13px;list-style:none;margin:15px 16px 17px;padding:0}
+#result .verse-actions .conversation-questions li{counter-increment:reflection-question;display:grid;grid-template-columns:26px minmax(0,1fr);gap:9px;color:#343a36;font-size:14px;line-height:1.65}
+#result .verse-actions .conversation-questions li::before{content:counter(reflection-question,decimal-leading-zero);color:#315f49;font-size:12px;line-height:1.9}
 #result .verse-actions details>small{margin:0 16px 15px;font-size:11px}
-#result .verse-actions .talk-action{grid-column:1/-1;display:flex;align-items:center;justify-content:center;position:relative;min-height:56px;margin:5px 0 0;padding:12px 30px;background:#315f49;color:#fff;border:1px solid #315f49;border-radius:28px;font-size:15px;line-height:1.5;box-shadow:0 5px 12px #315f491c}
-#result .verse-actions .talk-action:hover{background:#294c37}
-#result .talk-icon{display:inline-block;width:22px;height:22px;margin-right:10px}
-#result .talk-icon svg{display:block;width:100%;height:100%}
-#result .talk-arrow{position:absolute;right:18px;font-size:27px;line-height:1}
-#result .verse-actions .talk-action:focus-visible,.result-back:focus-visible{outline:2px solid #315f49;outline-offset:3px}
-#result #reply-form{order:2;margin:0;padding:18px 0 0;border:0;border-top:1px solid #eae7df;border-radius:0;background:none;box-shadow:none}
+.result-back:focus-visible{outline:2px solid #315f49;outline-offset:3px}
+#result #reply-form{order:2;margin:12px 0 0;padding:18px 0 0;border:0;border-top:1px solid #eae7df;border-radius:0;background:none;box-shadow:none}
 .app:has(#result:not([hidden]))>#bottom-nav{background:#fffdfa}
 .app:has(#result:not([hidden]))>#bottom-nav button{font-family:'Malsseum Gowun Dodum','Malsseum SUIT',sans-serif;font-weight:400;font-synthesis:none}
 @media(max-width:359px){#result .verse-result-turn .scripture{padding:21px 17px 19px 39px}#result .result-quote{left:12px}#result .verse-actions{gap:5px}#result .verse-actions summary,#result .save-action{font-size:12px}#result .verse-actions small{font-size:9px}}

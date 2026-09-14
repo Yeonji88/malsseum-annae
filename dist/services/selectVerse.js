@@ -14,9 +14,18 @@ window.Malsseum.services.selectVerse=function(analysis,candidates,options={}){
  // Preserve the accumulated context for continuations; unknown information is never invented.
  const effectiveAnalysis={...analysis,primaryTopic:contextualContinuation&&acknowledgement?previousAnalysis.primaryTopic:analysis.primaryTopic,secondaryTopics:contextualContinuation&&acknowledgement?previousAnalysis.secondaryTopics:analysis.secondaryTopics,situations:[...new Set([...(continueConversation?previousAnalysis?.situations||[]:[]),...analysis.situations])]};
  result.analysis=effectiveAnalysis;
+ const short=effectiveAnalysis.shortFeeling;
+ const shortPreference=short&&(
+  /^(?:화가\s*나|화났|짜증나|분노해)/.test(short)?'ephesians-4-26-27':
+  /^(?:무서워|두려워)/.test(short)?'psalm-56-3':
+  /^(?:불안해|걱정돼)/.test(short)?'philippians-4-6-7':
+  /^(?:우울해|울적해|(?:기분|마음)이\s*가라앉|마음이\s*무거워)/.test(short)?'psalm-34-18':null
+ );
  const reviewed=candidates.map(candidate=>{
   const review=policy.review(candidate.verse,effectiveAnalysis,{applicationTags:options.applicationTags||[]});
-  const suitability=(candidate.score+candidate.matchedSituations.length*2)*review.priority;
+  let suitability=(candidate.score+candidate.matchedSituations.length*2)*review.priority;
+  if(candidate.verse.id===shortPreference)suitability+=shortPreference==='ephesians-4-26-27'?1.2:.45;
+  if(candidate.verse.id==='john-11-35'&&effectiveAnalysis.primaryTopic==='grief'&&!effectiveAnalysis.mourningContext)suitability*=.75;
   return {...candidate,review,suitability};
  });
  result.reviews=reviewed.map(({verse,review})=>({id:verse.id,...review}));

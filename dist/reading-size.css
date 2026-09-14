@@ -1,0 +1,52 @@
+/* Scale reading content without enlarging navigation, icons, or action controls. */
+.settings-header-actions{display:flex;align-items:center;gap:8px}
+.settings-save{min-height:44px;padding:9px 15px;border:1px solid #b8cebc;border-radius:14px;background:#eef4ed;color:#315f49;font:inherit;font-size:14px;font-weight:550;cursor:pointer}
+.settings-save:focus-visible{outline:2px solid #315f49;outline-offset:2px}
+#settings-form .profile-help{margin-bottom:0}
+.text-size-field{min-width:0;margin:0 0 21px;padding:0;border:0}
+.text-size-field legend{margin:0 0 10px;padding:0;color:#303633;font-family:'Malsseum Gowun Dodum','Malsseum SUIT',sans-serif;font-size:15px}
+.text-size-options{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}
+.text-size-option{display:flex;align-items:center;justify-content:center;gap:5px;min-width:0;min-height:42px;padding:8px 5px;border:1px solid #dce6d7;border-radius:12px;background:#fffdfa;color:#303633;font-family:'Malsseum Gowun Dodum','Malsseum SUIT',sans-serif;font-size:13px;line-height:1.4;cursor:pointer}
+.text-size-option:has(input:checked){border-color:#739071;background:#f0f4ed;color:#315f49}
+.text-size-option input{flex-shrink:0;width:15px;height:15px;margin:0;accent-color:#315f49}
+.app[data-text-size="default"]{--read-verse:21px;--read-reference:15px;--read-body:16px;--read-reason:15px;--read-question:16px;--read-number:13px;--read-saved:19px;--read-journal:17px;--read-answer:16px;--read-heading:23px;--read-subheading:19px;--read-intro:16px;--read-home-heading:30px;--read-line:1.7}
+.app[data-text-size="large"]{--read-verse:25.5px;--read-reference:18px;--read-body:19px;--read-reason:18px;--read-question:19px;--read-number:15px;--read-saved:23px;--read-journal:20px;--read-answer:19px;--read-heading:26.5px;--read-subheading:22.5px;--read-intro:19px;--read-home-heading:34.5px;--read-line:1.76}
+.app[data-text-size="xlarge"]{--read-verse:30px;--read-reference:21px;--read-body:22px;--read-reason:21px;--read-question:22px;--read-number:17px;--read-saved:27px;--read-journal:23px;--read-answer:22px;--read-heading:30px;--read-subheading:26px;--read-intro:22px;--read-home-heading:39px;--read-line:1.82}
+.app:is([data-text-size="default"],[data-text-size="large"],[data-text-size="xlarge"]) #home-screen .welcome h1{font-size:var(--read-home-heading);line-height:1.5}
+.app:is([data-text-size="default"],[data-text-size="large"],[data-text-size="xlarge"]) #home-screen .welcome>p:not(.personal-greeting){font-size:var(--read-intro);line-height:var(--read-line)}
+.app:is([data-text-size="default"],[data-text-size="large"],[data-text-size="xlarge"]) #home-screen #heart{font-size:var(--read-body);line-height:var(--read-line)}
+.app:is([data-text-size="default"],[data-text-size="large"],[data-text-size="xlarge"]) #result .scripture blockquote{font-size:var(--read-verse);line-height:1.6;letter-spacing:-.3px}
+.app:is([data-text-size="default"],[data-text-size="large"],[data-text-size="xlarge"]) #result .scripture figcaption{font-size:var(--read-reference);line-height:var(--read-line)}
+.app:is([data-text-size="default"],[data-text-size="large"],[data-text-size="xlarge"]) #result .scripture .translation{font-size:12px;line-height:1.5}
+.app:is([data-text-size="default"],[data-text-size="large"],[data-text-size="xlarge"]) #result .user-message p{font-size:var(--read-body);line-height:var(--read-line)}
+.app:is([data-text-size="default"],[data-text-size="large"],[data-text-size="xlarge"]) #result .explanation-label{font-size:var(--read-body);line-height:var(--read-line)}
+#result .explanation-label,#result #reply-form label{color:#303633;background:linear-gradient(to bottom,transparent 0 53%,#e8efdf 53% 93%,transparent 93%);-webkit-box-decoration-break:clone;box-decoration-break:clone}
+#result .explanation-label,#result #reply-form label{width:fit-content}
+.app[data-text-size="xlarge"] #result .explanation-label{font-size:16px;line-height:1.55}
+.app[data-text-size="large"] #result .explanation-label{font-size:16px;line-height:1.55}
+.app:is([data-text-size="default"],[data-text-size="large"],[data-text-size="xlarge"]) #result .explanation-card .conversation-text{font-size:var(--read-reason);line-height:var(--read-line)}
+.app:is([data-text-size="default"],[data-text-size="large"],[data-text-size="xlarge"]) #result .verse-actions .conversation-questions li{grid-template-columns:30px minmax(0,1fr);font-size:var(--read-question);line-height:var(--read-line)}
+.app:is([data-text-size="default"],[data-text-size="large"],[data-text-size="xlarge"]) #result .verse-actions .conversation-questions li::before{font-size:var(--read-number);line-height:2}
+.app:is([data-text-size="default"],[data-text-size="large"],[data-text-size="xlarge"]) #result .verse-actions details p{font-size:var(--read-body);line-height:var(--read-line)}
+.app:is([data-text-size="default"],[data-text-size="large"],[data-text-size="xlarge"]) #result .conversation-note{font-size:13px;line-height:1.6}
+.app:is([data-text-size="default"],[data-text-size="large"],[data-text-size="xlarge"]) #my-screen h1,.app:is([data-text-size="default"],[data-text-size="large"],[data-text-size="xlarge"]) #prayer-screen h1{font-size:var(--read-heading);line-height:1.5}
+.app:is([data-text-size="default"],[data-text-size="large"],[data-text-size="xlarge"]) #my-screen .saved-verse-text{font-size:var(--read-saved);line-height:1.62}
+.app:is([data-text-size="default"],[data-text-size="large"],[data-text-size="xlarge"]) #my-screen .saved-verse-reference{font-size:var(--read-reference);line-height:var(--read-line)}
+.app:is([data-text-size="default"],[data-text-size="large"],[data-text-size="xlarge"]) #my-screen .saved-empty p,.app:is([data-text-size="default"],[data-text-size="large"],[data-text-size="xlarge"]) #prayer-screen .prayer-empty p{font-size:var(--read-body);line-height:var(--read-line)}
+.app:is([data-text-size="default"],[data-text-size="large"],[data-text-size="xlarge"]) #prayer-screen .prayer-intro{font-size:var(--read-intro);line-height:var(--read-line)}
+.app:is([data-text-size="default"],[data-text-size="large"],[data-text-size="xlarge"]) #prayer-screen h2{font-size:var(--read-subheading);line-height:1.5}
+.app:is([data-text-size="default"],[data-text-size="large"],[data-text-size="xlarge"]) #prayer-screen .prayer-content{font-size:var(--read-journal);line-height:var(--read-line)}
+.app:is([data-text-size="default"],[data-text-size="large"],[data-text-size="xlarge"]) #prayer-screen .answered-content{font-size:var(--read-answer);line-height:var(--read-line)}
+.app:is([data-text-size="default"],[data-text-size="large"],[data-text-size="xlarge"]) #prayer-screen .prayer-form textarea,.app:is([data-text-size="default"],[data-text-size="large"],[data-text-size="xlarge"]) #prayer-screen .answer-form textarea{font-size:var(--read-journal);line-height:var(--read-line)}
+.app[data-text-size="xlarge"] #result .scripture blockquote{line-height:1.68}
+.app[data-text-size="large"] #result .scripture blockquote{line-height:1.64}
+.app[data-text-size="large"] #my-screen .saved-verse-text{line-height:1.67;overflow-wrap:anywhere}
+.app[data-text-size="large"] #home-screen #heart{height:158px;min-height:158px;max-height:none}
+.app[data-text-size="large"] #result #reply{min-height:138px}
+.app[data-text-size="large"] #prayer-screen .prayer-form textarea{min-height:235px}
+.app[data-text-size="large"] #prayer-screen .answer-form textarea{min-height:130px}
+.app[data-text-size="xlarge"] #my-screen .saved-verse-text{line-height:1.72;overflow-wrap:anywhere}
+.app[data-text-size="xlarge"] #home-screen #heart{height:190px;min-height:190px;max-height:none}
+.app[data-text-size="xlarge"] #result #reply{min-height:160px}
+.app[data-text-size="xlarge"] #prayer-screen .prayer-form textarea{min-height:260px}
+.app[data-text-size="xlarge"] #prayer-screen .answer-form textarea{min-height:155px}

@@ -1,0 +1,49 @@
+/* Personal prayer journal within the existing ivory and deep-green palette. */
+.app:has(#prayer-screen:not([hidden])){background:#fbf8f2}
+.app:has(#prayer-screen:not([hidden]))>header{height:66px;min-height:66px;padding:11px 22px;background:#fbf8f2}
+.app:has(#prayer-screen:not([hidden]))>header .brand{display:flex;flex-direction:row;align-items:center;gap:7px;margin:0;color:#303633;font-family:'Malsseum Gowun Dodum',sans-serif;font-size:18px;font-weight:400}
+.app:has(#prayer-screen:not([hidden]))>header .brand-mark,.app:has(#prayer-screen:not([hidden]))>header .brand-mark svg{width:20px;height:20px;margin:0;background:none;color:#64856c}
+.app:has(#prayer-screen:not([hidden]))>header .home-logo-caption,.app:has(#prayer-screen:not([hidden]))>header .home-bell{display:none}
+.app:has(#prayer-screen:not([hidden]))>header #open-settings{position:static;margin-left:auto;color:#303633}
+.app:has(#prayer-screen:not([hidden])) #main-content{padding:0 18px 20px}
+#prayer-screen[hidden]{display:none}
+#prayer-screen{font-family:'Malsseum Gowun Dodum','Malsseum SUIT',sans-serif;font-synthesis:none;color:#303633}
+#prayer-screen h1{margin:13px 3px 5px;color:#315f49;font-size:21px;font-weight:400;line-height:1.5}
+#prayer-screen .prayer-intro{margin:0 3px 19px;color:#616961;font-size:14px;line-height:1.6}
+.prayer-form{margin:0;padding:17px;border:1px solid #ebe7df;border-radius:18px;background:#fffdfa;box-shadow:0 5px 15px #554d3c0a}
+.prayer-form textarea{display:block;box-sizing:border-box;width:100%;min-height:210px;resize:vertical;margin:0;padding:15px;border:1px solid #e6e8e0;border-radius:14px;background:#fffefa;color:#303633;font:inherit;font-size:15px;line-height:1.7}
+.prayer-form textarea::placeholder{color:#989c92}
+.prayer-form .error{margin:9px 1px;color:#a14f4a;font-size:13px}
+.prayer-form .error:empty{display:none}
+.prayer-save{display:block;width:100%;min-height:51px;margin:14px 0 0;padding:11px 16px;border:1px solid #315f49;border-radius:26px;background:#315f49;color:#fff;font:inherit;font-size:15px;cursor:pointer}
+.prayer-cancel{display:block;margin:8px auto 0;padding:6px 10px;border:0;background:none;color:#315f49;font:inherit;font-size:13px;cursor:pointer}
+.prayer-cancel[hidden]{display:none}
+#prayer-screen h2{margin:26px 3px 13px;color:#303633;font-size:17px;font-weight:400}
+.prayer-list{display:grid;gap:12px}
+.prayer-entry,.prayer-empty{padding:18px 20px;border:1px solid #ebe7df;border-radius:18px;background:#fffdfa;box-shadow:0 5px 15px #554d3c08}
+.prayer-date{color:#315f49;font-size:12px;line-height:1.5}
+.prayer-content{margin:9px 0 14px;color:#303633;font-size:15px;line-height:1.65;white-space:pre-wrap;overflow-wrap:anywhere}
+.prayer-entry-actions{display:flex;justify-content:flex-end;gap:14px}
+.prayer-entry-actions button{padding:5px 3px;border:0;background:none;color:#315f49;font:inherit;font-size:13px;cursor:pointer}
+.answered-prayer{margin-top:13px;padding:14px 16px;border:1px solid #e5ebe1;border-radius:13px;background:#f2f5ef}
+.answered-label{display:block;color:#315f49;font-size:13px;font-weight:400;line-height:1.5}
+.answered-date{display:block;margin-top:7px;color:#607564;font-size:12px;line-height:1.5}
+.answered-content{margin:7px 0 10px;color:#303633;font-size:14px;line-height:1.65;white-space:pre-wrap;overflow-wrap:anywhere}
+.answer-actions{display:flex;justify-content:flex-end;gap:14px}
+.answer-actions button{padding:4px 2px;border:0;background:none;color:#315f49;font:inherit;font-size:12px;cursor:pointer}
+.answer-form{margin-top:14px;padding:14px;border:1px solid #e5ebe1;border-radius:13px;background:#f8faf5}
+.answer-form label:not(.sr-only){display:block;color:#315f49;font-size:13px;line-height:1.5}
+.answer-form input[type=date]{display:block;box-sizing:border-box;width:100%;min-height:42px;margin:7px 0 12px;padding:8px 11px;border:1px solid #dfe6da;border-radius:10px;background:#fffdfa;color:#303633;font:inherit;font-size:14px}
+.answer-form textarea{display:block;box-sizing:border-box;width:100%;min-height:105px;resize:vertical;margin:0;padding:12px;border:1px solid #dfe6da;border-radius:10px;background:#fffdfa;color:#303633;font:inherit;font-size:14px;line-height:1.6}
+.answer-form textarea::placeholder{color:#8d958b}
+.answer-error{margin:7px 0 0;color:#a14f4a;font-size:12px}
+.answer-error:empty{display:none}
+.answer-form-actions{display:flex;align-items:center;justify-content:flex-end;gap:12px;margin-top:12px}
+.answer-form-actions button{min-height:38px;padding:7px 12px;border:0;border-radius:18px;background:none;color:#315f49;font:inherit;font-size:13px;cursor:pointer}
+.answer-form-actions button[type=submit]{background:#315f49;color:#fff}
+.prayer-empty{text-align:center}
+.prayer-empty p{margin:0;color:#303633;font-size:15px;line-height:1.6}
+.prayer-empty p+p{margin-top:8px;color:#73796f;font-size:13px}
+.prayer-form textarea:focus-visible,.prayer-save:focus-visible,.prayer-cancel:focus-visible,.prayer-entry-actions button:focus-visible,.answer-actions button:focus-visible,.answer-form input:focus-visible,.answer-form textarea:focus-visible,.answer-form-actions button:focus-visible{outline:2px solid #315f49;outline-offset:3px}
+.app:has(#prayer-screen:not([hidden]))>#bottom-nav{background:#fffdfa}
+.app:has(#prayer-screen:not([hidden]))>#bottom-nav button{font-family:'Malsseum Gowun Dodum','Malsseum SUIT',sans-serif;font-synthesis:none}

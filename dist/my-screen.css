@@ -1,0 +1,34 @@
+/* Saved verses use the existing warm paper palette and bottom navigation. */
+.app:has(#my-screen:not([hidden])){background:#fbf8f2}
+.app:has(#my-screen:not([hidden]))>header{height:66px;min-height:66px;padding:11px 22px;background:#fbf8f2}
+.app:has(#my-screen:not([hidden]))>header .brand{display:flex;flex-direction:row;align-items:center;gap:7px;margin:0;color:#303633;font-family:'Malsseum Gowun Dodum',sans-serif;font-size:18px;font-weight:400}
+.app:has(#my-screen:not([hidden]))>header .brand-mark,.app:has(#my-screen:not([hidden]))>header .brand-mark svg{width:20px;height:20px;margin:0;background:none;color:#64856c}
+.app:has(#my-screen:not([hidden]))>header .home-logo-caption,.app:has(#my-screen:not([hidden]))>header .home-bell{display:none}
+.app:has(#my-screen:not([hidden]))>header #open-settings{position:static;margin-left:auto;color:#303633}
+.app:has(#my-screen:not([hidden])) #main-content{padding:0 18px 20px}
+#my-screen[hidden]{display:none}
+#my-screen{font-family:'Malsseum Gowun Dodum','Malsseum SUIT',sans-serif;font-synthesis:none;color:#303633}
+#my-screen h1{margin:13px 3px 18px;font-size:21px;font-weight:400;line-height:1.5}
+.my-heading{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.my-heading h1{min-width:0}
+.edit-saved,.select-all{border:0;background:none;color:#315f49;cursor:pointer;font:inherit;font-size:13px;line-height:1.5}
+.edit-saved{flex-shrink:0;padding:10px 4px;margin-right:2px}
+.select-all{display:block;margin:-5px 0 12px;padding:6px 4px}
+.select-all[hidden],.edit-saved[hidden],.bulk-remove[hidden]{display:none}
+.saved-verse-list{display:grid;gap:12px}
+.saved-verse-card{display:flex;flex-direction:column;align-items:flex-start;width:100%;padding:20px 22px;border:1px solid #ebe7df;border-radius:18px;background:#fffdfa;box-shadow:0 5px 15px #554d3c0a;text-align:left;cursor:pointer;font:inherit}
+.saved-verse-card.is-editing{position:relative;padding-left:52px}
+.saved-verse-card.is-editing[aria-pressed="true"]{border-color:#aec6b1;background:#fffefa}
+.saved-select-indicator{position:absolute;left:17px;top:22px;display:grid;place-items:center;width:20px;height:20px;border:1.5px solid #8fa898;border-radius:50%;color:#fff;font-size:12px;line-height:1}
+.saved-verse-card[aria-pressed="true"] .saved-select-indicator{background:#315f49;border-color:#315f49}
+.saved-verse-text{color:#303633;font-size:17px;line-height:1.55;white-space:pre-line;word-break:keep-all}
+.saved-verse-reference{margin-top:13px;color:#315f49;font-size:13px;line-height:1.5}
+.saved-verse-card:focus-visible{outline:2px solid #315f49;outline-offset:3px}
+.saved-empty{padding:33px 22px;border:1px solid #ebe7df;border-radius:18px;background:#fffdfa;text-align:center;box-shadow:0 5px 15px #554d3c08}
+.saved-empty p{margin:0;color:#303633;font-size:16px;line-height:1.6}
+.saved-empty p+p{margin-top:8px;color:#73796f;font-size:13px}
+.bulk-remove{position:sticky;bottom:12px;display:block;width:100%;min-height:49px;margin:18px 0 2px;padding:11px 16px;border:1px solid #315f49;border-radius:25px;background:#315f49;color:#fff;box-shadow:0 5px 13px #315f491a;font:inherit;font-size:14px;cursor:pointer}
+.bulk-remove:disabled{border-color:#d9ded5;background:#e8ece5;color:#7f8980;box-shadow:none;cursor:default}
+.edit-saved:focus-visible,.select-all:focus-visible,.bulk-remove:focus-visible{outline:2px solid #315f49;outline-offset:3px}
+.app:has(#my-screen:not([hidden]))>#bottom-nav{background:#fffdfa}
+.app:has(#my-screen:not([hidden]))>#bottom-nav button{font-family:'Malsseum Gowun Dodum','Malsseum SUIT',sans-serif;font-synthesis:none}
