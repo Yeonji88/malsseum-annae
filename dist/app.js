@@ -35,11 +35,9 @@ function renderTurn(message,selection) {
  opening=UserProfile.address(opening,turnCount);
  empathy.append(element('p','conversation-text',opening));
  turn.classList.add('verse-result-turn');
- const name=UserProfile.getName();
- user.querySelector('.speaker').textContent=name?name+'님의 이야기':'나의 이야기';
- response.append(element('p','result-arrival','오늘 '+(name?name+'님':'당신')+'에게 닿은 말씀이에요.'));
+ user.querySelector('.speaker').textContent='현재 마음';
  const scripture=element('figure','scripture');
- const scriptureLabel=element('div','scripture-label','오늘 당신에게 닿은 말씀');scriptureLabel.prepend(sproutIcon());
+ const quoteMark=element('span','result-quote','“');quoteMark.setAttribute('aria-hidden','true');scripture.append(quoteMark);
  scripture.append(element('blockquote','',verse.text));
  const caption=element('figcaption','',verse.reference);
  // Do not link a different translation. Only use a supplied source for this record.
@@ -54,14 +52,23 @@ function renderTurn(message,selection) {
  explanation.append(element('span','speaker explanation-label','이 말씀이 지금 마음에 닿는 이유'),empathy,element('p','conversation-text',followup[0]));
  response.append(explanation);
  const actions=element('div','verse-actions');
- const talk=element('button','talk-action','이 말씀으로 더 이야기하기 →');talk.type='button';
+ const talk=element('button','talk-action','이 말씀으로 더 이야기하기');talk.type='button';
+ const talkIcon=element('span','talk-icon');talkIcon.setAttribute('aria-hidden','true');talkIcon.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11.5a7.5 7.5 0 0 1-7.5 7.5 9 9 0 0 1-3-.5L4 21l1.7-4.5A7.5 7.5 0 1 1 20 11.5Z"/></svg>';talk.prepend(talkIcon);
+ const talkArrow=element('span','talk-arrow','›');talkArrow.setAttribute('aria-hidden','true');talk.append(talkArrow);
  talk.addEventListener('click',()=>{reply.focus();reply.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'center'});});
  const question=element('details','reflection-action');
  question.append(element('summary','','묵상해보기'),element('p','conversation-question',followup[1]));
  const prayer=element('details','prayer-action');
  prayer.append(element('summary','','기도문 보기'),element('p','',verse.prayer||'기도문 준비 중'),element('small','',verse.prayer?'앱이 준비한 기도 예시예요. 마음에 맞는 말로 바꾸어도 좋아요.':'이 말씀의 기도문은 아직 등록되지 않았어요.'));
- const save=element('button','save-action','♡ 저장');save.type='button';save.disabled=true;save.title='저장 기능 준비 중';
- save.append(element('small','','준비 중'));
+ const save=element('button','save-action','저장하기');save.type='button';save.disabled=true;save.title='저장 기능 준비 중';
+ save.append(element('small','','마음에 담아두기'));
+ question.querySelector('summary').append(element('small','','함께 생각해요'));
+ prayer.querySelector('summary').append(element('small','','이 말씀으로 기도해요'));
+ const actionIcons={save:'<path d="M6 3h12v18l-6-4-6 4V3Z"/>',reflection:'<path d="M12 5v16M12 5C9 3 5 3 2 4v15c4-1 7-1 10 2 3-3 6-3 10-2V4c-3-1-7-1-10 1Z"/>',prayer:'<path d="m5 21-3-4 5-6 2-7c.5-2 3-1 3 1v8l-4 6m11 2 3-4-5-6-2-7c-.5-2-3-1-3 1v8l4 6"/>'};
+ for(const [target,kind] of [[save,'save'],[question.querySelector('summary'),'reflection'],[prayer.querySelector('summary'),'prayer']]){
+  const icon=element('span','result-action-icon');icon.setAttribute('aria-hidden','true');
+  icon.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">'+actionIcons[kind]+'</svg>';target.prepend(icon);
+ }
  actions.append(save,question,prayer,talk);response.append(actions);turn.append(response);return turn;
 }
 const resultStyles=document.createElement('link');resultStyles.rel='stylesheet';resultStyles.href='result-screen.css';document.head.append(resultStyles);
@@ -198,6 +205,11 @@ const homeScreen=document.getElementById('home-screen');
 const resultScreen=document.getElementById('result');
 const emptyScreen=document.getElementById('empty-screen');
 const bottomNav=document.getElementById('bottom-nav');
+const resultBack=element('button','result-back');
+resultBack.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5m7-7-7 7 7 7"/></svg>';
+resultBack.type='button';resultBack.setAttribute('aria-label','홈 고민 입력으로 돌아가기');
+resultBack.addEventListener('click',()=>displayScreen('home'));
+document.querySelector('.app>header').prepend(resultBack);
 function displayScreen(screen){
  if(screen==='profile'){settingsButton.click();return;}
  homeScreen.hidden=screen!=='home';
