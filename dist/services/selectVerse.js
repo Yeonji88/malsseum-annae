@@ -1,4 +1,5 @@
 (function () {
+const contextOnlyVerses=new Set(['psalm-4-8','psalm-46-1-2','psalm-62-5-6','psalm-121-1-2','psalm-130-5','isaiah-30-15','exodus-14-14','psalm-131-1-2','1-peter-5-7','psalm-94-19']);
 window.Malsseum.services.selectVerse=function(analysis,candidates,options={}){
  const {previousId=null,previousAnalysis=null,continueConversation=false,history=[],verses=window.Malsseum.data.verses}=options;
  const policy=window.Malsseum.services.recommendationPolicy;
@@ -24,6 +25,9 @@ window.Malsseum.services.selectVerse=function(analysis,candidates,options={}){
  const reviewed=candidates.map(candidate=>{
   const review=policy.review(candidate.verse,effectiveAnalysis,{applicationTags:options.applicationTags||[]});
   let suitability=(candidate.score+candidate.matchedSituations.length*2)*review.priority;
+  // The new passages describe particular contexts; a broad topic alone is not enough to outrank an existing general passage.
+  if(contextOnlyVerses.has(candidate.verse.id)&&!candidate.matchedSituations.length)suitability*=.7;
+  if(candidate.verse.id==='psalm-62-5-6'&&effectiveAnalysis.situations.includes('anxious_waiting'))suitability+=.4;
   if(candidate.verse.id===shortPreference)suitability+=shortPreference==='ephesians-4-26-27'?1.2:.45;
   if(candidate.verse.id==='john-11-35'&&effectiveAnalysis.primaryTopic==='grief'&&!effectiveAnalysis.mourningContext)suitability*=.75;
   return {...candidate,review,suitability};

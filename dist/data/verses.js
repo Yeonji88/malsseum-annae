@@ -2011,6 +2011,96 @@ window.Malsseum.data.verses = Object.freeze([
       ]
     },
     "textVerificationSource": "user_supplied"
+  },
+  {
+    id:'psalm-4-8',reference:'시편 4:8',book:'시편',chapter:4,verseStart:8,verseEnd:8,
+    text:'내가 평안히 눕고 자기도 하리니 나를 안전히 살게 하시는 이는 오직 여호와이시니이다',translation:'개역개정',targetTranslation:'개역개정',
+    topics:['fear'],situations:['sleep_worry'],expressions:['잠이 안 와요','걱정돼서 잠이 안 와요','불안해서 못 자겠어요','밤마다 걱정돼요','누우면 생각이 많아져요','편하게 자고 싶어요'],
+    recommendationNote:'걱정과 불안으로 잠들기 어려운 밤에 연결합니다.',cautionTags:['endurance_in_danger'],
+    contextNote:'시편 기자가 하나님 안에서 안전을 신뢰하며 평안히 눕고 잘 수 있다고 고백하는 말씀.',
+    applicationGuidance:{suitableSituations:['sleep_worry'],avoidApplications:['endurance_in_danger']},
+    textStatus:'verified',textStatusLabel:'본문 검증 완료',recommendationEnabled:true,guidanceStatus:'pending',metadataStatus:'draft',textVerificationSource:'user_supplied'
+  },
+  {
+    id:'psalm-46-1-2',reference:'시편 46:1-2',book:'시편',chapter:46,verseStart:1,verseEnd:2,
+    text:'하나님은 우리의 피난처시요 힘이시니 환난 중에 만날 큰 도움이시라 그러므로 땅이 변하든지 산이 흔들려 바다 가운데에 빠지든지',translation:'개역개정',targetTranslation:'개역개정',
+    topics:['fear'],situations:['sudden_upheaval'],expressions:['갑자기 일이 터졌어요','모든 게 무너지는 것 같아요','상황이 너무 크게 흔들렸어요','갑작스러운 일 때문에 정신이 없어요','큰일이 생겼어요'],
+    recommendationNote:'갑작스러운 큰 변화로 모든 것이 흔들리는 상황에 연결합니다.',cautionTags:['endurance_in_danger'],
+    contextNote:'혼돈과 큰 변화 속에서도 하나님을 피난처와 도움으로 고백하는 시편.',
+    applicationGuidance:{suitableSituations:['sudden_upheaval'],avoidApplications:['endurance_in_danger']},
+    textStatus:'verified',textStatusLabel:'본문 검증 완료',recommendationEnabled:true,guidanceStatus:'pending',metadataStatus:'draft',textVerificationSource:'user_supplied'
+  },
+  {
+    id:'psalm-62-5-6',reference:'시편 62:5-6',book:'시편',chapter:62,verseStart:5,verseEnd:6,
+    text:'나의 영혼아 잠잠히 하나님만 바라라 무릇 나의 소망이 그로부터 나오는도다 오직 그만이 나의 반석이시요 나의 구원이시요 나의 요새이시니 내가 흔들리지 아니하리로다',translation:'개역개정',targetTranslation:'개역개정',
+    topics:['fear','rest'],situations:['anxious_waiting'],expressions:['결과를 기다리고 있어요','기다리는데 너무 조급해요','결과가 어떻게 될지 신경 쓰여요','마음이 자꾸 흔들려요','기다리는 게 힘들어요'],
+    recommendationNote:'결과를 기다리며 조급하고 마음이 흔들리는 상황에 연결합니다.',cautionTags:['guaranteed_outcome'],
+    contextNote:'하나님께 소망을 두고 흔들리는 영혼을 잠잠히 하나님께 향하게 하는 고백.',
+    applicationGuidance:{suitableSituations:['anxious_waiting'],avoidApplications:['guaranteed_outcome']},
+    textStatus:'verified',textStatusLabel:'본문 검증 완료',recommendationEnabled:true,guidanceStatus:'pending',metadataStatus:'draft',textVerificationSource:'user_supplied'
+  },
+  {
+    id:'psalm-121-1-2',reference:'시편 121:1-2',book:'시편',chapter:121,verseStart:1,verseEnd:2,
+    text:'내가 산을 향하여 눈을 들리라 나의 도움이 어디서 올까 나의 도움은 천지를 지으신 여호와에게서로다',translation:'개역개정',targetTranslation:'개역개정',
+    topics:['future'],situations:['seeking_help'],expressions:['도움이 필요해요','누구한테 도움을 받아야 할지 모르겠어요','어디에 의지해야 할지 모르겠어요','혼자 해결하기 어려워요','도와줄 사람이 없는 것 같아요'],
+    recommendationNote:'어디에서 도움을 구해야 할지 막막한 상황에 연결합니다.',cautionTags:['coercive_application','endurance_in_danger'],
+    contextNote:'순례자가 자신의 도움이 천지를 지으신 여호와에게서 온다고 고백하는 말씀.',
+    applicationGuidance:{suitableSituations:['seeking_help'],avoidApplications:['coercive_application','endurance_in_danger']},
+    textStatus:'verified',textStatusLabel:'본문 검증 완료',recommendationEnabled:true,guidanceStatus:'pending',metadataStatus:'draft',textVerificationSource:'user_supplied'
+  },
+  {
+    id:'psalm-130-5',reference:'시편 130:5',book:'시편',chapter:130,verseStart:5,verseEnd:5,
+    text:'나 곧 내 영혼은 여호와를 기다리며 나는 주의 말씀을 바라는도다',translation:'개역개정',targetTranslation:'개역개정',
+    topics:['faith'],situations:['prolonged_waiting'],expressions:['언제까지 기다려야 할까요','기다림이 너무 길어요','아무 변화가 없어요','계속 기다리고 있어요','응답을 기다리고 있어요'],
+    recommendationNote:'변화나 응답이 오래 보이지 않는 기다림에 연결합니다.',cautionTags:['guaranteed_outcome'],
+    contextNote:'깊은 곳에서 하나님께 부르짖는 시편의 흐름 안에서, 여호와와 그의 말씀을 기다리는 고백.',
+    applicationGuidance:{suitableSituations:['prolonged_waiting'],avoidApplications:['guaranteed_outcome']},
+    textStatus:'verified',textStatusLabel:'본문 검증 완료',recommendationEnabled:true,guidanceStatus:'pending',metadataStatus:'draft',textVerificationSource:'user_supplied'
+  },
+  {
+    id:'isaiah-30-15',reference:'이사야 30:15',book:'이사야',chapter:30,verseStart:15,verseEnd:15,
+    text:'주 여호와 이스라엘의 거룩하신 이가 이같이 말씀하시되 너희가 돌이켜 조용히 있어야 구원을 얻을 것이요 잠잠하고 신뢰하여야 힘을 얻을 것이거늘 너희가 원하지 아니하고',translation:'개역개정',targetTranslation:'개역개정',
+    topics:['fear'],situations:['restless_urgency'],expressions:['마음이 너무 조급해요','뭐라도 해야 할 것 같아요','가만히 있으면 불안해요','자꾸 서두르게 돼요','빨리 해결하고 싶어요'],
+    recommendationNote:'불안과 조급함 때문에 당장 무언가를 해야 할 것 같은 마음에 연결합니다.',cautionTags:['coercive_application','endurance_in_danger','context_distortion'],
+    contextNote:'유다가 하나님보다 다른 힘과 방법을 의지하려 했던 문맥에서, 돌이킴과 잠잠한 신뢰를 말씀하시는 장면.',
+    applicationGuidance:{suitableSituations:['restless_urgency'],avoidApplications:['coercive_application','endurance_in_danger','context_distortion']},
+    textStatus:'verified',textStatusLabel:'본문 검증 완료',recommendationEnabled:true,guidanceStatus:'pending',metadataStatus:'draft',textVerificationSource:'user_supplied'
+  },
+  {
+    id:'exodus-14-14',reference:'출애굽기 14:14',book:'출애굽기',chapter:14,verseStart:14,verseEnd:14,
+    text:'여호와께서 너희를 위하여 싸우시리니 너희는 가만히 있을지니라',translation:'개역개정',targetTranslation:'개역개정',
+    topics:['rest'],situations:['uncontrollable_burden'],expressions:['내가 할 수 있는 게 없는 것 같아요','아무리 해도 해결이 안 돼요','내 힘으로 어떻게 할 수가 없어요','계속 해결하려다 지쳤어요','통제할 수 없는 일이에요'],
+    recommendationNote:'스스로 해결하거나 통제하려 애쓰다 지친 상황에 연결합니다.',cautionTags:['coercive_application','endurance_in_danger','context_distortion'],
+    contextNote:'이스라엘이 홍해 앞에서 애굽 군대를 마주한 구체적인 위기에서 모세가 전한 말씀. 모든 문제에서 수동적으로 있으라는 일반 명령이 아님.',
+    applicationGuidance:{suitableSituations:['uncontrollable_burden'],avoidApplications:['coercive_application','endurance_in_danger','context_distortion']},
+    textStatus:'verified',textStatusLabel:'본문 검증 완료',recommendationEnabled:true,guidanceStatus:'pending',metadataStatus:'draft',textVerificationSource:'user_supplied'
+  },
+  {
+    id:'psalm-131-1-2',reference:'시편 131:1-2',book:'시편',chapter:131,verseStart:1,verseEnd:2,
+    text:'여호와여 내 마음이 교만하지 아니하고 내 눈이 오만하지 아니하오며 내가 큰 일과 감당하지 못할 놀라운 일을 하려고 힘쓰지 아니하나이다 실로 내가 내 영혼으로 고요하고 평온하게 하기를 젖 뗀 아이가 그의 어머니 품에 있음 같게 하였나니 내 영혼이 젖 뗀 아이와 같도다',translation:'개역개정',targetTranslation:'개역개정',
+    topics:['fear'],situations:['seeking_calm'],expressions:['마음을 좀 가라앉히고 싶어요','머리가 너무 복잡해요','마음이 진정이 안 돼요','생각을 멈추고 싶어요','마음이 편안해지고 싶어요'],
+    recommendationNote:'복잡하고 들뜬 마음을 고요하게 가라앉히고 싶을 때 연결합니다.',cautionTags:['emotion_suppression'],
+    contextNote:'시편 기자가 감당할 수 없는 큰일을 붙들려 하지 않고 자신의 영혼을 고요하고 평온하게 한 모습을 표현하는 말씀.',
+    applicationGuidance:{suitableSituations:['seeking_calm'],avoidApplications:['emotion_suppression']},
+    textStatus:'verified',textStatusLabel:'본문 검증 완료',recommendationEnabled:true,guidanceStatus:'pending',metadataStatus:'draft',textVerificationSource:'user_supplied'
+  },
+  {
+    id:'1-peter-5-7',reference:'베드로전서 5:7',book:'베드로전서',chapter:5,verseStart:7,verseEnd:7,
+    text:'너희 염려를 다 주께 맡기라 이는 그가 너희를 돌보심이라',translation:'개역개정',targetTranslation:'개역개정',
+    topics:['fear'],situations:['releasing_worry'],expressions:['걱정을 내려놓기가 어려워요','계속 제가 붙들고 있어요','염려를 맡기고 싶어요','걱정을 혼자 안고 있어요','내려놓고 싶은데 안 돼요'],
+    recommendationNote:'염려를 혼자 붙들고 있어 내려놓고 싶을 때 연결합니다.',cautionTags:['faith_shaming'],
+    contextNote:'고난 가운데 있는 신자들에게 겸손히 하나님을 의지하며 염려를 맡기라고 권하는 흐름의 말씀.',
+    applicationGuidance:{suitableSituations:['releasing_worry'],avoidApplications:['faith_shaming']},
+    textStatus:'verified',textStatusLabel:'본문 검증 완료',recommendationEnabled:true,guidanceStatus:'pending',metadataStatus:'draft',textVerificationSource:'user_supplied'
+  },
+  {
+    id:'psalm-94-19',reference:'시편 94:19',book:'시편',chapter:94,verseStart:19,verseEnd:19,
+    text:'내 속에 근심이 많을 때에 주의 위안이 내 영혼을 즐겁게 하시나이다',translation:'개역개정',targetTranslation:'개역개정',
+    topics:['fear'],situations:['crowded_thoughts'],expressions:['생각이 너무 많아요','걱정이 너무 많아요','머릿속이 복잡해요','여러 가지 걱정이 한꺼번에 있어요','근심이 많아요'],
+    recommendationNote:'여러 근심과 생각이 한꺼번에 많아진 상황에 연결합니다.',cautionTags:['emotion_suppression','guaranteed_outcome'],
+    contextNote:'많은 근심 가운데 하나님의 위안이 시편 기자의 영혼에 기쁨이 되었음을 고백하는 말씀.',
+    applicationGuidance:{suitableSituations:['crowded_thoughts'],avoidApplications:['emotion_suppression','guaranteed_outcome']},
+    textStatus:'verified',textStatusLabel:'본문 검증 완료',recommendationEnabled:true,guidanceStatus:'pending',metadataStatus:'draft',textVerificationSource:'user_supplied'
   }
 ]);
 })();
