@@ -1,11 +1,13 @@
 /* Scale reading content without enlarging navigation, icons, or action controls. */
+#settings-dialog,#settings-dialog :is(button,input,legend){font-family:'Malsseum Gowun Dodum','Malsseum SUIT',sans-serif}
 .settings-header-actions{display:flex;align-items:center;gap:8px}
 .settings-save{min-height:44px;padding:9px 15px;border:1px solid #b8cebc;border-radius:14px;background:#eef4ed;color:#315f49;font:inherit;font-size:14px;font-weight:550;cursor:pointer}
 .settings-save:focus-visible{outline:2px solid #315f49;outline-offset:2px}
 #settings-form .profile-help{margin-bottom:0}
 .text-size-field{min-width:0;margin:0 0 21px;padding:0;border:0}
 .settings-heading+.text-size-field{margin-top:18px;margin-bottom:12px}
-#settings-dialog .settings-intro{margin:0 0 10px}
+#settings-dialog #settings-form .settings-intro{margin:0 0 13px;font-size:16px;font-weight:550;line-height:1.5}
+#settings-dialog #settings-form>label{font-size:13px;font-weight:400}
 .text-size-field legend{margin:0 0 10px;padding:0;color:#303633;font-family:'Malsseum Gowun Dodum','Malsseum SUIT',sans-serif;font-size:15px}
 .text-size-options{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}
 .text-size-option{display:flex;align-items:center;justify-content:center;gap:5px;min-width:0;min-height:42px;padding:8px 5px;border:1px solid #dce6d7;border-radius:12px;background:#fffdfa;color:#303633;font-family:'Malsseum Gowun Dodum','Malsseum SUIT',sans-serif;font-size:13px;line-height:1.4;cursor:pointer}
