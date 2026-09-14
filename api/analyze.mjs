@@ -47,13 +47,14 @@ export async function POST(request) {
         text: {format: {type: 'json_schema', name: 'concern_analysis', strict: true, schema}}
       })
     });
-    if (!response.ok) return json({error: 'AI unavailable'}, 502);
+    if (!response.ok) return json({error: 'AI upstream error', upstreamStatus: response.status}, 502);
     const payload = await response.json();
     const output = payload.output?.flatMap(item => item.content || []).find(item => item.type === 'output_text')?.text;
-    const analysis = JSON.parse(output);
+    let analysis;
+    try { analysis = JSON.parse(output); } catch { return json({error: 'Invalid AI response'}, 502); }
     if (!validAnalysis(analysis)) return json({error: 'Invalid AI analysis'}, 502);
     return json(analysis);
-  } catch { return json({error: 'AI unavailable'}, 502); }
+  } catch (error) { return json({error: error?.name === 'TimeoutError' ? 'AI timeout' : 'AI request failed'}, error?.name === 'TimeoutError' ? 504 : 502); }
 }
 export function OPTIONS(request) {
   return request.headers.get('origin') === allowedOrigin ? new Response(null, {status: 204, headers}) : json({error: 'Forbidden'}, 403);
