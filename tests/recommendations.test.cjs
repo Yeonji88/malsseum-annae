@@ -13,11 +13,11 @@ function app() {
  const choose=(message,options={})=>{const analysis=s.classifyConcern(message);return s.selectVerse(analysis,s.findCandidates(analysis,options.verses),options);};
  return {data,s,choose};
 }
-test('catalogue has ten topics, 59 unique verses, all texts ready and optional guidance pending',()=>{
- const {data,s}=app(); assert.equal(data.topics.length,10);assert.equal(data.verses.length,59);
- assert.equal(new Set(data.verses.map(v=>v.id)).size,59);
- assert.equal(new Set(data.verses.map(v=>v.reference)).size,59);
- assert.equal(data.verses.filter(s.recommendationPolicy.isActive).length,59);
+test('catalogue has ten topics, 69 unique verses, all texts ready and optional guidance pending',()=>{
+ const {data,s}=app(); assert.equal(data.topics.length,10);assert.equal(data.verses.length,69);
+ assert.equal(new Set(data.verses.map(v=>v.id)).size,69);
+ assert.equal(new Set(data.verses.map(v=>v.reference)).size,69);
+ assert.equal(data.verses.filter(s.recommendationPolicy.isActive).length,69);
  assert.equal(data.verses.filter(v=>v.textStatus==='pending_verification').length,0);
  assert.equal(data.verses.slice(0,49).reduce((n,v)=>n+v.topics.length,0),52);
  for(const verse of data.verses){
@@ -295,8 +295,20 @@ const newPassages=[
  ['1-peter-5-7','베드로전서 5:7','너희 염려를 다 주께 맡기라 이는 그가 너희를 돌보심이라','걱정을 혼자 붙들고 있어서 내려놓고 싶어요'],
  ['psalm-94-19','시편 94:19','내 속에 근심이 많을 때에 주의 위안이 내 영혼을 즐겁게 하시나이다','걱정거리도 많고 생각도 너무 많아요']
 ];
+const passages60to69=[
+ ['psalm-42-5','시편 42:5','내 영혼아 네가 어찌하여 낙심하며 어찌하여 내 속에서 불안해 하는가 너는 하나님께 소망을 두라 그가 나타나 도우심으로 말미암아 내가 여전히 찬송하리로다','왜 그런지 모르겠는데 자꾸 우울해요'],
+ ['psalm-30-5','시편 30:5','그의 노염은 잠깐이요 그의 은총은 평생이로다 저녁에는 울음이 깃들일지라도 아침에는 기쁨이 오리로다','이 힘든 시간이 언제 끝날까요'],
+ ['2-corinthians-4-8-9','고린도후서 4:8-9','우리가 사방으로 욱여쌈을 당하여도 싸이지 아니하며 답답한 일을 당하여도 낙심하지 아니하며\n박해를 받아도 버린 바 되지 아니하며 거꾸러뜨림을 당하여도 망하지 아니하고','문제가 너무 많이 겹쳤어요'],
+ ['psalm-40-1-2','시편 40:1-2','내가 여호와를 기다리고 기다렸더니 귀를 기울이사 나의 부르짖음을 들으셨도다\n나를 기가 막힐 웅덩이와 수렁에서 끌어올리시고 내 발을 반석 위에 두사 내 걸음을 견고하게 하셨도다','몇 달째 상황이 그대로예요'],
+ ['isaiah-49-15-16','이사야 49:15-16','여인이 어찌 그 젖 먹는 자식을 잊겠으며 자기 태에서 난 아들을 긍휼히 여기지 않겠느냐 그들은 혹시 잊을지라도 나는 너를 잊지 아니할 것이라\n내가 너를 내 손바닥에 새겼고 너의 성벽이 항상 내 앞에 있나니','하나님이 저를 잊으신 것 같아요'],
+ ['psalm-73-26','시편 73:26','내 육체와 마음은 쇠약하나 하나님은 내 마음의 반석이시요 영원한 분깃이시라','몸도 마음도 너무 지쳤어요'],
+ ['psalm-9-9-10','시편 9:9-10','여호와는 압제를 당하는 자의 요새이시요 환난 때의 요새이시로다\n여호와여 주의 이름을 아는 자는 주를 의지하오리니 이는 주를 찾는 자들을 버리지 아니하심이니이다','너무 힘든데 기댈 곳이 필요해요'],
+ ['psalm-10-1','시편 10:1','여호와여 어찌하여 멀리 서시며 어찌하여 환난 때에 숨으시나이까','힘든데 하나님은 어디 계세요'],
+ ['romans-8-38-39','로마서 8:38-39','내가 확신하노니 사망이나 생명이나 천사들이나 권세자들이나 현재 일이나 장래 일이나 능력이나\n높음이나 깊음이나 다른 어떤 피조물이라도 우리를 우리 주 그리스도 예수 안에 있는 하나님의 사랑에서 끊을 수 없으리라','하나님이 아직도 저를 사랑하세요?'],
+ ['zephaniah-3-17','스바냐 3:17','너의 하나님 여호와가 너의 가운데에 계시니 그는 구원을 베푸실 전능자이시라 그가 너로 말미암아 기쁨을 이기지 못하시며 너를 잠잠히 사랑하시며 너로 말미암아 즐거이 부르며 기뻐하시리라 하리라','하나님도 나 같은 사람을 기뻐하실까요']
+];
 test('new ten passages retain the exact supplied text and only requested guidance is added',()=>{
- const {data,s}=app();assert.equal(data.verses.length,59);
+ const {data,s}=app();assert.equal(data.verses.length,69);
  assert.equal(newPassages.length,10);
  for(const [id,reference,text] of newPassages){
   const verse=data.verses.find(item=>item.id===id);assert.ok(verse,id);
@@ -316,6 +328,45 @@ for(const [id,reference,,message] of newPassages){
   const selected=choose(message);assert.equal(selected.status,'selected');assert.equal(selected.verse.id,id);
  });
 }
+test('passages 60 to 69 preserve supplied text and include requested guidance',()=>{
+ const {data,s}=app();assert.equal(passages60to69.length,10);
+ for(const [id,reference,text] of passages60to69){
+  const verse=data.verses.find(item=>item.id===id);assert.ok(verse,id);
+  assert.equal(verse.reference,reference);assert.equal(verse.text,text);assert.equal(verse.translation,'개역개정');
+  assert.equal(verse.textVerificationSource,'user_supplied');assert.equal(verse.guidanceStatus,'pending');
+  const guidance=data.reflections[id];assert.ok(guidance,id);
+  assert.ok(guidance.reflection.length>50,id);
+  assert.equal(guidance.question.split('\n').length,3,id);
+  assert.ok(guidance.prayer.endsWith('아멘.'),id);
+  assert.equal(s.recommendationPolicy.isActive(verse),true);
+ }
+});
+for(const [id,reference,,message] of passages60to69){
+ test('60-69 context selects '+reference,()=>{
+  const {s,choose,data}=app(),analysis=s.classifyConcern(message),candidates=s.findCandidates(analysis);
+  assert.ok(candidates.some(candidate=>candidate.verse.id===id),id);
+  const result=choose(message);assert.equal(result.status,'selected');assert.equal(result.verse.id,id);
+  for(const expression of data.verses.find(verse=>verse.id===id).expressions)assert.equal(choose(expression).verse?.id,id,expression);
+ });
+}
+test('60-69 distinctions, medical restraint, and safety priority are preserved',()=>{
+ const {choose}=app();
+ for(const [message,id] of [
+  ['하나님이 저를 잊으신 것 같아요','isaiah-49-15-16'],
+  ['힘든데 하나님은 어디 계세요','psalm-10-1'],
+  ['하나님이 아직도 저를 사랑하세요?','romans-8-38-39'],
+  ['하나님도 나 같은 사람을 기뻐하실까요','zephaniah-3-17'],
+  ['왜 그런지 모르겠는데 자꾸 우울해요','psalm-42-5'],
+  ['문제가 너무 많이 겹쳤어요','2-corinthians-4-8-9'],
+  ['몇 달째 상황이 그대로예요','psalm-40-1-2'],
+  ['몸도 마음도 너무 지쳤어요','psalm-73-26']
+ ])assert.equal(choose(message).verse?.id,id,message);
+ const medical=choose('생리통이 너무 심해서 잠이 안 와요');
+ assert.equal(medical.status,'no_suitable_candidate');assert.equal(medical.verse,null);
+ for(const message of ['남편이 때려서 여러 일이 동시에 터졌어요','폭력 때문에 어디라도 숨고 싶어요']){
+  const result=choose(message);assert.equal(result.status,'safety_first');assert.equal(result.verse,null);
+ }
+});
 for(const [message,id] of [
  ['불안해요','philippians-4-6-7'],['힘들어요','matthew-11-28'],['무서워요','psalm-56-3'],
  ['화가나요','ephesians-4-26-27'],['우울해요','psalm-34-18'],['고민이 돼요','james-1-5']
@@ -345,9 +396,9 @@ test('IDs and every preserved metadata field are unchanged',()=>{
   assert.equal(hash(JSON.stringify(projection)),preserved.hashes[verse.id],verse.id);
  }
 });
-test('all 59 verses have reflection guidance, three questions, and a prayer without changing other passage metadata',()=>{
- const {data}=app();assert.equal(Object.keys(data.reflections).length,59);
- for(const verse of data.verses.slice(0,59)){
+test('all 69 verses have reflection guidance, three questions, and a prayer without changing other passage metadata',()=>{
+ const {data}=app();assert.equal(Object.keys(data.reflections).length,69);
+ for(const verse of data.verses.slice(0,69)){
   const guidance=data.reflections[verse.id];assert.ok(guidance,verse.id);
   assert.ok(guidance.reflection.length>50,verse.id);
   assert.equal(guidance.question.split('\n').length,3,verse.id);

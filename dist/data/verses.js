@@ -2101,6 +2101,96 @@ window.Malsseum.data.verses = Object.freeze([
     contextNote:'많은 근심 가운데 하나님의 위안이 시편 기자의 영혼에 기쁨이 되었음을 고백하는 말씀.',
     applicationGuidance:{suitableSituations:['crowded_thoughts'],avoidApplications:['emotion_suppression','guaranteed_outcome']},
     textStatus:'verified',textStatusLabel:'본문 검증 완료',recommendationEnabled:true,guidanceStatus:'pending',metadataStatus:'draft',textVerificationSource:'user_supplied'
+  },
+  {
+    id:'psalm-42-5',reference:'시편 42:5',book:'시편',chapter:42,verseStart:5,verseEnd:5,
+    text:'내 영혼아 네가 어찌하여 낙심하며 어찌하여 내 속에서 불안해 하는가 너는 하나님께 소망을 두라 그가 나타나 도우심으로 말미암아 내가 여전히 찬송하리로다',translation:'개역개정',targetTranslation:'개역개정',
+    topics:['grief'],situations:['unexplained_discouragement'],expressions:['왜 그런지 모르겠는데 자꾸 우울해요','계속 마음이 가라앉아요','별일도 없는데 마음이 너무 처져요'],
+    recommendationNote:'뚜렷한 이유를 설명하기 어려운 낙심과 마음의 침체에 연결합니다.',cautionTags:['emotion_suppression','context_distortion'],
+    contextNote:'시편 기자가 낙심하고 불안한 자기 영혼을 향해 하나님께 소망을 두라고 고백하는 말씀. 구체적인 상실이나 관계 상처의 원인을 지우는 일반 해답으로 사용하지 않습니다.',
+    applicationGuidance:{suitableSituations:['unexplained_discouragement'],avoidApplications:['emotion_suppression','context_distortion']},
+    textStatus:'verified',textStatusLabel:'본문 검증 완료',recommendationEnabled:true,guidanceStatus:'pending',metadataStatus:'draft',textVerificationSource:'user_supplied'
+  },
+  {
+    id:'psalm-30-5',reference:'시편 30:5',book:'시편',chapter:30,verseStart:5,verseEnd:5,
+    text:'그의 노염은 잠깐이요 그의 은총은 평생이로다 저녁에는 울음이 깃들일지라도 아침에는 기쁨이 오리로다',translation:'개역개정',targetTranslation:'개역개정',
+    topics:['rest'],situations:['seemingly_endless_hardship'],expressions:['이 힘든 시간이 언제 끝날까요','계속 이렇게 살 것 같아서 힘들어요','요즘 힘든 날이 끝나지 않는 것 같아요'],
+    recommendationNote:'힘든 시간이 끝없이 이어질 것처럼 느껴지는 상황에 연결합니다.',cautionTags:['guaranteed_outcome','emotion_suppression'],
+    contextNote:'시편 기자가 하나님의 은총과 회복을 찬양하는 흐름의 말씀. 곧 문제가 해결되거나 다음 날 원하는 결과가 온다는 보장으로 사용하지 않습니다.',
+    applicationGuidance:{suitableSituations:['seemingly_endless_hardship'],avoidApplications:['guaranteed_outcome','emotion_suppression']},
+    textStatus:'verified',textStatusLabel:'본문 검증 완료',recommendationEnabled:true,guidanceStatus:'pending',metadataStatus:'draft',textVerificationSource:'user_supplied'
+  },
+  {
+    id:'2-corinthians-4-8-9',reference:'고린도후서 4:8-9',book:'고린도후서',chapter:4,verseStart:8,verseEnd:9,
+    text:'우리가 사방으로 욱여쌈을 당하여도 싸이지 아니하며 답답한 일을 당하여도 낙심하지 아니하며\n박해를 받아도 버린 바 되지 아니하며 거꾸러뜨림을 당하여도 망하지 아니하고',translation:'개역개정',targetTranslation:'개역개정',
+    topics:['rest'],situations:['compounded_problems'],expressions:['왜 안 좋은 일이 한꺼번에 생기죠','문제가 너무 많이 겹쳤어요','여러 일이 동시에 터져서 정신이 없어요'],
+    recommendationNote:'여러 문제와 어려움이 동시에 겹쳐 압도되는 상황에 연결합니다.',cautionTags:['endurance_in_danger'],
+    contextNote:'바울이 사도적 고난 가운데 겪은 압박과 하나님의 붙드심을 증언하는 말씀. 위험한 폭력이나 학대를 참고 견디라는 뜻으로 사용하지 않습니다.',
+    applicationGuidance:{suitableSituations:['compounded_problems'],avoidApplications:['endurance_in_danger']},
+    textStatus:'verified',textStatusLabel:'본문 검증 완료',recommendationEnabled:true,guidanceStatus:'pending',metadataStatus:'draft',textVerificationSource:'user_supplied'
+  },
+  {
+    id:'psalm-40-1-2',reference:'시편 40:1-2',book:'시편',chapter:40,verseStart:1,verseEnd:2,
+    text:'내가 여호와를 기다리고 기다렸더니 귀를 기울이사 나의 부르짖음을 들으셨도다\n나를 기가 막힐 웅덩이와 수렁에서 끌어올리시고 내 발을 반석 위에 두사 내 걸음을 견고하게 하셨도다',translation:'개역개정',targetTranslation:'개역개정',
+    topics:['faith'],situations:['stuck_in_hardship'],expressions:['몇 달째 상황이 달라지는 게 없어요','계속 제자리인 것 같아요','아무리 기다려도 이 상황에서 빠져나오지 못하는 것 같아요','몇 달째 상황이 그대로예요'],
+    recommendationNote:'오랫동안 어려운 상황에서 빠져나오지 못하고 제자리처럼 느껴질 때 연결합니다.',cautionTags:['guaranteed_outcome'],
+    contextNote:'시편 기자가 오래 기다린 뒤 경험한 구원을 회고하며 찬양하는 말씀. 사용자가 원하는 결과가 반드시 찾아온다는 약속으로 사용하지 않습니다.',
+    applicationGuidance:{suitableSituations:['stuck_in_hardship'],avoidApplications:['guaranteed_outcome']},
+    textStatus:'verified',textStatusLabel:'본문 검증 완료',recommendationEnabled:true,guidanceStatus:'pending',metadataStatus:'draft',textVerificationSource:'user_supplied'
+  },
+  {
+    id:'isaiah-49-15-16',reference:'이사야 49:15-16',book:'이사야',chapter:49,verseStart:15,verseEnd:16,
+    text:'여인이 어찌 그 젖 먹는 자식을 잊겠으며 자기 태에서 난 아들을 긍휼히 여기지 않겠느냐 그들은 혹시 잊을지라도 나는 너를 잊지 아니할 것이라\n내가 너를 내 손바닥에 새겼고 너의 성벽이 항상 내 앞에 있나니',translation:'개역개정',targetTranslation:'개역개정',
+    topics:['faith'],situations:['feeling_forgotten_by_god'],expressions:['하나님이 저를 잊으신 것 같아요','하나님이 나를 기억하고 계시긴 할까요','하나님께 잊힌 사람처럼 느껴져요'],
+    recommendationNote:'하나님께서 자신을 잊으신 것처럼 느껴지는 마음에 연결합니다.',cautionTags:['faith_shaming','context_distortion'],
+    contextNote:'시온이 하나님께서 자신을 잊으셨다고 탄식할 때 하나님이 잊지 않으신다고 응답하시는 말씀. 이런 탄식을 믿음 부족으로 평가하지 않습니다.',
+    applicationGuidance:{suitableSituations:['feeling_forgotten_by_god'],avoidApplications:['faith_shaming','context_distortion']},
+    textStatus:'verified',textStatusLabel:'본문 검증 완료',recommendationEnabled:true,guidanceStatus:'pending',metadataStatus:'draft',textVerificationSource:'user_supplied'
+  },
+  {
+    id:'psalm-73-26',reference:'시편 73:26',book:'시편',chapter:73,verseStart:26,verseEnd:26,
+    text:'내 육체와 마음은 쇠약하나 하나님은 내 마음의 반석이시요 영원한 분깃이시라',translation:'개역개정',targetTranslation:'개역개정',
+    topics:['rest'],situations:['whole_person_exhaustion'],expressions:['몸도 마음도 너무 지쳤어요','몸도 힘들고 마음도 힘들어요','기운도 없고 마음도 완전히 지쳤어요'],
+    recommendationNote:'몸과 마음이 함께 지쳐 힘이 거의 남지 않은 상태에 연결합니다.',cautionTags:['context_distortion'],
+    contextNote:'시편 기자가 육체와 마음의 쇠약함 속에서도 하나님을 자신의 분깃으로 고백하는 말씀. 구체적인 질병·통증·검사·수술·치료를 단순 피로로 축소하거나 의료적 도움을 대신하는 말씀으로 사용하지 않습니다.',
+    applicationGuidance:{suitableSituations:['whole_person_exhaustion'],avoidApplications:['context_distortion']},
+    textStatus:'verified',textStatusLabel:'본문 검증 완료',recommendationEnabled:true,guidanceStatus:'pending',metadataStatus:'draft',textVerificationSource:'user_supplied'
+  },
+  {
+    id:'psalm-9-9-10',reference:'시편 9:9-10',book:'시편',chapter:9,verseStart:9,verseEnd:10,
+    text:'여호와는 압제를 당하는 자의 요새이시요 환난 때의 요새이시로다\n여호와여 주의 이름을 아는 자는 주를 의지하오리니 이는 주를 찾는 자들을 버리지 아니하심이니이다',translation:'개역개정',targetTranslation:'개역개정',
+    topics:['rest'],situations:['needing_refuge'],expressions:['너무 힘든데 기댈 곳이 필요해요','마음 둘 곳이 없어요','어디라도 기대고 싶어요'],
+    recommendationNote:'어려움 가운데 기댈 곳과 마음 둘 곳이 필요한 상황에 연결합니다.',cautionTags:['endurance_in_danger'],
+    contextNote:'압제와 환난 가운데 하나님을 요새로 고백하는 시편. 실제 폭력·학대·위협에서는 일반적인 위로보다 현재 안전과 현실적 도움을 먼저 살핍니다.',
+    applicationGuidance:{suitableSituations:['needing_refuge'],avoidApplications:['endurance_in_danger']},
+    textStatus:'verified',textStatusLabel:'본문 검증 완료',recommendationEnabled:true,guidanceStatus:'pending',metadataStatus:'draft',textVerificationSource:'user_supplied'
+  },
+  {
+    id:'psalm-10-1',reference:'시편 10:1',book:'시편',chapter:10,verseStart:1,verseEnd:1,
+    text:'여호와여 어찌하여 멀리 서시며 어찌하여 환난 때에 숨으시나이까',translation:'개역개정',targetTranslation:'개역개정',
+    topics:['faith','rest'],situations:['god_feels_distant_in_suffering'],expressions:['힘든데 하나님은 어디 계세요','하나님이 너무 멀게 느껴져요','왜 힘들 때 하나님은 안 계신 것 같죠'],
+    recommendationNote:'고난 가운데 하나님이 멀리 계시거나 숨어 계신 것처럼 느껴지는 탄식에 연결합니다.',cautionTags:['faith_shaming'],
+    contextNote:'고난 속에서 하나님이 멀리 계신 것처럼 느끼는 시편 기자의 솔직한 탄식. 서운함과 의문을 불신앙으로 낙인찍지 않습니다.',
+    applicationGuidance:{suitableSituations:['god_feels_distant_in_suffering'],avoidApplications:['faith_shaming']},
+    textStatus:'verified',textStatusLabel:'본문 검증 완료',recommendationEnabled:true,guidanceStatus:'pending',metadataStatus:'draft',textVerificationSource:'user_supplied'
+  },
+  {
+    id:'romans-8-38-39',reference:'로마서 8:38-39',book:'로마서',chapter:8,verseStart:38,verseEnd:39,
+    text:'내가 확신하노니 사망이나 생명이나 천사들이나 권세자들이나 현재 일이나 장래 일이나 능력이나\n높음이나 깊음이나 다른 어떤 피조물이라도 우리를 우리 주 그리스도 예수 안에 있는 하나님의 사랑에서 끊을 수 없으리라',translation:'개역개정',targetTranslation:'개역개정',
+    topics:['faith'],situations:['doubting_gods_love'],expressions:['하나님이 아직도 저를 사랑하세요?','하나님의 사랑에서 멀어진 것 같아요','이런 나도 하나님이 사랑하실까요'],
+    recommendationNote:'하나님의 사랑이 여전히 자신에게도 해당되는지 의심되는 마음에 연결합니다.',cautionTags:['faith_shaming','guaranteed_outcome'],
+    contextNote:'그리스도 예수 안에 있는 하나님의 사랑에서 어떤 것도 끊을 수 없다는 바울의 확신. 원하는 현실적 결과가 이루어진다는 보장으로 연결하지 않습니다.',
+    applicationGuidance:{suitableSituations:['doubting_gods_love'],avoidApplications:['faith_shaming','guaranteed_outcome']},
+    textStatus:'verified',textStatusLabel:'본문 검증 완료',recommendationEnabled:true,guidanceStatus:'pending',metadataStatus:'draft',textVerificationSource:'user_supplied'
+  },
+  {
+    id:'zephaniah-3-17',reference:'스바냐 3:17',book:'스바냐',chapter:3,verseStart:17,verseEnd:17,
+    text:'너의 하나님 여호와가 너의 가운데에 계시니 그는 구원을 베푸실 전능자이시라 그가 너로 말미암아 기쁨을 이기지 못하시며 너를 잠잠히 사랑하시며 너로 말미암아 즐거이 부르며 기뻐하시리라 하리라',translation:'개역개정',targetTranslation:'개역개정',
+    topics:['faith'],situations:['longing_to_feel_cherished'],expressions:['하나님도 나 같은 사람을 기뻐하실까요','사랑받는다는 느낌이 없어요','하나님께도 제가 소중할까요'],
+    recommendationNote:'하나님께서 자신을 귀하게 여기고 기뻐하시는지 궁금한 마음에 연결합니다.',cautionTags:['context_distortion','guaranteed_outcome','faith_shaming'],
+    contextNote:'심판 이후 회복될 시온과 함께하시며 기뻐하시는 하나님을 선포하는 문맥의 말씀. 모든 개인적 상황의 성공이나 원하는 응답을 직접 보장하는 약속으로 사용하지 않습니다.',
+    applicationGuidance:{suitableSituations:['longing_to_feel_cherished'],avoidApplications:['context_distortion','guaranteed_outcome','faith_shaming']},
+    textStatus:'verified',textStatusLabel:'본문 검증 완료',recommendationEnabled:true,guidanceStatus:'pending',metadataStatus:'draft',textVerificationSource:'user_supplied'
   }
 ]);
 })();
