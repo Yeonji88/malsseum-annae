@@ -51,6 +51,17 @@
 #result .save-action:focus-visible{outline:2px solid #315f49;outline-offset:3px}
 #result .saved-verse-turn .user-message,#result .saved-verse-turn .empathy-bubble{display:none}
 #result .saved-verse-turn .explanation-card>.conversation-text{margin-top:8px;padding-top:0;border:0}
+.self-harm-safety-turn .user-message{margin-bottom:12px!important}
+#result .self-harm-safety{padding:24px 20px 22px;border:1px solid #e4e8de;border-radius:22px;background:#fffdfa;box-shadow:0 7px 20px #554d3c0c;color:#343a36}
+#result .self-harm-safety-symbol{width:38px;height:38px;margin-bottom:12px;background:#edf2e8;color:#456c55}
+#result .self-harm-safety-symbol svg{width:24px;height:24px}
+#result .self-harm-safety-title{margin:0 0 15px;font-size:19px;line-height:1.55;letter-spacing:-.35px;color:#294938}
+#result .self-harm-safety-copy p,#result .self-harm-safety-followup p{margin:0;white-space:pre-line;font-size:15px;line-height:1.78;color:#444b46}
+#result .self-harm-safety-copy p+p{margin-top:15px}
+#result .self-harm-call{display:flex;align-items:center;justify-content:center;width:100%;min-height:54px;margin:21px 0;padding:13px 18px;border-radius:27px;background:#315f49;color:#fff;text-decoration:none;font-size:16px;line-height:1.4;box-shadow:0 6px 16px #315f4917}
+#result .self-harm-call:focus-visible{outline:3px solid #86a895;outline-offset:3px}
+#result .self-harm-safety-followup{padding:15px 16px;border-radius:15px;background:#f0f3eb}
+#result .self-harm-safety-followup p+p{margin-top:14px}
 #result .verse-actions details[open]{grid-column:1/-1}
 #result .verse-actions details[open] summary{min-height:78px;border-bottom:1px solid #e7eadf}
 #result .verse-actions details p{margin:13px 16px;font-size:14px;line-height:1.7}

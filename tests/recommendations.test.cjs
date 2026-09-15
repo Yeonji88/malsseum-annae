@@ -47,6 +47,18 @@ test('multiple topics and loss timing are explicit',()=>{
  assert.ok(Array.isArray(a.riskSignals)&&Array.isArray(a.uncertainties));
  assert.ok(s.classifyConcern('슬퍼요').uncertainties.includes('상실의 시점을 알 수 없음'));
 });
+test('self-harm phrases keep safety first and the dedicated safety UI is present',()=>{
+ const {s,choose}=app();
+ for(const message of ['죽고 싶어요','자살하고 싶어요','제 몸을 해치고 싶은 생각이 들어요']){
+  const analysis=s.classifyConcern(message);
+  assert.ok(analysis.riskSignals.includes('self_harm'),message);
+  const result=choose(message);assert.equal(result.status,'safety_first');assert.equal(result.verse,null);
+ }
+ const source=fs.readFileSync(path.join(root,'dist','app.js'),'utf8');
+ assert.match(source,/selection\.status==='safety_first'/);
+ assert.match(source,/href='tel:109'/);
+ assert.match(source,/📞 109 전화하기/);
+});
 for(const message of ['오늘 날씨 이야기','12345','어떻게 말해야 할지 모르겠어요']){
  test('no forced default: '+message,()=>{const r=app().choose(message);assert.equal(r.verse,null);assert.ok(['needs_clarification','no_suitable_candidate'].includes(r.status));});
 }

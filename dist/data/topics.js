@@ -92,6 +92,6 @@ window.Malsseum.data.riskRules = [
  {id:'violence',pattern:/폭력|폭행|때려|때렸|때리|맞았|맞고|구타|죽이겠|죽인다고|칼로\s*위협/},
  {id:'abuse',pattern:/학대|성폭력|성추행|협박|감금/},
  {id:'coercive_control',pattern:/통제|감시|휴대폰.*검사|핸드폰.*검사|못\s*나가게|나가지\s*못하게|돈을.*못\s*쓰게|연락.*못\s*하게/},
- {id:'self_harm',pattern:/죽고\s*싶|자살|자해|목숨.*끊|살고\s*싶지\s*않/}
+ {id:'self_harm',pattern:/죽고\s*싶|자살|자해|목숨.*끊|살고\s*싶지\s*않|(?:제|내)\s*몸을?\s*해치고?\s*싶/}
 ];
 })();

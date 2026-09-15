@@ -59,6 +59,25 @@ function renderTurn(message,selection) {
  const response=element('div','assistant-message');
  const empathy=element('div','empathy-bubble');
  const identity=element('span','speaker app-identity','말씀 안에');identity.prepend(sproutIcon());empathy.append(identity);
+ if(selection.status==='safety_first'&&selection.analysis?.riskSignals?.includes('self_harm')){
+  turn.classList.add('self-harm-safety-turn');
+  const safety=element('section','self-harm-safety');safety.setAttribute('aria-labelledby','self-harm-safety-title-'+turnCount);
+  const symbol=sproutIcon();symbol.classList.add('self-harm-safety-symbol');
+  const title=element('h3','self-harm-safety-title','지금은 당신의 안전이 먼저예요.');title.id='self-harm-safety-title-'+turnCount;
+  const opening=element('div','self-harm-safety-copy');
+  opening.append(
+   element('p','','지금 많이 힘드셨군요.\n여기까지 마음을 적어주셔서 고마워요.\n지금 느끼는 고통을 혼자 견디지 않았으면 좋겠어요.'),
+   element('p','','지금은 말씀을 찾는 것보다 당신의 안전이 먼저예요.\n혼자 버티려고 하지 말고, 지금 곁에 있을 수 있는 사람이나 도움을 줄 수 있는 곳에 마음을 알려주세요.'),
+   element('p','','지금 누군가와 이야기하고 싶다면\n자살예방상담전화 109에서 도움을 받을 수 있어요.')
+  );
+  const call=element('a','self-harm-call','📞 109 전화하기');call.href='tel:109';
+  const urgent=element('div','self-harm-safety-followup');
+  urgent.append(
+   element('p','','지금 당장 자신을 해칠 것 같거나 위험한 상황이라면\n119 또는 112에 바로 도움을 요청해주세요.'),
+   element('p','','여기에서도 이야기를 계속해도 괜찮아요.\n지금 가장 힘든 마음부터 천천히 들려주세요.')
+  );
+  safety.append(symbol,title,opening,call,urgent);response.append(safety);turn.append(user,response);return turn;
+ }
  if(!verse){
   empathy.append(element('p','conversation-text',UserProfile.address(selection.message,turnCount)));
   response.append(empathy);turn.append(user,response);return turn;
