@@ -295,13 +295,17 @@ const newPassages=[
  ['1-peter-5-7','베드로전서 5:7','너희 염려를 다 주께 맡기라 이는 그가 너희를 돌보심이라','걱정을 혼자 붙들고 있어서 내려놓고 싶어요'],
  ['psalm-94-19','시편 94:19','내 속에 근심이 많을 때에 주의 위안이 내 영혼을 즐겁게 하시나이다','걱정거리도 많고 생각도 너무 많아요']
 ];
-test('new ten passages retain the exact supplied text and only optional guidance is pending',()=>{
+test('new ten passages retain the exact supplied text and only requested guidance is added',()=>{
  const {data,s}=app();assert.equal(data.verses.length,59);
  assert.equal(newPassages.length,10);
  for(const [id,reference,text] of newPassages){
   const verse=data.verses.find(item=>item.id===id);assert.ok(verse,id);
   assert.equal(verse.reference,reference);assert.equal(verse.text,text);assert.equal(verse.translation,'개역개정');
-  assert.equal(verse.guidanceStatus,'pending');assert.equal(data.reflections[id],undefined);
+  assert.equal(verse.guidanceStatus,'pending');
+  const guidance=data.reflections[id];assert.ok(guidance,id);
+  assert.ok(guidance.reflection.length>50,id);
+  assert.equal(guidance.question.split('\n').length,3,id);
+  assert.ok(guidance.prayer.endsWith('아멘.'),id);
   assert.equal(s.recommendationPolicy.isActive(verse),true);
  }
 });
@@ -341,9 +345,9 @@ test('IDs and every preserved metadata field are unchanged',()=>{
   assert.equal(hash(JSON.stringify(projection)),preserved.hashes[verse.id],verse.id);
  }
 });
-test('original 49 verses have reflection guidance, three questions, and a prayer without changing other passage metadata',()=>{
- const {data}=app();assert.equal(Object.keys(data.reflections).length,49);
- for(const verse of data.verses.slice(0,49)){
+test('all 59 verses have reflection guidance, three questions, and a prayer without changing other passage metadata',()=>{
+ const {data}=app();assert.equal(Object.keys(data.reflections).length,59);
+ for(const verse of data.verses.slice(0,59)){
   const guidance=data.reflections[verse.id];assert.ok(guidance,verse.id);
   assert.ok(guidance.reflection.length>50,verse.id);
   assert.equal(guidance.question.split('\n').length,3,verse.id);
