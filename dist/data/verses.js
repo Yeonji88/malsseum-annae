@@ -2281,6 +2281,96 @@ window.Malsseum.data.verses = Object.freeze([
     contextNote:'환난 중에도 하나님의 인자하심을 신뢰하며 주의 손으로 지으신 것을 버리지 말아 달라고 구하는 시편의 고백. 사용자가 원하는 미래 결과가 반드시 이루어진다는 보장으로 사용하지 않습니다.',
     applicationGuidance:{suitableSituations:['unfinished_life_anxiety'],avoidApplications:['guaranteed_outcome','context_distortion']},
     textStatus:'verified',textStatusLabel:'본문 검증 완료',recommendationEnabled:true,guidanceStatus:'pending',metadataStatus:'draft',textVerificationSource:'user_supplied'
+  },
+  {
+    id:'romans-12-12',reference:'로마서 12:12',book:'로마서',chapter:12,verseStart:12,verseEnd:12,
+    text:'소망 중에 즐거워하며 환난 중에 참으며 기도에 항상 힘쓰며',translation:'개역개정',targetTranslation:'개역개정',
+    topics:['faith','rest'],situations:['persistent_prayer_fatigue'],expressions:['오랫동안 기도했는데 너무 지쳤어요','기도해도 달라지는 게 없어서 지쳐요','지쳤지만 그래도 계속 기도하고 싶어요'],
+    recommendationNote:'오랫동안 기다리고 기도하며 지쳤지만 계속 기도하고 싶은 마음에 연결합니다.',cautionTags:['guaranteed_outcome','faith_shaming'],
+    contextNote:'그리스도인의 삶을 소망과 인내와 기도로 살아가도록 권하는 말씀. 원하는 응답이나 결과가 반드시 이루어진다는 약속으로 사용하지 않습니다.',
+    applicationGuidance:{suitableSituations:['persistent_prayer_fatigue'],avoidApplications:['guaranteed_outcome','faith_shaming']},
+    textStatus:'verified',textStatusLabel:'본문 검증 완료',recommendationEnabled:true,guidanceStatus:'pending',metadataStatus:'draft',textVerificationSource:'user_supplied'
+  },
+  {
+    id:'isaiah-55-8-9',reference:'이사야 55:8-9',book:'이사야',chapter:55,verseStart:8,verseEnd:9,
+    text:'이는 내 생각이 너희의 생각과 다르며 내 길은 너희의 길과 다름이니라 여호와의 말씀이니라\n\n이는 하늘이 땅보다 높음 같이 내 길은 너희의 길보다 높으며 내 생각은 너희의 생각보다 높음이니라',translation:'개역개정',targetTranslation:'개역개정',
+    topics:['faith'],situations:['unexplained_suffering'],expressions:['왜 이런 일이 생긴 건지 이해가 안 돼요','하나님이 왜 이런 일을 허락하셨는지 모르겠어요','아무리 생각해도 이유를 모르겠어요'],
+    recommendationNote:'힘든 일이 생긴 이유를 이해하기 어렵고 답을 찾지 못하는 마음에 연결합니다.',cautionTags:['context_distortion','faith_shaming','victim_blame'],
+    contextNote:'하나님의 긍휼과 돌아오라는 초대 속에서 하나님의 생각과 길이 사람의 생각보다 높다고 선포하는 말씀. 고통을 막아버리거나 학대·폭력·상실에 하나님의 의도를 임의로 부여하는 데 사용하지 않습니다.',
+    applicationGuidance:{suitableSituations:['unexplained_suffering'],avoidApplications:['context_distortion','faith_shaming','victim_blame']},
+    textStatus:'verified',textStatusLabel:'본문 검증 완료',recommendationEnabled:true,guidanceStatus:'pending',metadataStatus:'draft',textVerificationSource:'user_supplied'
+  },
+  {
+    id:'romans-8-28',reference:'로마서 8:28',book:'로마서',chapter:8,verseStart:28,verseEnd:28,
+    text:'우리가 알거니와 하나님을 사랑하는 자 곧 그의 뜻대로 부르심을 입은 자들에게는 모든 것이 합력하여 선을 이루느니라',translation:'개역개정',targetTranslation:'개역개정',
+    topics:['rest','faith'],situations:['meaning_after_hardship'],expressions:['지나고 보니 그 힘든 시간에도 의미가 있었을까요','그 일을 겪은 뒤 내 삶을 어떻게 바라봐야 할까요','힘든 일을 지나왔는데 그 경험을 어떻게 받아들여야 할지 모르겠어요'],
+    recommendationNote:'힘든 일을 어느 정도 지난 뒤 그 경험의 의미와 이후의 삶을 돌아보는 단계에 연결합니다.',cautionTags:['premature_hope','guaranteed_outcome','context_distortion'],
+    contextNote:'성령의 도우심과 고난 가운데서도 끊어지지 않는 하나님의 뜻을 말하는 로마서의 흐름. 고통 직후에 의미를 강요하거나 결국 원하는 좋은 결과가 생긴다는 뜻으로 사용하지 않습니다.',
+    applicationGuidance:{suitableSituations:['meaning_after_hardship'],avoidApplications:['premature_hope','guaranteed_outcome','context_distortion']},
+    textStatus:'verified',textStatusLabel:'본문 검증 완료',recommendationEnabled:true,guidanceStatus:'pending',metadataStatus:'draft',textVerificationSource:'user_supplied'
+  },
+  {
+    id:'genesis-50-20',reference:'창세기 50:20',book:'창세기',chapter:50,verseStart:20,verseEnd:20,
+    text:'당신들은 나를 해하려 하였으나 하나님은 그것을 선으로 바꾸사 오늘과 같이 많은 백성의 생명을 구원하게 하시려 하셨나니',translation:'개역개정',targetTranslation:'개역개정',
+    topics:['relationship','fear','future'],situations:['life_after_harm'],expressions:['그 사람이 한 일 때문에 내 인생 전체가 망가진 것 같아요','나한테 일어난 나쁜 일이 앞으로의 삶까지 결정할까 봐 두려워요','상처받은 일이 내 삶의 전부가 되지 않았으면 좋겠어요'],
+    recommendationNote:'누군가에게 입은 해가 자신의 이후 삶 전체를 결정할까 두려운 회복 단계에 연결합니다.',cautionTags:['victim_blame','accountability_erasure','reconciliation_pressure','context_distortion','endurance_in_danger'],
+    contextNote:'요셉이 형들의 해로운 의도와 하나님이 이루신 생명 보존을 구분해 고백하는 장면. 가해 행위를 하나님이 계획하거나 일부러 겪게 하신 일로 정당화하지 않습니다.',
+    applicationGuidance:{suitableSituations:['life_after_harm'],avoidApplications:['victim_blame','accountability_erasure','reconciliation_pressure','context_distortion','endurance_in_danger']},
+    textStatus:'verified',textStatusLabel:'본문 검증 완료',recommendationEnabled:true,guidanceStatus:'pending',metadataStatus:'draft',textVerificationSource:'user_supplied'
+  },
+  {
+    id:'psalm-37-5-6',reference:'시편 37:5-6',book:'시편',chapter:37,verseStart:5,verseEnd:6,
+    text:'네 길을 여호와께 맡기라 그를 의지하면 그가 이루시고\n\n네 의를 빛 같이 나타내시며 네 공의를 정오의 빛 같이 하시리로다',translation:'개역개정',targetTranslation:'개역개정',
+    topics:['relationship'],situations:['misunderstood_unfairly'],expressions:['하지도 않은 일로 오해받았어요','사람들이 저를 잘못 알고 있어서 너무 억울해요','내 진심을 아무도 알아주지 않는 것 같아요'],
+    recommendationNote:'사실과 다르게 오해받거나 억울한 평가를 받아 힘든 마음에 연결합니다.',cautionTags:['coercive_application','guaranteed_outcome','accountability_erasure'],
+    contextNote:'악인의 형통 때문에 흔들리는 이에게 길을 하나님께 맡기고 의와 공의를 드러내실 것을 신뢰하라고 권하는 시편. 현실적인 해명·도움 요청·정당한 대응을 포기하고 무조건 기다리라는 뜻으로 사용하지 않습니다.',
+    applicationGuidance:{suitableSituations:['misunderstood_unfairly'],avoidApplications:['coercive_application','guaranteed_outcome','accountability_erasure']},
+    textStatus:'verified',textStatusLabel:'본문 검증 완료',recommendationEnabled:true,guidanceStatus:'pending',metadataStatus:'draft',textVerificationSource:'user_supplied'
+  },
+  {
+    id:'romans-12-19',reference:'로마서 12:19',book:'로마서',chapter:12,verseStart:19,verseEnd:19,
+    text:'내 사랑하는 자들아 너희가 친히 원수를 갚지 말고 하나님의 진노하심에 맡기라 기록되었으되 원수 갚는 것이 내게 있으니 내가 갚으리라고 주께서 말씀하시니라',translation:'개역개정',targetTranslation:'개역개정',
+    topics:['relationship'],situations:['revenge_urge'],expressions:['나도 똑같이 갚아주고 싶어요','복수하고 싶어요','그 사람도 똑같이 당했으면 좋겠어요'],
+    recommendationNote:'상처나 부당한 일을 당한 뒤 직접 복수하고 싶은 마음에 연결합니다.',cautionTags:['reconciliation_pressure','accountability_erasure','endurance_in_danger'],
+    contextNote:'악을 악으로 갚지 말고 친히 원수를 갚지 말라는 공동체 권면. 신고·법적 대응·안전 확보를 포기하거나 위험한 관계에 머물라는 뜻으로 사용하지 않습니다.',
+    applicationGuidance:{suitableSituations:['revenge_urge'],avoidApplications:['reconciliation_pressure','accountability_erasure','endurance_in_danger']},
+    textStatus:'verified',textStatusLabel:'본문 검증 완료',recommendationEnabled:true,guidanceStatus:'pending',metadataStatus:'draft',textVerificationSource:'user_supplied'
+  },
+  {
+    id:'proverbs-15-1',reference:'잠언 15:1',book:'잠언',chapter:15,verseStart:1,verseEnd:1,
+    text:'유순한 대답은 분노를 쉬게 하여도 과격한 말은 노를 격동하느니라',translation:'개역개정',targetTranslation:'개역개정',
+    topics:['relationship'],situations:['impulsive_angry_response'],expressions:['너무 화나서 지금 당장 따지고 싶어요','화나서 장문의 문자를 보내려고 해요','지금 바로 한마디 해야 속이 풀릴 것 같아요','화나서 지금 장문의 문자를 보내려고 해요'],
+    recommendationNote:'분노한 순간에 즉시 따지거나 공격적인 말과 메시지를 보내려는 때에 연결합니다.',cautionTags:['emotion_suppression'],
+    contextNote:'유순한 대답과 과격한 말이 분노에 미치는 영향을 대조하는 지혜의 말씀. 정당한 분노 자체를 잘못이라고 판단하는 데 사용하지 않습니다.',
+    applicationGuidance:{suitableSituations:['impulsive_angry_response'],avoidApplications:['emotion_suppression']},
+    textStatus:'verified',textStatusLabel:'본문 검증 완료',recommendationEnabled:true,guidanceStatus:'pending',metadataStatus:'draft',textVerificationSource:'user_supplied'
+  },
+  {
+    id:'james-1-19-20',reference:'야고보서 1:19-20',book:'야고보서',chapter:1,verseStart:19,verseEnd:20,
+    text:'내 사랑하는 형제들아 너희가 알지니 사람마다 듣기는 속히 하고 말하기는 더디 하며 성내기도 더디 하라\n\n사람이 성내는 것이 하나님의 의를 이루지 못함이라',translation:'개역개정',targetTranslation:'개역개정',
+    topics:['relationship'],situations:['recurring_anger_in_conversation'],expressions:['그 사람이랑 얘기만 하면 화부터 나요','요즘 대화할 때 자꾸 화를 내게 돼요','상대 말을 듣기도 전에 짜증부터 나요'],
+    recommendationNote:'관계의 대화에서 분노가 반복적으로 앞서고 듣기 전에 화부터 나는 상황에 연결합니다.',cautionTags:['emotion_suppression'],
+    contextNote:'공동체 안에서 듣기와 말하기, 성내기를 다루는 야고보서의 권면. 한 번의 분노를 정죄하거나 감정 자체를 금지하는 데 사용하지 않습니다.',
+    applicationGuidance:{suitableSituations:['recurring_anger_in_conversation'],avoidApplications:['emotion_suppression']},
+    textStatus:'verified',textStatusLabel:'본문 검증 완료',recommendationEnabled:true,guidanceStatus:'pending',metadataStatus:'draft',textVerificationSource:'user_supplied'
+  },
+  {
+    id:'ephesians-4-32',reference:'에베소서 4:32',book:'에베소서',chapter:4,verseStart:32,verseEnd:32,
+    text:'서로 친절하게 하며 불쌍히 여기며 서로 용서하기를 하나님이 그리스도 안에서 너희를 용서하심과 같이 하라',translation:'개역개정',targetTranslation:'개역개정',
+    topics:['relationship'],situations:['considering_forgiveness_after_healing'],expressions:['이제는 그 사람을 용서해야 할지 고민돼요','상처는 조금 괜찮아졌는데 용서에 대해 생각하고 있어요','미워하는 마음을 계속 가지고 싶지는 않아요'],
+    recommendationNote:'안전이 확보되고 상처가 어느 정도 지난 뒤 사용자가 스스로 용서를 고민하는 단계에 연결합니다.',cautionTags:['immediate_forgiveness','reconciliation_pressure','accountability_erasure','endurance_in_danger'],
+    contextNote:'새 사람을 입은 공동체가 서로 친절히 대하고 용서하도록 권하는 말씀. 용서는 즉각적인 화해·관계 복귀·신뢰 회복·안전 경계 해제나 책임 면제를 뜻하지 않습니다.',
+    applicationGuidance:{suitableSituations:['considering_forgiveness_after_healing'],avoidApplications:['immediate_forgiveness','reconciliation_pressure','accountability_erasure','endurance_in_danger']},
+    textStatus:'verified',textStatusLabel:'본문 검증 완료',recommendationEnabled:true,guidanceStatus:'pending',metadataStatus:'draft',textVerificationSource:'user_supplied'
+  },
+  {
+    id:'romans-12-15',reference:'로마서 12:15',book:'로마서',chapter:12,verseStart:15,verseEnd:15,
+    text:'즐거워하는 자들과 함께 즐거워하고 우는 자들과 함께 울라',translation:'개역개정',targetTranslation:'개역개정',
+    topics:['relationship','rest','grief'],situations:['supporting_someone_in_pain'],expressions:['힘들어하는 친구한테 뭐라고 말해야 할지 모르겠어요','상처받은 사람을 어떻게 위로해야 할까요','친구가 울고 있는데 무슨 말을 해야 할지 모르겠어요'],
+    recommendationNote:'힘들어하는 사람 곁에서 무엇을 말하고 어떻게 위로할지 모르는 상황에 연결합니다.',cautionTags:['coercive_application','emotion_suppression'],
+    contextNote:'그리스도인 공동체가 서로의 기쁨과 슬픔에 함께하도록 권하는 말씀. 해결책이나 신앙적 정답을 서둘러 말하기보다 함께하고 공감하는 방향으로 사용합니다.',
+    applicationGuidance:{suitableSituations:['supporting_someone_in_pain'],avoidApplications:['coercive_application','emotion_suppression']},
+    textStatus:'verified',textStatusLabel:'본문 검증 완료',recommendationEnabled:true,guidanceStatus:'pending',metadataStatus:'draft',textVerificationSource:'user_supplied'
   }
 ]);
 })();
