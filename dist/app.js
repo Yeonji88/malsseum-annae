@@ -51,6 +51,10 @@ function element(tag,className,text) {
  if(text!==undefined)node.textContent=text;
  return node;
 }
+function setSelfHarmSafetyPresentation(active){
+ document.querySelector('.conversation-note').hidden=active;
+ reply.placeholder=active?'지금 가장 힘든 마음을 들려주세요...':'말씀을 읽으니 이런 마음이 들어요…';
+}
 function renderTurn(message,selection) {
  const {verse,matched,continued,mixed}=selection, sameVerse=Boolean(verse)&&previousId===verse.id;
  const turn=element('article','conversation-turn'); turn.setAttribute('aria-label',(turnCount+1)+'번째 대화');
@@ -182,6 +186,7 @@ async function showVerse(message,continueConversation=false,animate=false) {
  const candidates=findCandidates(classification);
  const selected=selectVerse(classification,candidates,{previousId,previousAnalysis,continueConversation,history:recommendationHistory.snapshot()});
  const selection={...selected,verse:selected.verse?{...selected.verse,...(window.Malsseum.data.reflections[selected.verse.id]||{})}:null};
+ setSelfHarmSafetyPresentation(selection.status==='safety_first'&&selection.analysis?.riskSignals?.includes('self_harm'));
  // The recommendation is already fixed; these decorative cards never select a verse.
  if(animate&&!continueConversation&&selection.verse)await playVerseTransition();
  if(!continueConversation){previousId=null;turnCount=0;conversation.replaceChildren();}
@@ -401,6 +406,7 @@ function openSavedVerse(id){
  if(!verse||!SavedVerses.has(id))return;
  previousId=null;previousAnalysis=null;turnCount=0;
  const selection={verse:{...verse,...(window.Malsseum.data.reflections[id]||{})},matched:true,continued:false,mixed:false,analysis:{primaryTopic:verse.topics[0]}};
+ setSelfHarmSafetyPresentation(false);
  const turn=renderTurn('저장한 말씀',selection);turn.classList.add('saved-verse-turn');
  conversation.replaceChildren(turn);previousId=id;previousAnalysis=selection.analysis;turnCount=1;
  reply.value='';replyError.textContent='';refreshSaveButtons();displayScreen('reflection');
