@@ -13,11 +13,11 @@ function app() {
  const choose=(message,options={})=>{const analysis=s.classifyConcern(message);return s.selectVerse(analysis,s.findCandidates(analysis,options.verses),options);};
  return {data,s,choose};
 }
-test('catalogue has ten topics, 89 unique verses, all texts ready and optional guidance pending',()=>{
- const {data,s}=app(); assert.equal(data.topics.length,10);assert.equal(data.verses.length,89);
- assert.equal(new Set(data.verses.map(v=>v.id)).size,89);
- assert.equal(new Set(data.verses.map(v=>v.reference)).size,89);
- assert.equal(data.verses.filter(s.recommendationPolicy.isActive).length,89);
+test('catalogue has ten topics, 100 unique verses, all texts ready and optional guidance pending',()=>{
+ const {data,s}=app(); assert.equal(data.topics.length,10);assert.equal(data.verses.length,100);
+ assert.equal(new Set(data.verses.map(v=>v.id)).size,100);
+ assert.equal(new Set(data.verses.map(v=>v.reference)).size,100);
+ assert.equal(data.verses.filter(s.recommendationPolicy.isActive).length,100);
  assert.equal(data.verses.filter(v=>v.textStatus==='pending_verification').length,0);
  assert.equal(data.verses.slice(0,49).reduce((n,v)=>n+v.topics.length,0),52);
  for(const verse of data.verses){
@@ -331,8 +331,21 @@ const passages80to89=[
  ['ephesians-4-32','에베소서 4:32','서로 친절하게 하며 불쌍히 여기며 서로 용서하기를 하나님이 그리스도 안에서 너희를 용서하심과 같이 하라','상처는 조금 괜찮아졌는데 용서에 대해 생각하고 있어요'],
  ['romans-12-15','로마서 12:15','즐거워하는 자들과 함께 즐거워하고 우는 자들과 함께 울라','힘들어하는 친구한테 뭐라고 말해야 할지 모르겠어요']
 ];
+const passages90to100=[
+ ['ecclesiastes-4-9-10','전도서 4:9-10','두 사람이 한 사람보다 나음은 그들이 수고함으로 좋은 상을 얻을 것임이라\n혹시 그들이 넘어지면 하나가 그 동무를 붙들어 일으키려니와 홀로 있어 넘어지고 붙들어 일으킬 자가 없는 자에게는 화가 있으리라','모든 걸 혼자 감당하고 있는 것 같아요'],
+ ['galatians-6-2','갈라디아서 6:2','너희가 짐을 서로 지라 그리하여 그리스도의 법을 성취하라','힘들다고 말하면 다른 사람한테 짐이 될까 봐 못 말하겠어요'],
+ ['psalm-127-2','시편 127:2','너희가 일찍이 일어나고 늦게 누우며 수고의 떡을 먹음이 헛되도다 그러므로 여호와께서 그의 사랑하시는 자에게는 잠을 주시는도다','쉬고 있으면 죄책감이 들어요'],
+ ['mark-6-31','마가복음 6:31','이르시되 너희는 따로 한적한 곳에 가서 잠깐 쉬어라 하시니 이는 오고 가는 사람이 많아 음식 먹을 겨를도 없음이라','너무 바빠서 밥 먹을 시간도 없어요'],
+ ['luke-12-22-24','누가복음 12:22-24','또 제자들에게 이르시되 그러므로 내가 너희에게 이르노니 너희 목숨을 위하여 무엇을 먹을까 몸을 위하여 무엇을 입을까 염려하지 말라\n목숨이 음식보다 중하고 몸이 의복보다 중하니라\n까마귀를 생각하라 심지도 아니하고 거두지도 아니하며 골방도 없고 창고도 없으되 하나님이 기르시나니 너희는 새보다 얼마나 더 귀하냐','생활비가 부족할까 봐 걱정돼요'],
+ ['hebrews-13-5-6','히브리서 13:5-6','돈을 사랑하지 말고 있는 바를 족한 줄로 알라 그가 친히 말씀하시기를 내가 결코 너희를 버리지 아니하고 너희를 떠나지 아니하리라 하셨느니라\n그러므로 우리가 담대히 말하되 주는 나를 돕는 이시니 내가 무서워하지 아니하겠노라 사람이 내게 어찌하리요 하노라','돈이 부족해질까 봐 너무 무서워요'],
+ ['psalm-73-21-23','시편 73:21-23','내 마음이 산란하며 내 양심이 찔렸나이다\n내가 이같이 우매 무지함으로 주 앞에 짐승이오나\n내가 항상 주와 함께 하니 주께서 내 오른손을 붙드셨나이다','하나님한테 화가 나는데 이래도 되는지 모르겠어요'],
+ ['habakkuk-1-2','하박국 1:2','여호와여 내가 부르짖어도 주께서 듣지 아니하시니 어느 때까지리이까 내가 강포로 말미암아 외쳐도 주께서 구원하지 아니하시나이다','하나님이 제 기도를 안 듣는 것 같아요'],
+ ['luke-18-1','누가복음 18:1','예수께서 그들에게 항상 기도하고 낙심하지 말아야 할 것을 비유로 말씀하여','이제 기도도 그만하고 싶어요'],
+ ['lamentations-3-22-23','예레미야애가 3:22-23','여호와의 인자와 긍휼이 무궁하시므로 우리가 진멸되지 아니함이니이다\n이것들이 아침마다 새로우니 주의 성실하심이 크시도소이다','어제 너무 망쳤는데 오늘 다시 시작하고 싶어요'],
+ ['joshua-1-9','여호수아 1:9','내가 네게 명령한 것이 아니냐 강하고 담대하라 두려워하지 말며 놀라지 말라 네가 어디로 가든지 네 하나님 여호와가 너와 함께 하느니라 하시니라','새로운 일을 시작하려니까 무서워요']
+];
 test('new ten passages retain the exact supplied text and only requested guidance is added',()=>{
- const {data,s}=app();assert.equal(data.verses.length,89);
+ const {data,s}=app();assert.equal(data.verses.length,100);
  assert.equal(newPassages.length,10);
  for(const [id,reference,text] of newPassages){
   const verse=data.verses.find(item=>item.id===id);assert.ok(verse,id);
@@ -471,6 +484,48 @@ test('80-89 distinctions, acute grief restraint, and safety priority are preserv
   const result=choose(message);assert.notEqual(result.verse?.id,'romans-8-28',message);
  }
 });
+test('passages 90 to 100 preserve supplied text and include requested guidance',()=>{
+ const {data,s}=app();assert.equal(passages90to100.length,11);
+ for(const [id,reference,text] of passages90to100){
+  const verse=data.verses.find(item=>item.id===id);assert.ok(verse,id);
+  assert.equal(verse.reference,reference);assert.equal(verse.text,text);assert.equal(verse.translation,'개역개정');
+  assert.equal(verse.textVerificationSource,'user_supplied');assert.equal(verse.guidanceStatus,'pending');
+  const guidance=data.reflections[id];assert.ok(guidance,id);
+  assert.ok(guidance.reflection.length>50,id);
+  assert.equal(guidance.question.split('\n').length,3,id);
+  assert.ok(guidance.prayer.endsWith('아멘.'),id);
+  assert.equal(s.recommendationPolicy.isActive(verse),true);
+ }
+});
+for(const [id,reference,,message] of passages90to100){
+ test('90-100 context selects '+reference,()=>{
+  const {s,choose,data}=app(),analysis=s.classifyConcern(message),candidates=s.findCandidates(analysis);
+  assert.ok(candidates.some(candidate=>candidate.verse.id===id),id);
+  assert.equal(choose(message).verse?.id,id,message);
+  for(const expression of data.verses.find(verse=>verse.id===id).expressions)assert.equal(choose(expression).verse?.id,id,expression);
+ });
+}
+test('90-100 distinctions and safety priority are preserved',()=>{
+ const {choose}=app();
+ for(const [message,id] of [
+  ['모든 걸 혼자 감당하고 있는 것 같아요','ecclesiastes-4-9-10'],
+  ['힘들다고 말하면 다른 사람한테 짐이 될까 봐 못 말하겠어요','galatians-6-2'],
+  ['쉬고 있으면 죄책감이 들어요','psalm-127-2'],
+  ['너무 바빠서 밥 먹을 시간도 없어요','mark-6-31'],
+  ['생활비가 부족할까 봐 걱정돼요','luke-12-22-24'],
+  ['돈 걱정 때문에 잠이 안 와요','luke-12-22-24'],
+  ['돈이 부족해질까 봐 너무 무서워요','hebrews-13-5-6'],
+  ['하나님한테 화가 나는데 이래도 되는지 모르겠어요','psalm-73-21-23'],
+  ['오랫동안 기도했는데 너무 지쳤어요','romans-12-12'],
+  ['하나님이 제 기도를 안 듣는 것 같아요','habakkuk-1-2'],
+  ['이제 기도도 그만하고 싶어요','luke-18-1'],
+  ['어제 너무 망쳤는데 오늘 다시 시작하고 싶어요','lamentations-3-22-23'],
+  ['새로운 일을 시작하려니까 무서워요','joshua-1-9']
+ ])assert.equal(choose(message).verse?.id,id,message);
+ for(const message of ['누군가가 저를 때려서 무서워요','남편이 때리는데 제가 어떻게 해야 할까요']){
+  const result=choose(message);assert.equal(result.status,'safety_first');assert.equal(result.verse,null);
+ }
+});
 for(const [message,id] of [
  ['불안해요','philippians-4-6-7'],['힘들어요','matthew-11-28'],['무서워요','psalm-56-3'],
  ['화가나요','ephesians-4-26-27'],['우울해요','psalm-34-18'],['고민이 돼요','james-1-5']
@@ -500,9 +555,9 @@ test('IDs and every preserved metadata field are unchanged',()=>{
   assert.equal(hash(JSON.stringify(projection)),preserved.hashes[verse.id],verse.id);
  }
 });
-test('all 89 verses have reflection guidance, three questions, and a prayer without changing other passage metadata',()=>{
- const {data}=app();assert.equal(Object.keys(data.reflections).length,89);
- for(const verse of data.verses.slice(0,89)){
+test('all 100 verses have reflection guidance, three questions, and a prayer without changing other passage metadata',()=>{
+ const {data}=app();assert.equal(Object.keys(data.reflections).length,100);
+ for(const verse of data.verses.slice(0,100)){
   const guidance=data.reflections[verse.id];assert.ok(guidance,verse.id);
   assert.ok(guidance.reflection.length>50,verse.id);
   assert.equal(guidance.question.split('\n').length,3,verse.id);

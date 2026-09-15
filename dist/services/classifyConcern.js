@@ -26,6 +26,16 @@ function classifyConcern(message) {
    for(const id of verse.situations)if(!situations.includes(id))situations.push(id);
   }
  }
+ const situationTopicHints={
+  carrying_everything_alone:'rest',afraid_to_burden_others:'relationship',guilt_about_rest:'rest',concrete_overload_without_breaks:'rest',
+  practical_financial_worry:'fear',financial_fear_of_abandonment:'fear',guilt_after_anger_at_god:'faith',prayer_feels_unheard:'faith',
+  wanting_to_give_up_prayer:'faith',new_day_after_failure:'guilt',fear_of_new_beginning:'fear'
+ };
+ for(const situation of situations){
+  const id=situationTopicHints[situation];
+  if(id&&!topics.some(topic=>topic.id===id))topics.push({id,score:1.2,last:clauses.length-1});
+ }
+ topics.sort((a,b)=>b.score-a.score||b.last-a.last);
  const loss=topics.some(topic=>topic.id==='grief')||situations.some(id=>['bereavement','separation'].includes(id));
  const recent=clauses.some(clause=>/오늘|어제|방금|며칠\s*전|얼마\s*전|최근/.test(clause)&&/상실|이별|헤어|사별|돌아가|장례|세상을\s*떠|잃었|잃어서/.test(clause));
  if(recent)situations.push('recent_loss');

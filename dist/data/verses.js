@@ -2371,6 +2371,105 @@ window.Malsseum.data.verses = Object.freeze([
     contextNote:'그리스도인 공동체가 서로의 기쁨과 슬픔에 함께하도록 권하는 말씀. 해결책이나 신앙적 정답을 서둘러 말하기보다 함께하고 공감하는 방향으로 사용합니다.',
     applicationGuidance:{suitableSituations:['supporting_someone_in_pain'],avoidApplications:['coercive_application','emotion_suppression']},
     textStatus:'verified',textStatusLabel:'본문 검증 완료',recommendationEnabled:true,guidanceStatus:'pending',metadataStatus:'draft',textVerificationSource:'user_supplied'
+  },
+  {
+    id:'ecclesiastes-4-9-10',reference:'전도서 4:9-10',book:'전도서',chapter:4,verseStart:9,verseEnd:10,
+    text:'두 사람이 한 사람보다 나음은 그들이 수고함으로 좋은 상을 얻을 것임이라\n혹시 그들이 넘어지면 하나가 그 동무를 붙들어 일으키려니와 홀로 있어 넘어지고 붙들어 일으킬 자가 없는 자에게는 화가 있으리라',translation:'개역개정',targetTranslation:'개역개정',
+    topics:['rest','loneliness'],situations:['carrying_everything_alone'],expressions:['모든 걸 혼자 감당하고 있는 것 같아요','나 혼자 다 버텨야 하는 것 같아요','힘든데 함께해줄 사람이 없는 것 같아요','혼자서 모든 걸 해결하려니까 너무 힘들어요'],
+    recommendationNote:'모든 일을 혼자 감당하며 함께해줄 사람과 동행이 필요하다고 느끼는 상태에 연결합니다.',cautionTags:['emotion_suppression','context_distortion'],
+    contextNote:'두 사람이 함께 수고하고 넘어질 때 서로 붙드는 동행의 가치를 말하는 전도서의 말씀. 단순 외로움 전체를 덮거나 누군가만 있으면 문제가 해결된다고 설명하지 않습니다.',
+    applicationGuidance:{suitableSituations:['carrying_everything_alone'],avoidApplications:['emotion_suppression','context_distortion']},
+    textStatus:'verified',textStatusLabel:'본문 검증 완료',recommendationEnabled:true,guidanceStatus:'pending',metadataStatus:'draft',textVerificationSource:'user_supplied'
+  },
+  {
+    id:'galatians-6-2',reference:'갈라디아서 6:2',book:'갈라디아서',chapter:6,verseStart:2,verseEnd:2,
+    text:'너희가 짐을 서로 지라 그리하여 그리스도의 법을 성취하라',translation:'개역개정',targetTranslation:'개역개정',
+    topics:['rest','relationship'],situations:['afraid_to_burden_others'],expressions:['힘들다고 말하면 다른 사람한테 짐이 될까 봐 못 말하겠어요','도움을 받고 싶은데 민폐일까 봐 부탁을 못 하겠어요','내 문제로 다른 사람을 힘들게 하고 싶지 않아요','누군가에게 기대고 싶은데 부담을 줄까 봐 무서워요'],
+    recommendationNote:'도움을 원하면서도 다른 사람에게 짐이나 부담이 될까 봐 말하지 못하는 마음에 연결합니다.',cautionTags:['coercive_application'],
+    contextNote:'공동체가 서로의 짐을 함께 지도록 권하는 말씀. 아무에게나 개인 문제를 털어놓으라고 강요하지 않고 안전하고 신뢰할 수 있는 도움을 구하는 방향으로 사용합니다.',
+    applicationGuidance:{suitableSituations:['afraid_to_burden_others'],avoidApplications:['coercive_application']},
+    textStatus:'verified',textStatusLabel:'본문 검증 완료',recommendationEnabled:true,guidanceStatus:'pending',metadataStatus:'draft',textVerificationSource:'user_supplied'
+  },
+  {
+    id:'psalm-127-2',reference:'시편 127:2',book:'시편',chapter:127,verseStart:2,verseEnd:2,
+    text:'너희가 일찍이 일어나고 늦게 누우며 수고의 떡을 먹음이 헛되도다 그러므로 여호와께서 그의 사랑하시는 자에게는 잠을 주시는도다',translation:'개역개정',targetTranslation:'개역개정',
+    topics:['rest','fear'],situations:['guilt_about_rest'],expressions:['쉬고 있으면 죄책감이 들어요','일을 안 하고 쉬면 불안해요','계속 뭔가 해야 할 것 같아요','쉬면 뒤처질 것 같아서 쉬지를 못하겠어요'],
+    recommendationNote:'쉴 수 있어도 죄책감과 뒤처질 불안 때문에 계속 일해야 한다고 느끼는 상태에 연결합니다.',cautionTags:['context_distortion','emotion_suppression'],
+    contextNote:'사람의 과도한 수고와 하나님이 주시는 쉼을 대조하는 시편. 일 자체가 헛되다는 뜻이나 일반적인 불면·수면장애의 말씀으로 사용하지 않습니다.',
+    applicationGuidance:{suitableSituations:['guilt_about_rest'],avoidApplications:['context_distortion','emotion_suppression']},
+    textStatus:'verified',textStatusLabel:'본문 검증 완료',recommendationEnabled:true,guidanceStatus:'pending',metadataStatus:'draft',textVerificationSource:'user_supplied'
+  },
+  {
+    id:'mark-6-31',reference:'마가복음 6:31',book:'마가복음',chapter:6,verseStart:31,verseEnd:31,
+    text:'이르시되 너희는 따로 한적한 곳에 가서 잠깐 쉬어라 하시니 이는 오고 가는 사람이 많아 음식 먹을 겨를도 없음이라',translation:'개역개정',targetTranslation:'개역개정',
+    topics:['rest'],situations:['concrete_overload_without_breaks'],expressions:['너무 바빠서 밥 먹을 시간도 없어요','일이 너무 많아서 쉴 시간이 없어요','하루 종일 정신없이 바빠요','요즘 너무 바빠서 제대로 쉬지도 못해요'],
+    recommendationNote:'일정과 일이 실제로 너무 많아 식사나 기본적인 휴식조차 챙기기 어려운 과부하에 연결합니다.',cautionTags:['emotion_suppression'],
+    contextNote:'사람이 많아 음식 먹을 겨를도 없던 제자들을 예수님이 따로 쉬도록 부르신 장면. 단순 피곤함 전체보다 실제 과부하와 기본적인 쉼 부족에 사용합니다.',
+    applicationGuidance:{suitableSituations:['concrete_overload_without_breaks'],avoidApplications:['emotion_suppression']},
+    textStatus:'verified',textStatusLabel:'본문 검증 완료',recommendationEnabled:true,guidanceStatus:'pending',metadataStatus:'draft',textVerificationSource:'user_supplied'
+  },
+  {
+    id:'luke-12-22-24',reference:'누가복음 12:22-24',book:'누가복음',chapter:12,verseStart:22,verseEnd:24,
+    text:'또 제자들에게 이르시되 그러므로 내가 너희에게 이르노니 너희 목숨을 위하여 무엇을 먹을까 몸을 위하여 무엇을 입을까 염려하지 말라\n목숨이 음식보다 중하고 몸이 의복보다 중하니라\n까마귀를 생각하라 심지도 아니하고 거두지도 아니하며 골방도 없고 창고도 없으되 하나님이 기르시나니 너희는 새보다 얼마나 더 귀하냐',translation:'개역개정',targetTranslation:'개역개정',
+    topics:['fear','future'],situations:['practical_financial_worry'],expressions:['생활비가 부족할까 봐 걱정돼요','앞으로 먹고사는 게 걱정돼요','돈 걱정 때문에 마음이 너무 불안해요','이번 달 돈이 부족할 것 같아서 걱정돼요','돈 걱정 때문에 잠이 안 와요'],
+    recommendationNote:'생활비와 먹고사는 문제 등 현실적인 경제 걱정이 마음을 누르는 상황에 연결합니다.',cautionTags:['guaranteed_outcome','emotion_suppression','context_distortion'],
+    contextNote:'먹을 것과 입을 것을 염려하는 제자들에게 생명과 하나님의 돌보심을 바라보게 하신 말씀. 현실적인 재정 문제를 축소하거나 풍요와 해결을 보장하지 않습니다.',
+    applicationGuidance:{suitableSituations:['practical_financial_worry'],avoidApplications:['guaranteed_outcome','emotion_suppression','context_distortion']},
+    textStatus:'verified',textStatusLabel:'본문 검증 완료',recommendationEnabled:true,guidanceStatus:'pending',metadataStatus:'draft',textVerificationSource:'user_supplied'
+  },
+  {
+    id:'hebrews-13-5-6',reference:'히브리서 13:5-6',book:'히브리서',chapter:13,verseStart:5,verseEnd:6,
+    text:'돈을 사랑하지 말고 있는 바를 족한 줄로 알라 그가 친히 말씀하시기를 내가 결코 너희를 버리지 아니하고 너희를 떠나지 아니하리라 하셨느니라\n그러므로 우리가 담대히 말하되 주는 나를 돕는 이시니 내가 무서워하지 아니하겠노라 사람이 내게 어찌하리요 하노라',translation:'개역개정',targetTranslation:'개역개정',
+    topics:['fear','future','loneliness'],situations:['financial_fear_of_abandonment'],expressions:['돈이 부족해질까 봐 너무 무서워요','경제적으로 어려워지면 어떻게 해야 할지 두려워요','돈이 없으면 아무도 나를 도와주지 않을 것 같아요','경제적인 문제 속에서 혼자 남겨질까 봐 무서워요'],
+    recommendationNote:'경제적 부족에 대한 두려움과 그 속에서 혼자 버려지거나 도움받지 못할 것 같은 마음에 연결합니다.',cautionTags:['guaranteed_outcome','faith_shaming','context_distortion'],
+    contextNote:'돈을 사랑하지 않고 있는 바를 족히 여기라는 권면과 하나님이 떠나지 않고 도우신다는 고백이 이어지는 말씀. 경제적으로 어려운 사람을 책망하거나 해결을 보장하지 않습니다.',
+    applicationGuidance:{suitableSituations:['financial_fear_of_abandonment'],avoidApplications:['guaranteed_outcome','faith_shaming','context_distortion']},
+    textStatus:'verified',textStatusLabel:'본문 검증 완료',recommendationEnabled:true,guidanceStatus:'pending',metadataStatus:'draft',textVerificationSource:'user_supplied'
+  },
+  {
+    id:'psalm-73-21-23',reference:'시편 73:21-23',book:'시편',chapter:73,verseStart:21,verseEnd:23,
+    text:'내 마음이 산란하며 내 양심이 찔렸나이다\n내가 이같이 우매 무지함으로 주 앞에 짐승이오나\n내가 항상 주와 함께 하니 주께서 내 오른손을 붙드셨나이다',translation:'개역개정',targetTranslation:'개역개정',
+    topics:['faith','guilt'],situations:['guilt_after_anger_at_god'],expressions:['하나님한테 화가 나는데 이래도 되는지 모르겠어요','하나님께 너무 실망했는데 이런 생각을 하는 제가 죄책감 들어요','하나님이 원망스러운데 그러면 안 될 것 같아서 괴로워요','하나님께 화낸 것 같아서 죄책감이 들어요'],
+    recommendationNote:'하나님께 화나거나 실망한 뒤 그런 마음을 가진 자신 때문에 죄책감을 느끼는 상태에 연결합니다.',cautionTags:['faith_shaming','emotion_suppression','context_distortion'],
+    contextNote:'시편 기자가 자신의 산란함과 어리석음을 고백하면서도 하나님이 손을 붙드신다고 말하는 장면. 본문의 자기고백을 사용자에 대한 비난으로 바꾸거나 감정을 억지로 회개시키지 않습니다.',
+    applicationGuidance:{suitableSituations:['guilt_after_anger_at_god'],avoidApplications:['faith_shaming','emotion_suppression','context_distortion']},
+    textStatus:'verified',textStatusLabel:'본문 검증 완료',recommendationEnabled:true,guidanceStatus:'pending',metadataStatus:'draft',textVerificationSource:'user_supplied'
+  },
+  {
+    id:'habakkuk-1-2',reference:'하박국 1:2',book:'하박국',chapter:1,verseStart:2,verseEnd:2,
+    text:'여호와여 내가 부르짖어도 주께서 듣지 아니하시니 어느 때까지리이까 내가 강포로 말미암아 외쳐도 주께서 구원하지 아니하시나이다',translation:'개역개정',targetTranslation:'개역개정',
+    topics:['faith'],situations:['prayer_feels_unheard'],expressions:['하나님이 제 기도를 안 듣는 것 같아요','아무리 기도해도 하나님이 듣지 않으시는 것 같아요','하나님이 왜 제 기도에 아무 대답이 없으신지 모르겠어요','기도하는데 하나님이 너무 멀게 느껴져요'],
+    recommendationNote:'오랫동안 기도했지만 하나님이 듣지 않는 것 같다는 탄식과 의문에 연결합니다.',cautionTags:['faith_shaming','guaranteed_outcome','emotion_suppression'],
+    contextNote:'강포 가운데 부르짖어도 응답이 없는 것 같은 현실을 하나님께 탄식하는 하박국의 기도. 의심을 막거나 응답 시기와 원하는 결과를 약속하지 않습니다.',
+    applicationGuidance:{suitableSituations:['prayer_feels_unheard'],avoidApplications:['faith_shaming','guaranteed_outcome','emotion_suppression']},
+    textStatus:'verified',textStatusLabel:'본문 검증 완료',recommendationEnabled:true,guidanceStatus:'pending',metadataStatus:'draft',textVerificationSource:'user_supplied'
+  },
+  {
+    id:'luke-18-1',reference:'누가복음 18:1',book:'누가복음',chapter:18,verseStart:1,verseEnd:1,
+    text:'예수께서 그들에게 항상 기도하고 낙심하지 말아야 할 것을 비유로 말씀하여',translation:'개역개정',targetTranslation:'개역개정',
+    topics:['faith','rest'],situations:['wanting_to_give_up_prayer'],expressions:['이제 기도도 그만하고 싶어요','아무리 기도해도 달라지는 게 없어서 포기하고 싶어요','계속 기도해야 하나 싶어요','오래 기도했는데 이제는 더 못 하겠어요'],
+    recommendationNote:'오랫동안 기도하다가 이제 기도 자체를 포기하고 싶은 마음에 연결합니다.',cautionTags:['faith_shaming','guaranteed_outcome','endurance_pressure'],
+    contextNote:'항상 기도하고 낙심하지 않도록 예수님이 비유를 시작하시는 말씀. 응답을 보장하거나 기도에 지친 사람을 책망하고 쉼에 죄책감을 주는 데 사용하지 않습니다.',
+    applicationGuidance:{suitableSituations:['wanting_to_give_up_prayer'],avoidApplications:['faith_shaming','guaranteed_outcome','endurance_pressure']},
+    textStatus:'verified',textStatusLabel:'본문 검증 완료',recommendationEnabled:true,guidanceStatus:'pending',metadataStatus:'draft',textVerificationSource:'user_supplied'
+  },
+  {
+    id:'lamentations-3-22-23',reference:'예레미야애가 3:22-23',book:'예레미야애가',chapter:3,verseStart:22,verseEnd:23,
+    text:'여호와의 인자와 긍휼이 무궁하시므로 우리가 진멸되지 아니함이니이다\n이것들이 아침마다 새로우니 주의 성실하심이 크시도소이다',translation:'개역개정',targetTranslation:'개역개정',
+    topics:['guilt','failure'],situations:['new_day_after_failure'],expressions:['어제 너무 망쳤는데 오늘 다시 시작하고 싶어요','어제 실수한 게 계속 마음에 남아요','실패했지만 다시 시작해보고 싶어요','어제는 엉망이었는데 오늘은 새롭게 시작하고 싶어요'],
+    recommendationNote:'어제의 실패나 실수가 남아 있지만 오늘 다시 시작하고 싶은 마음에 연결합니다.',cautionTags:['accountability_erasure','guaranteed_outcome','context_distortion'],
+    contextNote:'예루살렘의 고난 한가운데서 하나님의 인자와 긍휼을 아침마다 새롭게 기억하는 애가의 고백. 책임과 수습을 지우거나 오늘부터 모든 일이 잘된다고 보장하지 않습니다.',
+    applicationGuidance:{suitableSituations:['new_day_after_failure'],avoidApplications:['accountability_erasure','guaranteed_outcome','context_distortion']},
+    textStatus:'verified',textStatusLabel:'본문 검증 완료',recommendationEnabled:true,guidanceStatus:'pending',metadataStatus:'draft',textVerificationSource:'user_supplied'
+  },
+  {
+    id:'joshua-1-9',reference:'여호수아 1:9',book:'여호수아',chapter:1,verseStart:9,verseEnd:9,
+    text:'내가 네게 명령한 것이 아니냐 강하고 담대하라 두려워하지 말며 놀라지 말라 네가 어디로 가든지 네 하나님 여호와가 너와 함께 하느니라 하시니라',translation:'개역개정',targetTranslation:'개역개정',
+    topics:['fear','future'],situations:['fear_of_new_beginning'],expressions:['새로운 일을 시작하려니까 무서워요','처음 해보는 일이라 너무 긴장돼요','새 출발을 앞두고 겁이 나요','새로운 환경에 들어가려니까 두려워요'],
+    recommendationNote:'새로운 일이나 환경으로 첫발을 내딛는 일을 앞두고 두려운 마음에 연결합니다.',cautionTags:['guaranteed_outcome','context_distortion','emotion_suppression'],
+    contextNote:'모세 이후 새로운 사명을 맡은 여호수아에게 하나님이 함께하심을 약속하며 담대하라고 명하신 장면. 모든 변화에 넓게 적용하거나 성공을 보장하지 않습니다.',
+    applicationGuidance:{suitableSituations:['fear_of_new_beginning'],avoidApplications:['guaranteed_outcome','context_distortion','emotion_suppression']},
+    textStatus:'verified',textStatusLabel:'본문 검증 완료',recommendationEnabled:true,guidanceStatus:'pending',metadataStatus:'draft',textVerificationSource:'user_supplied'
   }
 ]);
 })();

@@ -3,7 +3,7 @@ const safetyMessage='말씀을 고르기보다 지금의 안전을 먼저 살피
 // These identify forbidden APPLICATIONS, not forbidden passages. Shared with future AI output checks.
 const forbiddenApplications=Object.freeze(['faith_shaming','emotion_suppression','endurance_pressure','immediate_forgiveness','premature_hope','reconciliation_pressure','endurance_in_danger','guaranteed_outcome','context_distortion','coercive_application','victim_blame','accountability_erasure','forced_gratitude']);
 const cautionRules=Object.freeze({
- endurance_pressure:{topics:['rest'],excludeSituations:['severe_exhaustion','need_rest'],readySituations:['prolonged_effort','discouraged_service']},
+ endurance_pressure:{topics:['rest'],excludeSituations:['severe_exhaustion','need_rest'],readySituations:['prolonged_effort','discouraged_service','wanting_to_give_up_prayer']},
  immediate_forgiveness:{topics:['relationship'],excludeSituations:['fresh_relationship_wound'],readySituations:['forgiveness_when_ready','considering_forgiveness_after_healing']},
  premature_hope:{topics:['grief'],excludeSituations:['recent_loss','acute_hardship'],readySituations:['hope_when_ready','meaning_after_hardship']},
  reconciliation_pressure:{risks:['violence','abuse','coercive_control']},
