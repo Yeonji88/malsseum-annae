@@ -57,7 +57,8 @@ test('self-harm phrases keep safety first and the dedicated safety UI is present
  const source=fs.readFileSync(path.join(root,'dist','app.js'),'utf8');
  assert.match(source,/selection\.status==='safety_first'/);
  assert.match(source,/href='tel:109'/);
- assert.match(source,/📞 109 전화하기/);
+ assert.match(source,/aria-label','☎ 109 전화하기'/);
+ assert.match(source,/element\('span','self-harm-call-icon'\)/);
 });
 for(const message of ['오늘 날씨 이야기','12345','어떻게 말해야 할지 모르겠어요']){
  test('no forced default: '+message,()=>{const r=app().choose(message);assert.equal(r.verse,null);assert.ok(['needs_clarification','no_suitable_candidate'].includes(r.status));});

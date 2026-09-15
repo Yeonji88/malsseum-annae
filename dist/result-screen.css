@@ -58,7 +58,9 @@
 #result .self-harm-safety-title{margin:0 0 15px;font-size:19px;line-height:1.55;letter-spacing:-.35px;color:#294938}
 #result .self-harm-safety-copy p,#result .self-harm-safety-followup p{margin:0;white-space:pre-line;font-size:15px;line-height:1.78;color:#444b46}
 #result .self-harm-safety-copy p+p{margin-top:15px}
-#result .self-harm-call{display:flex;align-items:center;justify-content:center;width:100%;min-height:54px;margin:21px 0;padding:13px 18px;border-radius:27px;background:#315f49;color:#fff;text-decoration:none;font-size:16px;line-height:1.4;box-shadow:0 6px 16px #315f4917}
+#result .self-harm-call{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;min-height:54px;margin:21px 0;padding:13px 18px;border-radius:27px;background:#315f49;color:#fff;text-decoration:none;font-size:16px;line-height:1.4;box-shadow:0 6px 16px #315f4917}
+#result .self-harm-call-icon{display:block;flex:0 0 auto;width:19px;height:19px;color:#fff}
+#result .self-harm-call-icon svg{display:block;width:100%;height:100%;stroke:currentColor}
 #result .self-harm-call:focus-visible{outline:3px solid #86a895;outline-offset:3px}
 #result .self-harm-safety-followup{padding:15px 16px;border-radius:15px;background:#f0f3eb}
 #result .self-harm-safety-followup p+p{margin-top:14px}

@@ -70,7 +70,10 @@ function renderTurn(message,selection) {
    element('p','','지금은 말씀을 찾는 것보다 당신의 안전이 먼저예요.\n혼자 버티려고 하지 말고, 지금 곁에 있을 수 있는 사람이나 도움을 줄 수 있는 곳에 마음을 알려주세요.'),
    element('p','','지금 누군가와 이야기하고 싶다면\n자살예방상담전화 109에서 도움을 받을 수 있어요.')
   );
-  const call=element('a','self-harm-call','📞 109 전화하기');call.href='tel:109';
+  const call=element('a','self-harm-call');call.href='tel:109';call.setAttribute('aria-label','☎ 109 전화하기');
+  const callIcon=element('span','self-harm-call-icon');callIcon.setAttribute('aria-hidden','true');
+  callIcon.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7.4 3.5 10 8 7.8 10.2c1.2 2.5 3.5 4.8 6 6l2.2-2.2 4.5 2.6v2.1c0 1-0.8 1.8-1.8 1.8C10.3 20.5 3.5 13.7 3.5 5.3c0-1 0.8-1.8 1.8-1.8h2.1Z"/></svg>';
+  call.append(callIcon,element('span','','109 전화하기'));
   const urgent=element('div','self-harm-safety-followup');
   urgent.append(
    element('p','','지금 당장 자신을 해칠 것 같거나 위험한 상황이라면\n119 또는 112에 바로 도움을 요청해주세요.'),
