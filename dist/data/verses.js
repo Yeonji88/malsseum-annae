@@ -2191,6 +2191,96 @@ window.Malsseum.data.verses = Object.freeze([
     contextNote:'심판 이후 회복될 시온과 함께하시며 기뻐하시는 하나님을 선포하는 문맥의 말씀. 모든 개인적 상황의 성공이나 원하는 응답을 직접 보장하는 약속으로 사용하지 않습니다.',
     applicationGuidance:{suitableSituations:['longing_to_feel_cherished'],avoidApplications:['context_distortion','guaranteed_outcome','faith_shaming']},
     textStatus:'verified',textStatusLabel:'본문 검증 완료',recommendationEnabled:true,guidanceStatus:'pending',metadataStatus:'draft',textVerificationSource:'user_supplied'
+  },
+  {
+    id:'isaiah-40-11',reference:'이사야 40:11',book:'이사야',chapter:40,verseStart:11,verseEnd:11,
+    text:'그는 목자 같이 양 떼를 먹이시며 어린 양을 그 팔로 모아 품에 안으시며 젖먹이는 암컷들을 온순히 인도하시리로다',translation:'개역개정',targetTranslation:'개역개정',
+    topics:['loneliness'],situations:['longing_for_gentle_care'],expressions:['그냥 누가 나를 안아줬으면 좋겠어요','오늘은 그냥 위로받고 싶어요','아무 말 말고 따뜻하게 품어줬으면 좋겠어요'],
+    recommendationNote:'해결책보다 다정한 돌봄과 품어주는 위로가 분명히 필요한 마음에 연결합니다.',cautionTags:['emotion_suppression','context_distortion'],
+    contextNote:'하나님이 자기 백성을 목자처럼 먹이고 품으며 온순히 인도하시는 모습을 선포하는 말씀. 일반적인 피로나 휴식 필요만으로 우선하지 않습니다.',
+    applicationGuidance:{suitableSituations:['longing_for_gentle_care'],avoidApplications:['emotion_suppression','context_distortion']},
+    textStatus:'verified',textStatusLabel:'본문 검증 완료',recommendationEnabled:true,guidanceStatus:'pending',metadataStatus:'draft',textVerificationSource:'user_supplied'
+  },
+  {
+    id:'matthew-10-29-31',reference:'마태복음 10:29-31',book:'마태복음',chapter:10,verseStart:29,verseEnd:31,
+    text:'참새 두 마리가 한 앗사리온에 팔리지 않느냐 그러나 너희 아버지께서 허락하지 아니하시면 그 하나도 땅에 떨어지지 아니하리라\n너희에게는 머리털까지 다 세신 바 되었나니\n두려워하지 말라 너희는 많은 참새보다 귀하니라',translation:'개역개정',targetTranslation:'개역개정',
+    topics:['loneliness'],situations:['feeling_unimportant'],expressions:['아무도 나를 중요하게 생각하지 않는 것 같아요','나는 별로 소중하지 않은 사람 같아요','내 존재가 별로 중요하지 않은 것 같아요'],
+    recommendationNote:'자신이 중요하지 않거나 소중하지 않은 존재처럼 느껴지는 마음에 연결합니다.',cautionTags:['faith_shaming','emotion_suppression'],
+    contextNote:'박해를 앞둔 제자들에게 하나님이 그들을 세밀히 아시며 귀하게 여기신다고 격려하시는 말씀. 현실의 소외나 상처를 작게 만드는 데 사용하지 않습니다.',
+    applicationGuidance:{suitableSituations:['feeling_unimportant'],avoidApplications:['faith_shaming','emotion_suppression']},
+    textStatus:'verified',textStatusLabel:'본문 검증 완료',recommendationEnabled:true,guidanceStatus:'pending',metadataStatus:'draft',textVerificationSource:'user_supplied'
+  },
+  {
+    id:'psalm-139-13-14',reference:'시편 139:13-14',book:'시편',chapter:139,verseStart:13,verseEnd:14,
+    text:'주께서 내 내장을 지으시며 나의 모태에서 나를 만드셨나이다\n내가 주께 감사하옴은 나를 지으심이 심히 기묘하심이라 주께서 하시는 일이 기이함을 내 영혼이 잘 아나이다',translation:'개역개정',targetTranslation:'개역개정',
+    topics:['failure'],situations:['difficulty_accepting_self'],expressions:['내 모습이 너무 싫어요','왜 나는 이렇게 생겼을까요','요즘 내가 너무 싫어요','내가 너무 싫어요'],
+    recommendationNote:'자신의 몸이나 외모, 존재 자체를 싫어하고 받아들이기 어려운 마음에 연결합니다.',cautionTags:['faith_shaming','emotion_suppression','context_distortion'],
+    contextNote:'하나님이 시편 기자를 모태에서 지으셨다는 창조와 앎의 고백. 외모와 몸에 대한 현실적인 아픔을 꾸짖거나 불만을 금지하는 방식으로 사용하지 않습니다.',
+    applicationGuidance:{suitableSituations:['difficulty_accepting_self'],avoidApplications:['faith_shaming','emotion_suppression','context_distortion']},
+    textStatus:'verified',textStatusLabel:'본문 검증 완료',recommendationEnabled:true,guidanceStatus:'pending',metadataStatus:'draft',textVerificationSource:'user_supplied'
+  },
+  {
+    id:'ephesians-2-10',reference:'에베소서 2:10',book:'에베소서',chapter:2,verseStart:10,verseEnd:10,
+    text:'우리는 그가 만드신 바라 그리스도 예수 안에서 선한 일을 위하여 지으심을 받은 자니 이 일은 하나님이 전에 예비하사 우리로 그 가운데서 행하게 하려 하심이니라',translation:'개역개정',targetTranslation:'개역개정',
+    topics:['failure'],situations:['feeling_useless'],expressions:['나는 아무 쓸모가 없는 것 같아요','내가 뭘 할 수 있나 싶어요','나는 아무 도움이 안 되는 사람 같아요'],
+    recommendationNote:'자신이 쓸모없고 아무 가치나 역할이 없는 사람처럼 느껴지는 마음에 연결합니다.',cautionTags:['faith_shaming','context_distortion'],
+    contextNote:'구원이 행위에서 난 것이 아니라 은혜의 선물임을 밝힌 뒤, 그리스도 안에서 선한 일을 위해 지으심을 받았다고 말하는 문맥. 생산성으로 사람의 가치를 평가하는 데 사용하지 않습니다.',
+    applicationGuidance:{suitableSituations:['feeling_useless'],avoidApplications:['faith_shaming','context_distortion']},
+    textStatus:'verified',textStatusLabel:'본문 검증 완료',recommendationEnabled:true,guidanceStatus:'pending',metadataStatus:'draft',textVerificationSource:'user_supplied'
+  },
+  {
+    id:'galatians-1-10',reference:'갈라디아서 1:10',book:'갈라디아서',chapter:1,verseStart:10,verseEnd:10,
+    text:'이제 내가 사람들에게 좋게 하랴 하나님께 좋게 하랴 사람들에게 기쁨을 구하랴 내가 지금까지 사람들의 기쁨을 구하였다면 그리스도의 종이 아니니라',translation:'개역개정',targetTranslation:'개역개정',
+    topics:['relationship'],situations:['people_pleasing'],expressions:['남들이 나를 어떻게 볼지 너무 신경 쓰여요','사람들 눈치 보느라 너무 힘들어요','싫은데도 상대가 싫어할까 봐 거절을 못 하겠어요'],
+    recommendationNote:'사람의 평가와 반응 때문에 자신의 마음과 판단을 지나치게 억누르는 상황에 연결합니다.',cautionTags:['coercive_application','context_distortion'],
+    contextNote:'바울이 자신이 전하는 복음과 사도적 사명을 사람의 환심에 맞추지 않는다고 밝히는 문맥. 관계에서 타인을 배려하는 태도 자체를 잘못이라고 해석하지 않습니다.',
+    applicationGuidance:{suitableSituations:['people_pleasing'],avoidApplications:['coercive_application','context_distortion']},
+    textStatus:'verified',textStatusLabel:'본문 검증 완료',recommendationEnabled:true,guidanceStatus:'pending',metadataStatus:'draft',textVerificationSource:'user_supplied'
+  },
+  {
+    id:'2-corinthians-10-12',reference:'고린도후서 10:12',book:'고린도후서',chapter:10,verseStart:12,verseEnd:12,
+    text:'우리는 자기를 칭찬하는 어떤 자와 더불어 감히 짝하며 비교할 수 없노라 그러나 그들이 자기로써 자기를 헤아리고 자기로써 자기를 비교하니 지혜가 없도다',translation:'개역개정',targetTranslation:'개역개정',
+    topics:['failure'],situations:['comparison_inferiority'],expressions:['남들과 비교하면 내가 너무 초라해요','다른 사람을 보면 내가 너무 부족해 보여요','자꾸 다른 사람이랑 나를 비교하게 돼요'],
+    recommendationNote:'다른 사람과 자신을 비교하며 열등감이나 초라함을 느끼는 상황에 연결합니다.',cautionTags:['context_distortion','emotion_suppression'],
+    contextNote:'바울이 자신을 스스로 추천하고 서로 비교하는 이들의 기준을 비판하는 문맥. 비교로 생긴 상처를 가볍게 여기거나 감정을 금지하는 데 사용하지 않습니다.',
+    applicationGuidance:{suitableSituations:['comparison_inferiority'],avoidApplications:['context_distortion','emotion_suppression']},
+    textStatus:'verified',textStatusLabel:'본문 검증 완료',recommendationEnabled:true,guidanceStatus:'pending',metadataStatus:'draft',textVerificationSource:'user_supplied'
+  },
+  {
+    id:'1-samuel-16-7',reference:'사무엘상 16:7',book:'사무엘상',chapter:16,verseStart:7,verseEnd:7,
+    text:'여호와께서 사무엘에게 이르시되 그의 용모와 키를 보지 말라 내가 이미 그를 버렸노라 내가 보는 것은 사람과 같지 아니하니 사람은 외모를 보거니와 나 여호와는 중심을 보느니라 하시더라',translation:'개역개정',targetTranslation:'개역개정',
+    topics:['failure'],situations:['judged_by_external_conditions'],expressions:['예쁘지 않아서 자신감이 없어요','내 조건이 남들보다 너무 부족해요','스펙이 별로라서 내가 초라해요'],
+    recommendationNote:'외모·학벌·스펙처럼 드러나는 조건 때문에 자신을 낮게 평가하는 마음에 연결합니다.',cautionTags:['context_distortion','emotion_suppression'],
+    contextNote:'사무엘이 이새의 아들 가운데 왕을 세울 사람을 외모로 판단하려 할 때 하나님이 다윗의 중심을 보신다고 말씀하신 장면. 외모나 조건 때문에 받은 현실적인 상처를 무시하는 데 사용하지 않습니다.',
+    applicationGuidance:{suitableSituations:['judged_by_external_conditions'],avoidApplications:['context_distortion','emotion_suppression']},
+    textStatus:'verified',textStatusLabel:'본문 검증 완료',recommendationEnabled:true,guidanceStatus:'pending',metadataStatus:'draft',textVerificationSource:'user_supplied'
+  },
+  {
+    id:'psalm-37-7',reference:'시편 37:7',book:'시편',chapter:37,verseStart:7,verseEnd:7,
+    text:'여호와 앞에 잠잠하고 참고 기다리라 자기 길이 형통하며 악한 꾀를 이루는 자 때문에 불평하지 말지어다',translation:'개역개정',targetTranslation:'개역개정',
+    topics:['failure','future'],situations:['falling_behind_others'],expressions:['왜 다른 사람들은 다 잘되는데 나만 이럴까요','나만 뒤처지는 것 같아요','주변 사람들은 다 앞서가는데 나는 제자리예요','다른 사람들은 다 잘되는데 나만 뒤처지는 것 같아요'],
+    recommendationNote:'다른 사람의 형통과 자신의 뒤처짐을 함께 바라보며 조급하고 속상한 상황에 연결합니다.',cautionTags:['guaranteed_outcome','emotion_suppression','context_distortion'],
+    contextNote:'악인의 형통 때문에 불평하거나 조급해하지 말고 하나님 앞에서 기다리라고 권하는 시편의 문맥. 단순한 비교 열등감이나 곧 원하는 결과가 온다는 약속으로 사용하지 않습니다.',
+    applicationGuidance:{suitableSituations:['falling_behind_others'],avoidApplications:['guaranteed_outcome','emotion_suppression','context_distortion']},
+    textStatus:'verified',textStatusLabel:'본문 검증 완료',recommendationEnabled:true,guidanceStatus:'pending',metadataStatus:'draft',textVerificationSource:'user_supplied'
+  },
+  {
+    id:'ecclesiastes-3-11',reference:'전도서 3:11',book:'전도서',chapter:3,verseStart:11,verseEnd:11,
+    text:'하나님이 모든 것을 지으시되 때를 따라 아름답게 하셨고 또 사람들에게는 영원을 사모하는 마음을 주셨느니라 그러나 하나님이 하시는 일의 시종을 사람으로 측량할 수 없게 하셨도다',translation:'개역개정',targetTranslation:'개역개정',
+    topics:['future'],situations:['feeling_too_late'],expressions:['나는 너무 늦은 것 같아요','내 나이에 시작하기엔 늦은 것 같아요','왜 내 인생은 남들보다 이렇게 늦을까요','내 나이에 시작하기엔 너무 늦은 것 같아요'],
+    recommendationNote:'자신의 인생 시기가 너무 늦었거나 때를 놓쳤다고 느끼는 마음에 연결합니다.',cautionTags:['guaranteed_outcome','context_distortion'],
+    contextNote:'하나님이 모든 것을 때에 맞게 하셨으나 사람이 그 일의 시종을 다 헤아릴 수 없다는 전도서의 성찰. 결혼·임신·취업·성공 등 특정 사건이 반드시 이루어질 때를 보장하거나 암시하지 않습니다.',
+    applicationGuidance:{suitableSituations:['feeling_too_late'],avoidApplications:['guaranteed_outcome','context_distortion']},
+    textStatus:'verified',textStatusLabel:'본문 검증 완료',recommendationEnabled:true,guidanceStatus:'pending',metadataStatus:'draft',textVerificationSource:'user_supplied'
+  },
+  {
+    id:'psalm-138-8',reference:'시편 138:8',book:'시편',chapter:138,verseStart:8,verseEnd:8,
+    text:'여호와께서 나를 위하여 보상해 주시리이다 여호와여 주의 인자하심이 영원하오니 주의 손으로 지으신 것을 버리지 마옵소서',translation:'개역개정',targetTranslation:'개역개정',
+    topics:['future','fear'],situations:['unfinished_life_anxiety'],expressions:['내 인생이 앞으로 어떻게 될지 모르겠어요','아직 아무것도 이룬 게 없는 것 같아요','내 삶이 이대로 끝날까 봐 걱정돼요'],
+    recommendationNote:'아직 완성되지 않은 자신의 삶과 앞으로의 인생이 불안한 마음에 연결합니다.',cautionTags:['guaranteed_outcome','context_distortion'],
+    contextNote:'환난 중에도 하나님의 인자하심을 신뢰하며 주의 손으로 지으신 것을 버리지 말아 달라고 구하는 시편의 고백. 사용자가 원하는 미래 결과가 반드시 이루어진다는 보장으로 사용하지 않습니다.',
+    applicationGuidance:{suitableSituations:['unfinished_life_anxiety'],avoidApplications:['guaranteed_outcome','context_distortion']},
+    textStatus:'verified',textStatusLabel:'본문 검증 완료',recommendationEnabled:true,guidanceStatus:'pending',metadataStatus:'draft',textVerificationSource:'user_supplied'
   }
 ]);
 })();

@@ -1,5 +1,5 @@
 (function () {
-const contextOnlyVerses=new Set(['psalm-4-8','psalm-46-1-2','psalm-62-5-6','psalm-121-1-2','psalm-130-5','isaiah-30-15','exodus-14-14','psalm-131-1-2','1-peter-5-7','psalm-94-19','psalm-42-5','psalm-30-5','2-corinthians-4-8-9','psalm-40-1-2','isaiah-49-15-16','psalm-73-26','psalm-9-9-10','psalm-10-1','romans-8-38-39','zephaniah-3-17']);
+const contextOnlyVerses=new Set(['psalm-4-8','psalm-46-1-2','psalm-62-5-6','psalm-121-1-2','psalm-130-5','isaiah-30-15','exodus-14-14','psalm-131-1-2','1-peter-5-7','psalm-94-19','psalm-42-5','psalm-30-5','2-corinthians-4-8-9','psalm-40-1-2','isaiah-49-15-16','psalm-73-26','psalm-9-9-10','psalm-10-1','romans-8-38-39','zephaniah-3-17','isaiah-40-11','matthew-10-29-31','psalm-139-13-14','ephesians-2-10','galatians-1-10','2-corinthians-10-12','1-samuel-16-7','psalm-37-7','ecclesiastes-3-11','psalm-138-8']);
 window.Malsseum.services.selectVerse=function(analysis,candidates,options={}){
  const {previousId=null,previousAnalysis=null,continueConversation=false,history=[],verses=window.Malsseum.data.verses}=options;
  const policy=window.Malsseum.services.recommendationPolicy;

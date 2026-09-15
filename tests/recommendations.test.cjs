@@ -13,11 +13,11 @@ function app() {
  const choose=(message,options={})=>{const analysis=s.classifyConcern(message);return s.selectVerse(analysis,s.findCandidates(analysis,options.verses),options);};
  return {data,s,choose};
 }
-test('catalogue has ten topics, 69 unique verses, all texts ready and optional guidance pending',()=>{
- const {data,s}=app(); assert.equal(data.topics.length,10);assert.equal(data.verses.length,69);
- assert.equal(new Set(data.verses.map(v=>v.id)).size,69);
- assert.equal(new Set(data.verses.map(v=>v.reference)).size,69);
- assert.equal(data.verses.filter(s.recommendationPolicy.isActive).length,69);
+test('catalogue has ten topics, 79 unique verses, all texts ready and optional guidance pending',()=>{
+ const {data,s}=app(); assert.equal(data.topics.length,10);assert.equal(data.verses.length,79);
+ assert.equal(new Set(data.verses.map(v=>v.id)).size,79);
+ assert.equal(new Set(data.verses.map(v=>v.reference)).size,79);
+ assert.equal(data.verses.filter(s.recommendationPolicy.isActive).length,79);
  assert.equal(data.verses.filter(v=>v.textStatus==='pending_verification').length,0);
  assert.equal(data.verses.slice(0,49).reduce((n,v)=>n+v.topics.length,0),52);
  for(const verse of data.verses){
@@ -307,8 +307,20 @@ const passages60to69=[
  ['romans-8-38-39','로마서 8:38-39','내가 확신하노니 사망이나 생명이나 천사들이나 권세자들이나 현재 일이나 장래 일이나 능력이나\n높음이나 깊음이나 다른 어떤 피조물이라도 우리를 우리 주 그리스도 예수 안에 있는 하나님의 사랑에서 끊을 수 없으리라','하나님이 아직도 저를 사랑하세요?'],
  ['zephaniah-3-17','스바냐 3:17','너의 하나님 여호와가 너의 가운데에 계시니 그는 구원을 베푸실 전능자이시라 그가 너로 말미암아 기쁨을 이기지 못하시며 너를 잠잠히 사랑하시며 너로 말미암아 즐거이 부르며 기뻐하시리라 하리라','하나님도 나 같은 사람을 기뻐하실까요']
 ];
+const passages70to79=[
+ ['isaiah-40-11','이사야 40:11','그는 목자 같이 양 떼를 먹이시며 어린 양을 그 팔로 모아 품에 안으시며 젖먹이는 암컷들을 온순히 인도하시리로다','그냥 누가 나를 안아줬으면 좋겠어요'],
+ ['matthew-10-29-31','마태복음 10:29-31','참새 두 마리가 한 앗사리온에 팔리지 않느냐 그러나 너희 아버지께서 허락하지 아니하시면 그 하나도 땅에 떨어지지 아니하리라\n너희에게는 머리털까지 다 세신 바 되었나니\n두려워하지 말라 너희는 많은 참새보다 귀하니라','나는 별로 소중하지 않은 사람 같아요'],
+ ['psalm-139-13-14','시편 139:13-14','주께서 내 내장을 지으시며 나의 모태에서 나를 만드셨나이다\n내가 주께 감사하옴은 나를 지으심이 심히 기묘하심이라 주께서 하시는 일이 기이함을 내 영혼이 잘 아나이다','내가 너무 싫어요'],
+ ['ephesians-2-10','에베소서 2:10','우리는 그가 만드신 바라 그리스도 예수 안에서 선한 일을 위하여 지으심을 받은 자니 이 일은 하나님이 전에 예비하사 우리로 그 가운데서 행하게 하려 하심이니라','나는 아무 쓸모가 없는 것 같아요'],
+ ['galatians-1-10','갈라디아서 1:10','이제 내가 사람들에게 좋게 하랴 하나님께 좋게 하랴 사람들에게 기쁨을 구하랴 내가 지금까지 사람들의 기쁨을 구하였다면 그리스도의 종이 아니니라','남들이 나를 어떻게 볼지 너무 신경 쓰여요'],
+ ['2-corinthians-10-12','고린도후서 10:12','우리는 자기를 칭찬하는 어떤 자와 더불어 감히 짝하며 비교할 수 없노라 그러나 그들이 자기로써 자기를 헤아리고 자기로써 자기를 비교하니 지혜가 없도다','남들과 비교하면 내가 너무 초라해요'],
+ ['1-samuel-16-7','사무엘상 16:7','여호와께서 사무엘에게 이르시되 그의 용모와 키를 보지 말라 내가 이미 그를 버렸노라 내가 보는 것은 사람과 같지 아니하니 사람은 외모를 보거니와 나 여호와는 중심을 보느니라 하시더라','예쁘지 않아서 자신감이 없어요'],
+ ['psalm-37-7','시편 37:7','여호와 앞에 잠잠하고 참고 기다리라 자기 길이 형통하며 악한 꾀를 이루는 자 때문에 불평하지 말지어다','다른 사람들은 다 잘되는데 나만 뒤처지는 것 같아요'],
+ ['ecclesiastes-3-11','전도서 3:11','하나님이 모든 것을 지으시되 때를 따라 아름답게 하셨고 또 사람들에게는 영원을 사모하는 마음을 주셨느니라 그러나 하나님이 하시는 일의 시종을 사람으로 측량할 수 없게 하셨도다','내 나이에 시작하기엔 너무 늦은 것 같아요'],
+ ['psalm-138-8','시편 138:8','여호와께서 나를 위하여 보상해 주시리이다 여호와여 주의 인자하심이 영원하오니 주의 손으로 지으신 것을 버리지 마옵소서','내 인생이 앞으로 어떻게 될지 모르겠어요']
+];
 test('new ten passages retain the exact supplied text and only requested guidance is added',()=>{
- const {data,s}=app();assert.equal(data.verses.length,69);
+ const {data,s}=app();assert.equal(data.verses.length,79);
  assert.equal(newPassages.length,10);
  for(const [id,reference,text] of newPassages){
   const verse=data.verses.find(item=>item.id===id);assert.ok(verse,id);
@@ -367,6 +379,44 @@ test('60-69 distinctions, medical restraint, and safety priority are preserved',
   const result=choose(message);assert.equal(result.status,'safety_first');assert.equal(result.verse,null);
  }
 });
+test('passages 70 to 79 preserve supplied text and include requested guidance',()=>{
+ const {data,s}=app();assert.equal(passages70to79.length,10);
+ for(const [id,reference,text] of passages70to79){
+  const verse=data.verses.find(item=>item.id===id);assert.ok(verse,id);
+  assert.equal(verse.reference,reference);assert.equal(verse.text,text);assert.equal(verse.translation,'개역개정');
+  assert.equal(verse.textVerificationSource,'user_supplied');assert.equal(verse.guidanceStatus,'pending');
+  const guidance=data.reflections[id];assert.ok(guidance,id);
+  assert.ok(guidance.reflection.length>50,id);
+  assert.equal(guidance.question.split('\n').length,3,id);
+  assert.ok(guidance.prayer.endsWith('아멘.'),id);
+  assert.equal(s.recommendationPolicy.isActive(verse),true);
+ }
+});
+for(const [id,reference,,message] of passages70to79){
+ test('70-79 context selects '+reference,()=>{
+  const {s,choose,data}=app(),analysis=s.classifyConcern(message),candidates=s.findCandidates(analysis);
+  assert.ok(candidates.some(candidate=>candidate.verse.id===id),id);
+  assert.equal(choose(message).verse?.id,id,message);
+  for(const expression of data.verses.find(verse=>verse.id===id).expressions)assert.equal(choose(expression).verse?.id,id,expression);
+ });
+}
+test('70-79 distinctions and safety priority are preserved',()=>{
+ const {choose}=app();
+ for(const [message,id] of [
+  ['나는 별로 소중하지 않은 사람 같아요','matthew-10-29-31'],
+  ['내가 너무 싫어요','psalm-139-13-14'],
+  ['나는 아무 쓸모가 없는 것 같아요','ephesians-2-10'],
+  ['남들이 나를 어떻게 볼지 너무 신경 쓰여요','galatians-1-10'],
+  ['남들과 비교하면 내가 너무 초라해요','2-corinthians-10-12'],
+  ['예쁘지 않아서 자신감이 없어요','1-samuel-16-7'],
+  ['다른 사람들은 다 잘되는데 나만 뒤처지는 것 같아요','psalm-37-7'],
+  ['내 나이에 시작하기엔 너무 늦은 것 같아요','ecclesiastes-3-11'],
+  ['내 인생이 앞으로 어떻게 될지 모르겠어요','psalm-138-8'],
+  ['그냥 누가 나를 안아줬으면 좋겠어요','isaiah-40-11']
+ ])assert.equal(choose(message).verse?.id,id,message);
+ const danger=choose('남편이 때려서 위로받고 싶어요');
+ assert.equal(danger.status,'safety_first');assert.equal(danger.verse,null);
+});
 for(const [message,id] of [
  ['불안해요','philippians-4-6-7'],['힘들어요','matthew-11-28'],['무서워요','psalm-56-3'],
  ['화가나요','ephesians-4-26-27'],['우울해요','psalm-34-18'],['고민이 돼요','james-1-5']
@@ -396,9 +446,9 @@ test('IDs and every preserved metadata field are unchanged',()=>{
   assert.equal(hash(JSON.stringify(projection)),preserved.hashes[verse.id],verse.id);
  }
 });
-test('all 69 verses have reflection guidance, three questions, and a prayer without changing other passage metadata',()=>{
- const {data}=app();assert.equal(Object.keys(data.reflections).length,69);
- for(const verse of data.verses.slice(0,69)){
+test('all 79 verses have reflection guidance, three questions, and a prayer without changing other passage metadata',()=>{
+ const {data}=app();assert.equal(Object.keys(data.reflections).length,79);
+ for(const verse of data.verses.slice(0,79)){
   const guidance=data.reflections[verse.id];assert.ok(guidance,verse.id);
   assert.ok(guidance.reflection.length>50,verse.id);
   assert.equal(guidance.question.split('\n').length,3,verse.id);
