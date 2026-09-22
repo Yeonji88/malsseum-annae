@@ -29,7 +29,8 @@ function classifyConcern(message) {
  const situationTopicHints={
   carrying_everything_alone:'rest',afraid_to_burden_others:'relationship',guilt_about_rest:'rest',concrete_overload_without_breaks:'rest',
   practical_financial_worry:'fear',financial_fear_of_abandonment:'fear',guilt_after_anger_at_god:'faith',prayer_feels_unheard:'faith',
-  wanting_to_give_up_prayer:'faith',new_day_after_failure:'guilt',fear_of_new_beginning:'fear'
+  wanting_to_give_up_prayer:'faith',new_day_after_failure:'guilt',fear_of_new_beginning:'fear',
+  difficulty_accepting_self:'failure',comparison_inferiority:'failure',judged_by_external_conditions:'failure'
  };
  for(const situation of situations){
   const id=situationTopicHints[situation];

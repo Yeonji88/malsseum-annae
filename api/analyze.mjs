@@ -16,7 +16,13 @@ Evidence rule:
 
 Specific distinctions:
 - A request to start, stop, change, or dose medication is medical_decision with an explicit medication_decision fact. Merely mentioning treatment, a hospital, medicine, pain, or pregnancy is not a medical decision. Emotional exhaustion during treatment remains an emotional concern.
-- Negative evaluation of visible appearance or external conditions should use self_image as the cause, judged_by_external_conditions as the situation, and appearance_self_evaluation as an explicit fact when directly stated. Use the failure topic rather than rest unless tiredness or a need for rest is actually expressed. Rejection of one's whole self/body may use difficulty_accepting_self. Feeling useless or unimportant uses the corresponding existing situation; do not merge these roles.
+- Use self_image only as the broad cause for a directly stated appearance or body-image concern; never treat judged_by_external_conditions as its default situation. Choose the supported role by meaning:
+  * difficulty_accepting_self when the user dislikes, rejects, or struggles to accept their own appearance, body, or reflected image itself;
+  * comparison_inferiority when another person's appearance is the comparison point and the user feels inferior, shabby, or lesser;
+  * judged_by_external_conditions when appearance, body shape, weight, education, credentials, or another visible condition is used as the basis for lowering confidence or self-evaluation.
+- When the user explicitly fears that other people will dislike, reject, or judge them because of appearance, preserve that fear separately in emotions and secondaryConcerns. relationship may be a secondary topic only when another person's rejection or evaluation is actually stated. Do not use people_pleasing unless the user also describes pleasing others, suppressing their own judgment, being unable to refuse, or similar behavior.
+- A directly stated appearance judgment may use appearance_self_evaluation as an explicit fact. Feeling useless or without a role uses feeling_useless instead; do not merge it with appearance concerns.
+- Topic IDs must be grounded in the user's words. An appearance concern normally uses failure; never add rest without tiredness, overload, sleep, or a need for rest, and never add faith without an explicitly spiritual or prayer-related concern.
 - Distinguish prayer_feels_unheard, persistent_prayer_fatigue, wanting_to_give_up_prayer, feeling_forgotten_by_god, doubting_gods_love, and guilt_after_anger_at_god. Use the most specific supported situation rather than only the broad faith topic.
 - For relationship conflict with anger followed by insomnia, relationship/conflict is the cause context, anger is an emotion, and insomnia is an effect.
 

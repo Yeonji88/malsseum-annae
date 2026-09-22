@@ -1,0 +1,46 @@
+/* One font family and one role-based type scale for every user-facing surface. */
+:root{
+ --font-caption:11px;
+ --font-small:12px;
+ --font-support:13px;
+ --font-body:15px;
+ --font-action:16px;
+ --font-subheading:18px;
+ --font-heading:23px;
+ --font-display:29px;
+ --font-scripture:21px;
+ --font-saved:19px;
+ --line-reading:1.7;
+ --textarea-min:135px;
+}
+:root[data-text-size="large"]{
+ --font-caption:13px;
+ --font-small:14px;
+ --font-support:15.5px;
+ --font-body:18px;
+ --font-action:19px;
+ --font-subheading:21px;
+ --font-heading:27px;
+ --font-display:34.5px;
+ --font-scripture:25.5px;
+ --font-saved:23px;
+ --line-reading:1.76;
+ --textarea-min:165px;
+}
+:root[data-text-size="xlarge"]{
+ --font-caption:15px;
+ --font-small:16px;
+ --font-support:18px;
+ --font-body:21px;
+ --font-action:22px;
+ --font-subheading:24px;
+ --font-heading:30px;
+ --font-display:39px;
+ --font-scripture:30px;
+ --font-saved:27px;
+ --line-reading:1.82;
+ --textarea-min:195px;
+}
+:root,body,.app,.app>header,#onboarding,#main-content,#home-screen,#result,#meditation-screen,#meditation-detail,#meditation-list-screen,#meditation-record-screen,#prayer-screen,#my-screen,#bottom-nav,#settings-dialog,.verse-transition{font-family:'Malsseum Gowun Dodum','Gowun Dodum',sans-serif}
+button,input,textarea,select,option,summary,legend{font-family:inherit}
+input::placeholder,textarea::placeholder{font-family:inherit}

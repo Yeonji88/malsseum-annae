@@ -1,0 +1,81 @@
+/* Shared button roles. Screen styles keep their established green/coral colors. */
+:root{
+ --button-primary-height:52px;
+ --button-primary-radius:26px;
+ --button-primary-padding:12px 18px;
+ --button-secondary-height:44px;
+ --button-secondary-radius:14px;
+ --button-secondary-padding:10px 14px;
+ --button-compact-height:36px;
+ --button-compact-radius:11px;
+ --button-compact-padding:7px 11px;
+ --button-inline-gap:8px;
+}
+.button-primary{
+ display:flex!important;
+ align-items:center;
+ justify-content:center;
+ gap:var(--button-inline-gap);
+ width:100%;
+ height:auto!important;
+ min-height:var(--button-primary-height)!important;
+ padding:var(--button-primary-padding)!important;
+ border-radius:var(--button-primary-radius)!important;
+ font-size:var(--font-action,16px)!important;
+ font-weight:500!important;
+ line-height:1.45!important;
+ text-align:center;
+ white-space:normal;
+ overflow-wrap:anywhere;
+}
+.button-secondary{
+ display:flex!important;
+ align-items:center;
+ justify-content:center;
+ gap:var(--button-inline-gap)!important;
+ height:auto!important;
+ min-height:var(--button-secondary-height)!important;
+ padding:var(--button-secondary-padding)!important;
+ border-radius:var(--button-secondary-radius)!important;
+ font-size:var(--font-support,13px)!important;
+ font-weight:400!important;
+ line-height:1.45!important;
+ text-align:center;
+ white-space:normal;
+ overflow-wrap:anywhere;
+}
+.button-compact{
+ display:inline-flex!important;
+ align-items:center;
+ justify-content:center;
+ gap:6px;
+ width:auto;
+ height:auto!important;
+ min-height:var(--button-compact-height)!important;
+ padding:var(--button-compact-padding)!important;
+ border:1px solid rgba(67,91,76,.12)!important;
+ border-radius:var(--button-compact-radius)!important;
+ background:#f7f8f4!important;
+ color:#52675a;
+ font-size:var(--font-support,13px)!important;
+ font-weight:400!important;
+ line-height:1.4!important;
+ text-align:center;
+ white-space:normal;
+ overflow-wrap:anywhere;
+}
+.button-compact.button-destructive{color:#a55b54!important}
+.button-compact:disabled,.button-secondary:disabled,.button-primary:disabled{opacity:.48;cursor:default}
+.button-primary:focus-visible,.button-secondary:focus-visible,.button-compact:focus-visible{outline:2px solid #315f49;outline-offset:3px}
+
+/* Preserve intentional variants after the common geometry is applied. */
+.answer-form-actions .button-compact[type=submit]{border-color:#315f49!important;background:#315f49!important;color:#fff!important}
+.prayer-entry-actions .answer-begin{margin-right:auto;color:#c86f68}
+.bulk-remove.button-compact.button-destructive:not(:disabled){border-color:#315f49!important;background:#315f49!important;color:#fff!important;white-space:nowrap!important}
+.bulk-remove.button-destructive:disabled{color:#7f8980!important}
+
+/* Shared back affordance: sage circle, arrow, and destination label. */
+.meditation-back{min-height:46px;padding:2px 10px 2px 0;gap:10px}
+.meditation-back-icon{flex-basis:42px;width:42px;height:42px}
+.meditation-back-label{font-size:var(--font-support,15px);line-height:1.4}
+.meditation-journal-back{min-height:44px;padding:9px 18px;border-radius:999px;font-size:var(--font-support,13px);line-height:1.4}

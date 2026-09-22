@@ -7,16 +7,18 @@
 .app:has(#result:not([hidden]))>header .brand-mark,.app:has(#result:not([hidden]))>header .brand-mark svg{width:20px;height:20px;margin:0;background:none;color:#64856c}
 .app:has(#result:not([hidden]))>header .home-logo-caption,.app:has(#result:not([hidden]))>header .home-bell{display:none}
 .app:has(#result:not([hidden]))>header #open-settings{position:static;margin:0 0 0 auto;font-size:21px;color:#303633}
-.result-back{display:none}
-.app:has(#result:not([hidden]))>header .result-back{display:grid;place-items:center;flex-shrink:0;width:44px;height:44px;border:0;padding:0;background:none;color:#294938;cursor:pointer}
-.app:has(#result:not([hidden]))>header .result-back svg{display:block;width:28px;height:28px}
+#result>.result-back{order:-2;align-self:flex-start;margin:4px 0 10px;white-space:nowrap}
+.app:has(#result:not([hidden]))>header .result-back.is-safety-back{display:grid;place-items:center;width:44px;height:44px;min-height:44px;padding:0}
+.app:has(#result:not([hidden]))>header .result-back.is-safety-back .meditation-back-icon{width:44px;height:44px;background:transparent;box-shadow:none}
+.app:has(#result:not([hidden]))>header .result-back.is-safety-back svg{width:28px;height:28px}
+.app:has(#result:not([hidden]))>header .result-back.is-safety-back .meditation-back-label{display:none}
 .app:has(#result:not([hidden])) #main-content{padding:0 18px 20px;scrollbar-width:none}
 .app:has(#result:not([hidden])) #main-content::-webkit-scrollbar{display:none}
 #result{display:flex;flex-direction:column;margin:0;padding:0;color:#343a36}
 #result[hidden]{display:none}
 #result,#result *{font-family:'Malsseum Gowun Dodum','Malsseum SUIT',sans-serif;font-weight:400;font-synthesis:none}
 #result>.section-label,#result>#result-title{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%)}
-#result>.conversation-note{order:3;margin:18px 4px 8px;font-size:11px;line-height:1.6;color:#898b82}
+#result>.conversation-note{display:none}
 #result #conversation{order:0;margin:0;padding:0}
 #result .conversation-turn{margin:0 0 16px;padding:0;border:0;scroll-margin-top:0}
 #result .verse-result-turn .assistant-message{display:flex;flex-direction:column;gap:0}
@@ -30,6 +32,9 @@
 #result .user-message .speaker{font-size:12px;color:#55755e}
 #result .user-message p{margin:3px 0 0;font-size:14px;line-height:1.45;white-space:pre-wrap;overflow-wrap:anywhere}
 #result .verse-result-turn .explanation-card{margin:0 0 14px;padding:10px 17px;background:#fffdfa;border:1px solid #eeeae2;border-radius:16px;box-shadow:0 3px 12px #554d3c07}
+/* Keep the prepared explanation in the DOM for later personalization work,
+   but do not present it until that experience is ready. */
+#result .verse-result-turn .explanation-card{display:none}
 #result .explanation-label{font-size:14px;color:#313b34}
 #result .verse-result-turn .empathy-bubble{margin:0;padding:0;border:0;border-radius:0;background:none;box-shadow:none}
 #result .verse-result-turn .app-identity{display:none}

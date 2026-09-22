@@ -13,8 +13,9 @@
 .my-heading h1{min-width:0}
 .edit-saved,.select-all{border:0;background:none;color:#315f49;cursor:pointer;font:inherit;font-size:13px;line-height:1.5}
 .edit-saved{flex-shrink:0;padding:10px 4px;margin-right:2px}
-.select-all{display:block;margin:-5px 0 12px;padding:6px 4px}
-.select-all[hidden],.edit-saved[hidden],.bulk-remove[hidden]{display:none}
+.saved-edit-tools{display:flex;align-items:center;justify-content:flex-end;gap:8px;margin:-5px 0 12px}
+.saved-edit-tools[hidden],.select-all[hidden],.edit-saved[hidden],.bulk-remove[hidden]{display:none}
+.select-all{margin-right:auto}
 .saved-verse-list{display:grid;gap:12px}
 .saved-verse-card{display:flex;flex-direction:column;align-items:flex-start;width:100%;padding:20px 22px;border:1px solid #ebe7df;border-radius:18px;background:#fffdfa;box-shadow:0 5px 15px #554d3c0a;text-align:left;cursor:pointer;font:inherit}
 .saved-verse-card.is-editing{position:relative;padding-left:52px}
@@ -27,8 +28,8 @@
 .saved-empty{padding:33px 22px;border:1px solid #ebe7df;border-radius:18px;background:#fffdfa;text-align:center;box-shadow:0 5px 15px #554d3c08}
 .saved-empty p{margin:0;color:#303633;font-size:16px;line-height:1.6}
 .saved-empty p+p{margin-top:8px;color:#73796f;font-size:13px}
-.bulk-remove{position:sticky;bottom:12px;display:block;width:100%;min-height:49px;margin:18px 0 2px;padding:11px 16px;border:1px solid #315f49;border-radius:25px;background:#315f49;color:#fff;box-shadow:0 5px 13px #315f491a;font:inherit;font-size:14px;cursor:pointer}
-.bulk-remove:disabled{border-color:#d9ded5;background:#e8ece5;color:#7f8980;box-shadow:none;cursor:default}
+.bulk-remove{position:static;width:auto;margin:0;box-shadow:none;cursor:pointer}
+.bulk-remove:disabled{border-color:#d9ded5!important;background:#e8ece5!important;color:#7f8980!important;box-shadow:none;cursor:default}
 .edit-saved:focus-visible,.select-all:focus-visible,.bulk-remove:focus-visible{outline:2px solid #315f49;outline-offset:3px}
 .app:has(#my-screen:not([hidden]))>#bottom-nav{background:#fffdfa}
 .app:has(#my-screen:not([hidden]))>#bottom-nav button{font-family:'Malsseum Gowun Dodum','Malsseum SUIT',sans-serif;font-synthesis:none}
