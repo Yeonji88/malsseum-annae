@@ -182,7 +182,8 @@ async function playVerseTransition(){
 }
 async function showVerse(message,continueConversation=false,animate=false) {
  const localAnalysis=classifyConcern(message);
- const classification=await analyzeConcernWithAI(message,localAnalysis);
+ const aiAnalysis=await analyzeConcernWithAI(message,localAnalysis);
+ const classification=window.Malsseum.services.resolveConcernRoles(message,aiAnalysis);
  const candidates=findCandidates(classification);
  const selected=selectVerse(classification,candidates,{previousId,previousAnalysis,continueConversation,history:recommendationHistory.snapshot()});
  const selection={...selected,verse:selected.verse?{...selected.verse,...(window.Malsseum.data.reflections[selected.verse.id]||{})}:null};
