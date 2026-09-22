@@ -589,7 +589,8 @@ test('unrelated stylesheet and HTML markup remain unchanged',()=>{
   .replace('<section id="ai-privacy-note" class="ai-privacy-note" aria-labelledby="ai-privacy-title"><h3 id="ai-privacy-title">AI 분석 안내</h3><p>입력한 이야기는 마음을 이해하기 위한 분석 과정에서 OpenAI의 AI 서비스를 이용해 처리돼요.<br>AI는 고민을 이해하는 데 도움을 주며, 성경 말씀을 새로 만들어내지 않아요.</p></section>','')
   .replace('<form id="settings-form" class="profile-form"><p class="settings-intro">어떤 이름으로 불러드릴까요?</p>','<p class="settings-intro">어떤 이름으로 불러드릴까요?</p><form id="settings-form" class="profile-form">')
   .replace('<label class="sr-only" for="settings-name">이름 입력</label>','<label for="settings-name">이름 또는 별명</label>')
-  .replace('현재 입력한 이야기는 기기 안에서만 분석해요. AI 연결 전에는 외부로 전송하지 않아요.','입력한 이야기는 저장되거나 외부로 전송되지 않아요.');
+  .replace('현재 입력한 이야기는 기기 안에서만 분석해요. AI 연결 전에는 외부로 전송하지 않아요.','입력한 이야기는 저장되거나 외부로 전송되지 않아요.')
+  .replace('<p>지금 마음에 머무는 이야기를 들려주세요.</p>','<p>잘 정리된 말이 아니어도 괜찮아요.<br>지금 마음에 머무는 이야기를 들려주세요.<br>하나님의 말씀이 함께할게요.</p>');
  assert.equal(hash(html),preserved.htmlHash);
 });
 test('original 49 are candidates with complete guidance',()=>{

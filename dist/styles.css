@@ -295,6 +295,14 @@ label,.speaker,.scripture-label,.explanation-label,.verse-actions summary{font-w
 #home-screen #reset-heart:hover,#home-screen #reset-heart:focus-visible{background:#eef2e9;color:#365d46}
 #home-screen #reset-heart:focus-visible{outline:2px solid #789481;outline-offset:2px}
 #home-screen #count{margin-left:auto;white-space:nowrap}
+
+/* 홈 고민 입력창: 모바일에서 4~5줄을 편안하게 적을 수 있는 높이 */
+#home-screen #heart{height:138px;min-height:138px;padding:8px 2px 6px}
+
+/* 홈에서는 AI 안내를 숨기고 CTA와 세이지 카드의 흐름만 정리합니다. */
+#home-screen #privacy{display:none}
+#home-screen .home-reassurance{margin-top:16px}
+@media(max-height:740px){#home-screen .home-reassurance{margin-top:12px}}
 /* 설정 하단 AI 분석 안내 */
 #settings-dialog .ai-privacy-note{margin:20px 0 0;padding:14px 2px 0;border-top:1px solid var(--line);color:var(--muted)}
 #settings-dialog .ai-privacy-note h3{margin:0 0 7px;color:var(--green);font-size:13px;font-weight:550;line-height:1.5}
