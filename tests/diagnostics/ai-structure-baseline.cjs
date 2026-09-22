@@ -1,0 +1,13 @@
+const fs=require('node:fs'),path=require('node:path'),vm=require('node:vm');
+const root=path.resolve(__dirname,'../..');
+const fixtures=JSON.parse(fs.readFileSync(path.join(root,'tests/fixtures/ai-structure-regression.json'),'utf8'));
+if(fixtures.length!==50||new Set(fixtures.map(x=>x.id)).size!==50)throw Error('diagnostic fixture must contain 50 unique cases');
+const c={window:{Malsseum:{data:{},services:{}}},console};vm.createContext(c);
+for(const f of ['dist/data/topics.js','dist/data/verses.js','dist/services/classifyConcern.js','dist/services/findCandidates.js','dist/services/recommendationPolicy.js','dist/services/selectVerse.js'])vm.runInContext(fs.readFileSync(path.join(root,f),'utf8'),c,{filename:f});
+const s=c.window.Malsseum.services;
+const rows=fixtures.map(x=>{const a=s.classifyConcern(x.input),r=s.selectVerse(a,s.findCandidates(a));const actual={status:r.status,verseId:r.verse?.id||null,risks:a.riskSignals};let assessment='clear_error';if(x.expected.result==='safety_first')assessment=r.status==='safety_first'?'correct':'clear_error';else if(x.expected.result==='no_suitable_candidate')assessment=r.verse?'forced_recommendation':'correct';else if(x.expected.verseId)assessment=actual.verseId===x.expected.verseId?'correct':(r.verse?'acceptable':'clear_error');else assessment=r.status==='needs_clarification'?'clear_error':'acceptable';return{id:x.id,input:x.input,expected:x.expected,actual,assessment};});
+const count=name=>rows.filter(x=>x.assessment===name).length;
+const metrics={total:rows.length,correct:count('correct'),acceptable:count('acceptable'),clearError:count('clear_error'),unnecessaryClarification:rows.filter(x=>x.actual.status==='needs_clarification'&&x.expected.result!=='no_suitable_candidate').length,forcedRecommendation:count('forced_recommendation'),causeEffectAvailable:0,primaryConcernAvailable:0,safetyFirst:`${rows.filter(x=>x.expected.result==='safety_first'&&x.assessment==='correct').length}/${rows.filter(x=>x.expected.result==='safety_first').length}`};
+const out={note:'Diagnostic quality failures are baseline data and do not fail the normal test suite.',metrics,rows};
+if(process.argv.includes('--write'))fs.writeFileSync(path.join(root,'tests/fixtures/ai-structure-baseline.json'),JSON.stringify(out,null,2)+'\n');
+console.log(JSON.stringify(metrics,null,2));

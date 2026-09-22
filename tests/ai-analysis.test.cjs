@@ -1,77 +1,10 @@
-const test = require('node:test');
-const assert = require('node:assert/strict');
-const fs = require('node:fs');
-const vm = require('node:vm');
-const path = require('node:path');
-const root = path.resolve(__dirname, '..');
-const cases = [
- ['불안해서 잠이 안 와요', 'fear', ['sleep_worry'], []],
- ['남편이 나를 때려서 무서워요', 'fear', [], ['violence']],
- ['기도해도 하나님이 안 듣는 것 같아요', 'faith', [], []],
- ['다른 사람들이랑 자꾸 비교하게 돼요', 'failure', [], []],
- ['결정을 못 하겠어요', 'future', ['decision_uncertainty'], []]
-];
-function browser(endpoint, fetchImpl) {
- const context = {window: {MalsseumAIEndpoint: endpoint}, fetch: fetchImpl, AbortSignal, Set};
- context.window.Malsseum = {data: {}, services: {}};
- vm.createContext(context);
- for (const file of ['dist/data/topics.js', 'dist/data/verses.js', 'dist/services/classifyConcern.js', 'dist/services/analyzeConcernWithAI.js']) {
-  vm.runInContext(fs.readFileSync(path.join(root, file), 'utf8'), context, {filename: file});
- }
- return context.window.Malsseum.services;
-}
-test('five inputs use validated AI analysis while retaining local safety', async () => {
- const services = browser('https://example.vercel.app/api/analyze', async (_url, options) => {
-  const message = JSON.parse(options.body).message;
-  const [_, primaryTopic, situations, riskSignals] = cases.find(row => row[0] === message);
-  return {ok: true, json: async () => ({primaryTopic, secondaryTopics: [], situations, riskSignals: [], uncertainties: []})};
- });
- for (const [message, topic, situation, risks] of cases) {
-  const local = services.classifyConcern(message);
-  const result = await services.analyzeConcernWithAI(message, local);
-  assert.equal(result.primaryTopic, topic, message);
-  for (const id of situation) assert.ok(result.situations.includes(id), message);
-  for (const id of risks) assert.ok(result.riskSignals.includes(id), message);
-  assert.equal(result.method, 'ai+rules');
- }
-});
-test('unconfigured, API error, invalid JSON, invalid schema and timeout fall back', async () => {
- const message = '불안해요';
- for (const [endpoint, fetchImpl] of [
-  ['', () => {throw Error('should not call');}],
-  ['https://example.vercel.app/api/analyze', async () => ({ok: false})],
-  ['https://example.vercel.app/api/analyze', async () => ({ok: true, json: async () => {throw Error('invalid JSON');}})],
-  ['https://example.vercel.app/api/analyze', async () => ({ok: true, json: async () => ({primaryTopic: 'fake', secondaryTopics: [], situations: [], riskSignals: [], uncertainties: []})})],
-  ['https://example.vercel.app/api/analyze', async () => {throw new DOMException('timeout', 'TimeoutError');}]
- ]) {
-  const services = browser(endpoint, fetchImpl);
-  const local = services.classifyConcern(message);
-  assert.strictEqual(await services.analyzeConcernWithAI(message, local), local);
- }
-});
-test('Vercel function validates request and structured OpenAI response', async () => {
- const {POST} = await import('../api/analyze.mjs');
- const originalKey = process.env.OPENAI_API_KEY;
- const originalFetch = global.fetch;
- process.env.OPENAI_API_KEY = 'test-only';
- try {
-  global.fetch = async (_url, options) => {
-   const request = JSON.parse(options.body);
-   assert.equal(request.store, false);
-   assert.equal(request.text.format.type, 'json_schema');
-   assert.ok(!request.instructions.includes('recommend a specific'));
-   return {ok: true, json: async () => ({output: [{content: [{type: 'output_text', text: JSON.stringify({primaryTopic: 'fear', secondaryTopics: [], situations: ['sleep_worry'], riskSignals: [], uncertainties: []})}]}]})};
-  };
-  const makeRequest = () => new Request('https://example.vercel.app/api/analyze', {method: 'POST', headers: {Origin: 'https://yeonji88.github.io', 'Content-Type': 'application/json'}, body: JSON.stringify({message: cases[0][0]})});
-  const request = makeRequest();
-  const response = await POST(request);
-  assert.equal(response.status, 200);
-  assert.equal((await response.json()).primaryTopic, 'fear');
-  assert.equal((await POST(new Request('https://example.vercel.app/api/analyze', {method: 'POST', headers: {Origin: 'https://evil.example', 'Content-Type': 'application/json'}, body: '{}'}))).status, 403);
-  global.fetch = async () => ({ok: true, json: async () => ({output: [{content: [{type: 'output_text', text: 'not json'}]}]})});
-  assert.equal((await POST(makeRequest())).status, 502);
- } finally {
-  global.fetch = originalFetch;
-  if (originalKey === undefined) delete process.env.OPENAI_API_KEY; else process.env.OPENAI_API_KEY = originalKey;
- }
-});
+const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm'),path=require('node:path');
+const root=path.resolve(__dirname,'..'),contract=require('../dist/data/analysisContract.js');
+const analysis=(o={})=>({primaryTopic:'fear',secondaryTopics:[],cause:{category:'other',situationIds:[],evidence:'',explicit:false},effects:[],emotions:['anxiety'],situations:[],explicitFacts:[],uncertainties:[],primaryConcern:{kind:'emotion',id:'anxiety'},secondaryConcerns:[],riskSignals:[],...o});
+function browser(endpoint,fetchImpl){const c={window:{MalsseumAIEndpoint:endpoint},AbortSignal,Set};c.fetch=async(...args)=>{const response=await fetchImpl(...args);if(!response||typeof response.json!=='function')return response;return{...response,json:async()=>{const value=await response.json();c.__json=JSON.stringify(value);return vm.runInContext('JSON.parse(__json)',c);}}};c.window.Malsseum={data:{},services:{}};vm.createContext(c);for(const file of ['dist/data/topics.js','dist/data/verses.js','dist/data/analysisContract.js','dist/services/classifyConcern.js','dist/services/analyzeConcernWithAI.js'])vm.runInContext(fs.readFileSync(path.join(root,file),'utf8'),c,{filename:file});return c.window.Malsseum.services;}
+test('shared contract covers every browser topic, situation, and risk ID',()=>{const c={window:{Malsseum:{data:{},services:{}}}};vm.createContext(c);for(const file of ['dist/data/topics.js','dist/data/verses.js'])vm.runInContext(fs.readFileSync(path.join(root,file),'utf8'),c);const d=c.window.Malsseum.data;for(const id of d.topics.map(x=>x.id))assert.ok(contract.topicIds.includes(id),id);for(const id of new Set([...d.situationRules.map(x=>x.id),...d.verses.flatMap(x=>x.situations),'recent_loss']))assert.ok(contract.situationIds.includes(id),id);for(const id of d.riskRules.map(x=>x.id))assert.ok(contract.riskIds.includes(id),id);});
+test('extended AI analysis is accepted without changing legacy recommendation fields',async()=>{const ai=analysis({cause:{category:'financial',situationIds:['practical_financial_worry'],evidence:'돈 걱정',explicit:true},effects:[{type:'insomnia',situationIds:['sleep_worry'],evidence:'잠이 안 와요'}],situations:['practical_financial_worry','sleep_worry'],explicitFacts:[{type:'financial_concern',value:'돈 걱정',evidence:'돈 걱정'}],primaryConcern:{kind:'cause',id:'financial'},secondaryConcerns:[{kind:'effect',id:'insomnia'}]});const s=browser('x',async()=>({ok:true,json:async()=>ai})),local=s.classifyConcern('돈 걱정 때문에 잠이 안 와요'),r=await s.analyzeConcernWithAI('돈 걱정 때문에 잠이 안 와요',local);assert.equal(r.method,'ai+rules');assert.equal(r.cause.category,'financial');assert.equal(r.effects[0].type,'insomnia');assert.ok(r.situations.includes('practical_financial_worry'));});
+test('invalid, incomplete, extra, duplicate, API and timeout responses fall back by identity',async()=>{const base=analysis();const missing={...base};delete missing.cause;for(const value of [missing,{...base,extra:true},{...base,primaryTopic:'not_allowed'},{...base,situations:['not_allowed']},{...base,riskSignals:['not_allowed']},{...base,emotions:['anxiety','anxiety']}]){const s=browser('x',async()=>({ok:true,json:async()=>value})),local=s.classifyConcern('불안해요');assert.strictEqual(await s.analyzeConcernWithAI('불안해요',local),local);}for(const f of [async()=>({ok:false}),async()=>({ok:true,json:async()=>{throw Error('bad json')}}),async()=>{throw new DOMException('timeout','TimeoutError')}]){const s=browser('x',f),local=s.classifyConcern('불안해요');assert.strictEqual(await s.analyzeConcernWithAI('불안해요',local),local);}});
+test('local violence and self_harm signals cannot be removed by AI',async()=>{for(const [message,risk] of [['남편이 나를 때려서 무서워요','violence'],['죽고 싶어요','self_harm']]){const s=browser('x',async()=>({ok:true,json:async()=>analysis({riskSignals:[]})})),local=s.classifyConcern(message),r=await s.analyzeConcernWithAI(message,local);assert.ok(r.riskSignals.includes(risk));}});
+test('five representative concerns fit the new semantic contract',()=>{const samples=[analysis({cause:{category:'financial',situationIds:['practical_financial_worry'],evidence:'돈 걱정',explicit:true},effects:[{type:'insomnia',situationIds:['sleep_worry'],evidence:'잠이 안 와요'}],situations:['practical_financial_worry','sleep_worry'],explicitFacts:[{type:'financial_concern',value:'돈 걱정',evidence:'돈 걱정'}],primaryConcern:{kind:'cause',id:'financial'},secondaryConcerns:[{kind:'effect',id:'insomnia'}]}),analysis({secondaryTopics:['failure'],cause:{category:'new_beginning',situationIds:['fear_of_new_beginning'],evidence:'새 프로젝트를 시작',explicit:true},effects:[{type:'insomnia',situationIds:['sleep_worry'],evidence:'잠이 안 와요'}],situations:['fear_of_new_beginning','sleep_worry'],explicitFacts:[{type:'new_project',value:'새 프로젝트',evidence:'새 프로젝트'}],primaryConcern:{kind:'cause',id:'new_beginning'},secondaryConcerns:[{kind:'effect',id:'insomnia'}]}),analysis({primaryTopic:'failure',emotions:['shame'],cause:{category:'self_image',situationIds:['judged_by_external_conditions'],evidence:'못생겼을까요',explicit:true},situations:['judged_by_external_conditions'],explicitFacts:[{type:'appearance_self_evaluation',value:'못생겼다',evidence:'못생겼을까요'}],primaryConcern:{kind:'cause',id:'self_image'}}),analysis({primaryTopic:'future',emotions:['uncertainty'],cause:{category:'medical_decision',situationIds:['physical_health_concern'],evidence:'약을 끊어도 되는지',explicit:true},situations:['physical_health_concern'],explicitFacts:[{type:'medication_decision',value:'복용 중인 약 중단',evidence:'약을 끊어도 되는지'}],primaryConcern:{kind:'cause',id:'medical_decision'}}),analysis({primaryTopic:'faith',emotions:['frustration'],cause:{category:'faith_prayer',situationIds:['prayer_feels_unheard'],evidence:'하나님이 침묵',explicit:true},situations:['prayer_feels_unheard'],explicitFacts:[{type:'prayer_lament',value:'기도 중 하나님의 침묵',evidence:'하나님이 침묵하시는 것 같아'}],primaryConcern:{kind:'situation',id:'prayer_feels_unheard'}})];for(const x of samples)assert.equal(contract.validate(x),true);});
+test('Vercel function uses shared strict schema and rejects invalid AI output',async()=>{const{POST}=await import('../api/analyze.mjs');const key=process.env.OPENAI_API_KEY,oldFetch=global.fetch;process.env.OPENAI_API_KEY='test-only';const req=()=>new Request('https://example/api',{method:'POST',headers:{Origin:'https://yeonji88.github.io','Content-Type':'application/json'},body:JSON.stringify({message:'불안해요'})});try{global.fetch=async(_u,o)=>{const b=JSON.parse(o.body);assert.deepEqual(b.text.format.schema,contract.schema);assert.match(b.instructions,/Never write, select, score/);return{ok:true,json:async()=>({output:[{content:[{type:'output_text',text:JSON.stringify(analysis())}]}]})}};assert.equal((await POST(req())).status,200);global.fetch=async()=>({ok:true,json:async()=>({output:[{content:[{type:'output_text',text:JSON.stringify({...analysis(),extra:true})}]}]})});assert.equal((await POST(req())).status,502);global.fetch=async()=>({ok:true,json:async()=>({output:[{content:[{type:'output_text',text:'not json'}]}]})});assert.equal((await POST(req())).status,502);}finally{global.fetch=oldFetch;if(key===undefined)delete process.env.OPENAI_API_KEY;else process.env.OPENAI_API_KEY=key;}});

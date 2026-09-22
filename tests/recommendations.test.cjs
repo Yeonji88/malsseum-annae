@@ -583,6 +583,7 @@ test('unrelated stylesheet and HTML markup remain unchanged',()=>{
  const styles=fs.readFileSync(path.join(root,'dist/styles.css'),'utf8').split('\n/* 홈 고민 입력을 지우는 작은 보조 액션 */')[0];
  assert.equal(hash(styles),preserved.stylesHash);
  const html=normalized(fs.readFileSync(path.join(root,'dist/index.html'),'utf8'))
+  .replace('<script defer src="data/analysisContract.js"></script>','')
   .replace('<script defer src="ai-config.js"></script><script defer src="services/analyzeConcernWithAI.js"></script>','')
   .replace('<button id="reset-heart" type="button" hidden aria-label="고민 입력 내용 전체 초기화" title="입력 내용 전체 초기화"><span aria-hidden="true">↻</span></button>','')
   .replace('<section id="ai-privacy-note" class="ai-privacy-note" aria-labelledby="ai-privacy-title"><h3 id="ai-privacy-title">AI 분석 안내</h3><p>입력한 이야기는 마음을 이해하기 위한 분석 과정에서 OpenAI의 AI 서비스를 이용해 처리돼요.<br>AI는 고민을 이해하는 데 도움을 주며, 성경 말씀을 새로 만들어내지 않아요.</p></section>','')
