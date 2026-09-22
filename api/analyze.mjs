@@ -11,10 +11,12 @@ Evidence rule:
 - Effects are outcomes or symptoms that follow the cause. Emotions are feelings. Do not reverse cause and effect.
 - When an explicit cause leads to insomnia, fatigue, anxiety, or another symptom, primaryConcern should represent the cause or its most specific situation; put the symptom in effects and secondaryConcerns.
 - When only a feeling and symptom are stated, the feeling may be primary. Do not invent a cause.
+- Never repeat primaryTopic in secondaryTopics. secondaryTopics contains only different additional topics.
+- If cause.category is "none", cause.explicit must be false, cause.evidence must be "", and cause.situationIds must be []. Never attach a situation or evidence to a none cause; represent the supported meaning in situations and primaryConcern instead.
 
 Specific distinctions:
 - A request to start, stop, change, or dose medication is medical_decision with an explicit medication_decision fact. Merely mentioning treatment, a hospital, medicine, pain, or pregnancy is not a medical decision. Emotional exhaustion during treatment remains an emotional concern.
-- Negative evaluation of visible appearance or external conditions should use judged_by_external_conditions and appearance_self_evaluation. Rejection of one's whole self/body may use difficulty_accepting_self. Feeling useless or unimportant uses the corresponding existing situation; do not merge these roles.
+- Negative evaluation of visible appearance or external conditions should use self_image as the cause, judged_by_external_conditions as the situation, and appearance_self_evaluation as an explicit fact when directly stated. Use the failure topic rather than rest unless tiredness or a need for rest is actually expressed. Rejection of one's whole self/body may use difficulty_accepting_self. Feeling useless or unimportant uses the corresponding existing situation; do not merge these roles.
 - Distinguish prayer_feels_unheard, persistent_prayer_fatigue, wanting_to_give_up_prayer, feeling_forgotten_by_god, doubting_gods_love, and guilt_after_anger_at_god. Use the most specific supported situation rather than only the broad faith topic.
 - For relationship conflict with anger followed by insomnia, relationship/conflict is the cause context, anger is an emotion, and insomnia is an effect.
 
@@ -69,6 +71,7 @@ export async function POST(request) {
     const output = payload.output?.flatMap(item => item.content || []).find(item => item.type === 'output_text')?.text;
     let analysis;
     try { analysis = JSON.parse(output); } catch { return json({error: 'Invalid AI response'}, 502); }
+    analysis = contract.normalizeAnalysis(analysis);
     const validation = contract.validateDetailed(analysis,message);
     if (!validation.ok) {
       const diagnostic = process.env.VERCEL_ENV !== 'production' && request.headers.get('x-malsseum-diagnostic') === 'validation';

@@ -6,7 +6,7 @@
   try {
    const response = await fetch(endpoint, {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({message}), signal: AbortSignal.timeout(18000), cache: 'no-store'});
    if (!response.ok) return local;
-   const ai = await response.json();
+   const ai = contract?.normalizeAnalysis(await response.json());
    if (!contract || !contract.validate(ai,message)) return local;
    const primaryTopic = ai.primaryTopic || local.primaryTopic;
    return {...local, method: 'ai+rules', primaryTopic,
