@@ -3,6 +3,27 @@ const require = createRequire(import.meta.url);
 const contract = require('../dist/data/analysisContract.js');
 export const maxDuration = 20;
 const schema = contract.schema;
+export const analysisInstructions = `You structure a Korean user's concern. Return only the schema fields. You do not counsel, diagnose, make decisions, or select religious content.
+
+Evidence rule:
+- A cause or explicit fact is explicit only when the user's own words state it. Put an exact short quote from the input in evidence.
+- Never invent a job, relationship, financial, medical, pregnancy, loss, or safety context. If no real-world cause is stated, use cause.category "none", explicit false, empty evidence and no cause situation IDs.
+- Effects are outcomes or symptoms that follow the cause. Emotions are feelings. Do not reverse cause and effect.
+- When an explicit cause leads to insomnia, fatigue, anxiety, or another symptom, primaryConcern should represent the cause or its most specific situation; put the symptom in effects and secondaryConcerns.
+- When only a feeling and symptom are stated, the feeling may be primary. Do not invent a cause.
+
+Specific distinctions:
+- A request to start, stop, change, or dose medication is medical_decision with an explicit medication_decision fact. Merely mentioning treatment, a hospital, medicine, pain, or pregnancy is not a medical decision. Emotional exhaustion during treatment remains an emotional concern.
+- Negative evaluation of visible appearance or external conditions should use judged_by_external_conditions and appearance_self_evaluation. Rejection of one's whole self/body may use difficulty_accepting_self. Feeling useless or unimportant uses the corresponding existing situation; do not merge these roles.
+- Distinguish prayer_feels_unheard, persistent_prayer_fatigue, wanting_to_give_up_prayer, feeling_forgotten_by_god, doubting_gods_love, and guilt_after_anger_at_god. Use the most specific supported situation rather than only the broad faith topic.
+- For relationship conflict with anger followed by insomnia, relationship/conflict is the cause context, anger is an emotion, and insomnia is an effect.
+
+Concern ordering: risk signal; verified professional-decision fact; explicit real-world cause; explicit action or request; specific situation; emotion; effect; uncertainty.
+
+Safety:
+- Mark violence, abuse, coercive_control, or self_harm when supported. These are possible signals, not diagnoses. Never omit a supported risk because another concern is present.
+
+Use only IDs allowed by the schema. Do not write, quote, select, score, or recommend a Bible verse. Do not make medical or medication decisions. Do not create a spiritual conclusion. Record material uncertainty instead of guessing.`;
 const allowedOrigin = 'https://yeonji88.github.io';
 const headers = {'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-store', 'Vary': 'Origin', 'Access-Control-Allow-Origin': allowedOrigin, 'Access-Control-Allow-Methods': 'POST, OPTIONS', 'Access-Control-Allow-Headers': 'Content-Type'};
 const json = (body, status = 200) => new Response(JSON.stringify(body), {status, headers});
@@ -23,7 +44,7 @@ export async function POST(request) {
       headers: {'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`, 'Content-Type': 'application/json'},
       body: JSON.stringify({
         model: process.env.OPENAI_MODEL || 'gpt-4.1-mini', store: false,
-        instructions: `Structure only the user's Korean concern using the JSON schema. Separate cause from effects or symptoms, emotions, explicit facts, and uncertainty. Choose primaryConcern from the cause when the cause is explicit; symptoms such as insomnia belong in effects. Never write, select, score, quote, or recommend a Bible verse. Never make a medical or medication decision. Use only IDs allowed by the schema. A short feeling does not prove a life event or diagnosis. Record uncertainty rather than inventing context. Risk signals are possible signs, not diagnoses, and cannot override local safety checks.`,
+        instructions: analysisInstructions,
         input: message.trim(),
         text: {format: {type: 'json_schema', name: 'concern_analysis', strict: true, schema}}
       })
@@ -33,7 +54,7 @@ export async function POST(request) {
     const output = payload.output?.flatMap(item => item.content || []).find(item => item.type === 'output_text')?.text;
     let analysis;
     try { analysis = JSON.parse(output); } catch { return json({error: 'Invalid AI response'}, 502); }
-    if (!contract.validate(analysis)) return json({error: 'Invalid AI analysis'}, 502);
+    if (!contract.validate(analysis,message)) return json({error: 'Invalid AI analysis'}, 502);
     return json(analysis);
   } catch (error) { return json({error: error?.name === 'TimeoutError' ? 'AI timeout' : 'AI request failed'}, error?.name === 'TimeoutError' ? 504 : 502); }
 }
