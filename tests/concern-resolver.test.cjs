@@ -19,6 +19,12 @@ test('appearance concerns keep self-acceptance, comparison, and external-conditi
   ['친구랑 외모를 비교하게 돼','comparison_inferiority','2-corinthians-10-12'],
   ['살쪄서 자신감이 없어','judged_by_external_conditions','1-samuel-16-7'],
   ['외모 때문에 자존감이 낮아졌어','judged_by_external_conditions','1-samuel-16-7'],
+  ['너무 못생겨서 자신이 없어요','judged_by_external_conditions','1-samuel-16-7'],
+  ['외모 때문에 자신감이 없어요','judged_by_external_conditions','1-samuel-16-7'],
+  ['못생긴 것 같아서 자존감이 떨어져요','judged_by_external_conditions','1-samuel-16-7'],
+  ['살이 쪄서 내가 너무 못나 보여요','judged_by_external_conditions','1-samuel-16-7'],
+  ['외모가 별로라 사람들 앞에 나가기 싫어요','judged_by_external_conditions','1-samuel-16-7'],
+  ['내 얼굴이 싫어서 자신감이 없어','difficulty_accepting_self','psalm-139-13-14'],
   ['제 외모가 너무 싫어요','difficulty_accepting_self','psalm-139-13-14'],
   ['거울 볼 때마다 제 모습이 마음에 안 들어요','difficulty_accepting_self','psalm-139-13-14'],
   ['예쁜 사람을 보면 제가 초라하게 느껴져요','comparison_inferiority','2-corinthians-10-12'],
@@ -38,6 +44,8 @@ test('appearance concerns keep self-acceptance, comparison, and external-conditi
   const unrelated=s.classifyConcern(message);
   assert.ok(!unrelated.situations.includes('judged_by_external_conditions'),message);
  }
+ const safety=s.classifyConcern('너무 못생겨서 죽고 싶어요');
+ assert.equal(s.selectVerse(safety,s.findCandidates(safety)).status,'safety_first');
 });
 test('verified medication decision returns no suitable candidate',()=>{const {analysis,result}=choose('복용 중인 약을 끊어도 되는지 고민이에요',{primaryTopic:'future',cause:{category:'medical_decision',situationIds:[],evidence:'약을 끊어도 되는지',explicit:true},explicitFacts:[{type:'medication_decision',value:'복용 중인 약 중단',evidence:'약을 끊어도 되는지'}],primaryConcern:{kind:'fact',id:'medication_decision'}});assert.equal(analysis.requiresProfessionalJudgment,true);assert.equal(result.status,'no_suitable_candidate');assert.equal(result.verse,null);});
 test('emotional burden during treatment is not blocked as a medical decision',()=>{const {analysis,result}=choose('치료가 길어져서 마음이 너무 지쳐요',{primaryTopic:'rest',cause:{category:'health',situationIds:['prolonged_effort'],evidence:'치료가 길어져서',explicit:true},effects:[{type:'fatigue',situationIds:['severe_exhaustion'],evidence:'마음이 너무 지쳐요'}],situations:['prolonged_effort','severe_exhaustion'],primaryConcern:{kind:'cause',id:'health'}});assert.equal(analysis.requiresProfessionalJudgment,false);assert.equal(result.status,'selected');});
