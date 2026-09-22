@@ -27,6 +27,21 @@ Use only IDs allowed by the schema. Do not write, quote, select, score, or recom
 const allowedOrigin = 'https://yeonji88.github.io';
 const headers = {'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-store', 'Vary': 'Origin', 'Access-Control-Allow-Origin': allowedOrigin, 'Access-Control-Allow-Methods': 'POST, OPTIONS', 'Access-Control-Allow-Headers': 'Content-Type'};
 const json = (body, status = 200) => new Response(JSON.stringify(body), {status, headers});
+const textShape = value => ({type: typeof value, length: typeof value === 'string' ? value.length : null});
+const diagnosticShape = value => ({
+  topLevelKeys: value && typeof value === 'object' && !Array.isArray(value) ? Object.keys(value).sort() : [],
+  primaryTopic: value?.primaryTopic,
+  secondaryTopics: value?.secondaryTopics,
+  cause: value?.cause && {category: value.cause.category, situationIds: value.cause.situationIds, evidence: textShape(value.cause.evidence), explicit: value.cause.explicit},
+  effects: Array.isArray(value?.effects) ? value.effects.map(effect => ({type: effect?.type, situationIds: effect?.situationIds, evidence: textShape(effect?.evidence)})) : textShape(value?.effects),
+  emotions: value?.emotions,
+  situations: value?.situations,
+  explicitFacts: Array.isArray(value?.explicitFacts) ? value.explicitFacts.map(fact => ({type: fact?.type, value: textShape(fact?.value), evidence: textShape(fact?.evidence)})) : textShape(value?.explicitFacts),
+  uncertainties: Array.isArray(value?.uncertainties) ? {type: 'array', length: value.uncertainties.length} : textShape(value?.uncertainties),
+  primaryConcern: value?.primaryConcern,
+  secondaryConcerns: value?.secondaryConcerns,
+  riskSignals: value?.riskSignals
+});
 export async function POST(request) {
   if (request.headers.get('origin') !== allowedOrigin) return json({error: 'Forbidden'}, 403);
   if (!request.headers.get('content-type')?.startsWith('application/json')) return json({error: 'JSON required'}, 415);
@@ -54,7 +69,11 @@ export async function POST(request) {
     const output = payload.output?.flatMap(item => item.content || []).find(item => item.type === 'output_text')?.text;
     let analysis;
     try { analysis = JSON.parse(output); } catch { return json({error: 'Invalid AI response'}, 502); }
-    if (!contract.validate(analysis,message)) return json({error: 'Invalid AI analysis'}, 502);
+    const validation = contract.validateDetailed(analysis,message);
+    if (!validation.ok) {
+      const diagnostic = process.env.VERCEL_ENV !== 'production' && request.headers.get('x-malsseum-diagnostic') === 'validation';
+      return json(diagnostic ? {error: 'Invalid AI analysis', diagnostic: {structure: diagnosticShape(analysis), errors: validation.errors}} : {error: 'Invalid AI analysis'}, 502);
+    }
     return json(analysis);
   } catch (error) { return json({error: error?.name === 'TimeoutError' ? 'AI timeout' : 'AI request failed'}, error?.name === 'TimeoutError' ? 504 : 502); }
 }
