@@ -16,27 +16,45 @@ let previousId=null, previousAnalysis=null, turnCount=0;
 // Only verse IDs are persisted. Display content always comes from the catalogue.
 const SavedVerses=(()=>{
  const key='malsseum-annae.saved-verse-ids.v1';
+ const savedAtKey='malsseum-annae.saved-verse-times.v1';
  const known=new Set(window.Malsseum.data.verses.map(verse=>verse.id));
- function list(){
+ function storedIds(){
   try{
    const stored=JSON.parse(localStorage.getItem(key)||'[]');
    return Array.isArray(stored)?[...new Set(stored.filter(id=>typeof id==='string'&&known.has(id)))]:[];
   }catch{return [];}
  }
+ function savedTimes(){
+  try{
+   const stored=JSON.parse(localStorage.getItem(savedAtKey)||'{}');
+   if(!stored||Array.isArray(stored)||typeof stored!=='object')return {};
+   return Object.fromEntries(Object.entries(stored).filter(([id,value])=>known.has(id)&&typeof value==='string'&&Number.isFinite(Date.parse(value))));
+  }catch{return {};}
+ }
+ function list(){
+  const ids=storedIds(),times=savedTimes();
+  return ids.map((id,index)=>({id,index,time:times[id]?Date.parse(times[id]):index})).sort((a,b)=>b.time-a.time||b.index-a.index).map(item=>item.id);
+ }
+ function persist(ids,times){
+  localStorage.setItem(key,JSON.stringify(ids));
+  localStorage.setItem(savedAtKey,JSON.stringify(times));
+ }
  return {
-  list,
+  list,key,savedAtKey,
   has(id){return list().includes(id);},
   toggle(id){
    if(!known.has(id))return false;
-   const ids=list(), saved=!ids.includes(id);
+   const ids=storedIds(),times=savedTimes(),saved=!ids.includes(id);
    const next=saved?[...ids,id]:ids.filter(item=>item!==id);
-   localStorage.setItem(key,JSON.stringify(next));
+   if(saved)times[id]=new Date().toISOString();else delete times[id];
+   persist(next,times);
    return saved;
   },
   removeMany(ids){
    const removing=new Set(ids);
-   const next=list().filter(id=>!removing.has(id));
-   localStorage.setItem(key,JSON.stringify(next));
+   const next=storedIds().filter(id=>!removing.has(id)),times=savedTimes();
+   for(const id of removing)delete times[id];
+   persist(next,times);
   }
  };
 })();
