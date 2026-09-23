@@ -615,7 +615,7 @@ test('Jeremiah selection retains no-guarantee and no-distortion application cons
  const result=s.selectVerse(analysis,candidates);assert.equal(result.verse.id,verse.id);assert.ok(result.avoidApplications.includes('guaranteed_outcome'));
  for(const tag of ['guaranteed_outcome','context_distortion'])assert.equal(s.selectVerse(analysis,candidates,{applicationTags:[tag]}).verse,null);
 });
-for(const message of ['계획대로 되지 않아 방향을 다시 찾고 있어요','성장이 느려서 자신이 없어요','잘못을 돌아봤는데도 나를 계속 정죄해요','기다림이 길고 계획이 무너진 것 같아요','기도할 말이 떠오르지 않아요']){
+for(const message of ['계획대로 되지 않아 방향을 다시 찾고 있어요','성장이 느려서 자신이 없어요','잘못을 돌아봤는데도 나를 계속 정죄해요','기다림이 길고 계획이 무너진 것 같아요']){
  test('documented existing analyser limitation asks rather than forcing: '+message,()=>{
   const r=app().choose(message);assert.equal(r.status,'needs_clarification');assert.equal(r.verse,null);
  });

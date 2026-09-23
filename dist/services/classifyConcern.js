@@ -26,6 +26,13 @@ function classifyConcern(message) {
    for(const id of verse.situations)if(!situations.includes(id))situations.push(id);
   }
  }
+ // Some faith concerns span contrastive clauses (for example, fatigue followed by a wish to continue).
+ // Preserve only the existing authored role; do not infer a causal relationship between separate concerns.
+ const wholeTextFaithRules=[
+  {id:'persistent_prayer_fatigue',pattern:/기도[^.!?\n]{0,50}(?:지쳐|지쳤)[^.!?\n]{0,35}(?:그래도\s*)?계속(?:\s*기도)?\s*(?:하고|해보고)?\s*싶/},
+  {id:'doubting_gods_love',pattern:/하나님[^.!?\n]{0,30}(?:사랑하지\s*않는\s*것\s*같|사랑하실까|사랑하시는지\s*모르)|이런\s*나도\s*사랑하실까|(?:아직도\s*)?(?:날|나를|저를)\s*사랑하실까/}
+ ];
+ for(const rule of wholeTextFaithRules)if(rule.pattern.test(text)&&!situations.includes(rule.id))situations.push(rule.id);
  const explicitCauseRules=[
   {category:'financial',situationId:'practical_financial_worry',pattern:/(?:월세|생활비|식비|카드값|공과금|빚|대출금|돈)[^.!?\n]{0,30}(?:밀릴까\s*(?:봐|걱정)|부족(?:할까|해서|하기\s*때문)|감당(?:할\s*수\s*있을지|하기\s*어려)|걱정(?:돼서|이라|이에요|돼요)|낼\s*수\s*있을지|못\s*낼까|생각하면|때문에)/},
   {category:'new_beginning',situationId:'fear_of_new_beginning',pattern:/(?:새|새로운|처음)\s*(?:팀|직장|회사|사업|프로젝트|일|환경|학교|지역)[^.!?\n]{0,35}(?:들어가|시작|적응|첫날|맡|해야|하려|앞두)/},
@@ -48,7 +55,9 @@ function classifyConcern(message) {
  const situationTopicHints={
   carrying_everything_alone:'rest',afraid_to_burden_others:'relationship',guilt_about_rest:'rest',concrete_overload_without_breaks:'rest',
   practical_financial_worry:'fear',financial_fear_of_abandonment:'fear',guilt_after_anger_at_god:'faith',prayer_feels_unheard:'faith',
-  wanting_to_give_up_prayer:'faith',new_day_after_failure:'guilt',fear_of_new_beginning:'fear',
+  wanting_to_give_up_prayer:'faith',persistent_prayer_fatigue:'faith',wordless_prayer:'faith',prolonged_waiting:'faith',
+  god_feels_distant_in_suffering:'faith',feeling_forgotten_by_god:'faith',doubting_gods_love:'faith',longing_to_feel_cherished:'faith',unexplained_suffering:'faith',
+  new_day_after_failure:'guilt',fear_of_new_beginning:'fear',
   difficulty_accepting_self:'failure',comparison_inferiority:'failure',judged_by_external_conditions:'failure'
  };
  for(const situation of situations){

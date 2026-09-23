@@ -63,6 +63,24 @@ test('appearance concerns keep self-acceptance, comparison, and external-conditi
 test('verified medication decision returns no suitable candidate',()=>{const {analysis,result}=choose('복용 중인 약을 끊어도 되는지 고민이에요',{primaryTopic:'future',cause:{category:'medical_decision',situationIds:[],evidence:'약을 끊어도 되는지',explicit:true},explicitFacts:[{type:'medication_decision',value:'복용 중인 약 중단',evidence:'약을 끊어도 되는지'}],primaryConcern:{kind:'fact',id:'medication_decision'}});assert.equal(analysis.requiresProfessionalJudgment,true);assert.equal(result.status,'no_suitable_candidate');assert.equal(result.verse,null);});
 test('emotional burden during treatment is not blocked as a medical decision',()=>{const {analysis,result}=choose('치료가 길어져서 마음이 너무 지쳐요',{primaryTopic:'rest',cause:{category:'health',situationIds:['prolonged_effort'],evidence:'치료가 길어져서',explicit:true},effects:[{type:'fatigue',situationIds:['severe_exhaustion'],evidence:'마음이 너무 지쳐요'}],situations:['prolonged_effort','severe_exhaustion'],primaryConcern:{kind:'cause',id:'health'}});assert.equal(analysis.requiresProfessionalJudgment,false);assert.equal(result.status,'selected');});
 test('prayer lament situation becomes primary',()=>{const {analysis,result}=choose('기도할수록 하나님이 침묵하시는 것 같아 답답해요',{primaryTopic:'faith',cause:{category:'faith_prayer',situationIds:['prayer_feels_unheard'],evidence:'기도할수록 하나님이 침묵',explicit:true},situations:['prayer_feels_unheard'],explicitFacts:[{type:'prayer_lament',value:'기도 중 침묵',evidence:'하나님이 침묵하시는 것 같아'}],primaryConcern:{kind:'situation',id:'prayer_feels_unheard'}});assert.equal(analysis.concernResolution.primaryConcern.id,'prayer_feels_unheard');assert.ok(analysis.concernResolution.causeSituationIds.includes('prayer_feels_unheard'));assert.equal(result.verse.id,'habakkuk-1-2');});
+test('local fallback keeps distinct prayer and relationship-with-God roles',()=>{
+ const s=services(),samples=[
+  ['하나님이 내 기도를 정말 듣고 계신가요','prayer_feels_unheard','habakkuk-1-2'],
+  ['기도해도 아무 대답이 없는 것 같아요','prayer_feels_unheard','habakkuk-1-2'],
+  ['더 기도해도 소용없을 것 같아요','wanting_to_give_up_prayer','luke-18-1'],
+  ['기도하다 지쳤지만 그래도 계속 해보고 싶어','persistent_prayer_fatigue','romans-12-12'],
+  ['하나님이 침묵하시는 것 같아서 서운하고 화가 나요','guilt_after_anger_at_god','psalm-73-21-23'],
+  ['요즘 하나님이 너무 멀리 계신 느낌이야','god_feels_distant_in_suffering','psalm-10-1'],
+  ['하나님이 날 까맣게 잊으신 것 같아','feeling_forgotten_by_god','isaiah-49-15-16'],
+  ['하나님이 아직도 날 사랑하실까','doubting_gods_love','romans-8-38-39'],
+  ['기도할 말도 안 떠올라','wordless_prayer','romans-8-26'],
+  ['왜 이런 일을 허락하셨는지 모르겠어','unexplained_suffering','isaiah-55-8-9']
+ ];
+ for(const [message,situation,verseId] of samples){const analysis=s.resolveConcernRoles(message,s.classifyConcern(message)),result=s.selectVerse(analysis,s.findCandidates(analysis));assert.ok(analysis.situations.includes(situation),message);assert.equal(result.verse?.id,verseId,message);}
+ const parallelMessage='기도 응답도 없고 생활비도 걱정돼요',parallel=s.resolveConcernRoles(parallelMessage,s.classifyConcern(parallelMessage)),parallelResult=s.selectVerse(parallel,s.findCandidates(parallel));
+ assert.ok(parallel.situations.includes('prayer_feels_unheard'));assert.ok(parallel.situations.includes('practical_financial_worry'));assert.equal(parallel.cause.category,'financial');assert.equal(parallelResult.verse?.id,'luke-12-22-24');
+ const gratitude=s.classifyConcern('하나님이 나를 사랑하신다는 사실이 감사해요');assert.ok(!gratitude.situations.includes('doubting_gods_love'));
+});
 test('AI cannot promote an invented cause whose evidence is absent',()=>{const {analysis}=choose('불안해요',{cause:{category:'financial',situationIds:['practical_financial_worry'],evidence:'돈 걱정',explicit:true},situations:['practical_financial_worry'],primaryConcern:{kind:'cause',id:'financial'}});assert.deepEqual(Array.from(analysis.concernResolution.causeSituationIds),[]);assert.notEqual(analysis.concernResolution.primaryConcern.id,'financial');});
 test('risk signals remain ahead of resolver scoring and professional guard',()=>{for(const [message,risk] of [['남편이 때려서 약을 끊을지 고민이에요','violence'],['죽고 싶고 약도 끊고 싶어요','self_harm']]){const {result}=choose(message,{cause:{category:'medical_decision',situationIds:[],evidence:'약을 끊',explicit:true},explicitFacts:[{type:'medication_decision',value:'약 중단',evidence:'약을 끊'}],primaryConcern:{kind:'fact',id:'medication_decision'}});assert.equal(result.status,'safety_first');assert.ok(result.analysis.riskSignals.includes(risk));}});
 test('natural self-harm wording stays safety-first without treating every harm phrase as self-harm',()=>{
