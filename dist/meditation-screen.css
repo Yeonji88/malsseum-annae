@@ -54,9 +54,9 @@
 .meditation-journal textarea::placeholder{color:#9aa39d}
 .meditation-journal-status{min-height:1.6em;margin:5px 0;color:#66806e;font-size:var(--font-support);line-height:var(--line-reading)}
 .meditation-journal-save{width:100%;min-height:44px;padding:10px 14px;border:0;border-radius:14px;background:var(--meditation-coral);color:#fff;font-family:inherit;font-size:var(--font-action);font-weight:500;line-height:1.45;box-shadow:0 5px 12px rgba(213,111,101,.14)}
-.meditation-journal-back{display:flex;align-items:center;justify-content:center;gap:7px;width:max-content;max-width:100%;min-height:44px;margin:17px auto 0;padding:9px 18px;border:1px solid rgba(126,151,132,.14);border-radius:999px;background:#edf2e9;color:#365d46;font-family:inherit;font-size:var(--font-support);font-weight:500;line-height:1.45;cursor:pointer}
-.meditation-journal-back>span:first-child{font-size:16px;line-height:1}
-.meditation-journal-back:hover,.meditation-journal-back:focus-visible{background:#e6ede2}
+.meditation-journal-back{display:flex;align-items:center;justify-content:center;width:max-content;max-width:100%;min-height:44px;margin:13px auto 0;padding:9px 18px;border:0;background:transparent;color:#365d46;font-family:inherit;font-size:var(--font-support);font-weight:500;line-height:1.45;text-align:center;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:4px;cursor:pointer}
+.meditation-journal-back>span:first-child{font-size:inherit;line-height:inherit}
+.meditation-journal-back:hover,.meditation-journal-back:focus-visible{background:transparent;color:#294d38}
 .meditation-journal-back:focus-visible{outline:2px solid #8aa091;outline-offset:2px}
 .meditation-record-card{margin:0 0 11px;padding:14px 15px;border:1px solid rgba(82,104,88,.09);border-radius:16px;background:#fffefb;box-shadow:0 5px 15px rgba(54,73,61,.045)}
 .meditation-record-head{display:flex;align-items:center;justify-content:space-between;gap:12px}
