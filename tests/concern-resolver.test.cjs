@@ -52,3 +52,37 @@ test('emotional burden during treatment is not blocked as a medical decision',()
 test('prayer lament situation becomes primary',()=>{const {analysis,result}=choose('기도할수록 하나님이 침묵하시는 것 같아 답답해요',{primaryTopic:'faith',cause:{category:'faith_prayer',situationIds:['prayer_feels_unheard'],evidence:'기도할수록 하나님이 침묵',explicit:true},situations:['prayer_feels_unheard'],explicitFacts:[{type:'prayer_lament',value:'기도 중 침묵',evidence:'하나님이 침묵하시는 것 같아'}],primaryConcern:{kind:'situation',id:'prayer_feels_unheard'}});assert.equal(analysis.concernResolution.primaryConcern.id,'prayer_feels_unheard');assert.ok(analysis.concernResolution.causeSituationIds.includes('prayer_feels_unheard'));assert.equal(result.verse.id,'habakkuk-1-2');});
 test('AI cannot promote an invented cause whose evidence is absent',()=>{const {analysis}=choose('불안해요',{cause:{category:'financial',situationIds:['practical_financial_worry'],evidence:'돈 걱정',explicit:true},situations:['practical_financial_worry'],primaryConcern:{kind:'cause',id:'financial'}});assert.deepEqual(Array.from(analysis.concernResolution.causeSituationIds),[]);assert.notEqual(analysis.concernResolution.primaryConcern.id,'financial');});
 test('risk signals remain ahead of resolver scoring and professional guard',()=>{for(const [message,risk] of [['남편이 때려서 약을 끊을지 고민이에요','violence'],['죽고 싶고 약도 끊고 싶어요','self_harm']]){const {result}=choose(message,{cause:{category:'medical_decision',situationIds:[],evidence:'약을 끊',explicit:true},explicitFacts:[{type:'medication_decision',value:'약 중단',evidence:'약을 끊'}],primaryConcern:{kind:'fact',id:'medication_decision'}});assert.equal(result.status,'safety_first');assert.ok(result.analysis.riskSignals.includes(risk));}});
+test('natural self-harm wording stays safety-first without treating every harm phrase as self-harm',()=>{
+ const s=services();
+ for(const message of ['오늘 제 몸을 해칠까 봐 무서워요','내 자신을 해치고 싶은 생각이 들어요','스스로를 해칠 것 같아요']){
+  const analysis=s.classifyConcern(message),result=s.selectVerse(analysis,s.findCandidates(analysis));
+  assert.ok(analysis.riskSignals.includes('self_harm'),message);assert.equal(result.status,'safety_first',message);
+ }
+ for(const message of ['그 사람이 저를 해칠까 봐 무서워요','말로 서로 해치지 않았으면 좋겠어요','내 몸을 해치면 안 된다고 생각해요']){
+  assert.ok(!s.classifyConcern(message).riskSignals.includes('self_harm'),message);
+ }
+});
+test('explicit intent to harm another person is safety-first while anger and revenge feelings keep their boundary',()=>{
+ const s=services();
+ for(const message of ['복수하려고 그 사람을 해치고 싶어요','상대를 때리고 싶어요','그를 죽이고 싶은 생각이 들어요']){
+  const analysis=s.classifyConcern(message),result=s.selectVerse(analysis,s.findCandidates(analysis));
+  assert.ok(analysis.riskSignals.includes('violence'),message);assert.equal(result.status,'safety_first',message);
+ }
+ for(const message of ['그 사람 때문에 화가 나요','복수하고 싶은 마음이 들어요','걔도 똑같이 당했으면 좋겠어요']){
+  const analysis=s.classifyConcern(message);
+  assert.equal(analysis.riskSignals.length,0,message);assert.notEqual(s.selectVerse(analysis,s.findCandidates(analysis)).status,'safety_first',message);
+ }
+});
+test('local fallback guards professional medical decisions before general decision verses',()=>{
+ const s=services();
+ const decisions=['약을 줄여도 되는지 고민이에요','복용 중인 약을 끊을지 고민이에요','약을 바꿔도 될까요','치료를 시작할지 고민이에요','치료를 중단해도 되는지 궁금해요','치료 방법을 바꿔야 할지 모르겠어요','수술을 받을지 고민이에요','난임 시술을 계속할지 결정하기 어려워요','아이 예방접종을 맞혀도 될지 고민이에요','임신 초기인데 출혈이 있어서 불안해요'];
+ for(const message of decisions){const analysis=s.classifyConcern(message),result=s.selectVerse(analysis,s.findCandidates(analysis));assert.equal(analysis.requiresProfessionalJudgment,true,message);assert.equal(result.status,'no_suitable_candidate',message);assert.equal(result.verse,null,message);}
+});
+test('health-related emotional concerns remain eligible for pastoral support',()=>{
+ const s=services();
+ for(const message of ['치료 때문에 지쳐요','검사 결과가 무서워요','난임 치료가 길어져서 마음이 너무 지쳤어요','치료가 길어져서 일을 그만두고 싶을 만큼 지쳤어요','수술을 앞두고 무서워서 어떻게 해야 할지 모르겠어요','약을 먹고 있는데 직장을 바꿔야 할지 고민이에요']){
+  const analysis=s.classifyConcern(message),result=s.selectVerse(analysis,s.findCandidates(analysis));
+  assert.equal(analysis.requiresProfessionalJudgment,false,message);assert.notEqual(result.status,'no_suitable_candidate',message);assert.notEqual(result.status,'safety_first',message);
+ }
+});
+test('high-stakes physical uncertainty is not covered by a generic fear verse',()=>{const s=services();for(const message of ['다음 주 수술인데 마취에서 깨어나지 못할까 무서워요','임신 초기인데 아기에게 문제가 생길까 불안해요']){const analysis=s.classifyConcern(message),result=s.selectVerse(analysis,s.findCandidates(analysis));assert.equal(result.status,'no_suitable_candidate',message);assert.equal(result.verse,null,message);}});

@@ -15,7 +15,7 @@ Evidence rule:
 - If cause.category is "none", cause.explicit must be false, cause.evidence must be "", and cause.situationIds must be []. Never attach a situation or evidence to a none cause; represent the supported meaning in situations and primaryConcern instead.
 
 Specific distinctions:
-- A request to start, stop, change, or dose medication is medical_decision with an explicit medication_decision fact. Merely mentioning treatment, a hospital, medicine, pain, or pregnancy is not a medical decision. Emotional exhaustion during treatment remains an emotional concern.
+- A request to start, stop, change, or dose medication is medical_decision with an explicit medication_decision fact. Requests to start, stop, change, or decide on treatment, surgery, a medical procedure, infertility treatment, or vaccination also use medical_decision as the cause. Merely mentioning treatment, a hospital, medicine, pain, pregnancy, or fear about a test result is not a medical decision. Emotional exhaustion or fear during treatment remains an emotional concern.
 - Use self_image only as the broad cause for a directly stated appearance or body-image concern; never treat judged_by_external_conditions as its default situation. Choose the supported role by meaning:
   * difficulty_accepting_self when the user dislikes, rejects, or struggles to accept their own appearance, body, or reflected image itself;
   * comparison_inferiority when another person's appearance is the comparison point and the user feels inferior, shabby, or lesser;

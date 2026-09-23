@@ -42,12 +42,24 @@ function classifyConcern(message) {
  if(recent)situations.push('recent_loss');
  // Risk keywords are signals, not proof. Scope/negation/current safety require clarification.
  const riskSignals=data.riskRules.filter(rule=>rule.pattern.test(text)).map(rule=>rule.id);
+ const medicalAction=[
+  /(?:복용\s*중인\s*)?(?:약|약물)(?:을|를|은|는|도)?\s*(?:줄이|줄여|감량|끊|중단|바꾸|바꿔|변경|늘리|증량|계속\s*(?:먹|복용)|안\s*(?:먹|복용))/,/(?:약|약물)\s*(?:용량|복용량)(?:을|를)?\s*(?:줄이|줄여|감량|바꾸|바꿔|변경|늘리|증량)/,
+  /치료(?:를|는|도)?\s*(?:시작|중단|그만두|멈추|계속|바꾸|바꿔|변경)/,/치료\s*(?:방법|방식|계획)(?:을|를)?\s*(?:바꾸|바꿔|변경)/,
+  /수술(?:을|를)?\s*(?:받|하|안\s*하|미루|취소)|수술\s*(?:여부|날짜)(?:를|을)?\s*(?:정하|잡|결정)/,
+  /(?:난임\s*)?시술(?:을|를)?\s*(?:시작|중단|그만두|멈추|계속|받|바꾸|바꿔|변경)/,/(?:예방\s*접종|백신)(?:을|를)?\s*(?:맞|안\s*맞|미루|취소)/
+ ].some(pattern=>pattern.test(text));
+ const asksForMedicalDecision=medicalAction&&/(?:할지|해야|되는지|괜찮|좋을지|말아야|여부|도\s*(?:돼|될)|고\s*싶|려고|결정|고민)/.test(text);
+ const urgentPregnancySymptom=/(?:임신|임신부|임산부).*?(?:출혈|피가\s*나|심한\s*복통)|(?:출혈|피가\s*나|심한\s*복통).*?(?:임신|임신부|임산부)/.test(text);
+ const requiresProfessionalJudgment=asksForMedicalDecision||urgentPregnancySymptom;
+ const healthContext=/(?:약|약물|병원|검사|수술|치료|시술|예방\s*접종|백신|임신|난임|생리통|통증|질병|진단)/.test(text);
+ const highStakesHealthContext=/수술.*(?:마취|깨어나지|위험)|임신.*(?:출혈|피가\s*나|복통|아기.*(?:문제|건강))/.test(text);
+ const emotionalConcernInHealthContext=!requiresProfessionalJudgment&&!highStakesHealthContext&&healthContext&&/(?:지치|지쳐|지쳤|힘들|무서|두렵|불안|걱정|슬프|외롭|낙심|답답)/.test(text);
  const uncertainties=[];
  if(!topics.length)uncertainties.push('마음 주제를 입력만으로 파악하기 어려움');
  if(!situations.length)uncertainties.push('구체적인 상황을 알 수 없음');
  if(loss&&!recent)uncertainties.push('상실의 시점을 알 수 없음');
  if(riskSignals.length)uncertainties.push('위험의 현재성·대상·정도를 확인해야 함');
- return {method:'rules',primaryTopic:topics[0]?.id||null,secondaryTopics:topics.slice(1).map(topic=>topic.id),situations,riskSignals,uncertainties,topics,matched:topics.length>0,mixed:topics.length>1,shortFeeling:shortFeeling?text.replace(/[.!?\s]+$/,''):null,mourningContext,
+ return {method:'rules',primaryTopic:topics[0]?.id||null,secondaryTopics:topics.slice(1).map(topic=>topic.id),situations,riskSignals,uncertainties,topics,matched:topics.length>0,mixed:topics.length>1,shortFeeling:shortFeeling?text.replace(/[.!?\s]+$/,''):null,mourningContext,requiresProfessionalJudgment,emotionalConcernInHealthContext,
   canContinue:/^(?:고마워요?|감사해요|네|응|조금\s*더\s*(?:이야기하고\s*싶어요|읽고\s*싶어요|생각해볼게요)|계속\s*읽고\s*싶어요|이\s*말씀으로\s*더\s*이야기하고\s*싶어요)[.!?\s]*$/.test(text)};
 }
 window.Malsseum.services.classifyConcern=classifyConcern;

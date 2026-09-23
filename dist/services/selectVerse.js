@@ -7,7 +7,7 @@ window.Malsseum.services.selectVerse=function(analysis,candidates,options={}){
  // Every turn passes the safety gate before continuity or ranking.
  if(analysis.riskSignals.length)return {...result,status:'safety_first',message:analysis.riskSignals.includes('self_harm')?'지금은 말씀 추천보다 안전을 먼저 살피고 싶어요. 혼자 견디기보다 믿을 만한 사람이나 긴급 도움을 받을 수 있는 곳에 연결해 주세요. 지금 안전한 곳에 있나요?':policy.safetyMessage};
  if(continueConversation&&previousAnalysis?.riskSignals.length)return {...result,status:'safety_first',analysis:{...analysis,riskSignals:[...new Set([...analysis.riskSignals,...previousAnalysis.riskSignals])]},message:'앞서 나눈 위험 상황이 해결됐는지 이 입력만으로는 확인할 수 없어요. 말씀을 권하기 전에 현재 안전과 도움을 받을 수 있는 사람을 먼저 확인하고 싶어요.'};
- if(analysis.requiresProfessionalJudgment)return {...result,status:'no_suitable_candidate',message:'복약이나 치료 변경처럼 전문적인 판단이 필요한 결정은 말씀 추천으로 대신하지 않을게요. 처방한 의료진이나 약사와 안전하게 확인해 주세요.'};
+ if(analysis.requiresProfessionalJudgment)return {...result,status:'no_suitable_candidate',message:'복약·치료·수술·시술·예방접종처럼 전문적인 판단이 필요한 문제는 말씀 추천으로 대신하지 않을게요. 의료진과 안전하게 확인해 주세요.'};
  if(analysis.situations.includes('physical_health_concern')&&!analysis.emotionalConcernInHealthContext)return {...result,status:'no_suitable_candidate',message:'말씀으로 신체의 아픔이나 진료가 필요한 상황을 대신 설명하지 않을게요. 지금 겪는 증상과 필요한 도움을 조금 더 살펴주세요.'};
  const oldTopics=[previousAnalysis?.primaryTopic,...(previousAnalysis?.secondaryTopics||[])];
  const importantChange=(analysis.primaryTopic&&!oldTopics.includes(analysis.primaryTopic))||analysis.secondaryTopics.some(id=>!oldTopics.includes(id))||analysis.situations.some(id=>!(previousAnalysis?.situations||[]).includes(id));
