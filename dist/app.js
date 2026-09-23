@@ -145,7 +145,8 @@ function renderTurn(message,selection) {
  if(verse.question)for(const text of followup[1].split(/\r?\n/).filter(Boolean))questionBody.append(element('li','',text));
  question.append(element('summary','','묵상해보기'),questionBody);
  const prayer=element('details','prayer-action');
- prayer.append(element('summary','','기도문 보기'),element('p','',verse.prayer||'기도문 준비 중'),element('small','',verse.prayer?'앱이 준비한 기도 예시예요. 마음에 맞는 말로 바꾸어도 좋아요.':'이 말씀의 기도문은 아직 등록되지 않았어요.'));
+ prayer.append(element('summary','','기도문 보기'),element('p','',verse.prayer||'기도문 준비 중'));
+ if(!verse.prayer)prayer.append(element('small','','이 말씀의 기도문은 아직 등록되지 않았어요.'));
  const save=element('button','save-action button-secondary');save.type='button';save.dataset.verseId=verse.id;
  save.append(element('span','save-label','저장하기'));
  save.addEventListener('click',()=>{
