@@ -33,6 +33,10 @@ function classifyConcern(message) {
   {id:'doubting_gods_love',pattern:/하나님[^.!?\n]{0,30}(?:사랑하지\s*않는\s*것\s*같|사랑하실까|사랑하시는지\s*모르)|이런\s*나도\s*사랑하실까|(?:아직도\s*)?(?:날|나를|저를)\s*사랑하실까/}
  ];
  for(const rule of wholeTextFaithRules)if(rule.pattern.test(text)&&!situations.includes(rule.id))situations.push(rule.id);
+ const wholeTextColloquialRules=[
+  {id:'new_day_after_failure',pattern:/어제[^.!?\n]{0,30}(?:망쳤|실수|엉망)[^.!?\n]{0,30}오늘[^.!?\n]{0,18}(?:다시|새롭게)\s*(?:시작|해보|해\s*보)|실패했지만\s*다시\s*(?:시작|한\s*번\s*해보|해\s*보)/}
+ ];
+ for(const rule of wholeTextColloquialRules)if(rule.pattern.test(text)&&!situations.includes(rule.id))situations.push(rule.id);
  const explicitCauseRules=[
   {category:'financial',situationId:'practical_financial_worry',pattern:/(?:월세|생활비|식비|카드값|공과금|빚|대출금|돈)[^.!?\n]{0,30}(?:밀릴까\s*(?:봐|걱정)|부족(?:할까|해서|하기\s*때문)|감당(?:할\s*수\s*있을지|하기\s*어려)|걱정(?:돼서|이라|이에요|돼요)|낼\s*수\s*있을지|못\s*낼까|생각하면|때문에)/},
   {category:'new_beginning',situationId:'fear_of_new_beginning',pattern:/(?:새|새로운|처음)\s*(?:팀|직장|회사|사업|프로젝트|일|환경|학교|지역)[^.!?\n]{0,35}(?:들어가|시작|적응|첫날|맡|해야|하려|앞두)/},
@@ -53,6 +57,7 @@ function classifyConcern(message) {
  }
  const localEmotions=localCause?[['anxiety',/불안|걱정|긴장/],['fear',/두렵|무서|겁이\s*나|실패할까\s*봐/],['shame',/쓸모없|초라|보잘것없/],['overwhelm',/쌓|몰려|감당하기\s*어려/]].filter(([,pattern])=>pattern.test(text)).map(([id])=>id):[];
  const situationTopicHints={
+  longing_for_gentle_care:'loneliness',feeling_useless:'failure',falling_behind_others:'future',
   carrying_everything_alone:'rest',afraid_to_burden_others:'relationship',guilt_about_rest:'rest',concrete_overload_without_breaks:'rest',
   practical_financial_worry:'fear',financial_fear_of_abandonment:'fear',guilt_after_anger_at_god:'faith',prayer_feels_unheard:'faith',
   wanting_to_give_up_prayer:'faith',persistent_prayer_fatigue:'faith',wordless_prayer:'faith',prolonged_waiting:'faith',

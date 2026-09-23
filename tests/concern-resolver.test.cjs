@@ -81,6 +81,32 @@ test('local fallback keeps distinct prayer and relationship-with-God roles',()=>
  assert.ok(parallel.situations.includes('prayer_feels_unheard'));assert.ok(parallel.situations.includes('practical_financial_worry'));assert.equal(parallel.cause.category,'financial');assert.equal(parallelResult.verse?.id,'luke-12-22-24');
  const gratitude=s.classifyConcern('하나님이 나를 사랑하신다는 사실이 감사해요');assert.ok(!gratitude.situations.includes('doubting_gods_love'));
 });
+test('local fallback recognizes colloquial wording without broad keyword false positives',()=>{
+ const s=services(),positive=[
+  ['그냥 누가 말없이 안아줬으면 좋겠어','longing_for_gentle_care','isaiah-40-11'],
+  ['나 진짜 아무 쓸모 없는 인간 같아','feeling_useless','ephesians-2-10'],
+  ['요즘 거울 보기가 너무 싫어','difficulty_accepting_self','psalm-139-13-14'],
+  ['내 모습 보기 싫어서 거울도 피하게 돼','difficulty_accepting_self','psalm-139-13-14'],
+  ['친구들 잘되는 거 보면 나만 뒤처진 느낌이야','falling_behind_others','psalm-37-7'],
+  ['다른 사람들은 잘 풀리는데 나만 제자리인 것 같아','falling_behind_others','psalm-37-7'],
+  ['내가 다 해야 할 것 같아서 아무한테도 도움을 못 청하겠어','afraid_to_burden_others','galatians-6-2'],
+  ['아무한테도 기대기 싫어서 혼자 다 하고 있어','carrying_everything_alone','ecclesiastes-4-9-10'],
+  ['요즘 밥 먹을 틈도 없이 계속 일해','concrete_overload_without_breaks','mark-6-31'],
+  ['요즘 정신없이 일하느라 밥도 제대로 못 먹어','concrete_overload_without_breaks','mark-6-31'],
+  ['어제 다 망쳤지만 오늘 다시 해보고 싶어','new_day_after_failure','lamentations-3-22-23'],
+  ['실패했지만 다시 한번 해보고 싶어','new_day_after_failure','lamentations-3-22-23']
+ ];
+ for(const [message,situation,verseId] of positive){const analysis=s.resolveConcernRoles(message,s.classifyConcern(message)),result=s.selectVerse(analysis,s.findCandidates(analysis));assert.ok(analysis.situations.includes(situation),message);assert.equal(result.verse?.id,verseId,message);}
+ const negative=[
+  ['깨진 거울을 버리기 싫어','difficulty_accepting_self'],
+  ['그 물건은 아무 쓸모가 없는 것 같아','feeling_useless'],
+  ['그 친구는 쓸모없는 인간이야','feeling_useless'],
+  ['오늘 회사에서 일하고 있어','concrete_overload_without_breaks'],
+  ['오늘은 혼자 있는 시간이 좋아','carrying_everything_alone'],
+  ['시험에 실패했지만 원인을 분석하고 있어','new_day_after_failure']
+ ];
+ for(const [message,situation] of negative)assert.ok(!s.classifyConcern(message).situations.includes(situation),message);
+});
 test('AI cannot promote an invented cause whose evidence is absent',()=>{const {analysis}=choose('불안해요',{cause:{category:'financial',situationIds:['practical_financial_worry'],evidence:'돈 걱정',explicit:true},situations:['practical_financial_worry'],primaryConcern:{kind:'cause',id:'financial'}});assert.deepEqual(Array.from(analysis.concernResolution.causeSituationIds),[]);assert.notEqual(analysis.concernResolution.primaryConcern.id,'financial');});
 test('risk signals remain ahead of resolver scoring and professional guard',()=>{for(const [message,risk] of [['남편이 때려서 약을 끊을지 고민이에요','violence'],['죽고 싶고 약도 끊고 싶어요','self_harm']]){const {result}=choose(message,{cause:{category:'medical_decision',situationIds:[],evidence:'약을 끊',explicit:true},explicitFacts:[{type:'medication_decision',value:'약 중단',evidence:'약을 끊'}],primaryConcern:{kind:'fact',id:'medication_decision'}});assert.equal(result.status,'safety_first');assert.ok(result.analysis.riskSignals.includes(risk));}});
 test('natural self-harm wording stays safety-first without treating every harm phrase as self-harm',()=>{
