@@ -5,6 +5,19 @@ const semantic=(local,o)=>({...local,cause:{category:'other',situationIds:[],evi
 function choose(message,semanticFields){const s=services(),local=s.classifyConcern(message),resolved=s.resolveConcernRoles(message,semantic(local,semanticFields));return{analysis:resolved,result:s.selectVerse(resolved,s.findCandidates(resolved))};}
 test('explicit financial cause outranks insomnia effect',()=>{const {analysis,result}=choose('돈 걱정 때문에 잠이 안 와요',{cause:{category:'financial',situationIds:['practical_financial_worry'],evidence:'돈 걱정',explicit:true},effects:[{type:'insomnia',situationIds:['sleep_worry'],evidence:'잠이 안 와요'}],situations:['practical_financial_worry','sleep_worry'],primaryConcern:{kind:'cause',id:'financial'},secondaryConcerns:[{kind:'effect',id:'insomnia'}]});assert.equal(analysis.concernResolution.primaryConcern.id,'financial');assert.equal(result.verse.id,'luke-12-22-24');});
 test('new beginning cause outranks insomnia effect',()=>{const {result}=choose('새 프로젝트를 시작해야 하는데 실패할까 봐 잠이 안 와요',{secondaryTopics:['failure'],cause:{category:'new_beginning',situationIds:['fear_of_new_beginning'],evidence:'새 프로젝트를 시작',explicit:true},effects:[{type:'insomnia',situationIds:['sleep_worry'],evidence:'잠이 안 와요'}],situations:['fear_of_new_beginning','sleep_worry'],primaryConcern:{kind:'cause',id:'new_beginning'},secondaryConcerns:[{kind:'effect',id:'insomnia'}]});assert.equal(result.verse.id,'joshua-1-9');});
+test('local fallback preserves explicit causes ahead of their symptoms',()=>{
+ const s=services(),samples=[
+  ['월세가 밀릴까 걱정돼서 밤마다 잠이 안 와요','financial','practical_financial_worry','luke-12-22-24'],
+  ['새 팀에 들어가야 해서 긴장돼 잠이 안 와요','new_beginning','fear_of_new_beginning','joshua-1-9'],
+  ['일이 너무 쌓여서 쉬고 있어도 불안해요','work','overload','matthew-11-28'],
+  ['새 사업을 시작하려는데 실패할까 봐 무서워요','new_beginning','fear_of_new_beginning','joshua-1-9'],
+  ['다른 사람 성과를 보다 보니 내가 쓸모없게 느껴져요','self_image','comparison_inferiority','2-corinthians-10-12']
+ ];
+ for(const [message,category,situation,verseId] of samples){const analysis=s.classifyConcern(message),resolved=s.resolveConcernRoles(message,analysis),result=s.selectVerse(resolved,s.findCandidates(resolved));assert.equal(resolved.cause.category,category,message);assert.ok(resolved.concernResolution.causeSituationIds.includes(situation),message);assert.equal(result.verse?.id,verseId,message);}
+ const mixed=s.classifyConcern('돈도 부족하고 가족과도 자꾸 싸워요');
+ assert.equal(mixed.cause,undefined);
+ assert.equal(s.selectVerse(mixed,s.findCandidates(mixed)).status,'needs_clarification');
+});
 test('appearance concerns keep self-acceptance, comparison, and external-condition roles distinct',()=>{
  const samples=[
   ['나는 너무 못생겼어','judged_by_external_conditions','1-samuel-16-7'],

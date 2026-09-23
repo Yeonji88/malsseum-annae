@@ -26,6 +26,25 @@ function classifyConcern(message) {
    for(const id of verse.situations)if(!situations.includes(id))situations.push(id);
   }
  }
+ const explicitCauseRules=[
+  {category:'financial',situationId:'practical_financial_worry',pattern:/(?:월세|생활비|식비|카드값|공과금|빚|대출금|돈)[^.!?\n]{0,30}(?:밀릴까\s*(?:봐|걱정)|부족(?:할까|해서|하기\s*때문)|감당(?:할\s*수\s*있을지|하기\s*어려)|걱정(?:돼서|이라|이에요|돼요)|낼\s*수\s*있을지|못\s*낼까|생각하면|때문에)/},
+  {category:'new_beginning',situationId:'fear_of_new_beginning',pattern:/(?:새|새로운|처음)\s*(?:팀|직장|회사|사업|프로젝트|일|환경|학교|지역)[^.!?\n]{0,35}(?:들어가|시작|적응|첫날|맡|해야|하려|앞두)/},
+  {category:'work',situationId:'overload',pattern:/(?:회사\s*)?(?:일|업무|할\s*일)(?:이|가|을|를|도)?\s*(?:너무\s*)?(?:쌓|몰려|많|과도|벅차|감당)/},
+  {category:'self_image',situationId:'comparison_inferiority',pattern:/(?:다른\s*사람|친구들?|남들)(?:의)?\s*(?:성과|성취|외모|조건|스펙|삶|모습)(?:을|를|이|가)?\s*(?:보다\s*보니|볼수록|보고|보면|비교)|(?:다른\s*사람|친구들?|남들)(?:하고|과|와|이랑|랑)?\s*(?:나를|저를|내|제)?\s*비교(?:하다\s*보니|할수록|해서|하게)/}
+ ];
+ let localCause=null;
+ for(const rule of explicitCauseRules){const match=text.match(rule.pattern);if(match){localCause={category:rule.category,situationIds:[rule.situationId],evidence:match[0],explicit:true};if(!situations.includes(rule.situationId))situations.push(rule.situationId);break;}}
+ const localEffects=[];
+ if(localCause){
+  const effectRules=[
+   {type:'insomnia',situationIds:['sleep_worry'],pattern:/밤마다\s*잠이\s*안\s*와|잠이\s*안\s*와|잠을\s*못\s*자|못\s*자겠|뒤척여/},
+   {type:'fatigue',situationIds:[],pattern:/지치|지쳐|지쳤|피곤|소진|번아웃/},
+   {type:'anxiety',situationIds:[],pattern:/불안|걱정|긴장|두렵|무서|겁이\s*나|실패할까\s*봐/},
+   {type:'emotional_distress',situationIds:[],pattern:/쓸모없|초라|보잘것없|자신감.*없|자존감.*(?:낮|떨어)/}
+  ];
+  for(const rule of effectRules){const match=text.match(rule.pattern);if(match)localEffects.push({type:rule.type,situationIds:rule.situationIds.filter(id=>situations.includes(id)),evidence:match[0]});}
+ }
+ const localEmotions=localCause?[['anxiety',/불안|걱정|긴장/],['fear',/두렵|무서|겁이\s*나|실패할까\s*봐/],['shame',/쓸모없|초라|보잘것없/],['overwhelm',/쌓|몰려|감당하기\s*어려/]].filter(([,pattern])=>pattern.test(text)).map(([id])=>id):[];
  const situationTopicHints={
   carrying_everything_alone:'rest',afraid_to_burden_others:'relationship',guilt_about_rest:'rest',concrete_overload_without_breaks:'rest',
   practical_financial_worry:'fear',financial_fear_of_abandonment:'fear',guilt_after_anger_at_god:'faith',prayer_feels_unheard:'faith',
@@ -60,6 +79,7 @@ function classifyConcern(message) {
  if(loss&&!recent)uncertainties.push('상실의 시점을 알 수 없음');
  if(riskSignals.length)uncertainties.push('위험의 현재성·대상·정도를 확인해야 함');
  return {method:'rules',primaryTopic:topics[0]?.id||null,secondaryTopics:topics.slice(1).map(topic=>topic.id),situations,riskSignals,uncertainties,topics,matched:topics.length>0,mixed:topics.length>1,shortFeeling:shortFeeling?text.replace(/[.!?\s]+$/,''):null,mourningContext,requiresProfessionalJudgment,emotionalConcernInHealthContext,
+  ...(localCause?{cause:localCause,effects:localEffects,emotions:localEmotions,explicitFacts:[],primaryConcern:{kind:'cause',id:localCause.category},secondaryConcerns:localEffects.map(effect=>({kind:'effect',id:effect.type}))}:{}),
   canContinue:/^(?:고마워요?|감사해요|네|응|조금\s*더\s*(?:이야기하고\s*싶어요|읽고\s*싶어요|생각해볼게요)|계속\s*읽고\s*싶어요|이\s*말씀으로\s*더\s*이야기하고\s*싶어요)[.!?\s]*$/.test(text)};
 }
 window.Malsseum.services.classifyConcern=classifyConcern;
