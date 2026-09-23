@@ -1,7 +1,7 @@
 [
  {"id":"cause-finance-sleep","input":"돈 걱정 때문에 잠이 안 와요","expected":{"cause":"financial","effects":["insomnia"],"primaryConcern":"financial","verseId":"luke-12-22-24"}},
  {"id":"cause-new-project-sleep","input":"새 프로젝트를 시작해야 하는데 실패할까 봐 잠이 안 와요","expected":{"cause":"new_beginning","effects":["insomnia"],"primaryConcern":"new_beginning","verseId":"joshua-1-9"}},
- {"id":"appearance-natural","input":"나는 왜이렇게 못생겼을까요","expected":{"cause":"self_image","effects":[],"primaryConcern":"self_image","verseId":"1-samuel-16-7"}},
+ {"id":"appearance-natural","input":"나는 왜이렇게 못생겼을까요","expected":{"cause":"self_image","effects":[],"primaryConcern":"self_image","verseId":"psalm-139-13-14"}},
  {"id":"medical-medication","input":"복용 중인 약을 끊어도 되는지 고민이에요","expected":{"cause":"medical_decision","effects":[],"primaryConcern":"medical_decision","result":"no_suitable_candidate"}},
  {"id":"prayer-lament","input":"기도할수록 하나님이 침묵하시는 것 같아 답답해요","expected":{"cause":"faith_prayer","effects":[],"primaryConcern":"prayer_feels_unheard","verseId":"habakkuk-1-2"}},
  {"id":"medical-period-pain","input":"생리통때문에 잠을 못자겠어요","expected":{"cause":"health","effects":["physical_distress","insomnia"],"primaryConcern":"health","result":"no_suitable_candidate"}},

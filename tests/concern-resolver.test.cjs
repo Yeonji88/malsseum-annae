@@ -20,10 +20,17 @@ test('local fallback preserves explicit causes ahead of their symptoms',()=>{
 });
 test('appearance concerns keep self-acceptance, comparison, and external-condition roles distinct',()=>{
  const samples=[
-  ['나는 너무 못생겼어','judged_by_external_conditions','1-samuel-16-7'],
-  ['나 못생겼어','judged_by_external_conditions','1-samuel-16-7'],
-  ['나는 못생긴 것 같아','judged_by_external_conditions','1-samuel-16-7'],
-  ['제가 너무 못생긴 것 같아요','judged_by_external_conditions','1-samuel-16-7'],
+  ['나는 너무 못생겼어','difficulty_accepting_self','psalm-139-13-14'],
+  ['나 못생겼어','difficulty_accepting_self','psalm-139-13-14'],
+  ['나는 못생긴 것 같아','difficulty_accepting_self','psalm-139-13-14'],
+  ['제가 너무 못생긴 것 같아요','difficulty_accepting_self','psalm-139-13-14'],
+  ['나는 왜이렇게 못생겼을까요?','difficulty_accepting_self','psalm-139-13-14'],
+  ['나는 왜 이렇게 못생겼을까요?','difficulty_accepting_self','psalm-139-13-14'],
+  ['난 왜 이렇게 못생겼지','difficulty_accepting_self','psalm-139-13-14'],
+  ['왜 나는 예쁘지 않을까요','difficulty_accepting_self','psalm-139-13-14'],
+  ['내 얼굴은 왜 이럴까','difficulty_accepting_self','psalm-139-13-14'],
+  ['사진 찍힌 내 모습이 너무 싫어','difficulty_accepting_self','psalm-139-13-14'],
+  ['사진 속 내가 너무 못생겨 보여','difficulty_accepting_self','psalm-139-13-14'],
   ['내 얼굴이 싫어','difficulty_accepting_self','psalm-139-13-14'],
   ['내 얼굴이 너무 싫어요','difficulty_accepting_self','psalm-139-13-14'],
   ['내 모습이 마음에 안 들어','difficulty_accepting_self','psalm-139-13-14'],
@@ -43,7 +50,8 @@ test('appearance concerns keep self-acceptance, comparison, and external-conditi
   ['예쁜 사람을 보면 제가 초라하게 느껴져요','comparison_inferiority','2-corinthians-10-12'],
   ['다른 사람과 외모를 자꾸 비교하게 돼요','comparison_inferiority','2-corinthians-10-12'],
   ['살이 쪄서 자신감이 없어졌어요','judged_by_external_conditions','1-samuel-16-7'],
-  ['외모 때문에 자존감이 너무 낮아졌어요','judged_by_external_conditions','1-samuel-16-7']
+  ['외모 때문에 자존감이 너무 낮아졌어요','judged_by_external_conditions','1-samuel-16-7'],
+  ['외모 때문에 내가 너무 초라해 보여','judged_by_external_conditions','1-samuel-16-7']
  ];
  const s=services();
  for(const [message,situation,verseId] of samples){
@@ -53,9 +61,10 @@ test('appearance concerns keep self-acceptance, comparison, and external-conditi
  const rejection=s.classifyConcern('외모 때문에 사람들이 저를 싫어할 것 같아요');
  assert.ok(rejection.situations.includes('judged_by_external_conditions'));
  assert.equal(s.selectVerse(rejection,s.findCandidates(rejection)).verse?.id,'1-samuel-16-7');
- for(const message of ['못생겼어','그 친구 못생겼어']){
+ for(const message of ['못생겼어','그 친구 못생겼어','그 사람은 왜 이렇게 못생겼을까','사진이 왜 이렇게 못생기게 나왔지','이 인형 얼굴이 못생겼어','못생긴 강아지도 귀여워']){
   const unrelated=s.classifyConcern(message);
   assert.ok(!unrelated.situations.includes('judged_by_external_conditions'),message);
+  assert.ok(!unrelated.situations.includes('difficulty_accepting_self'),message);
  }
  const safety=s.classifyConcern('너무 못생겨서 죽고 싶어요');
  assert.equal(s.selectVerse(safety,s.findCandidates(safety)).status,'safety_first');
