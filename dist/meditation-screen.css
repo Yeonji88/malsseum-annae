@@ -1,10 +1,16 @@
 :root{--meditation-coral:#e98378;--meditation-coral-soft:#f8ded8;--meditation-sage:#e8eee4;--meditation-ink:#25342d}
+.app:has(#meditation-screen:not([hidden]))>header{height:var(--app-header-height);min-height:var(--app-header-height);padding:var(--app-header-padding);background:var(--concern-paper);justify-content:flex-start}
+.app:has(#meditation-screen:not([hidden]))>header .brand{display:flex;flex-direction:row;align-items:center;gap:var(--app-header-brand-gap);margin:0;color:#303633;font-family:'Malsseum Gowun Dodum',sans-serif;font-size:var(--app-header-brand-size);font-weight:400;line-height:1.5;letter-spacing:0}
+.app:has(#meditation-screen:not([hidden]))>header .brand-mark,.app:has(#meditation-screen:not([hidden]))>header .brand-mark svg{width:var(--app-header-icon-size);height:var(--app-header-icon-size);margin:0;background:none;color:#64856c}
+.app:has(#meditation-screen:not([hidden]))>header #open-settings{position:static;margin-left:auto;padding:5px 10px;color:#303633;font-size:22px}
+.app:has(#meditation-screen:not([hidden])) #main-content{padding:0 18px 16px}
 .meditation-screen,.meditation-detail,.meditation-list-screen,.meditation-record-screen{font-family:'Malsseum Gowun Dodum','Gowun Dodum',sans-serif;color:var(--meditation-ink);width:min(100%,430px);margin:0 auto;padding:7px 18px 24px;box-sizing:border-box}
-.meditation-intro{margin:0 0 14px}
+.meditation-screen{padding:var(--app-screen-top-gap) 4px 24px}
+.meditation-intro{margin:0 0 var(--app-support-card-gap)}
 .meditation-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
-.meditation-heading h1{margin:0;color:var(--green);font-size:var(--font-heading,24px);font-weight:600;line-height:1.35;letter-spacing:-.7px;white-space:pre-line}
+.meditation-heading h1{margin:0;color:var(--green);font-size:var(--font-heading,24px);font-weight:600;line-height:var(--app-screen-title-line);letter-spacing:-.7px;white-space:pre-line}
 .meditation-date{flex:0 0 auto;margin-top:5px;padding:5px 9px;border-radius:999px;background:var(--meditation-coral-soft);color:#a7554e;font-size:var(--font-caption,11px);line-height:1.35;white-space:nowrap}
-.meditation-subtitle{margin:6px 0 0;color:var(--muted);font-size:var(--font-support,13px);line-height:1.55}
+.meditation-subtitle{margin:var(--app-title-support-gap) 0 0;color:var(--muted);font-size:var(--font-support,13px);line-height:1.55}
 .daily-verse-card{position:relative;margin:0;padding:16px 17px 14px;border:1px solid rgba(82,104,88,.1);border-radius:17px;background:#fffefb;box-shadow:0 7px 21px rgba(54,73,61,.065)}
 .daily-verse-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:9px}
 .daily-verse-label{color:var(--meditation-coral);font-size:var(--font-small,12px);font-weight:600}
@@ -80,5 +86,5 @@
 .meditation-list-today-action:hover,.meditation-list-today-action:focus-visible{background:#dce7d8}
 .meditation-list-today-action.is-inline-link:hover,.meditation-list-today-action.is-inline-link:focus-visible{background:transparent;color:#294d38}
 .meditation-list-today-action:focus-visible{outline:2px solid #8aa091;outline-offset:2px}
-@media(max-width:350px){.meditation-screen,.meditation-detail,.meditation-list-screen,.meditation-record-screen{padding-left:13px;padding-right:13px}.meditation-heading{gap:7px}.meditation-date{padding:5px 7px}.daily-verse-card{padding-left:14px;padding-right:14px}}
-@media(max-height:740px) and (min-width:351px){.meditation-screen{padding-top:2px}.meditation-intro{margin-bottom:9px}.meditation-subtitle{margin-top:3px}.daily-verse-card{padding-top:13px;padding-bottom:12px}.meditation-primary{margin-top:9px}.meditation-mine{margin-top:2px;padding-top:10px;padding-bottom:10px}}
+@media(max-width:350px){.app:has(#meditation-screen:not([hidden])) #main-content{padding-left:13px;padding-right:13px}.meditation-screen{padding-left:2px;padding-right:2px}.meditation-detail,.meditation-list-screen,.meditation-record-screen{padding-left:13px;padding-right:13px}.meditation-heading{gap:7px}.meditation-date{padding:5px 7px}.daily-verse-card{padding-left:14px;padding-right:14px}}
+@media(max-height:740px) and (min-width:351px){.daily-verse-card{padding-top:13px;padding-bottom:12px}.meditation-primary{margin-top:9px}.meditation-mine{margin-top:2px;padding-top:10px;padding-bottom:10px}}

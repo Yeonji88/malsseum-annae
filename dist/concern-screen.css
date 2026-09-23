@@ -1,16 +1,21 @@
 /* Concern tab. Internal home routing stays unchanged. */
-:root{--concern-coral:#e98780;--concern-sage:#edf3e8;--concern-paper:#fbf8f2}
+:root{
+ --concern-coral:#e98780;--concern-sage:#edf3e8;--concern-paper:#fbf8f2;
+ --app-header-height:66px;--app-header-padding:11px 22px;--app-header-brand-gap:7px;
+ --app-header-brand-size:18px;--app-header-icon-size:20px;--app-screen-top-gap:7px;
+ --app-screen-title-line:1.45;--app-title-support-gap:7px;--app-support-card-gap:13px
+}
 .app:has(>#main-content:not([hidden])>#home-screen:not([hidden])){background:var(--concern-paper)}
 .app:has(>#main-content:not([hidden])>#home-screen:not([hidden]))>header{
- height:66px;min-height:66px;padding:11px 22px;background:var(--concern-paper);justify-content:flex-start
+ height:var(--app-header-height);min-height:var(--app-header-height);padding:var(--app-header-padding);background:var(--concern-paper);justify-content:flex-start
 }
 .app:has(>#main-content:not([hidden])>#home-screen:not([hidden]))>header .brand{
- display:flex;flex-direction:row;align-items:center;gap:7px;margin:0;color:#303633;
- font-family:'Malsseum Gowun Dodum',sans-serif;font-size:18px;font-weight:400;line-height:1.5;letter-spacing:0
+ display:flex;flex-direction:row;align-items:center;gap:var(--app-header-brand-gap);margin:0;color:#303633;
+ font-family:'Malsseum Gowun Dodum',sans-serif;font-size:var(--app-header-brand-size);font-weight:400;line-height:1.5;letter-spacing:0
 }
 .app:has(>#main-content:not([hidden])>#home-screen:not([hidden]))>header .brand-mark,
 .app:has(>#main-content:not([hidden])>#home-screen:not([hidden]))>header .brand-mark svg{
- width:20px;height:20px;margin:0;background:none;color:#64856c
+ width:var(--app-header-icon-size);height:var(--app-header-icon-size);margin:0;background:none;color:#64856c
 }
 .app:has(>#main-content:not([hidden])>#home-screen:not([hidden]))>header .home-logo-caption,
 .app:has(>#main-content:not([hidden])>#home-screen:not([hidden]))>header .home-bell{display:none}
@@ -19,15 +24,15 @@
  position:static;margin-left:auto;padding:5px 10px;color:#303633;font-size:22px
 }
 .app:has(>#main-content:not([hidden])>#home-screen:not([hidden])) #main-content{padding:0 18px 18px}
-#home-screen{width:min(100%,430px);margin:0 auto;padding:7px 4px 22px;color:#303633}
-#home-screen .welcome{padding:0;margin:0 0 13px}
+#home-screen{width:min(100%,430px);margin:0 auto;padding:var(--app-screen-top-gap) 4px 22px;color:#303633}
+#home-screen .welcome{padding:0;margin:0 0 var(--app-support-card-gap)}
 #home-screen .welcome::before,#home-screen .welcome::after{display:none}
 #home-screen .welcome h1,#home-screen .welcome:has(.personal-greeting) h1{
  margin:0;color:#315f49;font-size:var(--font-heading,23px);font-weight:400;
- line-height:1.45;letter-spacing:-.65px
+ line-height:var(--app-screen-title-line);letter-spacing:-.65px
 }
 #home-screen .personal-greeting{
- margin:7px 0 0!important;color:#68766d!important;font-size:var(--font-support,13px)!important;
+ margin:var(--app-title-support-gap) 0 0!important;color:#68766d!important;font-size:var(--font-support,13px)!important;
  font-weight:400!important;line-height:1.65!important;letter-spacing:-.2px
 }
 #home-screen #heart-form{margin:0}
@@ -42,6 +47,7 @@
  font-family:inherit;font-size:var(--font-body,15px);font-weight:400;line-height:var(--line-reading,1.7);resize:vertical
 }
 #home-screen #heart::placeholder{color:transparent}
+#home-screen #heart:focus,#home-screen #heart:focus-visible{border:0;outline:0;box-shadow:none}
 #home-screen .concern-placeholder{
  position:absolute;z-index:0;top:16px;left:17px;right:17px;pointer-events:none;color:#7f887f;
  font-size:var(--font-body,15px);line-height:var(--line-reading,1.7);letter-spacing:-.15px

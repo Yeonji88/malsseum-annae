@@ -588,8 +588,11 @@ test('concern tab keeps the existing route while using the shared app shell and 
  assert.match(concern,/지금 떠오르는 고민을 적어보세요\./);
  assert.match(concern,/너희를 돌보심이라/);
  assert.doesNotMatch(concern,/마음이 쉬어가는 곳|home-window-visual|home-reassurance/);
- assert.match(html,/<button type="button" data-screen="home" aria-current="page">[\s\S]*?<span>고민<\/span><\/button><button type="button" data-screen="reflection">/);
- assert.match(fs.readFileSync(path.join(root,'dist/app.js'),'utf8'),/meditationBackButton\('고민으로',\(\)=>displayScreen\('home'\)\)/);
+ assert.match(html,/<button type="button" data-screen="reflection" aria-current="page">[\s\S]*?<span>묵상<\/span><\/button><button type="button" data-screen="home">[\s\S]*?<span>고민<\/span><\/button><button type="button" data-screen="prayer">[\s\S]*?<span>기도<\/span><\/button><button type="button" data-screen="profile">[\s\S]*?<span>마이<\/span><\/button>/);
+ const appSource=fs.readFileSync(path.join(root,'dist/app.js'),'utf8');
+ assert.match(appSource,/meditationBackButton\('고민 입력하기',\(\)=>displayScreen\('home'\)\)/);
+ assert.match(appSource,/if\(isOnboarding\)\{displayScreen\('reflection'\)/);
+ assert.match(appSource,/if\(UserProfile\.getName\(\)\)displayScreen\('reflection'\)/);
 });
 test('original 49 are candidates with complete guidance',()=>{
  const {data,s}=app();

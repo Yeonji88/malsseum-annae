@@ -75,7 +75,7 @@
 .bulk-remove.button-destructive:disabled{color:#7f8980!important}
 
 /* Shared back affordance: sage circle, arrow, and destination label. */
-.meditation-back{min-height:46px;padding:2px 10px 2px 0;gap:10px}
+.meditation-back{--back-label-size:var(--font-support,15px);--back-label-weight:500;--back-label-line-height:1.4;--back-item-gap:10px;min-height:46px;padding:2px 10px 2px 0;gap:var(--back-item-gap)}
 .meditation-back-icon{flex-basis:42px;width:42px;height:42px}
-.meditation-back-label{font-size:var(--font-support,15px);line-height:1.4}
+.meditation-back-label,#result .meditation-back-label{font-size:var(--back-label-size);font-weight:var(--back-label-weight);line-height:var(--back-label-line-height)}
 .meditation-journal-back{min-height:44px;padding:9px 18px;border-radius:999px;font-size:var(--font-support,13px);line-height:1.4}

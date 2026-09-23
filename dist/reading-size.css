@@ -28,7 +28,6 @@
 .app[data-text-size] #home-screen #heart-form>.primary{font-size:var(--font-action);line-height:1.45;height:auto;min-height:54px;white-space:normal}
 
 /* Recommendation result and safety copy */
-.app[data-text-size] #result .meditation-back-label,
 .app[data-text-size] #result .conversation-note,
 .app[data-text-size] #result .speaker,
 .app[data-text-size] #result .translation,
