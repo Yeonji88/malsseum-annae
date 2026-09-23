@@ -1,43 +1,43 @@
 /* One font family and one role-based type scale for every user-facing surface. */
 :root{
- --font-caption:11px;
- --font-small:12px;
- --font-support:13px;
- --font-body:15px;
- --font-action:16px;
- --font-subheading:18px;
+ --font-caption:15px;
+ --font-small:16px;
+ --font-support:17px;
+ --font-body:19.5px;
+ --font-action:20px;
+ --font-subheading:21px;
  --font-heading:23px;
  --font-display:29px;
- --font-scripture:21px;
- --font-saved:19px;
+ --font-scripture:25px;
+ --font-saved:23px;
  --line-reading:1.7;
  --textarea-min:135px;
 }
 :root[data-text-size="large"]{
- --font-caption:13px;
- --font-small:14px;
- --font-support:15.5px;
- --font-body:18px;
- --font-action:19px;
- --font-subheading:21px;
+ --font-caption:17px;
+ --font-small:18px;
+ --font-support:19.5px;
+ --font-body:22.5px;
+ --font-action:23px;
+ --font-subheading:24px;
  --font-heading:27px;
  --font-display:34.5px;
- --font-scripture:25.5px;
- --font-saved:23px;
+ --font-scripture:29.5px;
+ --font-saved:27px;
  --line-reading:1.76;
  --textarea-min:165px;
 }
 :root[data-text-size="xlarge"]{
- --font-caption:15px;
- --font-small:16px;
- --font-support:18px;
- --font-body:21px;
- --font-action:22px;
- --font-subheading:24px;
+ --font-caption:19px;
+ --font-small:20px;
+ --font-support:22px;
+ --font-body:25.5px;
+ --font-action:26px;
+ --font-subheading:27px;
  --font-heading:30px;
  --font-display:39px;
- --font-scripture:30px;
- --font-saved:27px;
+ --font-scripture:34px;
+ --font-saved:31px;
  --line-reading:1.82;
  --textarea-min:195px;
 }

@@ -658,7 +658,7 @@ function renderPrayerCalendar(){
   const labels=[`${date.getFullYear()}년 ${date.getMonth()+1}월 ${date.getDate()}일`];if(prayerDays.has(key))labels.push('기도 기록 있음');if(answeredDays.has(key))labels.push('응답 기록 있음');button.setAttribute('aria-label',labels.join(', '));
   button.addEventListener('click',()=>{selectedPrayerDate=key;prayerCalendarMonth=new Date(date.getFullYear(),date.getMonth(),1);activeAnswerId=null;clearPrayerEditor();renderPrayerView();});grid.append(button);
  }
- const legend=element('div','prayer-calendar-legend'),legendPrayer=element('span','','기도를 기록한 날'),legendAnswer=element('span','','응답을 받은 날'),legendToday=element('span','','오늘');legendPrayer.prepend(element('i','legend-prayer','●'));legendAnswer.prepend(element('i','legend-answer','✓'));legendToday.prepend(element('i','legend-today','○'));legend.append(legendPrayer,legendAnswer,legendToday);prayerCalendar.append(controls,weekdays,grid,legend);
+ const legend=element('div','prayer-calendar-legend'),legendPrayer=element('span','','기도를 기록한 날'),legendAnswer=element('span','','응답을 받은 날');legendPrayer.prepend(element('i','legend-prayer','●'));legendAnswer.prepend(element('i','legend-answer','✓'));legend.append(legendPrayer,legendAnswer);prayerCalendar.append(controls,weekdays,grid,legend);
 }
 function createPrayerCard(entry){
  const card=element('article','prayer-entry'),date=element('time','prayer-date',prayerTimeFormat.format(new Date(entry.createdAt))),body=element('p','prayer-content',entry.content),actions=element('div','prayer-entry-actions');date.dateTime=entry.createdAt;
