@@ -17,11 +17,11 @@
 #result .explanation-label,#result #reply-form label{width:fit-content}
 
 /* Home */
-.app[data-text-size] #home-screen .personal-greeting{font-size:var(--font-subheading)!important;line-height:1.6!important}
-.app[data-text-size] #home-screen .welcome h1{font-size:var(--font-display);line-height:1.5}
+.app[data-text-size] #home-screen .personal-greeting{font-size:var(--font-support)!important;line-height:1.65!important}
+.app[data-text-size] #home-screen .welcome h1{font-size:var(--font-heading);line-height:1.45}
 .app[data-text-size] #home-screen .welcome>p:not(.personal-greeting),
 .app[data-text-size] #home-screen .home-reassurance p{font-size:var(--font-body);line-height:var(--line-reading)}
-.app[data-text-size] #home-screen #heart{font-size:var(--font-action);line-height:var(--line-reading)}
+.app[data-text-size] #home-screen #heart{font-size:var(--font-body);line-height:var(--line-reading)}
 .app[data-text-size] #home-screen .input-foot,
 .app[data-text-size] #home-screen .emotion-tag,
 .app[data-text-size] #home-screen #privacy{font-size:var(--font-small);line-height:1.65}

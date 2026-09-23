@@ -314,7 +314,7 @@ function refreshProfile(){
  const name=UserProfile.getName();
  const greeting=document.getElementById('personal-greeting');
  greeting.replaceChildren();
- if(name){const named=document.createElement('span');named.className='greeting-name';named.textContent=name+'님';greeting.append(document.createTextNode('안녕하세요, '),named,document.createTextNode('.'));}
+ if(name){const named=document.createElement('span');named.className='greeting-name';named.textContent=name+'님';greeting.append(named,document.createTextNode(', 지금 어떤 고민이 있으신가요?'));}
  onboarding.hidden=Boolean(name);mainContent.hidden=!name;settingsButton.hidden=!name;
 }
 function saveProfile(event,fieldId,errorId,isOnboarding){
@@ -679,7 +679,7 @@ function renderPrayerList(){renderPrayerView();}
 prayerInput.addEventListener('input',()=>{prayerError.textContent='';});prayerCancel.addEventListener('click',()=>{clearPrayerEditor();renderPrayerDay();});
 prayerForm.addEventListener('submit',event=>{event.preventDefault();if(!prayerInput.value.trim()){prayerError.textContent='기도 내용을 적어주세요.';prayerInput.focus();return;}try{PrayerJournal.save(prayerInput.value,editingPrayerId,selectedPrayerDate);clearPrayerEditor();renderPrayerView();}catch(error){prayerError.textContent=error.message==='수정할 기도를 찾지 못했어요.'?error.message:'기도를 저장하지 못했어요. 브라우저 저장 설정을 확인해주세요.';}});
 renderPrayerView();
-const resultBack=meditationBackButton('홈으로',()=>displayScreen('home'));resultBack.classList.add('result-back');resultBack.setAttribute('aria-label','홈 고민 입력으로 돌아가기');
+const resultBack=meditationBackButton('고민으로',()=>displayScreen('home'));resultBack.classList.add('result-back');resultBack.setAttribute('aria-label','고민 입력으로 돌아가기');
 resultScreen.prepend(resultBack);
 function displayScreen(screen){
  if(screen!=='profile'&&editingSaved)exitSavedEdit();

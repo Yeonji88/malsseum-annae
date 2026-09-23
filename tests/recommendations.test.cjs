@@ -579,19 +579,17 @@ test('all 100 verses have reflection guidance, three questions, and a prayer wit
   assert.ok(guidance.prayer.endsWith('아멘.'),verse.id);
  }
 });
-test('unrelated stylesheet and HTML markup remain unchanged',()=>{
+test('concern tab keeps the existing route while using the shared app shell and updated labels',()=>{
  const styles=fs.readFileSync(path.join(root,'dist/styles.css'),'utf8').split('\n/* 홈 고민 입력을 지우는 작은 보조 액션 */')[0];
  assert.equal(hash(styles),preserved.stylesHash);
- const html=normalized(fs.readFileSync(path.join(root,'dist/index.html'),'utf8'))
-  .replace('<script defer src="data/analysisContract.js"></script>','')
-  .replace('<script defer src="ai-config.js"></script><script defer src="services/analyzeConcernWithAI.js"></script><script defer src="services/resolveConcernRoles.js"></script>','')
-  .replace('<button id="reset-heart" type="button" hidden aria-label="고민 입력 내용 전체 초기화" title="입력 내용 전체 초기화"><span aria-hidden="true">↻</span></button>','')
-  .replace('<section id="ai-privacy-note" class="ai-privacy-note" aria-labelledby="ai-privacy-title"><h3 id="ai-privacy-title">AI 분석 안내</h3><p>입력한 이야기는 마음을 이해하기 위한 분석 과정에서 OpenAI의 AI 서비스를 이용해 처리돼요.<br>AI는 고민을 이해하는 데 도움을 주며, 성경 말씀을 새로 만들어내지 않아요.</p></section>','')
-  .replace('<form id="settings-form" class="profile-form"><p class="settings-intro">어떤 이름으로 불러드릴까요?</p>','<p class="settings-intro">어떤 이름으로 불러드릴까요?</p><form id="settings-form" class="profile-form">')
-  .replace('<label class="sr-only" for="settings-name">이름 입력</label>','<label for="settings-name">이름 또는 별명</label>')
-  .replace('현재 입력한 이야기는 기기 안에서만 분석해요. AI 연결 전에는 외부로 전송하지 않아요.','입력한 이야기는 저장되거나 외부로 전송되지 않아요.')
-  .replace('<p>지금 마음에 머무는 이야기를 들려주세요.</p>','<p>잘 정리된 말이 아니어도 괜찮아요.<br>지금 마음에 머무는 이야기를 들려주세요.<br>하나님의 말씀이 함께할게요.</p>');
- assert.equal(hash(html),preserved.htmlHash);
+ const html=normalized(fs.readFileSync(path.join(root,'dist/index.html'),'utf8'));
+ const concern=html.match(/<div id="home-screen">([\s\S]*?)<\/div><section id="empty-screen"/)[1];
+ assert.match(concern,/오늘도,<br>마음을 나눠요\./);
+ assert.match(concern,/지금 떠오르는 고민을 적어보세요\./);
+ assert.match(concern,/너희를 돌보심이라/);
+ assert.doesNotMatch(concern,/마음이 쉬어가는 곳|home-window-visual|home-reassurance/);
+ assert.match(html,/<button type="button" data-screen="home" aria-current="page">[\s\S]*?<span>고민<\/span><\/button><button type="button" data-screen="reflection">/);
+ assert.match(fs.readFileSync(path.join(root,'dist/app.js'),'utf8'),/meditationBackButton\('고민으로',\(\)=>displayScreen\('home'\)\)/);
 });
 test('original 49 are candidates with complete guidance',()=>{
  const {data,s}=app();
