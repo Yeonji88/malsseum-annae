@@ -2214,8 +2214,8 @@ window.Malsseum.data.verses = Object.freeze([
     id:'psalm-139-13-14',reference:'시편 139:13-14',book:'시편',chapter:139,verseStart:13,verseEnd:14,
     text:'주께서 내 내장을 지으시며 나의 모태에서 나를 만드셨나이다\n내가 주께 감사하옴은 나를 지으심이 심히 기묘하심이라 주께서 하시는 일이 기이함을 내 영혼이 잘 아나이다',translation:'개역개정',targetTranslation:'개역개정',
     topics:['failure'],situations:['difficulty_accepting_self'],expressions:['내 모습이 너무 싫어요','왜 나는 이렇게 생겼을까요','요즘 내가 너무 싫어요','내가 너무 싫어요'],
-    recommendationNote:'자신의 몸이나 외모, 존재 자체를 싫어하고 받아들이기 어려운 마음에 연결합니다.',cautionTags:['faith_shaming','emotion_suppression','context_distortion'],
-    contextNote:'하나님이 시편 기자를 모태에서 지으셨다는 창조와 앎의 고백. 외모와 몸에 대한 현실적인 아픔을 꾸짖거나 불만을 금지하는 방식으로 사용하지 않습니다.',
+    recommendationNote:'자기 모습이나 존재를 받아들이기 어려운 마음에서, 자신을 지으신 하나님과 그 지으심의 놀라움을 바라보며 감사의 고백으로 나아가도록 연결합니다.',cautionTags:['faith_shaming','emotion_suppression','context_distortion'],
+    contextNote:'시편 기자가 자신을 모태에서 지으신 하나님을 바라보고, 그 지으심의 놀라움을 깨달아 감사하는 고백입니다. 외모 만족이나 자기긍정을 요구하는 말로 축소하거나, 몸과 외모에 대한 현실적인 아픔을 꾸짖는 데 사용하지 않습니다.',
     applicationGuidance:{suitableSituations:['difficulty_accepting_self'],avoidApplications:['faith_shaming','emotion_suppression','context_distortion']},
     textStatus:'verified',textStatusLabel:'본문 검증 완료',recommendationEnabled:true,guidanceStatus:'pending',metadataStatus:'draft',textVerificationSource:'user_supplied'
   },
