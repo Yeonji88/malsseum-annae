@@ -74,5 +74,11 @@
 .meditation-record-view>strong{display:block;margin-top:5px;color:#426052;font-size:var(--font-support,13px);font-weight:500}
 .meditation-record-view>p{margin:15px 0 18px;color:#3f4a44;font-size:var(--font-body,15px);line-height:var(--line-reading,1.85);white-space:pre-wrap;overflow-wrap:anywhere}
 .meditation-list-empty{margin-top:6px;padding:24px 18px;border-radius:17px;background:#fffefb;text-align:center}
+.meditation-list-today-action{display:flex;align-items:center;justify-content:center;width:max-content;max-width:100%;min-height:42px;margin:0 0 13px;padding:9px 16px;border:1px solid rgba(67,91,76,.08);border-radius:999px;background:var(--meditation-sage);color:#365d46;font-family:inherit;font-size:var(--font-support);font-weight:500;line-height:1.45;text-align:center;cursor:pointer}
+.meditation-list-empty .meditation-list-today-action{margin:15px auto 0}
+.meditation-list-today-action.is-inline-link{justify-content:flex-start;min-height:44px;margin:-4px 0 5px;padding:8px 0;border:0;border-radius:0;background:transparent;color:#365d46;text-align:left;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:4px}
+.meditation-list-today-action:hover,.meditation-list-today-action:focus-visible{background:#dce7d8}
+.meditation-list-today-action.is-inline-link:hover,.meditation-list-today-action.is-inline-link:focus-visible{background:transparent;color:#294d38}
+.meditation-list-today-action:focus-visible{outline:2px solid #8aa091;outline-offset:2px}
 @media(max-width:350px){.meditation-screen,.meditation-detail,.meditation-list-screen,.meditation-record-screen{padding-left:13px;padding-right:13px}.meditation-heading{gap:7px}.meditation-date{padding:5px 7px}.daily-verse-card{padding-left:14px;padding-right:14px}}
 @media(max-height:740px) and (min-width:351px){.meditation-screen{padding-top:2px}.meditation-intro{margin-bottom:9px}.meditation-subtitle{margin-top:3px}.daily-verse-card{padding-top:13px;padding-bottom:12px}.meditation-primary{margin-top:9px}.meditation-mine{margin-top:2px;padding-top:10px;padding-bottom:10px}}
