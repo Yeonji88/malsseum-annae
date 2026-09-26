@@ -43,7 +43,7 @@
 .app[data-text-size] #result .explanation-label,
 .app[data-text-size] #result #reply-form label{font-size:var(--font-action);line-height:1.55}
 .app[data-text-size] #result .verse-actions summary,
-.app[data-text-size] #result .save-action .save-label,
+.app[data-text-size] :is(#result,#meditation-detail) .save-action .save-label,
 .app[data-text-size] #result #reply-form .primary,
 .app[data-text-size] #result .self-harm-call{font-size:var(--font-action);line-height:1.45;height:auto;white-space:normal}
 .app[data-text-size] #result .verse-actions summary{height:auto;min-height:88px}

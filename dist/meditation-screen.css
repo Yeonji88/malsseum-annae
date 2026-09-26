@@ -44,17 +44,21 @@
 .meditation-back:hover .meditation-back-icon,.meditation-back:focus-visible .meditation-back-icon{background:#dce7d8}
 .meditation-back:focus-visible{outline:2px solid #8aa091;outline-offset:2px;border-radius:23px}
 .meditation-detail>h1,.meditation-list-screen>h1,.meditation-record-screen>h1{margin:0 0 14px;color:var(--green);font-size:var(--font-heading,22px);font-weight:600}
+.meditation-detail{--meditation-section-gap:33px;--meditation-title-content-gap:8px;--meditation-reading-inset:15px}
 .detail-verse{margin-bottom:14px}
-.meditation-reading{padding:15px 16px;border-radius:17px;background:#fffefb;box-shadow:0 6px 18px rgba(54,73,61,.05)}
-.meditation-reading h2{display:inline;margin:18px 0 7px;color:var(--meditation-ink);font-size:var(--font-subheading,15px);font-weight:600;background:linear-gradient(transparent 52%,var(--meditation-sage) 52%,var(--meditation-sage) 91%,transparent 91%)}
+.meditation-verse-save{margin-bottom:calc(var(--meditation-section-gap) - var(--meditation-reading-inset))}
+.meditation-verse-save .save-action{width:100%}
+.meditation-reading{padding:var(--meditation-reading-inset) 16px;border-radius:17px;background:#fffefb;box-shadow:0 6px 18px rgba(54,73,61,.05)}
+.meditation-reading h2{display:block;width:fit-content;max-width:100%;margin:var(--meditation-section-gap) auto var(--meditation-title-content-gap);text-align:center;color:var(--meditation-ink);font-size:var(--font-subheading,15px);font-weight:600;background:linear-gradient(transparent 52%,var(--meditation-sage) 52%,var(--meditation-sage) 91%,transparent 91%)}
 .meditation-reading h2:first-child{margin-top:0}
-.meditation-reading p{margin:7px 0 18px;color:#3f4a44;font-size:var(--font-body,15px);line-height:var(--line-reading,1.85);white-space:pre-line;word-break:keep-all}
-.meditation-questions{margin:8px 0 18px;padding:0;list-style:none;counter-reset:question}
+.meditation-reading p{margin:0 0 18px;color:#3f4a44;font-size:var(--font-body,15px);line-height:var(--line-reading,1.85);white-space:pre-line;word-break:keep-all}
+.meditation-reading>p{margin-bottom:0}
+.meditation-questions{margin:0;padding:0;list-style:none;counter-reset:question}
 .meditation-questions li{display:grid;grid-template-columns:26px minmax(0,1fr);gap:8px;margin-top:11px;color:#3f4a44;font-size:var(--font-body,15px);line-height:var(--line-reading,1.75);counter-increment:question}
+.meditation-questions li:first-child{margin-top:0}
 .meditation-questions li::before{content:counter(question,decimal-leading-zero);color:var(--green);font-size:var(--font-small,11px);padding-top:3px}
-.meditation-journal{margin-top:18px;padding-top:18px;border-top:1px solid rgba(82,104,88,.12)}
+.meditation-journal{margin-top:calc(var(--meditation-section-gap) / 2);padding-top:calc(var(--meditation-section-gap) / 2 - 1px);border-top:1px solid rgba(82,104,88,.12)}
 .meditation-journal h2{margin-top:0}
-.meditation-journal .meditation-journal-guide{margin:8px 0 10px;color:#68766d;font-size:var(--font-support,13px);line-height:var(--line-reading,1.65)}
 .meditation-journal textarea{display:block;width:100%;min-height:var(--textarea-min);box-sizing:border-box;padding:13px 14px;border:1px solid rgba(72,99,81,.15);border-radius:14px;background:#fbfcf8;color:#34433b;font-family:inherit;font-size:var(--font-body);font-weight:400;line-height:var(--line-reading);resize:vertical;outline:none}
 .meditation-journal textarea:focus{border-color:#87a18e;box-shadow:0 0 0 3px rgba(135,161,142,.13)}
 .meditation-journal textarea::placeholder{color:#9aa39d}

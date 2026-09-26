@@ -14,7 +14,7 @@
 .app:has(#result:not([hidden]))>header .result-back.is-safety-back .meditation-back-label{display:none}
 .app:has(#result:not([hidden])) #main-content{padding:0 18px 20px;scrollbar-width:none}
 .app:has(#result:not([hidden])) #main-content::-webkit-scrollbar{display:none}
-#result{display:flex;flex-direction:column;margin:0;padding:0;color:#343a36}
+#result{--result-section-title-inset:18px;display:flex;flex-direction:column;margin:0;padding:0;color:#343a36}
 #result[hidden]{display:none}
 #result,#result *{font-family:'Malsseum Gowun Dodum','Malsseum SUIT',sans-serif;font-weight:400;font-synthesis:none}
 #result>.section-label,#result>#result-title{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%)}
@@ -41,19 +41,19 @@
 #result .explanation-card .conversation-text{margin:6px 0 0;font-size:13px;line-height:1.6;color:#62675f}
 #result .explanation-card .empathy-bubble+.conversation-text{margin-top:6px;padding-top:6px;border-top:1px solid #eeeae2}
 #result .verse-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-items:start;gap:7px;margin:0}
-#result .verse-actions details,#result .save-action{min-width:0;margin:0;border:1px solid #eae6de;border-radius:16px;background:#fffdfa;color:#343a36;box-shadow:0 5px 14px #554d3c0b;overflow:hidden}
-#result .verse-actions summary,#result .save-action{min-height:88px;padding:8px 4px 6px;font-size:13px;line-height:1.35;text-align:center;box-sizing:border-box}
+#result .verse-actions details,:is(#result,#meditation-detail) .save-action{min-width:0;margin:0;border:1px solid #eae6de;border-radius:16px;background:#fffdfa;color:#343a36;box-shadow:0 5px 14px #554d3c0b;overflow:hidden}
+#result .verse-actions summary,:is(#result,#meditation-detail) .save-action{min-height:88px;padding:8px 4px 6px;font-size:13px;line-height:1.35;text-align:center;box-sizing:border-box}
 #result .verse-actions summary{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;cursor:pointer}
 #result .verse-actions summary::after{display:none}
 #result .result-action-icon{display:block;width:27px;height:27px;margin:0 auto 2px;color:#4f7460}
-#result .result-action-icon svg{display:block;width:100%;height:100%}
+#result .result-action-icon svg,#meditation-detail .save-action .result-action-icon svg{display:block;width:100%;height:100%}
 #result .verse-actions small{display:block;margin:2px 0 0;font-size:10px;line-height:1.3;color:#81847d}
-#result .save-action{grid-column:1/-1;display:flex;align-items:center;justify-content:center;gap:9px;min-height:49px;padding:10px 16px;cursor:pointer}
-#result .save-action .result-action-icon{width:21px;height:21px;margin:0;color:#315f49}
-#result .save-action .save-label{font-size:14px;line-height:1.4}
-#result .save-action[aria-pressed="true"] .result-action-icon{color:#315f49}
-#result .save-action[aria-pressed="true"] .save-label{color:#315f49}
-#result .save-action:focus-visible{outline:2px solid #315f49;outline-offset:3px}
+:is(#result,#meditation-detail) .save-action{grid-column:1/-1;display:flex;align-items:center;justify-content:center;gap:9px;min-height:49px;padding:10px 16px;cursor:pointer}
+:is(#result,#meditation-detail) .save-action .result-action-icon{display:block;width:21px;height:21px;margin:0;color:#315f49}
+:is(#result,#meditation-detail) .save-action .save-label{font-size:14px;line-height:1.4}
+:is(#result,#meditation-detail) .save-action[aria-pressed="true"] .result-action-icon{color:#315f49}
+:is(#result,#meditation-detail) .save-action[aria-pressed="true"] .save-label{color:#315f49}
+:is(#result,#meditation-detail) .save-action:focus-visible{outline:2px solid #315f49;outline-offset:3px}
 #result .saved-verse-turn .user-message,#result .saved-verse-turn .empathy-bubble{display:none}
 #result .saved-verse-turn .explanation-card>.conversation-text{margin-top:8px;padding-top:0;border:0}
 .self-harm-safety-turn .user-message{margin-bottom:12px!important}
@@ -77,7 +77,16 @@
 #result .verse-actions .conversation-questions li::before{content:counter(reflection-question,decimal-leading-zero);color:#315f49;font-size:12px;line-height:1.9}
 #result .verse-actions details>small{margin:0 16px 15px;font-size:11px}
 .result-back:focus-visible{outline:2px solid #315f49;outline-offset:3px}
-#result #reply-form{order:2;margin:12px 0 0;padding:18px 0 0;border:0;border-top:1px solid #eae7df;border-radius:0;background:none;box-shadow:none}
+#result #reply-form{order:2;margin:12px 0 0;padding:var(--result-section-title-inset) 0 0;border:0;border-top:1px solid #eae7df;border-radius:0;background:none;box-shadow:none}
 .app:has(#result:not([hidden]))>#bottom-nav{background:#fffdfa}
 .app:has(#result:not([hidden]))>#bottom-nav button{font-family:'Malsseum Gowun Dodum','Malsseum SUIT',sans-serif;font-weight:400;font-synthesis:none}
-@media(max-width:359px){#result .verse-result-turn .scripture{padding:21px 17px 19px 39px}#result .result-quote{left:12px}#result .verse-actions{gap:5px}#result .verse-actions summary,#result .save-action{font-size:12px}#result .verse-actions small{font-size:9px}}
+@media(max-width:359px){#result .verse-result-turn .scripture{padding:21px 17px 19px 39px}#result .result-quote{left:12px}#result .verse-actions{gap:5px}#result .verse-actions summary,:is(#result,#meditation-detail) .save-action{font-size:12px}#result .verse-actions small{font-size:9px}}
+
+/* Concern results read continuously; saved-verse details retain their disclosure UI. */
+#result .verse-actions.concern-guidance{grid-template-columns:minmax(0,1fr);gap:14px}
+#result .concern-guidance>section{min-width:0;padding:var(--result-section-title-inset) 16px;border:1px solid #eae6de;border-radius:16px;background:#fffdfa;box-shadow:0 5px 14px #554d3c0b}
+#result .concern-guidance .guidance-title,
+.app[data-text-size] #result:has(.concern-guidance) #reply-form label{width:fit-content;max-width:100%;margin:0 auto;text-align:center;color:var(--green);font-size:var(--font-subheading);line-height:1.5;background:linear-gradient(transparent 52%,var(--meditation-sage) 52%,var(--meditation-sage) 91%,transparent 91%);border-radius:2px}
+#result .concern-guidance .guidance-subtitle{margin:4px 0 14px;text-align:center;color:var(--muted);font-size:var(--font-support);line-height:var(--line-reading)}
+#result .concern-guidance .guidance-copy{margin:0;white-space:pre-line;font-size:var(--font-body);line-height:var(--line-reading)}
+#result .concern-guidance .conversation-questions{margin:16px 0 0}
