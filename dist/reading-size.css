@@ -17,7 +17,7 @@
 #result .explanation-label,#result #reply-form label{width:fit-content}
 
 /* Home */
-.app[data-text-size] #home-screen .personal-greeting{font-size:var(--font-support)!important;line-height:1.65!important}
+.app[data-text-size] #home-screen .personal-greeting{font-size:var(--font-screen-support)!important;line-height:var(--line-screen-support)!important}
 .app[data-text-size] #home-screen .welcome h1{font-size:var(--font-heading);line-height:1.45}
 .app[data-text-size] #home-screen .welcome>p:not(.personal-greeting),
 .app[data-text-size] #home-screen .home-reassurance p{font-size:var(--font-body);line-height:var(--line-reading)}
@@ -53,7 +53,8 @@
 
 
 /* Saved verses, settings, and onboarding */
-.app[data-text-size] #my-screen h1{font-size:var(--font-heading);line-height:1.5}
+.app[data-text-size] #my-screen .my-intro-title{font-size:var(--font-heading);line-height:var(--app-screen-title-line)}
+.app[data-text-size] #my-screen .my-intro-subtitle{font-size:var(--font-screen-support);line-height:var(--line-screen-support)}
 .app[data-text-size] #my-screen .saved-verse-text{font-size:var(--font-saved);line-height:var(--line-reading)}
 .app[data-text-size] #my-screen :is(.saved-verse-reference,.saved-empty p,.edit-saved,.select-all,.bulk-remove){font-size:var(--font-support);line-height:var(--line-reading);height:auto;white-space:normal}
 .app[data-text-size] #my-screen .saved-empty p:first-child{font-size:var(--font-body)}

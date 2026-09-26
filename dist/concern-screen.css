@@ -32,8 +32,8 @@
  line-height:var(--app-screen-title-line);letter-spacing:-.65px
 }
 #home-screen .personal-greeting{
- margin:var(--app-title-support-gap) 0 0!important;color:#68766d!important;font-size:var(--font-support,13px)!important;
- max-width:100%;font-weight:400!important;line-height:1.65!important;letter-spacing:-.2px
+ margin:var(--app-title-support-gap) 0 0!important;color:#68766d!important;font-size:var(--font-screen-support,17px)!important;
+ max-width:100%;font-weight:var(--weight-screen-support)!important;line-height:var(--line-screen-support)!important;letter-spacing:-.2px
 }
 #home-screen #heart-form{margin:0}
 #home-screen .input-card{
@@ -70,16 +70,13 @@
 .concern-sprout{grid-row:1/3;display:grid;place-items:start center;width:24px;height:24px;margin-top:2px;color:#789478}
 .concern-sprout svg{display:block;width:19px;height:19px}
 .concern-verse-card blockquote{
- margin:0;color:#3f5747;font-size:calc(var(--font-support,17px) + 1px);font-weight:400;line-height:1.55;letter-spacing:-.15px
+ margin:0;color:#3f5747;font-size:calc(var(--font-support,13px) + 1.75px);font-weight:400;line-height:1.55;letter-spacing:-.15px
 }
 .concern-verse-card cite{
- margin-top:5px;color:#718076;font-size:calc(var(--font-small,16px) + 1px);font-style:normal;line-height:1.5
+ margin-top:5px;color:#718076;font-size:var(--font-small,12px);font-style:normal;line-height:1.5
 }
 .app:has(>#main-content:not([hidden])>#home-screen:not([hidden]))>#bottom-nav{background:#fffdfa}
 #bottom-nav [data-screen=home][aria-current=page] svg{fill:none!important}
-@media(min-width:360px){
- #main-content #home-screen .personal-greeting,.app[data-text-size] #main-content #home-screen .personal-greeting{font-size:16px!important;letter-spacing:-.35px;white-space:nowrap}
-}
 @media(max-width:359px){
  .app:has(>#main-content:not([hidden])>#home-screen:not([hidden])) #main-content{padding-left:13px;padding-right:13px}
  #home-screen{padding-left:2px;padding-right:2px}

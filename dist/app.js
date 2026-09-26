@@ -41,6 +41,7 @@ const SavedVerses=(()=>{
  }
  return {
   list,key,savedAtKey,
+  savedAt(id){return savedTimes()[id]||null;},
   has(id){return list().includes(id);},
   toggle(id){
    if(!known.has(id))return false;
@@ -369,17 +370,21 @@ const resultScreen=document.getElementById('result');
 const emptyScreen=document.getElementById('empty-screen');
 const bottomNav=document.getElementById('bottom-nav');
 const myScreen=element('section','my-screen');myScreen.id='my-screen';myScreen.hidden=true;
-myScreen.setAttribute('aria-labelledby','my-title');
+myScreen.setAttribute('aria-labelledby','my-intro-title');
+const myIntro=element('div','my-intro');
+const myIntroTitle=element('h1','my-intro-title','오늘도,\n말씀을 간직해요.');myIntroTitle.id='my-intro-title';
+const myIntroSubtitle=element('p','my-intro-subtitle','마음에 남겨둔 말씀을 다시 만나보세요.');
+myIntro.append(myIntroTitle,myIntroSubtitle);
 const myHeading=element('div','my-heading');
-const myTitle=element('h1','','저장한 말씀');myTitle.id='my-title';
 const editSaved=element('button','edit-saved button-compact','편집');editSaved.type='button';
-myHeading.append(myTitle,editSaved);
+myHeading.append(editSaved);
 const savedEditTools=element('div','saved-edit-tools');savedEditTools.hidden=true;
 const selectAll=element('button','select-all button-compact','전체 선택');selectAll.type='button';selectAll.hidden=true;
 const savedList=element('div','saved-verse-list');
 const bulkRemove=element('button','bulk-remove button-compact button-destructive','선택 저장 취소');bulkRemove.type='button';bulkRemove.hidden=true;
 savedEditTools.append(selectAll,bulkRemove);
-myScreen.append(myHeading,savedEditTools,savedList);mainContent.append(myScreen);
+myHeading.append(savedEditTools);
+myScreen.append(myIntro,myHeading,savedList);mainContent.append(myScreen);
 const myStyles=document.createElement('link');myStyles.rel='stylesheet';myStyles.href='my-screen.css';document.head.append(myStyles);
 let editingSaved=false;
 const selectedSaved=new Set();
@@ -427,7 +432,16 @@ function renderSavedList(){
    card.setAttribute('aria-label',verse.reference+(chosen?' 선택됨':' 선택'));
    const check=element('span','saved-select-indicator',chosen?'✓':'');check.setAttribute('aria-hidden','true');card.append(check);
   }else card.setAttribute('aria-label',verse.reference+' 말씀 다시 보기');
-  card.append(element('span','saved-verse-text',verse.text),element('span','saved-verse-reference',verse.reference));
+  const footer=element('span','saved-verse-footer');
+  footer.append(element('span','saved-verse-reference',verse.reference));
+  const savedAt=SavedVerses.savedAt(id);
+  if(savedAt){
+   const date=new Date(savedAt);
+   const yearLabel=date.getFullYear()===new Date().getFullYear()?'':date.getFullYear()+'년 ';
+   const savedDate=element('time','saved-verse-date',yearLabel+(date.getMonth()+1)+'월 '+date.getDate()+'일 저장');
+   savedDate.dateTime=date.toISOString();footer.append(savedDate);
+  }
+  card.append(element('span','saved-verse-text',verse.text),footer);
   card.addEventListener('click',()=>{
    if(!editingSaved){openSavedVerse(id);return;}
    if(selectedSaved.has(id))selectedSaved.delete(id);else selectedSaved.add(id);

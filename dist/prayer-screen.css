@@ -1,16 +1,16 @@
 /* Prayer calendar and journal in the existing ivory, sage, and deep-green palette. */
 .app:has(#prayer-screen:not([hidden])){background:#fbf8f2}
-.app:has(#prayer-screen:not([hidden]))>header{height:66px;min-height:66px;padding:11px 22px;background:#fbf8f2}
+.app:has(#prayer-screen:not([hidden]))>header{height:var(--app-header-height);min-height:var(--app-header-height);padding:var(--app-header-padding);background:#fbf8f2}
 .app:has(#prayer-screen:not([hidden]))>header .brand{display:flex;flex-direction:row;align-items:center;gap:7px;margin:0;color:#303633;font-family:'Malsseum Gowun Dodum',sans-serif;font-size:18px;font-weight:400}
 .app:has(#prayer-screen:not([hidden]))>header .brand-mark,.app:has(#prayer-screen:not([hidden]))>header .brand-mark svg{width:20px;height:20px;margin:0;background:none;color:#64856c}
 .app:has(#prayer-screen:not([hidden]))>header .home-logo-caption,.app:has(#prayer-screen:not([hidden]))>header .home-bell{display:none}
 .app:has(#prayer-screen:not([hidden]))>header #open-settings{position:static;margin-left:auto;color:#303633}
 .app:has(#prayer-screen:not([hidden])) #main-content{padding:0 18px 1px}
 #prayer-screen[hidden]{display:none}
-#prayer-screen{--prayer-coral:#e98780;--prayer-coral-soft:#f9e4df;--prayer-sage:#7f9f76;--prayer-sage-soft:#edf3e8;font-family:'Malsseum Gowun Dodum','Malsseum SUIT',sans-serif;font-synthesis:none;color:#303633}
-.prayer-heading{padding:0 4px 6px}
-#prayer-screen h1{margin:0;color:#315f49;font-size:var(--font-heading);font-weight:400;line-height:1.45;letter-spacing:-.65px}
-#prayer-screen .prayer-intro{margin:2px 0 0;color:#777d75;font-size:var(--font-small);line-height:1.65}
+#prayer-screen{--prayer-coral:#e98780;--prayer-coral-soft:#f9e4df;--prayer-sage:#7f9f76;--prayer-sage-soft:#edf3e8;width:min(100%,430px);margin:0 auto;padding:var(--app-screen-top-gap) 4px 1px;box-sizing:border-box;font-family:'Malsseum Gowun Dodum','Malsseum SUIT',sans-serif;font-synthesis:none;color:#303633}
+.prayer-heading{margin:0 0 var(--app-support-card-gap);padding:0}
+#prayer-screen h1{margin:0;color:#315f49;font-size:var(--font-heading);font-weight:400;line-height:var(--app-screen-title-line);letter-spacing:-.65px}
+#prayer-screen .prayer-intro{margin:var(--app-title-support-gap) 0 0;color:#777d75;font-size:var(--font-screen-support,17px);font-weight:var(--weight-screen-support);line-height:var(--line-screen-support)}
 .prayer-calendar{padding:11px 13px 9px;border:1px solid #ebe7df;border-radius:22px;background:#fffdfa;box-shadow:0 6px 18px #554d3c0a}
 .prayer-calendar-controls{display:grid;grid-template-columns:38px 1fr 38px;align-items:center;margin-bottom:7px}
 #prayer-screen .calendar-month{margin:0;text-align:center;color:#315f49;font-size:var(--font-body);font-weight:400;line-height:1.5;letter-spacing:-.2px}

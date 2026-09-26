@@ -10,7 +10,7 @@
 .meditation-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
 .meditation-heading h1{margin:0;color:var(--green);font-size:var(--font-heading,24px);font-weight:600;line-height:var(--app-screen-title-line);letter-spacing:-.7px;white-space:pre-line}
 .meditation-date{flex:0 0 auto;margin-top:5px;padding:5px 9px;border-radius:999px;background:var(--meditation-coral-soft);color:#a7554e;font-size:var(--font-caption,11px);line-height:1.35;white-space:nowrap}
-.meditation-subtitle{margin:var(--app-title-support-gap) 0 0;color:var(--muted);font-size:var(--font-support,13px);line-height:1.55}
+.meditation-subtitle{margin:var(--app-title-support-gap) 0 0;color:var(--muted);font-size:var(--font-screen-support,17px);font-weight:var(--weight-screen-support);line-height:var(--line-screen-support)}
 .daily-verse-card{position:relative;margin:0;padding:16px 17px 14px;border:1px solid rgba(82,104,88,.1);border-radius:17px;background:#fffefb;box-shadow:0 7px 21px rgba(54,73,61,.065)}
 .daily-verse-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:9px}
 .daily-verse-label{color:var(--meditation-coral);font-size:var(--font-small,12px);font-weight:600}
