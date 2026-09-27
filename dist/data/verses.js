@@ -2022,13 +2022,15 @@ window.Malsseum.data.verses = Object.freeze([
     textStatus:'verified',textStatusLabel:'본문 검증 완료',recommendationEnabled:true,guidanceStatus:'pending',metadataStatus:'draft',textVerificationSource:'user_supplied'
   },
   {
-    id:'psalm-46-1-2',reference:'시편 46:1-2',book:'시편',chapter:46,verseStart:1,verseEnd:2,
-    text:'하나님은 우리의 피난처시요 힘이시니 환난 중에 만날 큰 도움이시라 그러므로 땅이 변하든지 산이 흔들려 바다 가운데에 빠지든지',translation:'개역개정',targetTranslation:'개역개정',
+    // Range correction verified against Korean Bible Society, GAE Psalm 46:1-3:
+    // https://www.bskorea.or.kr/bible/korbibReadpage.php?book=psa&chap=46&version=GAE
+    id:'psalm-46-1-3',reference:'시편 46:1–3',book:'시편',chapter:46,verseStart:1,verseEnd:3,
+    text:'하나님은 우리의 피난처시요 힘이시니 환난 중에 만날 큰 도움이시라\n그러므로 땅이 변하든지 산이 흔들려 바다 가운데에 빠지든지\n바닷물이 솟아나고 뛰놀든지 그것이 넘침으로 산이 흔들릴지라도 우리는 두려워하지 아니하리로다 (셀라)',translation:'개역개정',targetTranslation:'개역개정',
     topics:['fear'],situations:['sudden_upheaval'],expressions:['갑자기 일이 터졌어요','모든 게 무너지는 것 같아요','상황이 너무 크게 흔들렸어요','갑작스러운 일 때문에 정신이 없어요','큰일이 생겼어요'],
     recommendationNote:'갑작스러운 큰 변화로 모든 것이 흔들리는 상황에 연결합니다.',cautionTags:['endurance_in_danger'],
     contextNote:'혼돈과 큰 변화 속에서도 하나님을 피난처와 도움으로 고백하는 시편.',
     applicationGuidance:{suitableSituations:['sudden_upheaval'],avoidApplications:['endurance_in_danger']},
-    textStatus:'verified',textStatusLabel:'본문 검증 완료',recommendationEnabled:true,guidanceStatus:'pending',metadataStatus:'draft',textVerificationSource:'user_supplied'
+    textStatus:'verified',textStatusLabel:'본문 검증 완료',recommendationEnabled:true,guidanceStatus:'pending',metadataStatus:'draft',textVerificationSource:'korean_bible_society'
   },
   {
     id:'psalm-62-5-6',reference:'시편 62:5-6',book:'시편',chapter:62,verseStart:5,verseEnd:6,

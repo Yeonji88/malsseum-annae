@@ -28,7 +28,7 @@ test('catalogue has ten topics, 100 unique verses, all texts ready and optional 
   assert.ok(verse.verseEnd>=verse.verseStart);
   assert.equal(new Set(verse.topics).size,verse.topics.length);
   assert.equal(verse.textStatus,'verified');assert.ok(verse.text.trim());assert.equal(verse.translation,'개역개정');
-  assert.equal(verse.textVerificationSource,'user_supplied');assert.equal(verse.recommendationEnabled,true);
+  assert.equal(verse.textVerificationSource,verse.id==='psalm-46-1-3'?'korean_bible_society':'user_supplied');assert.equal(verse.recommendationEnabled,true);
   if(data.reflections[verse.id]){
    for(const key of ['reflection','question','prayer'])assert.ok(data.reflections[verse.id][key]);
    assert.equal(verse.guidanceStatus,['matthew-11-28','psalm-56-3','psalm-34-18'].includes(verse.id)?'ready':'pending');
@@ -300,7 +300,7 @@ const preserved=JSON.parse(fs.readFileSync(path.join(__dirname,'fixtures/preserv
 const scenarios=JSON.parse(fs.readFileSync(path.join(__dirname,'fixtures/activation-scenarios.json'),'utf8'));
 const newPassages=[
  ['psalm-4-8','시편 4:8','내가 평안히 눕고 자기도 하리니 나를 안전히 살게 하시는 이는 오직 여호와이시니이다','걱정돼서 잠이 안 와요'],
- ['psalm-46-1-2','시편 46:1-2','하나님은 우리의 피난처시요 힘이시니 환난 중에 만날 큰 도움이시라 그러므로 땅이 변하든지 산이 흔들려 바다 가운데에 빠지든지','갑자기 큰일이 생겨서 모든 게 무너지는 것 같아요'],
+ ['psalm-46-1-3','시편 46:1–3','하나님은 우리의 피난처시요 힘이시니 환난 중에 만날 큰 도움이시라\n그러므로 땅이 변하든지 산이 흔들려 바다 가운데에 빠지든지\n바닷물이 솟아나고 뛰놀든지 그것이 넘침으로 산이 흔들릴지라도 우리는 두려워하지 아니하리로다 (셀라)','갑자기 큰일이 생겨서 모든 게 무너지는 것 같아요'],
  ['psalm-62-5-6','시편 62:5-6','나의 영혼아 잠잠히 하나님만 바라라 무릇 나의 소망이 그로부터 나오는도다 오직 그만이 나의 반석이시요 나의 구원이시요 나의 요새이시니 내가 흔들리지 아니하리로다','결과를 기다리는데 너무 조급해요'],
  ['psalm-121-1-2','시편 121:1-2','내가 산을 향하여 눈을 들리라 나의 도움이 어디서 올까 나의 도움은 천지를 지으신 여호와에게서로다','어디서 도움을 받아야 할지 모르겠어요'],
  ['psalm-130-5','시편 130:5','나 곧 내 영혼은 여호와를 기다리며 나는 주의 말씀을 바라는도다','기다림이 너무 길어요'],

@@ -1,3 +1,8 @@
+// Keep the verified scripture intact; omit only this trailing marker in presentation.
+function displayVerseText(verse){
+ return verse.id==='psalm-46-1-3'?verse.text.replace(/\s*\(셀라\)\s*$/, ''):verse.text;
+}
+try{window.Malsseum.services.migrateVerseIds(window.localStorage);}catch{}
 /* 추천 데이터와 단계는 data/ 및 services/에서 불러옵니다. */
 const {classifyConcern,analyzeConcernWithAI,findCandidates,selectVerse,recommendationHistory}=window.Malsseum.services;
 const aiEnabled=Boolean(window.MalsseumAIEndpoint);
@@ -139,7 +144,7 @@ function renderTurn(message,selection,{source='concern'}={}) {
  user.querySelector('.speaker').textContent='현재 마음';
  const scripture=element('figure','scripture');
  const quoteMark=element('span','result-quote','“');quoteMark.setAttribute('aria-hidden','true');scripture.append(quoteMark);
- scripture.append(element('blockquote','',verse.text));
+ scripture.append(element('blockquote','',displayVerseText(verse)));
  const caption=element('figcaption','',verse.reference);
  // Do not link a different translation. Only use a supplied source for this record.
  if(typeof verse.sourceUrl==='string'&&verse.sourceUrl.startsWith('https://')){
@@ -456,7 +461,7 @@ function renderSavedList(){
    const savedDate=element('time','saved-verse-date',yearLabel+(date.getMonth()+1)+'월 '+date.getDate()+'일 저장');
    savedDate.dateTime=date.toISOString();footer.append(savedDate);
   }
-  card.append(element('span','saved-verse-text',verse.text),footer);
+  card.append(element('span','saved-verse-text',displayVerseText(verse)),footer);
   card.addEventListener('click',()=>{
    if(!editingSaved){openSavedVerse(id);return;}
    if(selectedSaved.has(id))selectedSaved.delete(id);else selectedSaved.add(id);
@@ -551,18 +556,18 @@ function renderMeditationHome(){
  const intro=element('section','meditation-intro');const heading=element('div','meditation-heading'),title=element('h1','', '오늘도,\n말씀 안에 머물러요.');title.id='meditation-title';title.tabIndex=-1;heading.append(title,element('span','meditation-date',meditationDateFormat.format(new Date())));intro.append(heading,element('p','meditation-subtitle','하루 한 구절, 천천히 마음에 담아보세요.'));
  const card=element('article','daily-verse-card');const cardHead=element('div','daily-verse-head');cardHead.append(element('span','daily-verse-label','오늘의 말씀'));
  const iconSave=element('button','daily-bookmark');iconSave.type='button';iconSave.dataset.dailySave='';iconSave.setAttribute('aria-label','오늘의 말씀 저장하기');iconSave.append(bookmarkIcon());iconSave.addEventListener('click',()=>toggleDailyVerse(verse));cardHead.append(iconSave);
- card.append(cardHead,element('blockquote','daily-verse-text',verse.text),element('p','daily-verse-reference',verse.reference));
+ card.append(cardHead,element('blockquote','daily-verse-text',displayVerseText(verse)),element('p','daily-verse-reference',verse.reference));
  const meditate=element('button','meditation-primary button-primary','이 말씀으로 묵상하기');meditate.type='button';meditate.addEventListener('click',()=>openDailyMeditation(verse));
  const actions=element('div','meditation-actions');const save=element('button','meditation-secondary button-secondary');save.type='button';save.dataset.dailySave='';save.append(bookmarkIcon(),element('span','daily-save-label','저장하기'));save.addEventListener('click',()=>toggleDailyVerse(verse));
  const share=element('button','meditation-secondary button-secondary');share.type='button';share.innerHTML='<span class="meditation-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="2.2"/><circle cx="6" cy="12" r="2.2"/><circle cx="18" cy="19" r="2.2"/><path d="m8 11 8-5M8 13l8 5"/></svg></span><span>공유하기</span>';
- const shareStatus=element('p','meditation-share-status');shareStatus.setAttribute('role','status');share.addEventListener('click',async()=>{const text=verse.text+'\n\n'+verse.reference;shareStatus.textContent='';try{if(navigator.share){await navigator.share({title:'말씀 안에 오늘의 말씀',text});return;}if(navigator.clipboard?.writeText){await navigator.clipboard.writeText(text);shareStatus.textContent='말씀을 복사했어요.';return;}shareStatus.textContent='이 브라우저에서는 공유 기능을 지원하지 않아요.';}catch(error){if(error?.name!=='AbortError')shareStatus.textContent='공유하지 못했어요. 잠시 후 다시 시도해주세요.';}});actions.append(save,share);
+ const shareStatus=element('p','meditation-share-status');shareStatus.setAttribute('role','status');share.addEventListener('click',async()=>{const text=displayVerseText(verse)+'\n\n'+verse.reference;shareStatus.textContent='';try{if(navigator.share){await navigator.share({title:'말씀 안에 오늘의 말씀',text});return;}if(navigator.clipboard?.writeText){await navigator.clipboard.writeText(text);shareStatus.textContent='말씀을 복사했어요.';return;}shareStatus.textContent='이 브라우저에서는 공유 기능을 지원하지 않아요.';}catch(error){if(error?.name!=='AbortError')shareStatus.textContent='공유하지 못했어요. 잠시 후 다시 시도해주세요.';}});actions.append(save,share);
  const mine=element('section','meditation-mine');const mineHead=element('div','meditation-mine-head');mineHead.append(element('h2','','나의 묵상'));const all=element('button','meditation-view-all','전체보기 >');all.type='button';all.addEventListener('click',openReflectionList);mineHead.append(all);mine.append(mineHead,element('div','meditation-preview-list'));
  meditationScreen.append(intro,card,meditate,actions,shareStatus,mine);renderReflectionPreview();syncDailySaveButtons(verse);
 }
 function openDailyMeditation(verse,record=null,{focusEditor=false}={}){
  const reflection=window.Malsseum.data.reflections[verse.id]||{};meditationDetail.replaceChildren();
  const back=meditationBackButton(record?'나의 묵상':'오늘의 말씀',()=>record?openReflectionList(record.id):displayScreen('reflection'));
- const card=element('article','daily-verse-card detail-verse');card.append(element('blockquote','daily-verse-text',verse.text),element('p','daily-verse-reference',verse.reference));
+ const card=element('article','daily-verse-card detail-verse');card.append(element('blockquote','daily-verse-text',displayVerseText(verse)),element('p','daily-verse-reference',verse.reference));
  const body=element('div','meditation-reading');body.append(element('h2','','묵상 안내'),element('p','',reflection.reflection||'이 말씀의 묵상 안내를 준비하고 있어요.'));
  if(reflection.question){body.append(element('h2','','묵상해보기'));const list=element('ol','meditation-questions');reflection.question.split(/\r?\n/).filter(Boolean).forEach(text=>list.append(element('li','',text)));body.append(list);}
  const existing=record||PersonalReflections.forVerseToday(verse.id),journal=element('form','meditation-journal');const journalTitle=element('h2','','오늘 내 마음');
