@@ -26,7 +26,7 @@ test('preview route allows only samples and leaves normal app responses unchange
   const context=vm.createContext({window:{Malsseum:{data:{}}}});
   vm.runInContext(fs.readFileSync(path.join(__dirname,'../dist/data/daily-reflections.js'),'utf8'),context);
   assert.deepEqual([...ids].sort(),Object.keys(context.window.Malsseum.data.dailyReflections).sort());
-  assert.equal(ids.length,60);
+  assert.equal(ids.length,65);
   for(const id of ids)assert.equal((await fetch(base+'/daily-preview?verse='+id)).status,200,id);
   const review=await(await fetch(base+'/__daily-review.js')).text();
   for(const id of ids)assert.ok(review.includes(id),id+' selectable');
