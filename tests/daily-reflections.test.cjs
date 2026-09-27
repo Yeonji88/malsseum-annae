@@ -7,11 +7,11 @@ const crypto = require('node:crypto');
 const root = path.join(__dirname, '..');
 const read = file => fs.readFileSync(path.join(root, 'dist', file), 'utf8');
 const goldenIds = ["john-11-35","psalm-139-13-14","matthew-11-28","romans-8-28","joshua-1-9"];
-const approvedIds = ["john-11-35","psalm-139-13-14","matthew-11-28","romans-8-28","joshua-1-9","psalm-23-2-3","psalm-130-5","psalm-118-24","mark-6-31","john-14-27","luke-18-1","1-john-1-9","galatians-6-2","philippians-1-6","1-samuel-16-7","genesis-50-20","proverbs-4-23","ecclesiastes-3-11","isaiah-40-11","habakkuk-1-2"];
+const approvedIds = ["john-11-35","psalm-139-13-14","matthew-11-28","romans-8-28","joshua-1-9","psalm-23-2-3","psalm-130-5","psalm-118-24","mark-6-31","john-14-27","luke-18-1","1-john-1-9","galatians-6-2","philippians-1-6","1-samuel-16-7","genesis-50-20","proverbs-4-23","ecclesiastes-3-11","isaiah-40-11","habakkuk-1-2","psalm-103-2","psalm-131-1-2","psalm-51-10","proverbs-15-1","ecclesiastes-4-9-10","matthew-6-34","luke-12-22-24","mark-9-24","romans-12-15","ephesians-2-10","hebrews-4-16","james-1-5","isaiah-49-15-16","lamentations-3-22-23","exodus-14-14"];
 
-const expectedIds = ["john-11-35","psalm-139-13-14","matthew-11-28","romans-8-28","joshua-1-9","psalm-23-2-3","psalm-130-5","psalm-118-24","mark-6-31","john-14-27","luke-18-1","1-john-1-9","galatians-6-2","philippians-1-6","1-samuel-16-7","genesis-50-20","proverbs-4-23","ecclesiastes-3-11","isaiah-40-11","habakkuk-1-2","psalm-103-2","psalm-131-1-2","psalm-51-10","proverbs-15-1","ecclesiastes-4-9-10","matthew-6-34","luke-12-22-24","mark-9-24","romans-12-15","ephesians-2-10","hebrews-4-16","james-1-5","isaiah-49-15-16","lamentations-3-22-23","exodus-14-14"];
+const expectedIds = ["john-11-35","psalm-139-13-14","matthew-11-28","romans-8-28","joshua-1-9","psalm-23-2-3","psalm-130-5","psalm-118-24","mark-6-31","john-14-27","luke-18-1","1-john-1-9","galatians-6-2","philippians-1-6","1-samuel-16-7","genesis-50-20","proverbs-4-23","ecclesiastes-3-11","isaiah-40-11","habakkuk-1-2","psalm-103-2","psalm-131-1-2","psalm-51-10","proverbs-15-1","ecclesiastes-4-9-10","matthew-6-34","luke-12-22-24","mark-9-24","romans-12-15","ephesians-2-10","hebrews-4-16","james-1-5","isaiah-49-15-16","lamentations-3-22-23","exodus-14-14","psalm-56-3","psalm-121-1-2","psalm-127-2","proverbs-3-5-6","proverbs-16-9","isaiah-55-8-9","jeremiah-29-11","zephaniah-3-17","matthew-5-4","matthew-10-29-31","romans-8-26","romans-12-18","ephesians-4-32","james-1-17","revelation-21-4"];
 
-test('daily review samples have exactly thirty-five known verse IDs and complete, distinct content', () => {
+test('daily review samples have exactly fifty known verse IDs and complete, distinct content', () => {
   const context = vm.createContext({window: {}});
   for (const file of ['topics', 'verses', 'reflections']) {
     vm.runInContext(read('data/' + file + '.js'), context);
@@ -24,7 +24,7 @@ test('daily review samples have exactly thirty-five known verse IDs and complete
   assert.deepEqual(Object.keys(samples).sort(), [...expectedIds].sort());
   const approved = Object.fromEntries(approvedIds.map(id => [id, samples[id]]));
   assert.equal(crypto.createHash('sha256').update(JSON.stringify(approved)).digest('hex'),
-    '1920fd1e3dcc8423a8770b9202cfd6b16e6eb46ffa19af77b4132f91a98161b7', 'all 20 reviewed manuscripts must remain unchanged');
+    '8b040a4889649beed3b42586a05a6847ad32674a5e0696ca0e5c1e23f3b5520b', 'all 35 reviewed manuscripts must remain unchanged');
   const golden = Object.fromEntries(goldenIds.map(id => [id, samples[id]]));
   assert.equal(crypto.createHash('sha256').update(JSON.stringify(golden)).digest('hex'),
     '93623333ffd42eae0c6521b272c189e50eb44e801ca48a3cdb0d92a73e7bf5e4', 'approved golden manuscripts must remain unchanged');
