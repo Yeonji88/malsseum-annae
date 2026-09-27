@@ -1,0 +1,35 @@
+const test=require('node:test');
+const assert=require('node:assert/strict');
+const fs=require('node:fs');
+const path=require('node:path');
+const vm=require('node:vm');
+const crypto=require('node:crypto');
+const root=path.join(__dirname,'..');
+const read=f=>fs.readFileSync(path.join(root,f),'utf8');
+test('all 100 approved Daily manuscripts are unchanged and cover every production candidate',()=>{
+ const c=vm.createContext({window:{}});
+ for(const f of ['topics','verses','daily-reflections'])vm.runInContext(read('dist/data/'+f+'.js'),c);
+ const {verses,dailyReflections}=c.window.Malsseum.data;
+ assert.equal(crypto.createHash('sha256').update(JSON.stringify(dailyReflections)).digest('hex'),'5fd3a3a229708d9120826a5bdcafb880a3fcf8b1174662e3c91c2d2b73971e7a');
+ assert.equal(verses.length,100);assert.equal(Object.keys(dailyReflections).length,100);
+ for(const v of verses)assert.equal(dailyReflections[v.id].questions.length,3);
+});
+test('production loads Daily before app and meditation uses matching ID without concern fallback',()=>{
+ const html=read('dist/index.html'),app=read('dist/app.js');
+ assert.equal((html.match(/src="data\/daily-reflections.js"/g)||[]).length,1);
+ assert.ok(html.indexOf('src="data/daily-reflections.js"')<html.indexOf('src="app.js"'));
+ const meditation=app.slice(app.indexOf('function openDailyMeditation('),app.indexOf('function openReflectionList('));
+ assert.match(meditation,/const daily=window.Malsseum.data.dailyReflections\[verse.id\]/);
+ assert.match(meditation,/question:daily.questions.join\('\\n'\)/);
+ assert.doesNotMatch(meditation,/data.reflections/);
+ assert.match(app,/window.Malsseum.data.reflections\[selected.verse.id\]/);
+ assert.match(app,/window.Malsseum.data.reflections\[id\]/);
+});
+test('Preview reuses production guidance rendering with one data script and memory isolation',()=>{
+ const {previewHtml,previewApp}=require('../tools/daily-preview-server.cjs');
+ const app=read('dist/app.js'),adapted=previewApp(app),html=previewHtml(read('dist/index.html'));
+ const start='function openDailyMeditation(',end='function openReflectionList(';
+ assert.equal(adapted.slice(adapted.indexOf(start),adapted.indexOf(end)),app.slice(app.indexOf(start),app.indexOf(end)));
+ assert.equal((html.match(/src="data\/daily-reflections.js"/g)||[]).length,1);
+ assert.match(html,/__daily-memory.js/);
+});

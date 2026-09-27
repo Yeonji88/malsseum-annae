@@ -4,7 +4,7 @@ const fs=require('node:fs');
 const path=require('node:path');
 const vm=require('node:vm');
 const {createServer,previewApp,boot,ids}=require('../tools/daily-preview-server.cjs');
-test('preview adapts only the daily guidance lookup and isolates storage',()=>{
+test('preview overrides selection only and isolates storage',()=>{
  const source=fs.readFileSync(path.join(__dirname,'../dist/app.js'),'utf8');
  const adapted=previewApp(source);
  new vm.Script(adapted);
@@ -33,6 +33,6 @@ test('preview route allows only samples and leaves normal app responses unchange
   const html=await(await fetch(base+'/daily-preview?verse=john-11-35')).text();
   assert.match(html,/__daily-memory.js/);assert.match(html,/data\/daily-reflections.js/);
   assert.equal(await(await fetch(base+'/app.js')).text(),fs.readFileSync(path.join(__dirname,'../dist/app.js'),'utf8'));
-  assert.doesNotMatch(await(await fetch(base+'/')).text(),/__daily|daily-reflections/);
+  assert.doesNotMatch(await(await fetch(base+'/')).text(),/__daily/);
  }finally{await new Promise(r=>server.close(r));}
 });

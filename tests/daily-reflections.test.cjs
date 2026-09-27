@@ -58,9 +58,9 @@ test('daily review samples have exactly one hundred known verse IDs and complete
   assert.equal(JSON.stringify(data.verses), versesBefore);
 });
 
-test('review samples remain disconnected from production and concern content stays unchanged', () => {
-  assert.doesNotMatch(read('index.html'), /daily-reflections|dailyReflections/);
-  assert.doesNotMatch(read('app.js'), /daily-reflections|dailyReflections/);
+test('production uses Daily guidance and concern content stays unchanged', () => {
+  assert.match(read('index.html'), /data\/daily-reflections.js/);
+  assert.match(read('app.js'), /const daily=window.Malsseum.data.dailyReflections\[verse.id\]/);
   // Approved concern content at sample creation; ignore checkout line-ending differences.
   const hash = crypto.createHash('sha256')
     .update(read('data/reflections.js').replace('psalm-46-1-3', 'psalm-46-1-2').replace(/\r\n/g, '\n')).digest('hex');

@@ -565,7 +565,8 @@ function renderMeditationHome(){
  meditationScreen.append(intro,card,meditate,actions,shareStatus,mine);renderReflectionPreview();syncDailySaveButtons(verse);
 }
 function openDailyMeditation(verse,record=null,{focusEditor=false}={}){
- const reflection=window.Malsseum.data.reflections[verse.id]||{};meditationDetail.replaceChildren();
+ const daily=window.Malsseum.data.dailyReflections[verse.id];
+ const reflection={reflection:daily.reflection,question:daily.questions.join('\n')};meditationDetail.replaceChildren();
  const back=meditationBackButton(record?'나의 묵상':'오늘의 말씀',()=>record?openReflectionList(record.id):displayScreen('reflection'));
  const card=element('article','daily-verse-card detail-verse');card.append(element('blockquote','daily-verse-text',displayVerseText(verse)),element('p','daily-verse-reference',verse.reference));
  const body=element('div','meditation-reading');body.append(element('h2','','묵상 안내'),element('p','',reflection.reflection||'이 말씀의 묵상 안내를 준비하고 있어요.'));

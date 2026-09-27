@@ -14,11 +14,7 @@ function previewApp(source) {
     'const PersonalReflections=(()=>{',
     `DailyVerse.get=()=>window.Malsseum.data.verses.find(v=>v.id===${JSON.stringify(ids)}.find(id=>id===new URLSearchParams(location.search).get('verse')));
 const PersonalReflections=(()=>{`);
-  return "window.MalsseumAIEndpoint='';\n" + replaceOnce(source,
-    'const reflection=window.Malsseum.data.reflections[verse.id]||{};meditationDetail.replaceChildren();',
-    `const daily=window.Malsseum.data.dailyReflections[verse.id];
- if(!daily||!${JSON.stringify(ids)}.includes(verse.id))throw new Error('검수 대상이 아닌 말씀입니다.');
- const reflection={reflection:daily.reflection,question:daily.questions.join('\\n')};meditationDetail.replaceChildren();`);
+  return "window.MalsseumAIEndpoint='';\n" + source;
 }
 const boot = `(() => {
  const values=new Map([['malsseum-annae.display-name.v1','검수']]);
@@ -26,7 +22,7 @@ const boot = `(() => {
 })();`;
 function previewHtml(source) {
   source = source.replace('</head>', '<script defer src="/__daily-review.js"></script></head>');
-  source = replaceOnce(source, '<script defer src="app.js"></script>', '<script src="/__daily-memory.js"></script><script defer src="data/daily-reflections.js"></script><script defer src="/__daily-preview-app.js"></script>');
+  source = replaceOnce(source, '<script defer src="app.js"></script>', '<script src="/__daily-memory.js"></script><script defer src="/__daily-preview-app.js"></script>');
   return source;
 }
 const review = `(() => {
