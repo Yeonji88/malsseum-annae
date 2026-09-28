@@ -96,3 +96,8 @@
 .meditation-journal-status.is-saved{text-align:center}
 .meditation-back-label{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:4px}
 .meditation-list-today-action.is-continue-writing{text-decoration:none}
+
+/* Shared line color only; text color and underline geometry stay unchanged. */
+:root{--link-underline-color:#c8d8cc}
+.meditation-back-label,.meditation-journal-back,.meditation-list-today-action.is-inline-link{text-decoration-color:var(--link-underline-color)}
+#meditation-list-screen .meditation-list-empty:has(+.meditation-record-card){margin-bottom:11px}
