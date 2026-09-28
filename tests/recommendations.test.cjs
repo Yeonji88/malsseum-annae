@@ -580,7 +580,7 @@ test('all 100 verses have reflection guidance, three questions, and a prayer wit
  }
 });
 test('concern tab keeps the existing route while using the shared app shell and updated labels',()=>{
- const styles=fs.readFileSync(path.join(root,'dist/styles.css'),'utf8').split('\n/* 홈 고민 입력을 지우는 작은 보조 액션 */')[0];
+ const styles=normalized(fs.readFileSync(path.join(root,'dist/styles.css'),'utf8')).split('\n/* 홈 고민 입력을 지우는 작은 보조 액션 */')[0];
  assert.equal(hash(styles),preserved.stylesHash);
  const html=normalized(fs.readFileSync(path.join(root,'dist/index.html'),'utf8'));
  const concern=html.match(/<div id="home-screen">([\s\S]*?)<\/div><section id="empty-screen"/)[1];

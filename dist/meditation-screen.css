@@ -92,3 +92,7 @@
 .meditation-list-today-action:focus-visible{outline:2px solid #8aa091;outline-offset:2px}
 @media(max-width:350px){.app:has(#meditation-screen:not([hidden])) #main-content{padding-left:13px;padding-right:13px}.meditation-screen{padding-left:2px;padding-right:2px}.meditation-detail,.meditation-list-screen,.meditation-record-screen{padding-left:13px;padding-right:13px}.meditation-heading{gap:7px}.meditation-date{padding:5px 7px}.daily-verse-card{padding-left:14px;padding-right:14px}}
 @media(max-height:740px) and (min-width:351px){.daily-verse-card{padding-top:13px;padding-bottom:12px}.meditation-primary{margin-top:9px}.meditation-mine{margin-top:2px;padding-top:10px;padding-bottom:10px}}
+
+.meditation-journal-status.is-saved{text-align:center}
+.meditation-back-label{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:4px}
+.meditation-list-today-action.is-continue-writing{text-decoration:none}

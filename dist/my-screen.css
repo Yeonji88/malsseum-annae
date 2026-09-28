@@ -37,3 +37,6 @@
 .edit-saved:focus-visible,.select-all:focus-visible,.bulk-remove:focus-visible{outline:2px solid #315f49;outline-offset:3px}
 .app:has(#my-screen:not([hidden]))>#bottom-nav{background:#fffdfa}
 .app:has(#my-screen:not([hidden]))>#bottom-nav button{font-family:'Malsseum Gowun Dodum','Malsseum SUIT',sans-serif;font-synthesis:none}
+
+/* Move only the action row; keep the card list in its existing position. */
+#my-screen .my-heading{position:relative;top:7px}
