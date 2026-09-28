@@ -106,6 +106,21 @@ test('broad topics never admit new passages; direct review also fails closed',()
 });
 module.exports={app};
 
+for(const message of ['마음이 너무 아파요','이별하고 마음이 무너진 것 같아요','믿었던 사람에게 상처받아서 너무 힘들어요','요즘 마음이 너무 지치고 아파요','아무에게도 말하지 못한 상처가 있어요'])test('Psalm 34:18 review candidate: '+message,()=>{
+ const {s}=app(),a=s.resolveConcernRoles(message,s.classifyConcern(message));
+ assert.ok(s.findCandidates(a).some(c=>c.verse.id==='psalm-34-18'));
+});
+for(const [message,expectedIds] of [
+ ['친구에게 배신당해서 너무 힘들어요',['psalm-55-12-14']],
+ ['기도해도 하나님이 듣지 않으시는 것 같아 마음이 아파요',['habakkuk-1-2','psalm-10-1','psalm-13-1-2']],
+ ['제가 잘못한 일이 너무 후회되고 하나님께 용서를 구하고 싶어요',['1-john-1-9','psalm-51-10','isaiah-1-18','romans-8-1']]
+])test('Psalm 34:18 review specific context takes priority: '+message,()=>{
+ const r=app().choose(message);assert.ok(expectedIds.includes(r.verse?.id),JSON.stringify({status:r.status,reference:r.verse?.reference}));
+});
+test('Psalm 34:18 review current violence uses safety flow',()=>{
+ const r=app().choose('남편이 때려서 마음이 너무 힘들어요');assert.equal(r.status,'safety_first');assert.equal(r.verse,null);
+});
+
 for(const message of ['앞으로 어떻게 될지 걱정돼요','앞날이 두려워요','시험 결과가 안 좋을까 봐 두려워요','결과를 기다리고 있는데 너무 불안해요','앞으로 일어날 일을 생각하면 겁이 나요'])test('Psalm 56:3 review candidate: '+message,()=>{
  const {s}=app(),a=s.resolveConcernRoles(message,s.classifyConcern(message));
  assert.ok(s.findCandidates(a).some(c=>c.verse.id==='psalm-56-3'));

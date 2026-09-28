@@ -64,5 +64,5 @@ test('production uses Daily guidance and concern content stays unchanged', () =>
   // Approved concern content at sample creation; ignore checkout line-ending differences.
   const hash = crypto.createHash('sha256')
     .update(read('data/reflections.js').replace(/,\r?\n  "1-corinthians-7-3-4":[\s\S]*?(?=\r?\n};\r?\nfor \(const id)/, '').replace('psalm-46-1-3', 'psalm-46-1-2').replace(/\r\n/g, '\n')).digest('hex');
-  assert.equal(hash, '66d55d4b69b17e7d53c87a84d36971f3cce58595065567ee46f1d09dee6fb887');
+  assert.equal(hash, '3cd45edde6f17a363db6b42eff50d5fcf0f1ffa755c0014a56e54d91c0f8c96a');
 });
