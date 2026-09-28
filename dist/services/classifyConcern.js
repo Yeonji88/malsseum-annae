@@ -1,4 +1,24 @@
 (function () {
+// Only re-scope sexual-harm signals. Independent threats, control and self-harm
+// remain intact; a memory affecting today's intimacy is not today's assault.
+function resolveSexualSafety(message,analysis){
+ const text=message.normalize('NFKC').trim().toLowerCase(),data=window.Malsseum.data;
+ if(!data.sexualVictimContext?.test(text)&&!analysis.sexualVictimContext)return analysis;
+ const historical=/기억|트라우마|과거|예전|어릴\s*때|어렸을\s*때|그날|몇\s*년\s*전/.test(text);
+ const current=/(?:지금도|지금|현재|요즘|계속)[^.!?\n]{0,35}(?:성폭행|성폭력|강간|성추행|강제로|억지로)[^.!?\n]{0,20}(?:당하고|당해|해요|해\s*와|하고\s*있|시키|강요)|(?:싫다고|거부|원하지\s*않|동의하지\s*않)[^.!?\n]{0,35}(?:억지로|강제로)[^.!?\n]{0,20}(?:해요|해\s*와|하고\s*있|시켜)|강제로\s*(?:성관계|관계|잠자리)(?:를)?\s*(?:해요|하고\s*있|시켜)|(?:성관계|잠자리)[^.!?\n]{0,12}강요(?:해|하고|받고|받아요)|지금도[^.!?\n]{0,15}(?:당해|당하고)/.test(text);
+ if(data.sexualHarmPerpetrator?.test(text)&&!current)return analysis;
+ const residual=text.replace(/성폭행|성폭력|성추행|강간|성적\s*학대/g,'');
+ const independent=data.riskRules.filter(rule=>rule.pattern.test(residual)).map(rule=>rule.id);
+ // Preserve independently evidenced AI danger (e.g. strangling), even when
+ // the local danger vocabulary does not contain that expression.
+ for(const fact of analysis.explicitFacts||[]){
+  if(['violence','abuse'].includes(fact.type)&&fact.evidence?.length>=2&&text.includes(fact.evidence.toLowerCase())&&!/성폭행|성폭력|성추행|강간|성적\s*학대|기억|예전|과거|어릴/.test(fact.evidence))independent.push(fact.type);
+ }
+ const risks=analysis.riskSignals.filter(id=>!['violence','abuse'].includes(id)||independent.includes(id));
+ if(current)risks.push('abuse');
+ const sexualSafety=current?'current':historical?'historical':'unclear';
+ return {...analysis,sexualSafety,riskSignals:[...new Set(risks)],sexualSafetyUnclear:sexualSafety==='unclear'};
+}
 function positiveMatches(clause, pattern) {
  return [...clause.matchAll(new RegExp(pattern.source,'g'))].filter(match => {
   const before=clause.slice(Math.max(0,match.index-4),match.index);
@@ -24,6 +44,23 @@ function classifyConcern(message) {
  for(const verse of data.verses){
   if(verse.expressions.some(expression=>text===expression.normalize('NFKC').trim().toLowerCase())){
    for(const id of verse.situations)if(!situations.includes(id))situations.push(id);
+  }
+ }
+ // Require contextual evidence even for authored examples; exclusions take precedence.
+ const concernExclusions=[];
+ const sexualHarmSignal=Boolean(data.sexualVictimContext?.test(text));
+ const sexualVictimContext=sexualHarmSignal&&!data.sexualHarmPerpetrator?.test(text);
+ if(sexualVictimContext){
+  for(const id of ['emotional_wounds','fresh_relationship_wound'])if(!situations.includes(id))situations.push(id);
+  const supportTopic=topics.find(topic=>topic.id==='relationship');
+  if(supportTopic)supportTopic.score+=3;else topics.push({id:'relationship',score:3,last:clauses.length-1});
+ }
+ for(const rule of data.concernExpansionRules||[]){
+  const index=situations.indexOf(rule.id);if(index>=0)situations.splice(index,1);
+  if(rule.exclude(text)||(sexualHarmSignal&&['marital_mutual_needs','marital_voluntary_affection','sexual_boundary_restraint'].includes(rule.id))){concernExclusions.push(rule.id);continue;}
+  if(rule.matches(text)){
+   situations.push(rule.id);
+   if(!topics.some(topic=>topic.id===rule.topic))topics.push({id:rule.topic,score:1.2,last:clauses.length-1});
   }
  }
  // Some faith concerns span contrastive clauses (for example, fatigue followed by a wish to continue).
@@ -92,9 +129,18 @@ function classifyConcern(message) {
  if(!situations.length)uncertainties.push('구체적인 상황을 알 수 없음');
  if(loss&&!recent)uncertainties.push('상실의 시점을 알 수 없음');
  if(riskSignals.length)uncertainties.push('위험의 현재성·대상·정도를 확인해야 함');
- return {method:'rules',primaryTopic:topics[0]?.id||null,secondaryTopics:topics.slice(1).map(topic=>topic.id),situations,riskSignals,uncertainties,topics,matched:topics.length>0,mixed:topics.length>1,shortFeeling:shortFeeling?text.replace(/[.!?\s]+$/,''):null,mourningContext,requiresProfessionalJudgment,emotionalConcernInHealthContext,
+ return resolveSexualSafety(message,{method:'rules',concernExclusions,sexualVictimContext,primaryTopic:topics[0]?.id||null,secondaryTopics:topics.slice(1).map(topic=>topic.id),situations,riskSignals,uncertainties,topics,matched:topics.length>0,mixed:topics.length>1,shortFeeling:shortFeeling?text.replace(/[.!?\s]+$/,''):null,mourningContext,requiresProfessionalJudgment,emotionalConcernInHealthContext,
   ...(localCause?{cause:localCause,effects:localEffects,emotions:localEmotions,explicitFacts:[],primaryConcern:{kind:'cause',id:localCause.category},secondaryConcerns:localEffects.map(effect=>({kind:'effect',id:effect.type}))}:{}),
-  canContinue:/^(?:고마워요?|감사해요|네|응|조금\s*더\s*(?:이야기하고\s*싶어요|읽고\s*싶어요|생각해볼게요)|계속\s*읽고\s*싶어요|이\s*말씀으로\s*더\s*이야기하고\s*싶어요)[.!?\s]*$/.test(text)};
+  canContinue:/^(?:고마워요?|감사해요|네|응|조금\s*더\s*(?:이야기하고\s*싶어요|읽고\s*싶어요|생각해볼게요)|계속\s*읽고\s*싶어요|이\s*말씀으로\s*더\s*이야기하고\s*싶어요)[.!?\s]*$/.test(text)});
 }
+// Shared by the local/AI resolver. This describes harm, never the victim's gender.
+window.Malsseum.services.applySexualVictimContext=function(analysis){
+ const blocked=['marital_mutual_needs','marital_voluntary_affection','sexual_boundary_restraint'];
+ return {...analysis,sexualVictimContext:true,primaryTopic:'relationship',
+  secondaryTopics:analysis.secondaryTopics.filter(id=>!['relationship','guilt'].includes(id)),
+  situations:[...new Set([...analysis.situations.filter(id=>!blocked.includes(id)),'emotional_wounds','fresh_relationship_wound'])],
+  concernExclusions:[...new Set([...(analysis.concernExclusions||[]),...blocked])],matched:true};
+};
 window.Malsseum.services.classifyConcern=classifyConcern;
+window.Malsseum.services.resolveSexualSafety=resolveSexualSafety;
 })();

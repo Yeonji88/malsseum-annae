@@ -63,6 +63,6 @@ test('production uses Daily guidance and concern content stays unchanged', () =>
   assert.match(read('app.js'), /const daily=window.Malsseum.data.dailyReflections\[verse.id\]/);
   // Approved concern content at sample creation; ignore checkout line-ending differences.
   const hash = crypto.createHash('sha256')
-    .update(read('data/reflections.js').replace('psalm-46-1-3', 'psalm-46-1-2').replace(/\r\n/g, '\n')).digest('hex');
-  assert.equal(hash, '8c4210cd3bcbbe0604c188ed4685f9eee333ab4737b072a7db93b247ccc59a19');
+    .update(read('data/reflections.js').replace(/,\r?\n  "1-corinthians-7-3-4":[\s\S]*?(?=\r?\n};\r?\nfor \(const id)/, '').replace('psalm-46-1-3', 'psalm-46-1-2').replace(/\r\n/g, '\n')).digest('hex');
+  assert.equal(hash, '66d55d4b69b17e7d53c87a84d36971f3cce58595065567ee46f1d09dee6fb887');
 });

@@ -25,6 +25,7 @@ function review(verse,analysis,{applicationTags=[]}={}){
  if(typeof verse.contextNote!=='string'||!verse.contextNote.trim()||typeof verse.recommendationNote!=='string'||!verse.recommendationNote.trim()){
   excluded=true;reasons.push('missing_context_review');
  }
+ if(verse.requiresSpecificSituation&&(!verse.situations.some(id=>analysis.situations.includes(id))||verse.situations.some(id=>(analysis.concernExclusions||[]).includes(id)))){excluded=true;reasons.push('specific_context_required');}
  // Receiving a caution tag is not permission to produce that application.
  if(applicationTags.some(tag=>avoidApplications.includes(tag))){excluded=true;reasons.push('prohibited_application');}
  for(const tag of new Set([...(verse.cautionTags||[]),...(verse.applicationGuidance?.avoidApplications||[])])){

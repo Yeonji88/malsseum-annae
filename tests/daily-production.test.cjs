@@ -11,8 +11,8 @@ test('all 100 approved Daily manuscripts are unchanged and cover every productio
  for(const f of ['topics','verses','daily-reflections'])vm.runInContext(read('dist/data/'+f+'.js'),c);
  const {verses,dailyReflections}=c.window.Malsseum.data;
  assert.equal(crypto.createHash('sha256').update(JSON.stringify(dailyReflections)).digest('hex'),'5fd3a3a229708d9120826a5bdcafb880a3fcf8b1174662e3c91c2d2b73971e7a');
- assert.equal(verses.length,100);assert.equal(Object.keys(dailyReflections).length,100);
- for(const v of verses)assert.equal(dailyReflections[v.id].questions.length,3);
+ assert.equal(verses.length,110);assert.equal(Object.keys(dailyReflections).length,100);
+ for(const v of verses.slice(0,100))assert.equal(dailyReflections[v.id].questions.length,3);
 });
 test('production loads Daily before app and meditation uses matching ID without concern fallback',()=>{
  const html=read('dist/index.html'),app=read('dist/app.js');

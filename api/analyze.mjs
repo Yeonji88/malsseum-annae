@@ -26,6 +26,10 @@ Specific distinctions:
 - Distinguish prayer_feels_unheard, persistent_prayer_fatigue, wanting_to_give_up_prayer, feeling_forgotten_by_god, doubting_gods_love, and guilt_after_anger_at_god. Use the most specific supported situation rather than only the broad faith topic.
 - For relationship conflict with anger followed by insomnia, relationship/conflict is the cause context, anger is an emotion, and insomnia is an effect.
 
+Sexual victimization:
+- When the user reports being subjected to forced or non-consensual sexual contact (not committing it), including indirect descriptions without the words rape or assault, add an explicitFact of type sexual_victimization with an exact supporting quote. Include past experiences as well as current ones; do not infer gender, perpetrator identity or present danger from a spouse label.
+- Never reinterpret this harm as the victim's marital sexual duty, mismatched desire or temptation. Intimacy, low desire and unwanted thoughts alone are not evidence of victimization or wrongdoing. Preserve supported safety risks; do not claim current danger merely from past tense.
+
 Concern ordering: risk signal; verified professional-decision fact; explicit real-world cause; explicit action or request; specific situation; emotion; effect; uncertainty.
 
 Safety:

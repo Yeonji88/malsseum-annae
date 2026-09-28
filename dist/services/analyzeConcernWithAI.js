@@ -13,7 +13,7 @@
     cause: ai.cause, effects: ai.effects, emotions: ai.emotions, explicitFacts: ai.explicitFacts,
     primaryConcern: ai.primaryConcern, secondaryConcerns: ai.secondaryConcerns,
     secondaryTopics: [...new Set([...ai.secondaryTopics, ...local.secondaryTopics])].filter(id => id !== primaryTopic),
-    situations: [...new Set([...local.situations, ...ai.situations])],
+    situations: [...new Set([...local.situations, ...ai.situations.filter(id=>!window.Malsseum.data.concernExpansionRules?.some(rule=>rule.id===id))])],
     riskSignals: [...new Set([...local.riskSignals, ...ai.riskSignals])],
     uncertainties: [...new Set([...local.uncertainties, ...ai.uncertainties])],
     matched: Boolean(primaryTopic), mixed: Boolean(ai.secondaryTopics.length || local.secondaryTopics.length)};

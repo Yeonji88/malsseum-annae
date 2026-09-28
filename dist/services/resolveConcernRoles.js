@@ -2,6 +2,8 @@
  const normalize=value=>String(value||'').toLowerCase().replace(/[\s\p{P}\p{S}]+/gu,'');
  const isQuoted=(message,evidence)=>{const needle=normalize(evidence);return needle.length>=2&&normalize(message).includes(needle);};
  window.Malsseum.services.resolveConcernRoles=function(message,analysis){
+  if(!window.Malsseum.data.sexualHarmPerpetrator?.test(message)&&(analysis?.sexualVictimContext||analysis?.explicitFacts?.some(fact=>fact.type==='sexual_victimization'&&isQuoted(message,fact.evidence))))analysis=window.Malsseum.services.applySexualVictimContext(analysis);
+  analysis=window.Malsseum.services.resolveSexualSafety(message,analysis);
   if(!analysis?.cause||!Array.isArray(analysis.effects)||!Array.isArray(analysis.explicitFacts))return analysis;
   const verifiedFacts=analysis.explicitFacts.filter(fact=>isQuoted(message,fact.evidence));
   const explicitCause=analysis.cause.explicit&&isQuoted(message,analysis.cause.evidence);

@@ -2472,6 +2472,416 @@ window.Malsseum.data.verses = Object.freeze([
     contextNote:'모세 이후 새로운 사명을 맡은 여호수아에게 하나님이 함께하심을 약속하며 담대하라고 명하신 장면. 모든 변화에 넓게 적용하거나 성공을 보장하지 않습니다.',
     applicationGuidance:{suitableSituations:['fear_of_new_beginning'],avoidApplications:['guaranteed_outcome','context_distortion','emotion_suppression']},
     textStatus:'verified',textStatusLabel:'본문 검증 완료',recommendationEnabled:true,guidanceStatus:'pending',metadataStatus:'draft',textVerificationSource:'user_supplied'
+  },
+  {
+    "id": "1-corinthians-7-3-4",
+    "book": "고린도전서",
+    "chapter": 7,
+    "verseStart": 3,
+    "verseEnd": 4,
+    "text": "남편은 그 아내에 대한 의무를 다하고 아내도 그 남편에게 그렇게 할지라\n아내는 자기 몸을 주장하지 못하고 오직 그 남편이 하며 남편도 그와 같이 자기 몸을 주장하지 못하고 오직 그 아내가 하나니",
+    "reference": "고린도전서 7:3–4",
+    "translation": "개역개정",
+    "recommendationNote": "바울이 부부 양쪽에게 성적 관계의 상호성을 권면합니다. 강요나 피해자 비난, 섹스리스의 일률적 죄 판정에 적용하지 않습니다.",
+    "cautionTags": [
+      "coercive_application",
+      "victim_blame",
+      "context_distortion"
+    ],
+    "topics": [
+      "relationship"
+    ],
+    "situations": [
+      "marital_mutual_needs"
+    ],
+    "expressions": [
+      "배우자와 성관계 빈도가 달라 서로의 필요를 이야기하고 합의하고 싶어요"
+    ],
+    "contextNote": "바울이 부부 양쪽에게 성적 관계의 상호성을 권면합니다. 강요나 피해자 비난, 섹스리스의 일률적 죄 판정에 적용하지 않습니다.",
+    "textStatus": "verified",
+    "textStatusLabel": "사용자 제공 최종 본문",
+    "recommendationEnabled": true,
+    "guidanceStatus": "ready",
+    "metadataStatus": "draft",
+    "requiresSpecificSituation": true,
+    "applicationGuidance": {
+      "suitableSituations": [
+        "marital_mutual_needs"
+      ],
+      "avoidApplications": [
+        "guaranteed_outcome"
+      ]
+    },
+    "textVerificationSource": "user_supplied"
+  },
+  {
+    "id": "song-of-songs-7-10-12",
+    "book": "아가",
+    "chapter": 7,
+    "verseStart": 10,
+    "verseEnd": 12,
+    "text": "나는 내 사랑하는 자에게 속하였도다 그가 나를 사모하는구나\n내 사랑하는 자야 우리가 함께 들로 가서 동네에서 유숙하자\n우리가 일찍이 일어나서 포도원으로 가서 포도 움이 돋았는지, 꽃술이 퍼졌는지, 석류 꽃이 피었는지 보자 거기에서 내가 내 사랑을 네게 주리라",
+    "reference": "아가 7:10–12",
+    "translation": "개역개정",
+    "recommendationNote": "결혼 여부를 가정하지 않고 사랑하는 사람과의 애정·사랑 표현, 정서적인 가까움이 핵심인 고민에 연결합니다. 관계 호칭만으로 추천하지 않습니다. 성관계·섹스리스·혼전 성관계 판단·성욕 차이·성적 의무·유혹·절제·외도·피해·강제·비동의·폭력·위협 맥락에서는 제외합니다.",
+    "cautionTags": [
+      "coercive_application",
+      "victim_blame",
+      "context_distortion"
+    ],
+    "topics": [
+      "relationship"
+    ],
+    "situations": [
+      "marital_voluntary_affection"
+    ],
+    "expressions": [
+      "배우자와 서로 원해서 애정을 표현하고 친밀함을 나누고 싶어요"
+    ],
+    "contextNote": "여인이 사랑하는 이를 초대하는 사랑의 시입니다. 자발적 애정을 표현하며 의무나 관계 회복 보장이 아닙니다.",
+    "textStatus": "verified",
+    "textStatusLabel": "사용자 제공 최종 본문",
+    "recommendationEnabled": true,
+    "guidanceStatus": "ready",
+    "metadataStatus": "draft",
+    "requiresSpecificSituation": true,
+    "applicationGuidance": {
+      "suitableSituations": [
+        "marital_voluntary_affection"
+      ],
+      "avoidApplications": [
+        "guaranteed_outcome"
+      ]
+    },
+    "textVerificationSource": "user_supplied"
+  },
+  {
+    "id": "ephesians-5-28",
+    "book": "에베소서",
+    "chapter": 5,
+    "verseStart": 28,
+    "verseEnd": 28,
+    "text": "이와 같이 남편들도 자기 아내 사랑하기를 자기 자신과 같이 할지니 자기 아내를 사랑하는 자는 자기를 사랑하는 것이라",
+    "reference": "에베소서 5:28",
+    "translation": "개역개정",
+    "recommendationNote": "남편에게 아내를 자기 자신과 같이 사랑하라고 권면합니다. 남편 자신의 아내 사랑과 태도를 돌아보도록 연결하며, 아내의 의무나 남편의 소유·통제를 요구하는 것으로 뒤집지 않습니다.",
+    "cautionTags": [
+      "coercive_application",
+      "victim_blame",
+      "context_distortion"
+    ],
+    "topics": [
+      "relationship"
+    ],
+    "situations": [
+      "husband_self_care_review"
+    ],
+    "expressions": [
+      "남편으로서 아내를 대하는 내 태도와 돌봄을 돌아보고 싶어요"
+    ],
+    "contextNote": "남편에게 아내를 자기 자신과 같이 사랑하라고 권면합니다. 남편 자신의 아내 사랑과 태도를 돌아보도록 연결하며, 아내의 의무나 남편의 소유·통제를 요구하는 것으로 뒤집지 않습니다.",
+    "textStatus": "verified",
+    "textStatusLabel": "사용자 제공 최종 본문",
+    "recommendationEnabled": true,
+    "guidanceStatus": "ready",
+    "metadataStatus": "draft",
+    "requiresSpecificSituation": true,
+    "applicationGuidance": {
+      "suitableSituations": [
+        "husband_self_care_review"
+      ],
+      "avoidApplications": [
+        "guaranteed_outcome"
+      ]
+    },
+    "textVerificationSource": "user_supplied"
+  },
+  {
+    "id": "1-thessalonians-4-3-5",
+    "book": "데살로니가전서",
+    "chapter": 4,
+    "verseStart": 3,
+    "verseEnd": 5,
+    "text": "하나님의 뜻은 이것이니 너희의 거룩함이라 곧 음란을 버리고\n각각 거룩함과 존귀함으로 자기의 아내 대할 줄을 알고\n하나님을 모르는 이방인과 같이 색욕을 따르지 말고",
+    "reference": "데살로니가전서 4:3–5",
+    "translation": "개역개정",
+    "recommendationNote": "바울이 성적 부도덕을 멀리하고 거룩함과 존귀함으로 아내를 대하도록 권면합니다. 5절은 6절로 이어지는 문장이나 사용자의 모바일 검수에 따라 3–5절 범위를 유지합니다. 성별이나 혼인 여부가 아니라 잘못된 성적 행동을 스스로 멈추려는 고민에 연결하며, 성욕 자체나 피해 경험에 절제 책임을 부과하지 않습니다.",
+    "cautionTags": [
+      "coercive_application",
+      "victim_blame",
+      "context_distortion"
+    ],
+    "topics": [
+      "guilt"
+    ],
+    "situations": [
+      "sexual_boundary_restraint"
+    ],
+    "expressions": [
+      "배우자 몰래 다른 사람과 성적인 연락을 하고 있는데 멈추고 싶어요"
+    ],
+    "contextNote": "바울이 성적 부도덕을 멀리하고 거룩함과 존귀함으로 아내를 대하도록 권면합니다. 5절은 6절로 이어지는 문장이나 사용자의 모바일 검수에 따라 3–5절 범위를 유지합니다. 성별이나 혼인 여부가 아니라 잘못된 성적 행동을 스스로 멈추려는 고민에 연결하며, 성욕 자체나 피해 경험에 절제 책임을 부과하지 않습니다.",
+    "textStatus": "verified",
+    "textStatusLabel": "사용자 제공 최종 본문",
+    "recommendationEnabled": true,
+    "guidanceStatus": "ready",
+    "metadataStatus": "draft",
+    "requiresSpecificSituation": true,
+    "applicationGuidance": {
+      "suitableSituations": [
+        "sexual_boundary_restraint"
+      ],
+      "avoidApplications": [
+        "guaranteed_outcome"
+      ]
+    },
+    "textVerificationSource": "user_supplied"
+  },
+  {
+    "id": "psalm-55-12-14",
+    "book": "시편",
+    "chapter": 55,
+    "verseStart": 12,
+    "verseEnd": 14,
+    "text": "나를 책망하는 자는 원수가 아니라 원수일진대 내가 참았으리라 나를 대하여 자기를 높이는 자는 나를 미워하는 자가 아니라 미워하는 자일진대 내가 그를 피하여 숨었으리라\n그는 곧 너로다 나의 동료, 나의 친구요 나의 가까운 친우로다\n우리가 같이 재미있게 의논하며 무리와 함께 하여 하나님의 집 안에서 다녔도다",
+    "reference": "시편 55:12–14",
+    "translation": "개역개정",
+    "recommendationNote": "시편 기자가 함께 예배하던 가까운 동료에게서 받은 배신의 아픔을 토로합니다. 외도를 직접 다루는 본문은 아니며 즉각적인 용서나 재결합을 요구하지 않습니다.",
+    "cautionTags": [
+      "coercive_application",
+      "victim_blame",
+      "context_distortion"
+    ],
+    "topics": [
+      "relationship"
+    ],
+    "situations": [
+      "close_person_betrayal"
+    ],
+    "expressions": [
+      "믿었던 친구가 내 비밀을 퍼뜨려 배신당했어요"
+    ],
+    "contextNote": "시편 기자가 함께 예배하던 가까운 동료에게서 받은 배신의 아픔을 토로합니다. 외도를 직접 다루는 본문은 아니며 즉각적인 용서나 재결합을 요구하지 않습니다.",
+    "textStatus": "verified",
+    "textStatusLabel": "사용자 제공 최종 본문",
+    "recommendationEnabled": true,
+    "guidanceStatus": "pending",
+    "metadataStatus": "draft",
+    "requiresSpecificSituation": true,
+    "applicationGuidance": {
+      "suitableSituations": [
+        "close_person_betrayal"
+      ],
+      "avoidApplications": [
+        "guaranteed_outcome"
+      ]
+    },
+    "textVerificationSource": "user_supplied"
+  },
+  {
+    "id": "matthew-28-18-20",
+    "book": "마태복음",
+    "chapter": 28,
+    "verseStart": 18,
+    "verseEnd": 20,
+    "text": "예수께서 나아와 말씀하여 이르시되 하늘과 땅의 모든 권세를 내게 주셨으니\n그러므로 너희는 가서 모든 민족을 제자로 삼아 아버지와 아들과 성령의 이름으로 세례를 베풀고\n내가 너희에게 분부한 모든 것을 가르쳐 지키게 하라 볼지어다 내가 세상 끝날까지 너희와 항상 함께 있으리라 하시니라",
+    "reference": "마태복음 28:18–20",
+    "translation": "개역개정",
+    "recommendationNote": "부활하신 예수님이 제자들에게 제자 삼기와 가르침을 맡기고 함께하심을 약속합니다. 상대의 믿음이나 반응을 통제하는 기술이 아닙니다.",
+    "cautionTags": [
+      "coercive_application",
+      "victim_blame",
+      "context_distortion"
+    ],
+    "topics": [
+      "faith"
+    ],
+    "situations": [
+      "evangelism_mission"
+    ],
+    "expressions": [
+      "복음을 전하는 사명에 어떻게 참여할지 생각하고 싶어요"
+    ],
+    "contextNote": "부활하신 예수님이 제자들에게 제자 삼기와 가르침을 맡기고 함께하심을 약속합니다. 상대의 믿음이나 반응을 통제하는 기술이 아닙니다.",
+    "textStatus": "verified",
+    "textStatusLabel": "사용자 제공 최종 본문",
+    "recommendationEnabled": true,
+    "guidanceStatus": "pending",
+    "metadataStatus": "draft",
+    "requiresSpecificSituation": true,
+    "applicationGuidance": {
+      "suitableSituations": [
+        "evangelism_mission"
+      ],
+      "avoidApplications": [
+        "guaranteed_outcome"
+      ]
+    },
+    "textVerificationSource": "user_supplied"
+  },
+  {
+    "id": "colossians-4-3-6",
+    "book": "골로새서",
+    "chapter": 4,
+    "verseStart": 3,
+    "verseEnd": 6,
+    "text": "또한 우리를 위하여 기도하되 하나님이 전도할 문을 우리에게 열어 주사 그리스도의 비밀을 말하게 하시기를 구하라 내가 이 일 때문에 매임을 당하였노라\n그리하면 내가 마땅히 할 말로써 이 비밀을 나타내리라\n외인에게 대해서는 지혜로 행하여 세월을 아끼라\n너희 말을 항상 은혜 가운데서 소금으로 맛을 냄과 같이 하라 그리하면 각 사람에게 마땅히 대답할 것을 알리라",
+    "reference": "골로새서 4:3–6",
+    "translation": "개역개정",
+    "recommendationNote": "바울의 복음 전할 기회를 위한 기도 부탁과 외인을 향한 지혜로운 행동·은혜로운 말의 권면입니다. 논쟁에서 이기거나 강요하는 방법이 아닙니다.",
+    "cautionTags": [
+      "coercive_application",
+      "victim_blame",
+      "context_distortion"
+    ],
+    "topics": [
+      "faith"
+    ],
+    "situations": [
+      "evangelism_conversation"
+    ],
+    "expressions": [
+      "전도할 때 상대의 질문에 어떻게 답하고 경청할지 고민이에요"
+    ],
+    "contextNote": "바울의 복음 전할 기회를 위한 기도 부탁과 외인을 향한 지혜로운 행동·은혜로운 말의 권면입니다. 논쟁에서 이기거나 강요하는 방법이 아닙니다.",
+    "textStatus": "verified",
+    "textStatusLabel": "사용자 제공 최종 본문",
+    "recommendationEnabled": true,
+    "guidanceStatus": "pending",
+    "metadataStatus": "draft",
+    "requiresSpecificSituation": true,
+    "applicationGuidance": {
+      "suitableSituations": [
+        "evangelism_conversation"
+      ],
+      "avoidApplications": [
+        "guaranteed_outcome"
+      ]
+    },
+    "textVerificationSource": "user_supplied"
+  },
+  {
+    "id": "mark-5-18-20",
+    "book": "마가복음",
+    "chapter": 5,
+    "verseStart": 18,
+    "verseEnd": 20,
+    "text": "예수께서 배에 오르실 때에 귀신 들렸던 사람이 함께 있기를 간구하였으나\n허락하지 아니하시고 그에게 이르시되 집으로 돌아가 주께서 네게 어떻게 큰 일을 행하사 너를 불쌍히 여기신 것을 네 가족에게 알리라 하시니\n그가 가서 예수께서 자기에게 어떻게 큰 일 행하셨는지를 데가볼리에 전파하니 모든 사람이 놀랍게 여기더라",
+    "reference": "마가복음 5:18–20",
+    "translation": "개역개정",
+    "recommendationNote": "예수님이 귀신에게서 놓임 받은 특정 인물에게 가족에게 받은 긍휼을 알리라고 하신 사건입니다. 모든 가족이 믿게 된다는 일반적 보장이 아닙니다.",
+    "cautionTags": [
+      "coercive_application",
+      "victim_blame",
+      "context_distortion"
+    ],
+    "topics": [
+      "faith"
+    ],
+    "situations": [
+      "family_grace_testimony"
+    ],
+    "expressions": [
+      "가족에게 내가 받은 하나님의 은혜를 나누고 싶어요"
+    ],
+    "contextNote": "예수님이 귀신에게서 놓임 받은 특정 인물에게 가족에게 받은 긍휼을 알리라고 하신 사건입니다. 모든 가족이 믿게 된다는 일반적 보장이 아닙니다.",
+    "textStatus": "verified",
+    "textStatusLabel": "사용자 제공 최종 본문",
+    "recommendationEnabled": true,
+    "guidanceStatus": "pending",
+    "metadataStatus": "draft",
+    "requiresSpecificSituation": true,
+    "applicationGuidance": {
+      "suitableSituations": [
+        "family_grace_testimony"
+      ],
+      "avoidApplications": [
+        "guaranteed_outcome"
+      ]
+    },
+    "textVerificationSource": "user_supplied"
+  },
+  {
+    "id": "ephesians-6-1-4",
+    "book": "에베소서",
+    "chapter": 6,
+    "verseStart": 1,
+    "verseEnd": 4,
+    "text": "자녀들아 주 안에서 너희 부모에게 순종하라 이것이 옳으니라\n네 아버지와 어머니를 공경하라 이것은 약속이 있는 첫 계명이니\n이로써 네가 잘되고 땅에서 장수하리라\n또 아비들아 너희 자녀를 노엽게 하지 말고 오직 주의 교훈과 훈계로 양육하라",
+    "reference": "에베소서 6:1–4",
+    "translation": "개역개정",
+    "recommendationNote": "자녀의 공경과 아버지의 양육 책임을 함께 권면합니다. 학대 상황에서 복종을 강요하거나 건강·장수·관계 회복을 보장하지 않습니다.",
+    "cautionTags": [
+      "coercive_application",
+      "victim_blame",
+      "context_distortion"
+    ],
+    "topics": [
+      "relationship"
+    ],
+    "situations": [
+      "family_self_review"
+    ],
+    "expressions": [
+      "아이에게 화내는 내 양육 태도를 돌아보고 싶어요"
+    ],
+    "contextNote": "자녀의 공경과 아버지의 양육 책임을 함께 권면합니다. 학대 상황에서 복종을 강요하거나 건강·장수·관계 회복을 보장하지 않습니다.",
+    "textStatus": "verified",
+    "textStatusLabel": "사용자 제공 최종 본문",
+    "recommendationEnabled": true,
+    "guidanceStatus": "pending",
+    "metadataStatus": "draft",
+    "requiresSpecificSituation": true,
+    "applicationGuidance": {
+      "suitableSituations": [
+        "family_self_review"
+      ],
+      "avoidApplications": [
+        "guaranteed_outcome"
+      ]
+    },
+    "textVerificationSource": "user_supplied"
+  },
+  {
+    "id": "james-2-15-17",
+    "book": "야고보서",
+    "chapter": 2,
+    "verseStart": 15,
+    "verseEnd": 17,
+    "text": "만일 형제나 자매가 헐벗고 일용할 양식이 없는데\n너희 중에 누구든지 그에게 이르되 평안히 가라, 덥게 하라, 배부르게 하라 하며 그 몸에 쓸 것을 주지 아니하면 무슨 유익이 있으리요\n이와 같이 행함이 없는 믿음은 그 자체가 죽은 것이라",
+    "reference": "야고보서 2:15–17",
+    "translation": "개역개정",
+    "recommendationNote": "먹을 것과 입을 것이 필요한 형제자매에게 말만 하고 실제 필요를 주지 않는 태도를 비판합니다. 가난한 당사자의 믿음이나 행함을 탓하는 본문이 아닙니다.",
+    "cautionTags": [
+      "coercive_application",
+      "victim_blame",
+      "context_distortion"
+    ],
+    "topics": [
+      "relationship"
+    ],
+    "situations": [
+      "material_help_for_others"
+    ],
+    "expressions": [
+      "생활비가 부족한 이웃에게 말뿐인 위로보다 실제 도움을 주고 싶어요"
+    ],
+    "contextNote": "먹을 것과 입을 것이 필요한 형제자매에게 말만 하고 실제 필요를 주지 않는 태도를 비판합니다. 가난한 당사자의 믿음이나 행함을 탓하는 본문이 아닙니다.",
+    "textStatus": "verified",
+    "textStatusLabel": "사용자 제공 최종 본문",
+    "recommendationEnabled": true,
+    "guidanceStatus": "pending",
+    "metadataStatus": "draft",
+    "requiresSpecificSituation": true,
+    "applicationGuidance": {
+      "suitableSituations": [
+        "material_help_for_others"
+      ],
+      "avoidApplications": [
+        "guaranteed_outcome"
+      ]
+    },
+    "textVerificationSource": "user_supplied"
   }
 ]);
 })();

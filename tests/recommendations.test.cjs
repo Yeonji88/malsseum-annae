@@ -13,11 +13,11 @@ function app() {
  const choose=(message,options={})=>{const analysis=s.classifyConcern(message);return s.selectVerse(analysis,s.findCandidates(analysis,options.verses),options);};
  return {data,s,choose};
 }
-test('catalogue has ten topics, 100 unique verses, all texts ready and optional guidance pending',()=>{
- const {data,s}=app(); assert.equal(data.topics.length,10);assert.equal(data.verses.length,100);
- assert.equal(new Set(data.verses.map(v=>v.id)).size,100);
- assert.equal(new Set(data.verses.map(v=>v.reference)).size,100);
- assert.equal(data.verses.filter(s.recommendationPolicy.isActive).length,100);
+test('catalogue has ten topics, 110 unique verses, all texts ready and optional guidance pending',()=>{
+ const {data,s}=app(); assert.equal(data.topics.length,10);assert.equal(data.verses.length,110);
+ assert.equal(new Set(data.verses.map(v=>v.id)).size,110);
+ assert.equal(new Set(data.verses.map(v=>v.reference)).size,110);
+ assert.equal(data.verses.filter(s.recommendationPolicy.isActive).length,110);
  assert.equal(data.verses.filter(v=>v.textStatus==='pending_verification').length,0);
  assert.equal(data.verses.slice(0,49).reduce((n,v)=>n+v.topics.length,0),52);
  for(const verse of data.verses){
@@ -30,8 +30,8 @@ test('catalogue has ten topics, 100 unique verses, all texts ready and optional 
   assert.equal(verse.textStatus,'verified');assert.ok(verse.text.trim());assert.equal(verse.translation,'개역개정');
   assert.equal(verse.textVerificationSource,verse.id==='psalm-46-1-3'?'korean_bible_society':'user_supplied');assert.equal(verse.recommendationEnabled,true);
   if(data.reflections[verse.id]){
-   for(const key of ['reflection','question','prayer'])assert.ok(data.reflections[verse.id][key]);
-   assert.equal(verse.guidanceStatus,['matthew-11-28','psalm-56-3','psalm-34-18'].includes(verse.id)?'ready':'pending');
+   for(const key of (verse.requiresSpecificSituation?['reflection']:['reflection','question','prayer']))assert.ok(data.reflections[verse.id][key]);
+   assert.equal(verse.guidanceStatus,['matthew-11-28','psalm-56-3','psalm-34-18','1-corinthians-7-3-4','song-of-songs-7-10-12','ephesians-5-28','1-thessalonians-4-3-5'].includes(verse.id)?'ready':'pending');
   }else{
    assert.equal(verse.guidanceStatus,'pending');assert.equal(verse.metadataStatus,'draft');
    for(const key of ['reflection','question','prayer'])assert.equal(verse[key],undefined);
@@ -360,7 +360,7 @@ const passages90to100=[
  ['joshua-1-9','여호수아 1:9','내가 네게 명령한 것이 아니냐 강하고 담대하라 두려워하지 말며 놀라지 말라 네가 어디로 가든지 네 하나님 여호와가 너와 함께 하느니라 하시니라','새로운 일을 시작하려니까 무서워요']
 ];
 test('new ten passages retain the exact supplied text and only requested guidance is added',()=>{
- const {data,s}=app();assert.equal(data.verses.length,100);
+ const {data,s}=app();assert.equal(data.verses.length,110);
  assert.equal(newPassages.length,10);
  for(const [id,reference,text] of newPassages){
   const verse=data.verses.find(item=>item.id===id);assert.ok(verse,id);
@@ -571,7 +571,7 @@ test('IDs and every preserved metadata field are unchanged',()=>{
  }
 });
 test('all 100 verses have reflection guidance, three questions, and a prayer without changing other passage metadata',()=>{
- const {data}=app();assert.equal(Object.keys(data.reflections).length,100);
+ const {data}=app();assert.equal(Object.keys(data.reflections).length,110);
  for(const verse of data.verses.slice(0,100)){
   const guidance=data.reflections[verse.id];assert.ok(guidance,verse.id);
   assert.ok(guidance.reflection.length>50,verse.id);

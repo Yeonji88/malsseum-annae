@@ -90,9 +90,42 @@ window.Malsseum.data.situationRules = [
  {id:'hope_when_ready',pattern:/소망.*(?:생각해보고\s*싶|이야기하고\s*싶)|희망.*생각하고\s*싶/}
 ];
 window.Malsseum.data.riskRules = [
- {id:'violence',pattern:/폭력|폭행|때려|때렸|때리|맞았|맞고|구타|죽이겠|죽인다고|칼로\s*위협|(?:그\s*사람|상대(?:방)?|누군가|걔|그|저\s*사람)(?:에게|을|를)?\s*(?:해치|죽이|때리)(?:고\s*싶(?:어|어요|다|은|다는)?|려(?:고)?\s*(?:해|해요|한다|합니다)?|겠(?:어|어요|다|습니다)?)/},
+ {id:'violence',pattern:/폭력|폭행|때려|때렸|때리|때릴|맞았|맞고|구타|죽이겠|죽인다고|칼로\s*위협|(?:그\s*사람|상대(?:방)?|누군가|걔|그|저\s*사람)(?:에게|을|를)?\s*(?:해치|죽이|때리)(?:고\s*싶(?:어|어요|다|은|다는)?|려(?:고)?\s*(?:해|해요|한다|합니다)?|겠(?:어|어요|다|습니다)?)/},
  {id:'abuse',pattern:/학대|성폭력|성추행|협박|감금/},
  {id:'coercive_control',pattern:/통제|감시|휴대폰.*검사|핸드폰.*검사|못\s*나가게|나가지\s*못하게|돈을.*못\s*쓰게|연락.*못\s*하게/},
  {id:'self_harm',pattern:/죽고\s*싶|자살|자해|목숨.*끊|살고\s*싶지\s*않|(?:(?:제|내)\s*(?:몸|자신)|(?:저|나)\s*자신|스스로)(?:을|를)?\s*(?:해치고\s*싶(?:어|어요|다|은|다는)?|해칠까\s*봐|해칠\s*것\s*같|해치게\s*될\s*것\s*같|해치려(?:고)?)/}
 ];
+})();
+// Narrow, local evidence rules for the ten concern-only additions. Broad topic matches
+// and AI labels alone cannot activate these passages. Ambiguous inputs stay with the
+// existing pipeline rather than inferring consent, responsibility or lived experience.
+(function () {
+ const spouse=/배우자|남편|아내|부부/;
+ const sexual=/성관계|부부관계|성적|섹스리스|잠자리/;
+ const unsafe=/강압|강요|억지로|폭력|학대|성폭행|성폭력|강간|성추행|성적\s*(?:피해|트라우마)|트라우마|동의\s*없|원치\s*않는\s*관계|싫다고|통증|아파|출산|산후/;
+ const unwanted=/원치\s*않|원하지\s*않|불쑥|저절로|침투|생각만|생각이\s*떠/;
+ const coercion=/강제로|억지로|강요|압박|반드시\s*믿게|믿게\s*만들|설득해서\s*무조건/;
+ const gospel=/전도|복음|신앙|예수|하나님/;
+ const share=/나누|나눌|나눠|전하|전할|전해|알리|알릴|이야기|말하|말할/;
+ const mission=/사명|참여|맡기|제자|왜\s*(?:해야|전도)|전도(?:를)?\s*(?:시작|하고\s*싶)/;
+ const speech=/경청|말투|태도|질문|대답|답하|답할|대화|어떻게\s*말|말을\s*꺼내/;
+ const family=/가족|부모|어머니|아버지|엄마|아빠|형제|자매|친구|가까운/;
+ const receivedGrace=/(?:내가|제가|내|제|자신이)\s*(?:실제로\s*)?(?:경험한|받은|겪은)[^.!?\n]{0,18}(?:은혜|도움|긍휼)|(?:하나님|주님)[^.!?\n]{0,15}(?:내게|제게|나에게|저에게)[^.!?\n]{0,15}(?:주신|베푸신)\s*(?:은혜|도움|긍휼)/;
+ const testimony=t=>gospel.test(t)&&family.test(t)&&receivedGrace.test(t)&&share.test(t);
+ const ownAffair=/(?:내가|제가|나는|저는|내|제)[^.!?\n]{0,12}(?:외도|바람을?\s*(?:피|폈))|외도한\s*(?:나|저)|내\s*외도/;
+ const rules=[
+  {id:'marital_mutual_needs',topic:'relationship',matches:t=>spouse.test(t)&&sexual.test(t)&&/빈도|서로\s*다른|서로의\s*필요|필요가\s*달|원하는.*달|관계.*뜸|분방/.test(t)&&/합의|함께\s*(?:결정|이야기)|서로.*(?:대화|이야기)|상의/.test(t),exclude:t=>unsafe.test(t)||ownAffair.test(t)},
+  {id:'marital_voluntary_affection',topic:'relationship',matches:t=>(/배우자|남편|아내|부부|남자\s*친구|여자\s*친구|남친|여친|연인|사랑하는\s*사람|좋아하는\s*사람|짝사랑/.test(t)&&/애정|사랑(?:하는)?\s*마음|다정|정서적|가까워지|친밀|마음이\s*멀어|(?:내|제)\s*마음|마음을?\s*표현|고백/.test(t)&&/싶|표현|줄어|줄었|어려|어색|고민|다른|달라|멀어진|멀어졌/.test(t))||/마음을?\s*숨기[^.!?\n]{0,35}솔직하게\s*말해보고\s*싶/.test(t),exclude:t=>unsafe.test(t)||sexual.test(t)||/성욕|횟수|빈도|음란|유혹|절제|혼전|외도|불륜|바람|강간|위협|협박|강제|비동의|동의하지|거절|싫어|원하지|원치|욕구가\s*적|비정상|설득|의무|연락\s*(?:하지\s*말|말아)|연락하지\s*말|접촉하지\s*말|차단|집착|감시|따라다|따라가|스토킹|조종|마음을?\s*얻(?:기|는|을)|사랑하게\s*(?:만들|될)|반드시[^.!?\n]{0,25}사랑|고백[^.!?\n]{0,25}(?:하나님의?\s*(?:답|명령)|하나님[^.!?\n]{0,12}(?:하라|시키|원하))/.test(t)},
+  {id:'husband_self_care_review',topic:'relationship',matches:t=>(/아내/.test(t)&&/(?:남편으로서|내가|제가|나는|저는|내\s*(?:말|태도|행동)|제\s*(?:말|태도|행동))/.test(t)&&/대하|대우|돌봄|돌보|보살|말과\s*행동/.test(t)&&/돌아보|살펴보|고치|바꾸|잘하고\s*싶/.test(t))||/아내(?:에게|한테|를)[^.!?\n]{0,25}(?:잘해\s*주고\s*싶|(?:무심|소홀)했던\s*것\s*같|사랑하지만[^.!?\n]{0,18}표현을?\s*잘\s*못|사랑\s*표현을?\s*(?:더\s*)?하고\s*싶|잘\s*챙기지\s*못한[^.!?\n]{0,15}미안)/.test(t),exclude:t=>unsafe.test(t)||/아내(?:가|는).*남편|남편(?:이|은|의)|(?:친구|아빠|아버지|그\s*사람|그)(?:가|는|이)[^.!?\n]{0,20}아내|아내인\s*(?:내가|제가|나는|저는)/.test(t)},
+  {id:'sexual_boundary_restraint',topic:'guilt',matches:t=>(/(?:다른\s*(?:사람|여자|남자)|외도|불륜|바람|배우자\s*몰래)/.test(t)&&/(?:성적|성관계|잠자리|외도|불륜|바람)/.test(t)&&/연락|만나|만날|행동|관계|외도|불륜/.test(t)&&/멈추|멈출|끊고|절제|넘지|그만|끊어/.test(t))||(/성적|성적인|욕망/.test(t)&&/잘못된\s*행동|지켜야\s*할\s*것|경계를?\s*넘|유혹[^.!?\n]{0,20}행동/.test(t)&&/걱정|고민|멈추|멈출|바르게|존중|넘을까/.test(t))||/(?:내|제)\s*욕망만\s*앞세우지\s*않고\s*서로를?\s*존중(?:하며\s*행동)?하고\s*싶/.test(t),exclude:t=>unsafe.test(t)||unwanted.test(t)||/(?:남편|아내|배우자)(?:이|가|는|의)[^.!?\n]{0,15}(?:외도|바람|불륜)/.test(t)},
+  {id:'close_person_betrayal',topic:'relationship',matches:t=>/친구|배우자|남편|아내|동료|가족|믿었던|가까운/.test(t)&&/(?:배신당|배신했|배신해서|배신으로|비밀을\s*(?:퍼뜨|폭로)|(?:남편|아내|배우자)(?:이|가|의|는)[^.!?\n]{0,12}(?:외도|바람|불륜))/.test(t),exclude:t=>ownAffair.test(t)||/의심|일까|했을까|복수|보복/.test(t)},
+  {id:'evangelism_mission',topic:'faith',matches:t=>gospel.test(t)&&mission.test(t),exclude:t=>coercion.test(t)||speech.test(t)||testimony(t)},
+  {id:'evangelism_conversation',topic:'faith',matches:t=>gospel.test(t)&&speech.test(t)&&/전도|복음|신앙.*(?:이야기|대화|전하)|믿지\s*않는/.test(t),exclude:t=>coercion.test(t)||testimony(t)},
+  {id:'family_grace_testimony',topic:'faith',matches:testimony,exclude:t=>coercion.test(t)||unsafe.test(t)||/꾸며|지어내|경험.*없|은혜.*없/.test(t)},
+  {id:'family_self_review',topic:'relationship',matches:t=>/부모|자녀|아이|아들|딸|어머니|아버지|엄마|아빠/.test(t)&&/공경|양육|훈육|대하는|화내|화를\s*내|내\s*태도|제\s*태도/.test(t)&&/돌아보|살펴보|바꾸|고치|어떻게|잘하고/.test(t),exclude:t=>unsafe.test(t)||gospel.test(t)},
+  {id:'material_help_for_others',topic:'relationship',matches:t=>/이웃|친구|타인|다른\s*사람|어려운\s*사람|형제|자매/.test(t)&&/생활비|생계|가난|경제|먹을|양식|형편|돈이\s*없/.test(t)&&/돕|도울|도움(?:을)?\s*주|지원|나눠\s*주/.test(t),exclude:t=>/(?:내|제)\s*(?:생활비|빚|생계)|(?:제가|내가|저는|나는)[^.!?\n]{0,12}(?:생활비|빚|돈이\s*없)|도움을?\s*받고/.test(t)}
+ ];
+ window.Malsseum.data.sexualHarmPerpetrator=/(?:내가|제가|나는|저는)[^.!?\n]{0,15}(?:성폭행|강간|성추행)(?:을)?\s*(?:했|저질)|(?:내가|제가)[^.!?\n]{0,15}강제로\s*성관계(?:를)?\s*(?:했|시켰)/;
+ window.Malsseum.data.sexualVictimContext=/성폭행|성폭력|강간|성추행|성적\s*(?:학대|피해|트라우마)|싫다고[^.!?\n]{0,30}억지로|동의하지\s*않았는데|강제로[^.!?\n]{0,20}(?:성관계|관계|잠자리)|원하지\s*않는\s*(?:성관계|관계)[^.!?\n]{0,15}(?:당|했|시켰)|거부했는데[^.!?\n]{0,25}(?:성관계|잠자리|억지로)/;
+ window.Malsseum.data.concernExpansionRules=Object.freeze(rules);
 })();
