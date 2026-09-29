@@ -22,14 +22,15 @@
 .app:has(>#main-content:not([hidden])>:is(#home-screen,#meditation-screen,#gratitude-screen,#prayer-screen,#my-screen):not([hidden]))>header #open-settings{position:static;margin-left:auto;padding:5px 10px;color:#303633;font-family:'Malsseum Gowun Dodum','Gowun Dodum',sans-serif;font-size:22px;font-weight:550;line-height:1.7;letter-spacing:0}
 
 /* Keep navigation geometry independent of the active main tab. */
-.app:has(>#main-content:not([hidden])>:is(#home-screen,#meditation-screen,#gratitude-screen,#prayer-screen,#my-screen):not([hidden]))>#bottom-nav#bottom-nav{min-height:72px;padding:8px 10px max(8px,env(safe-area-inset-bottom))}
-.app:has(>#main-content:not([hidden])>:is(#home-screen,#meditation-screen,#gratitude-screen,#prayer-screen,#my-screen):not([hidden]))>#bottom-nav#bottom-nav button{width:auto;justify-self:stretch;min-height:44px;padding:3px;gap:3px;font-size:12px;line-height:1.35}
+#bottom-nav#bottom-nav#bottom-nav{min-height:72px;padding:8px 10px max(8px,env(safe-area-inset-bottom))}
+#bottom-nav#bottom-nav#bottom-nav button{width:auto;justify-self:stretch;min-height:44px;padding:3px;gap:3px;font-size:12px;line-height:1.35}
 
 /* Match meditation's active treatment; only SVG artwork has an optical offset. */
-.app:has(>#main-content:not([hidden])>#home-screen:not([hidden]))>#bottom-nav#bottom-nav button{border-radius:0}
-.app:has(>#main-content:not([hidden])>#home-screen:not([hidden]))>#bottom-nav#bottom-nav button[aria-current=page]{background:transparent;font-weight:700}
 
 /* Navigation typography and colors belong to the navigation, not the active screen. */
-.app:has(>#main-content:not([hidden])>:is(#home-screen,#meditation-screen,#gratitude-screen,#prayer-screen,#my-screen):not([hidden]))>#bottom-nav#bottom-nav{background-color:#fffdfb;font-family:'Malsseum Gowun Dodum','Gowun Dodum',sans-serif}
-.app:has(>#main-content:not([hidden])>:is(#home-screen,#meditation-screen,#gratitude-screen,#prayer-screen,#my-screen):not([hidden]))>#bottom-nav#bottom-nav button{font-family:'Malsseum Gowun Dodum','Gowun Dodum',sans-serif;font-synthesis:none;font-weight:400;font-size:12px;line-height:1.35;letter-spacing:normal;color:#7b869b}
-.app:has(>#main-content:not([hidden])>:is(#home-screen,#meditation-screen,#gratitude-screen,#prayer-screen,#my-screen):not([hidden]))>#bottom-nav#bottom-nav button[aria-current=page]{font-weight:700;color:#356239}
+#bottom-nav#bottom-nav#bottom-nav{background-color:#fffdfb;font-family:'Malsseum Gowun Dodum','Gowun Dodum',sans-serif}
+#bottom-nav#bottom-nav#bottom-nav button{font-family:'Malsseum Gowun Dodum','Gowun Dodum',sans-serif;font-synthesis:none;font-weight:400;font-size:12px;line-height:1.35;letter-spacing:normal;color:#7b869b}
+#bottom-nav#bottom-nav#bottom-nav button[aria-current=page]{font-weight:700;color:#356239}
+
+#bottom-nav#bottom-nav#bottom-nav button,#bottom-nav#bottom-nav#bottom-nav button:is(:hover,:active,:focus,[aria-current=page]){background:transparent;border-radius:0;transform:none;box-shadow:none;-webkit-tap-highlight-color:transparent}
+#bottom-nav#bottom-nav#bottom-nav button:focus-visible{outline:2px solid #8aa091;outline-offset:-2px}

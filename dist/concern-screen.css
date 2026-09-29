@@ -75,7 +75,6 @@
 .concern-verse-card cite{
  margin-top:5px;color:#718076;font-size:var(--font-small,12px);font-style:normal;line-height:1.5
 }
-.app:has(>#main-content:not([hidden])>#home-screen:not([hidden]))>#bottom-nav{background:#fffdfa}
 #bottom-nav [data-screen=home][aria-current=page] svg{fill:none!important}
 @media(max-width:359px){
  .app:has(>#main-content:not([hidden])>#home-screen:not([hidden])) #main-content{padding-left:13px;padding-right:13px}

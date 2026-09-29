@@ -50,10 +50,6 @@ body{background:#eeeee9;padding:0}.app{width:100%;max-width:390px;height:100svh;
 #home-screen #heart-form>.primary:hover{background:#294c37}
 #home-screen #privacy{display:flex;align-items:center;justify-content:center;gap:6px;font-size:12px;line-height:1.6;margin:10px 0 0;color:#748071}
 #home-screen #privacy svg{width:13px;height:13px;flex-shrink:0}
-.app:has(>#main-content:not([hidden])>#home-screen:not([hidden]))>#bottom-nav{min-height:66px;padding-top:6px;padding-bottom:max(6px,env(safe-area-inset-bottom))}
-.app:has(>#main-content:not([hidden])>#home-screen:not([hidden]))>#bottom-nav svg{width:20px;height:20px}
-.app:has(>#main-content:not([hidden])>#home-screen:not([hidden]))>#bottom-nav button{font-size:11.5px;font-weight:400;gap:3px;min-height:44px}
-.app:has(>#main-content:not([hidden])>#home-screen:not([hidden]))>#bottom-nav [aria-current=page]{font-weight:600}
 @media(max-height:720px){#home-screen #heart{height:83px;min-height:83px}}
 @media(max-width:359px){#home-screen .welcome h1{font-size:27px;letter-spacing:-1px}}
 
@@ -92,10 +88,6 @@ body{background:#eeeee9;padding:0}.app{width:100%;max-width:390px;height:100svh;
 .home-reassurance>svg{width:33px;height:38px;flex-shrink:0;color:#6c954d}
 .home-reassurance p{font-size:14px;line-height:1.75;margin:0}
 .home-reassurance strong{font-weight:600}
-.app:has(>#main-content:not([hidden])>#home-screen:not([hidden]))>#bottom-nav{background:#fffefc;border-radius:25px 25px 0 0;min-height:76px;padding:7px 13px max(7px,env(safe-area-inset-bottom))}
-.app:has(>#main-content:not([hidden])>#home-screen:not([hidden]))>#bottom-nav button{font-size:12px;width:62px;justify-self:center;border-radius:25px;gap:3px}
-.app:has(>#main-content:not([hidden])>#home-screen:not([hidden]))>#bottom-nav svg{width:23px;height:23px}
-.app:has(>#main-content:not([hidden])>#home-screen:not([hidden]))>#bottom-nav [aria-current=page]{background:#edf4e9;color:#315f49}
 @media(max-width:359px){#home-screen .welcome h1{font-size:23px}.home-window-visual{width:88px;opacity:.55}#home-screen .emotion-tag{font-size:10px;gap:3px}#home-screen .emotion-tag svg{width:14px;height:14px}}
 
 #home-screen .emotion-tags{grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1.18fr);gap:7px 5px}
@@ -218,13 +210,11 @@ label,.speaker,.scripture-label,.explanation-label,.verse-actions summary{font-w
 .app:has(>#main-content:not([hidden])>#home-screen:not([hidden]))>header,
 .app:has(>#main-content:not([hidden])>#home-screen:not([hidden]))>header button,
 #home-screen,#home-screen input,#home-screen textarea,#home-screen button,
-.app:has(>#main-content:not([hidden])>#home-screen:not([hidden]))>#bottom-nav button{font-family:'Malsseum Gowun Dodum','Malsseum SUIT',sans-serif;font-synthesis:none}
 #home-screen .personal-greeting,#home-screen .personal-greeting .greeting-name{font-weight:400!important}
 #home-screen .welcome h1,#home-screen .welcome:has(.personal-greeting) h1{font-weight:500}
 #home-screen .welcome>p:not(.personal-greeting),#home-screen textarea,#home-screen .emotion-tag{font-weight:400}
-#home-screen #heart-form>.primary,.app:has(>#main-content:not([hidden])>#home-screen:not([hidden]))>#bottom-nav button{font-weight:500}
+#home-screen #heart-form>.primary{font-weight:500}
 
-.app:has(>#main-content:not([hidden])>#home-screen:not([hidden]))>#bottom-nav button[aria-current=page]{font-weight:500}
 
 /* 온보딩 기본 글꼴만 홈과 통일. 하단 축복 문구는 기존 손글씨 설정을 유지합니다. */
 .app:has(>#onboarding:not([hidden]))>header,#onboarding .onboarding-copy,#onboarding .profile-form,#onboarding input,#onboarding button{font-family:'Malsseum Gowun Dodum','Malsseum SUIT',sans-serif;font-synthesis:none}
@@ -256,7 +246,6 @@ label,.speaker,.scripture-label,.explanation-label,.verse-actions summary{font-w
  .app:has(>#main-content:not([hidden])>#home-screen:not([hidden]))>header{height:80px;min-height:80px;padding-top:17px;padding-bottom:21px}
  .app:has(>#main-content:not([hidden])>#home-screen:not([hidden])) .home-logo-caption{top:50px}
  .app:has(>#main-content:not([hidden])>#home-screen:not([hidden])) #main-content{padding-bottom:8px}
- .app:has(>#main-content:not([hidden])>#home-screen:not([hidden]))>#bottom-nav{min-height:66px;padding-top:5px;padding-bottom:max(5px,env(safe-area-inset-bottom))}
  #home-screen .welcome{padding-top:0;padding-bottom:8px}
  #home-screen .personal-greeting{margin-bottom:2px!important}
  #home-screen .welcome h1,#home-screen .welcome:has(.personal-greeting) h1{margin-bottom:6px}
