@@ -106,6 +106,21 @@ function classifyConcern(message) {
   const id=situationTopicHints[situation];
   if(id&&!topics.some(topic=>topic.id===id))topics.push({id,score:1.2,last:clauses.length-1});
  }
+ // Specific first-person concerns outrank broad emotion words without choosing a verse ID.
+ // Keep prayer negation intact: '듣지 않으시는' describes the concern, not its absence.
+ const unheardPrayer=/(?:기도(?:를)?\s*(?:해도|했는데|하는데)[^.!?\n]{0,45}(?:듣지\s*않|안\s*들|안\s*듣|응답(?:이|도)?\s*없|대답(?:이|도)?\s*없)|하나님[^.!?\n]{0,25}기도[^.!?\n]{0,20}침묵)/.test(text)&&!/(?:듣지\s*않|응답[^.!?\n]{0,8}없)[^.!?\n]{0,25}(?:생각|뜻)(?:은|이)?\s*아니/.test(text);
+ const ownRepentance=/(?:제가|내가|저는|나는)[^.!?\n]{0,15}잘못(?:했|한)|하나님께\s*용서를?\s*구(?:하고|하|해|할)/.test(text)&&!/(?:상대|그\s*사람|친구|남편|아내)(?:가|이)[^.!?\n]{0,25}용서를?\s*구/.test(text);
+ const burden=/(?:가족|아이|문제)[^.!?\n]{0,25}(?:제가|내가)[^.!?\n]{0,10}(?:다\s*)?책임져야|(?:책임|짐)[^.!?\n]{0,20}혼자[^.!?\n]{0,15}(?:짊어|떠안|지고|감당)|혼자\s*감당해야\s*할\s*일[^.!?\n]{0,15}많|(?:걱정|부담|짐)[^.!?\n]{0,25}하나님께\s*맡기/.test(text);
+ const needsStrength=/(?:몸도?\s*마음도?|몸과\s*마음)[^.!?\n]{0,20}지쳤|아무것도\s*할\s*힘이\s*없|(?:다시\s*시작할|계속\s*나아갈)\s*힘이\s*필요|(?:하나님|주님)[^.!?\n]{0,20}(?:앙망|바라보)[^.!?\n]{0,20}새\s*힘/.test(text);
+ if(needsStrength&&!situations.includes('waiting_strength'))situations.push('waiting_strength');
+ const specific=unheardPrayer?['faith','prayer_feels_unheard']:ownRepentance?['guilt','acknowledging_wrong']:burden?['rest','entrusting_burdens']:needsStrength&&!situations.includes('whole_person_exhaustion')?['rest','waiting_strength']:null;
+ if(specific){
+  const [id,situation]=specific;
+  if(!situations.includes(situation))situations.push(situation);
+  const score=Math.max(0,...topics.map(topic=>topic.score))+1;
+  const topic=topics.find(topic=>topic.id===id);
+  if(topic)topic.score=score;else topics.push({id,score,last:clauses.length-1});
+ }
  topics.sort((a,b)=>b.score-a.score||b.last-a.last);
  const loss=topics.some(topic=>topic.id==='grief')||situations.some(id=>['bereavement','separation'].includes(id));
  const recent=clauses.some(clause=>/오늘|어제|방금|며칠\s*전|얼마\s*전|최근/.test(clause)&&/상실|이별|헤어|사별|돌아가|장례|세상을\s*떠|잃었|잃어서/.test(clause));
@@ -129,7 +144,7 @@ function classifyConcern(message) {
  if(!situations.length)uncertainties.push('구체적인 상황을 알 수 없음');
  if(loss&&!recent)uncertainties.push('상실의 시점을 알 수 없음');
  if(riskSignals.length)uncertainties.push('위험의 현재성·대상·정도를 확인해야 함');
- return resolveSexualSafety(message,{method:'rules',concernExclusions,sexualVictimContext,primaryTopic:topics[0]?.id||null,secondaryTopics:topics.slice(1).map(topic=>topic.id),situations,riskSignals,uncertainties,topics,matched:topics.length>0,mixed:topics.length>1,shortFeeling:shortFeeling?text.replace(/[.!?\s]+$/,''):null,mourningContext,requiresProfessionalJudgment,emotionalConcernInHealthContext,
+ return resolveSexualSafety(message,{method:'rules',...(specific?{concernResolution:{causeSituationIds:[],primarySituationIds:[specific[1]],secondarySituationIds:[],effectSituationIds:[]}}:{}),concernExclusions,sexualVictimContext,primaryTopic:topics[0]?.id||null,secondaryTopics:topics.slice(1).map(topic=>topic.id),situations,riskSignals,uncertainties,topics,matched:topics.length>0,mixed:topics.length>1,shortFeeling:shortFeeling?text.replace(/[.!?\s]+$/,''):null,mourningContext,requiresProfessionalJudgment,emotionalConcernInHealthContext,
   ...(localCause?{cause:localCause,effects:localEffects,emotions:localEmotions,explicitFacts:[],primaryConcern:{kind:'cause',id:localCause.category},secondaryConcerns:localEffects.map(effect=>({kind:'effect',id:effect.type}))}:{}),
   canContinue:/^(?:고마워요?|감사해요|네|응|조금\s*더\s*(?:이야기하고\s*싶어요|읽고\s*싶어요|생각해볼게요)|계속\s*읽고\s*싶어요|이\s*말씀으로\s*더\s*이야기하고\s*싶어요)[.!?\s]*$/.test(text)});
 }

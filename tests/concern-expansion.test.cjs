@@ -106,7 +106,17 @@ test('broad topics never admit new passages; direct review also fails closed',()
 });
 module.exports={app};
 
-for(const message of ['마음이 너무 아파요','이별하고 마음이 무너진 것 같아요','믿었던 사람에게 상처받아서 너무 힘들어요','요즘 마음이 너무 지치고 아파요','아무에게도 말하지 못한 상처가 있어요'])test('Psalm 34:18 review candidate: '+message,()=>{
+for(const message of ['책임을 혼자 지는 게 버거워요','내려놓을 수 있는 짐이 있을까요','모든 책임을 혼자 감당하려니 부담이 커요','가족 걱정과 책임을 혼자 짊어지고 있어요','도움을 구하지 못하고 혼자 감당하고 있어요','혼자 붙들고 있는 걱정을 하나님께 맡기고 싶어요'])test('Psalm 55:22 review burden candidate: '+message,()=>{
+ const {s}=app(),a=s.resolveConcernRoles(message,s.classifyConcern(message));
+ assert.ok(s.findCandidates(a).some(c=>c.verse.id==='psalm-55-22'));
+});
+
+for(const message of ['기다림이 길어져 기운이 없어요','다시 시작할 힘이 필요해요','몸도 마음도 지쳐 힘이 없어요','너무 지쳐서 하나님께 새 힘을 구하고 싶어요','몸과 마음이 피곤해서 다시 걸어갈 힘이 필요해요'])test('Isaiah 40:31 review candidate beyond waiting: '+message,()=>{
+ const {s}=app(),a=s.resolveConcernRoles(message,s.classifyConcern(message));
+ assert.ok(s.findCandidates(a).some(c=>c.verse.id==='isaiah-40-31'));
+});
+
+for(const message of ['이별하고 마음이 무너진 것 같아요','믿었던 사람에게 상처받아서 너무 힘들어요','아무에게도 말하지 못한 상처가 있어요'])test('Psalm 34:18 review candidate: '+message,()=>{
  const {s}=app(),a=s.resolveConcernRoles(message,s.classifyConcern(message));
  assert.ok(s.findCandidates(a).some(c=>c.verse.id==='psalm-34-18'));
 });
@@ -350,4 +360,73 @@ test('independent quoted AI danger survives alongside past trauma',()=>{
  const {s}=app(),message='과거 성폭행 기억이 있어요. 남편이 목을 졸라요';
  const a={...s.classifyConcern(message),riskSignals:['violence'],explicitFacts:[{type:'violence',evidence:'남편이 목을 졸라요'}]};
  const r=s.resolveConcernRoles(message,a);assert.ok(r.riskSignals.includes('violence'));assert.equal(s.selectVerse(r,s.findCandidates(r)).status,'safety_first');
+});
+
+test('review-approved: sparse heartache may ask clarification rather than forcing Psalm 34:18',()=>assert.equal(app().choose('마음이 너무 아파요').status,'needs_clarification'));
+test('review-approved: tired and hurting may receive Matthew 11:28, not necessarily Psalm 34:18',()=>assert.equal(app().choose('요즘 마음이 너무 지치고 아파요').verse?.id,'matthew-11-28'));
+
+const reviewedContrasts=[
+ ['기도해도 하나님이 듣지 않으시는 것 같아요','prayer'],
+ ['기도해도 하나님이 듣지 않으시는 것 같아 마음이 아파요','prayer'],
+ ['기도해도 하나님이 듣지 않으시는 것 같아서 불안해요','prayer'],
+ ['아무리 기도해도 응답이 없는 것 같아요','prayer'],
+ ['하나님이 왜 제 기도에 침묵하시는 것 같죠','prayer'],
+ ['제가 잘못한 일이 너무 후회되고 하나님께 용서를 구하고 싶어요','repent'],
+ ['제가 잘못했어요','repent'],
+ ['하나님께 용서를 구하고 싶어요','repent'],
+ ['그 사람을 용서하기 어려워요','relationship'],
+ ['상대가 저한테 용서를 구했어요','relationship'],
+ ['가족 걱정과 책임을 혼자 짊어지고 있어요','burden'],
+ ['책임을 혼자 떠안고 있어서 버거워요','burden'],
+ ['모든 짐을 혼자 지고 있는 것 같아요','burden'],
+ ['혼자 감당해야 할 일이 너무 많아요','burden'],
+ ['혼자 붙들고 있는 걱정을 하나님께 맡기고 싶어요','burden'],
+ ['걱정을 하나님께 맡기고 싶어요','noMission'],
+ ['아이 문제를 하나님께 맡기고 싶어요','noMission'],
+ ['앞날을 하나님께 맡기고 싶어요','noMission'],
+ ['제 인생을 하나님께 맡기고 싶어요','noMission'],
+ ['복음을 전하고 싶어요','mission'],
+ ['전도하고 싶어요','mission'],
+ ['선교에 참여하고 싶어요','mission'],
+ ['믿지 않는 사람에게 예수님을 전하고 싶어요','mission'],
+ ['믿었던 사람에게 상처받아서 너무 힘들어요','betrayal'],
+ ['남편이 때려서 마음이 너무 힘들어요','safety'],
+ ['걱정을 하나님께 맡기고 싶은데 죽고 싶어요','safety'],
+ ['그 사람이 배신했을까 의심돼요','noBetrayal'],
+ ['기도해도 하나님이 듣지 않으시는 것 같다는 생각은 아니에요','negativePrayer']
+];
+for(const [message,kind] of reviewedContrasts)test('reviewed semantic contrast '+kind+': '+message,()=>{
+ const {s,choose}=app(),a=s.classifyConcern(message),r=choose(message),cs=s.findCandidates(a);
+ if(kind==='prayer'){assert.ok(a.situations.includes('prayer_feels_unheard'));assert.ok(['habakkuk-1-2','psalm-10-1','psalm-13-1-2'].includes(r.verse?.id));}
+ if(kind==='repent'){assert.equal(a.primaryTopic,'guilt');assert.ok(['1-john-1-9','psalm-51-10','romans-8-1','isaiah-1-18'].includes(r.verse?.id));}
+ if(kind==='relationship'){assert.equal(a.primaryTopic,'relationship');assert.ok(!a.situations.includes('acknowledging_wrong'));}
+ if(kind==='burden'){assert.ok(cs.some(c=>c.verse.id==='psalm-55-22'));assert.ok(!a.situations.includes('evangelism_mission'));}
+ if(kind==='noMission')assert.ok(!cs.some(c=>c.verse.id==='matthew-28-18-20'));
+ if(kind==='mission')assert.equal(r.verse?.id,'matthew-28-18-20');
+ if(kind==='betrayal')assert.equal(r.verse?.id,'psalm-55-12-14');
+ if(kind==='noBetrayal')assert.ok(!cs.some(c=>c.verse.id==='psalm-55-12-14'));
+ if(kind==='safety')assert.equal(r.status,'safety_first');
+ if(kind==='negativePrayer')assert.ok(!a.situations.includes('prayer_feels_unheard'));
+});
+
+const strengthBurdenCases=[
+ ['요즘 몸도 마음도 너무 지쳤어요','strength'],
+ ['아무것도 할 힘이 없어요','strength'],
+ ['다시 시작할 힘이 필요해요','strength'],
+ ['계속 나아갈 힘이 필요해요','strength'],
+ ['가족 문제를 제가 다 책임져야 할 것 같아요','burden'],
+ ['책임과 걱정을 혼자 짊어지고 있어서 버거워요','burden'],
+ ['모든 짐을 혼자 감당하고 있어요','burden'],
+ ['이 걱정을 하나님께 맡기고 싶어요','burden'],
+ ['육아 때문에 너무 지쳐서 아무것도 할 힘이 없어요','strength'],
+ ['아이 문제를 전부 제가 책임져야 할 것 같아서 너무 힘들어요','burden']
+];
+for(const [message,kind] of strengthBurdenCases)test('strength versus burden: '+message,()=>{
+ const {s,choose}=app(),a=s.classifyConcern(message),cs=s.findCandidates(a),r=choose(message);
+ const id=kind==='strength'?'isaiah-40-31':'psalm-55-22';
+ assert.ok(cs.some(c=>c.verse.id===id));assert.equal(r.verse?.id,id);
+});
+// Existing whole-person weakness remains valid; a broad exhaustion phrase does not force Isaiah.
+test('whole-person exhaustion preserves Psalm 73:26 while admitting Isaiah strength candidate',()=>{
+ const {s,choose}=app(),a=s.classifyConcern('몸도 마음도 너무 지쳤어요');assert.ok(s.findCandidates(a).some(c=>c.verse.id==='isaiah-40-31'));assert.equal(choose('몸도 마음도 너무 지쳤어요').verse?.id,'psalm-73-26');
 });

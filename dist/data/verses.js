@@ -144,7 +144,7 @@ window.Malsseum.data.verses = Object.freeze([
       "기다림이 길어져 기운이 없어요",
       "다시 시작할 힘이 필요해요"
     ],
-    "recommendationNote": "긴 기다림으로 기운을 잃은 상황에서 회복을 기다리는 마음에 연결합니다.",
+    "recommendationNote": "몸과 마음이 지쳐 힘이 없거나, 오래 기다리며 기운을 잃은 상황에서 하나님을 의지하며 새 힘을 구하는 마음에 연결합니다.",
     "cautionTags": [
       "endurance_pressure"
     ],
