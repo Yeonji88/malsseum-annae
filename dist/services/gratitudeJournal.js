@@ -2,7 +2,9 @@
  const key='malsseum-annae.gratitude.v1';
  const fields=['today','self','grace'];
  const validDate=d=>typeof d==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(d)&&Number.isFinite(Date.parse(d))&&new Date(d).toISOString().slice(0,10)===d;
- function list(){const raw=JSON.parse(localStorage.getItem(key)||'[]');if(!Array.isArray(raw))throw new Error('감사 기록을 읽지 못했어요.');return raw.filter(r=>r&&validDate(r.date)&&fields.every(f=>typeof r[f]==='string')&&fields.some(f=>r[f].trim()));}
+ function list(){const raw=JSON.parse(localStorage.getItem(key)||'[]');if(!Array.isArray(raw))throw new Error('감사 기록을 읽지 못했어요.');return raw.filter(r=>r&&validDate(r.date)&&fields.every(f=>r[f]===undefined||typeof r[f]==='string')&&fields.some(f=>typeof r[f]==='string'&&r[f].trim())).map(r=>({...r,...Object.fromEntries(fields.map(f=>[f,r[f]||'']))}));}
  function save(date,values){if(!validDate(date))throw new Error('날짜를 확인해주세요.');const content=Object.fromEntries(fields.map(f=>[f,String(values[f]||'').trim()]));if(!fields.some(f=>content[f]))throw new Error('감사를 하나 이상 남겨주세요.');const entries=list(),old=entries.find(r=>r.date===date),now=new Date().toISOString();const record={date,...content,createdAt:old?.createdAt||now,updatedAt:now};localStorage.setItem(key,JSON.stringify([...entries.filter(r=>r.date!==date),record]));return record;}
- window.Malsseum.services.gratitudeJournal={key,list,save};
+ function saveField(date,field,value){if(!validDate(date)||!fields.includes(field))throw new Error('항목과 날짜를 확인해주세요.');const text=String(value||'').trim(),entries=list(),old=entries.find(r=>r.date===date);if(!text)throw new Error('감사를 남겨주세요.');return save(date,{...old,[field]:text});}
+ function removeField(date,field){if(!validDate(date)||!fields.includes(field))throw new Error('항목과 날짜를 확인해주세요.');const entries=list(),old=entries.find(r=>r.date===date);if(!old)return null;const next={...old,updatedAt:new Date().toISOString()};delete next[field];if(fields.some(f=>next[f]?.trim())){for(const f of fields)if(!next[f]?.trim())delete next[f];localStorage.setItem(key,JSON.stringify([...entries.filter(r=>r.date!==date),next]));return next;}localStorage.setItem(key,JSON.stringify(entries.filter(r=>r.date!==date)));return null;}
+ window.Malsseum.services.gratitudeJournal={key,list,save,saveField,removeField};
 })();

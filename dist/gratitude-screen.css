@@ -33,3 +33,9 @@
 #gratitude-screen .meditation-journal-status:empty{display:none;height:0;min-height:0;margin:0;padding:0}
 
 .gratitude-entry-heading{min-height:44px;display:flex;align-items:center;justify-content:space-between;gap:8px}.gratitude-entry-heading h3{min-width:0}
+
+.gratitude-field-actions{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:44px;margin-top:2px}.gratitude-field-status{color:#66806e;font-size:var(--font-small);line-height:1.4}.gratitude-field-save{flex-shrink:0}
+
+.gratitude-field-buttons,.gratitude-delete-actions{display:flex;gap:6px;justify-content:flex-end;flex-shrink:0}.gratitude-field-delete[hidden]{display:none!important}.gratitude-delete-dialog{box-sizing:border-box;width:300px;max-width:calc(100% - 48px);height:fit-content;min-height:0;max-height:calc(100dvh - 48px);margin:auto;padding:20px;border:1px solid #ebe7df;border-radius:18px;background:#fffdfa;color:#315f49;font-family:inherit}.gratitude-delete-dialog::backdrop{background:#25342d40}.gratitude-delete-dialog p{margin:0;font-size:var(--font-body);line-height:1.5}.gratitude-delete-dialog .gratitude-delete-description{margin:6px 0 18px;color:#777d75;font-size:var(--font-support);line-height:1.5}
+
+.gratitude-delete-dialog{text-align:center}.gratitude-delete-dialog .gratitude-delete-actions{justify-content:center}
