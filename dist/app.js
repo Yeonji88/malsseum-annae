@@ -332,12 +332,29 @@ for(const [value,label] of textSizeChoices){
 textSizeField.append(textSizeOptions);
 settingsDialog.querySelector('#settings-form').before(textSizeField);
 window.addEventListener('storage',event=>{if(event.key===textSizeKey)setTextSize(event.newValue);});
+function refreshTabHeadlines(){
+ const name=UserProfile.getName();
+ const definitions=[['#my-intro-title','오늘도 말씀을 간직해요.','오늘도,','말씀을 간직해요.'],['#welcome-title','오늘도 마음을 나눠요.','오늘도,','마음을 나눠요.'],['#meditation-title','오늘도 말씀 안에 머물러요.','오늘도,','말씀 안에 머물러요.'],['#prayer-title','오늘도 함께 기도해요.','오늘도,','함께 기도해요.'],['#gratitude-screen [data-tab-headline]','오늘도 감사를 기억해요.','오늘도,','감사를 기억해요']];
+ for(const [selector,text,first,last]of definitions){const title=document.querySelector(selector);if(!title)continue;title.classList.add('personal-tab-headline');title.replaceChildren();for(const line of [name?name+'님,':first,name?text:last]){const span=element('span','',line);title.append(span);}title.setAttribute('aria-label',name?name+'님, '+text:first+' '+last);}
+ requestAnimationFrame(fitTabHeadlines);
+}
+function fitTabHeadlines(){
+ const titles=Array.from(document.querySelectorAll('.personal-tab-headline'));const visible=titles.find(t=>t.getClientRects().length);if(!visible)return;
+ for(const t of titles)t.style.removeProperty('font-size');
+ const base=parseFloat(getComputedStyle(visible).fontSize),canvas=document.createElement('canvas'),ctx=canvas.getContext('2d');ctx.font=base+"px 'Malsseum Gowun Dodum'";
+ const available=Math.max(1,document.querySelector('.app').getBoundingClientRect().width-60),width=ctx.measureText('오늘도 말씀 안에 머물러요.').width;
+ const size=Math.max(18,Math.min(base,base*available/width));
+ for(const title of titles){title.style.fontSize=size+'px';if(title.id==='meditation-title')title.lastElementChild.style.width=title.parentElement.clientWidth+'px';}
+}
+window.addEventListener('resize',fitTabHeadlines);
+document.fonts?.ready.then(fitTabHeadlines);
+window.addEventListener('profile-headline-refresh',refreshTabHeadlines);
+
 function refreshProfile(){
  const name=UserProfile.getName();
  const greeting=document.getElementById('personal-greeting');
- greeting.replaceChildren();
- if(name){const named=document.createElement('span');named.className='greeting-name';named.textContent=name+'님';greeting.append(named,document.createTextNode(', 지금 어떤 고민이 있으신가요?'));}
- onboarding.hidden=Boolean(name);mainContent.hidden=!name;settingsButton.hidden=!name;
+ greeting.textContent='지금 마음에 있는 고민을 편하게 나눠보세요.';
+ onboarding.hidden=Boolean(name);mainContent.hidden=!name;settingsButton.hidden=!name;refreshTabHeadlines();
 }
 function saveProfile(event,fieldId,errorId,isOnboarding){
  event.preventDefault();
@@ -393,7 +410,7 @@ const bottomNav=document.getElementById('bottom-nav');
 const myScreen=element('section','my-screen');myScreen.id='my-screen';myScreen.hidden=true;
 myScreen.setAttribute('aria-labelledby','my-intro-title');
 const myIntro=element('div','my-intro');
-const myIntroTitle=element('h1','my-intro-title','오늘도,\n말씀을 간직해요.');myIntroTitle.id='my-intro-title';
+const myIntroTitle=element('h1','my-intro-title','오늘도,\n말씀을 간직해요.');myIntroTitle.id='my-intro-title';myIntroTitle.classList.add('personal-tab-headline');myIntroTitle.replaceChildren(element('span','','오늘도,'),element('span','','말씀을 간직해요.'));
 const myIntroSubtitle=element('p','my-intro-subtitle','마음에 남겨둔 말씀을 다시 만나보세요.');
 myIntro.append(myIntroTitle,myIntroSubtitle);
 const myHeading=element('div','my-heading');
@@ -570,7 +587,7 @@ function renderReflectionPreview(){
 }
 function renderMeditationHome(){
  const verse=DailyVerse.get();meditationScreen.replaceChildren();
- const intro=element('section','meditation-intro');const heading=element('div','meditation-heading'),title=element('h1','', '오늘도,\n말씀 안에 머물러요.');title.id='meditation-title';title.tabIndex=-1;heading.append(title,element('span','meditation-date',meditationDateFormat.format(new Date())));intro.append(heading,element('p','meditation-subtitle','하루 한 구절, 천천히 마음에 담아보세요.'));
+ const intro=element('section','meditation-intro');const heading=element('div','meditation-heading'),title=element('h1','', '오늘도,\n말씀 안에 머물러요.');title.id='meditation-title';title.tabIndex=-1;heading.append(title,element('span','meditation-date',meditationDateFormat.format(new Date())));intro.append(heading,element('p','meditation-subtitle','오늘의 말씀을 천천히 마음에 담아보세요.'));
  const card=element('article','daily-verse-card');const cardHead=element('div','daily-verse-head');cardHead.append(element('span','daily-verse-label','오늘의 말씀'));
  const iconSave=element('button','daily-bookmark');iconSave.type='button';iconSave.dataset.dailySave='';iconSave.setAttribute('aria-label','오늘의 말씀 저장하기');iconSave.append(bookmarkIcon());iconSave.addEventListener('click',()=>toggleDailyVerse(verse));cardHead.append(iconSave);
  card.append(cardHead,element('blockquote','daily-verse-text',displayVerseText(verse)),element('p','daily-verse-reference',verse.reference));
@@ -739,7 +756,10 @@ prayerForm.addEventListener('submit',event=>{event.preventDefault();if(!prayerIn
 renderPrayerView();
 const resultBack=meditationBackButton('고민 입력하기',()=>displayScreen('home'));resultBack.classList.add('result-back');resultBack.setAttribute('aria-label','고민 입력 화면으로 돌아가기');
 resultScreen.prepend(resultBack);
+const gratitudeView=window.Malsseum.createGratitudeScreen({element,mainContent,localToday,dateFromKey,localDateKey,backButton:meditationBackButton});
+const gratitudeNav=element('button','','');gratitudeNav.type='button';gratitudeNav.dataset.screen='gratitude';gratitudeNav.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z"/></svg><span>감사</span>';bottomNav.insertBefore(gratitudeNav,bottomNav.querySelector('[data-screen=prayer]'));
 function displayScreen(screen){
+ gratitudeView.root.hidden=screen!=='gratitude';if(screen==='gratitude')gratitudeView.open();
  if(screen!=='profile'&&editingSaved)exitSavedEdit();
  homeScreen.hidden=screen!=='home';
  myScreen.hidden=screen!=='profile';
@@ -754,15 +774,16 @@ function displayScreen(screen){
  resultScreen.hidden=screen!=='result'||!conversation.children.length;
  emptyScreen.hidden=true;
  const activeScreen=['meditation-detail','meditation-list','meditation-record'].includes(screen)?'reflection':screen;
- bottomNav.querySelectorAll('button').forEach(button=>{if(['home','reflection','prayer','profile'].includes(activeScreen)&&button.dataset.screen===activeScreen)button.setAttribute('aria-current','page');else button.removeAttribute('aria-current');});
+ bottomNav.querySelectorAll('button').forEach(button=>{if(['home','reflection','prayer','gratitude','profile'].includes(activeScreen)&&button.dataset.screen===activeScreen)button.setAttribute('aria-current','page');else button.removeAttribute('aria-current');});
  mainContent.scrollTop=0;
+ refreshTabHeadlines();
  window.scrollTo(0,0);
 }
 bottomNav.querySelectorAll('button').forEach(button=>button.addEventListener('click',()=>displayScreen(button.dataset.screen)));
 document.getElementById('empty-home').addEventListener('click',()=>displayScreen('home'));
 if(UserProfile.getName())displayScreen('reflection');
 new MutationObserver(()=>{
- homeScreen.hidden=true;emptyScreen.hidden=true;myScreen.hidden=true;prayerScreen.hidden=true;meditationScreen.hidden=true;meditationDetail.hidden=true;meditationList.hidden=true;meditationRecord.hidden=true;resultScreen.hidden=false;
+ gratitudeView.root.hidden=true;homeScreen.hidden=true;emptyScreen.hidden=true;myScreen.hidden=true;prayerScreen.hidden=true;meditationScreen.hidden=true;meditationDetail.hidden=true;meditationList.hidden=true;meditationRecord.hidden=true;resultScreen.hidden=false;
  bottomNav.querySelectorAll('button').forEach(button=>button.removeAttribute('aria-current'));
  if(turnCount>1)conversation.lastElementChild?.scrollIntoView({block:'start'});
  else{mainContent.scrollTop=0;window.scrollTo(0,0);}

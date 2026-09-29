@@ -232,7 +232,7 @@ label,.speaker,.scripture-label,.explanation-label,.verse-actions summary{font-w
 #onboarding #onboarding-title,#onboarding .primary{font-weight:500}
 
 /* 홈 메인 제목만 미세 강조. 고운돋움 단일 굵기를 보완하는 최소 획 보정입니다. */
-#home-screen .welcome h1,#home-screen .welcome:has(.personal-greeting) h1{letter-spacing:-1.2px;font-weight:600;-webkit-text-stroke:.12px currentColor}
+#home-screen .welcome h1,#home-screen .welcome:has(.personal-greeting) h1{letter-spacing:-1.2px;font-weight:600}
 
 /* 온보딩 하단 문구의 글꼴만 홈과 통일합니다. */
 #onboarding .onboarding-blessing{font-family:'Malsseum Gowun Dodum','Malsseum SUIT',sans-serif;font-synthesis:none}

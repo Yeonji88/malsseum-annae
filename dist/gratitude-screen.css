@@ -1,0 +1,35 @@
+.app:has(#gratitude-screen:not([hidden])){background:#fbf8f2}
+.app:has(#gratitude-screen:not([hidden]))>header{height:var(--app-header-height);min-height:var(--app-header-height);padding:var(--app-header-padding);background:#fbf8f2}
+.app:has(#gratitude-screen:not([hidden]))>header .brand{display:flex;flex-direction:row;align-items:center;gap:7px;margin:0;color:#303633;font-family:'Malsseum Gowun Dodum',sans-serif;font-size:18px;font-weight:400}
+.app:has(#gratitude-screen:not([hidden]))>header .brand-mark,.app:has(#gratitude-screen:not([hidden]))>header .brand-mark svg{width:20px;height:20px;margin:0;background:none;color:#64856c}
+.app:has(#gratitude-screen:not([hidden]))>header .home-logo-caption,.app:has(#gratitude-screen:not([hidden]))>header .home-bell{display:none}
+.app:has(#gratitude-screen:not([hidden]))>header #open-settings{position:static;margin-left:auto;color:#303633}
+.app:has(#gratitude-screen:not([hidden])) #main-content{padding:0 18px 1px}
+.app:has(#gratitude-screen:not([hidden]))>#bottom-nav{background:#fffdfa}.app:has(#gratitude-screen:not([hidden]))>#bottom-nav button{font-family:'Malsseum Gowun Dodum','Malsseum SUIT',sans-serif;font-synthesis:none}
+@media(max-width:359px){.app:has(#gratitude-screen:not([hidden])) #main-content{padding-left:13px;padding-right:13px}.prayer-heading{padding-left:2px;padding-right:2px}.prayer-calendar{padding-left:9px;padding-right:9px}.prayer-calendar-legend{gap:5px 8px}.prayer-day{padding:14px}}
+#bottom-nav:has([data-screen=gratitude]){grid-template-columns:repeat(5,minmax(0,1fr))}
+#gratitude-screen{--prayer-sage-soft:#edf3e8;--prayer-coral:var(--journal-cta-coral);width:min(100%,430px);margin:0 auto;padding:var(--app-screen-top-gap) 4px 1px;box-sizing:border-box;font-family:'Malsseum Gowun Dodum','Malsseum SUIT',sans-serif;font-synthesis:none;color:#303633}
+#gratitude-screen[hidden]{display:none}
+#gratitude-screen h1{margin:0;color:#315f49;font-size:var(--font-heading);font-weight:400;line-height:var(--app-screen-title-line);letter-spacing:-.65px}
+#gratitude-screen .prayer-intro{margin:var(--app-title-support-gap) 0 0;color:#777d75;font-size:var(--font-screen-support,17px);line-height:var(--line-screen-support)}
+#gratitude-screen .prayer-day-heading h2{margin:0;font-size:var(--font-body);font-weight:400;line-height:1.5}
+
+#gratitude-screen .gratitude-heart{color:#d57970;font-style:normal;font-size:12px;line-height:1}
+
+
+.gratitude-entry{padding:12px 0;border-bottom:1px solid #eee9df}.gratitude-entry h3{margin:0;color:#315f49;font-size:var(--font-support);font-weight:400}.gratitude-entry p{margin:8px 0 0;white-space:pre-wrap;overflow-wrap:anywhere;font-size:var(--font-body);line-height:var(--line-reading)}
+.gratitude-edit,.gratitude-back{min-height:44px;padding:8px 12px;border:0;background:transparent;color:#315f49;font:inherit;cursor:pointer}.gratitude-edit{display:block;margin:8px 0 0 auto}.gratitude-back{margin:0 0 12px -12px}
+.gratitude-input-card{margin:0 0 10px;padding:10px 16px;border:1px solid #ebe7df;border-radius:18px;background:#fffdfa}.gratitude-input-card label{font-size:var(--font-body);color:#315f49}.gratitude-input-card p{margin:6px 0 8px;font-size:var(--font-support);line-height:1.6;color:#727970}.gratitude-input-card textarea{display:block;box-sizing:border-box;width:100%;height:auto;min-height:77px;padding:7px 12px;border:1px solid #e6e4db;border-radius:12px;resize:vertical;background:#fffefa;color:#303633;font:inherit;font-size:var(--font-body);line-height:1.6;overflow:auto}
+#gratitude-screen button:focus-visible,#gratitude-screen textarea:focus-visible{outline:2px solid #315f49;outline-offset:3px}
+
+#gratitude-screen.is-editor h1{font-size:clamp(20px,5.2vw,22px);letter-spacing:-.7px;line-height:1.5}
+#gratitude-screen.is-editor .prayer-heading{overflow-wrap:break-word}
+
+/* Headline-only two-line layout; shared with the other three main tabs. */
+.personal-tab-headline{min-width:0;max-width:100%}
+.personal-tab-headline>span{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font:inherit;letter-spacing:inherit}
+
+/* Empty feedback must not reserve space above gratitude actions. */
+#gratitude-screen .meditation-journal-status:empty{display:none;height:0;min-height:0;margin:0;padding:0}
+
+.gratitude-entry-heading{min-height:44px;display:flex;align-items:center;justify-content:space-between;gap:8px}.gratitude-entry-heading h3{min-width:0}

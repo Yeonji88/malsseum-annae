@@ -1,3 +1,4 @@
+:root{--journal-cta-coral:#e98780}
 /* Prayer calendar and journal in the existing ivory, sage, and deep-green palette. */
 .app:has(#prayer-screen:not([hidden])){background:#fbf8f2}
 .app:has(#prayer-screen:not([hidden]))>header{height:var(--app-header-height);min-height:var(--app-header-height);padding:var(--app-header-padding);background:#fbf8f2}
@@ -7,13 +8,13 @@
 .app:has(#prayer-screen:not([hidden]))>header #open-settings{position:static;margin-left:auto;color:#303633}
 .app:has(#prayer-screen:not([hidden])) #main-content{padding:0 18px 1px}
 #prayer-screen[hidden]{display:none}
-#prayer-screen{--prayer-coral:#e98780;--prayer-coral-soft:#f9e4df;--prayer-sage:#7f9f76;--prayer-sage-soft:#edf3e8;width:min(100%,430px);margin:0 auto;padding:var(--app-screen-top-gap) 4px 1px;box-sizing:border-box;font-family:'Malsseum Gowun Dodum','Malsseum SUIT',sans-serif;font-synthesis:none;color:#303633}
+#prayer-screen{--prayer-coral:var(--journal-cta-coral);--prayer-coral-soft:#f9e4df;--prayer-sage:#7f9f76;--prayer-sage-soft:#edf3e8;width:min(100%,430px);margin:0 auto;padding:var(--app-screen-top-gap) 4px 1px;box-sizing:border-box;font-family:'Malsseum Gowun Dodum','Malsseum SUIT',sans-serif;font-synthesis:none;color:#303633}
 .prayer-heading{margin:0 0 var(--app-support-card-gap);padding:0}
 #prayer-screen h1{margin:0;color:#315f49;font-size:var(--font-heading);font-weight:400;line-height:var(--app-screen-title-line);letter-spacing:-.65px}
 #prayer-screen .prayer-intro{margin:var(--app-title-support-gap) 0 0;color:#777d75;font-size:var(--font-screen-support,17px);font-weight:var(--weight-screen-support);line-height:var(--line-screen-support)}
 .prayer-calendar{padding:11px 13px 9px;border:1px solid #ebe7df;border-radius:22px;background:#fffdfa;box-shadow:0 6px 18px #554d3c0a}
 .prayer-calendar-controls{display:grid;grid-template-columns:38px 1fr 38px;align-items:center;margin-bottom:7px}
-#prayer-screen .calendar-month{margin:0;text-align:center;color:#315f49;font-size:var(--font-body);font-weight:400;line-height:1.5;letter-spacing:-.2px}
+:is(#prayer-screen,#gratitude-screen) .calendar-month{margin:0;text-align:center;color:#315f49;font-size:var(--font-body);font-weight:400;line-height:1.5;letter-spacing:-.2px}
 .calendar-nav{display:grid;place-items:center;width:34px;height:34px;padding:0;border:0;border-radius:50%;background:transparent;color:#66736a;font:400 23px/1 'Malsseum Gowun Dodum',sans-serif;cursor:pointer}
 .calendar-nav:last-child{justify-self:end}.calendar-nav:hover{background:#f2f5ee}.calendar-nav:focus-visible{outline:2px solid #6f8d72;outline-offset:1px}
 .calendar-weekdays,.calendar-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr))}

@@ -1,0 +1,22 @@
+/* Shared typography for the five main tab headings only. */
+#main-content :is(#welcome-title,#meditation-title,#prayer-title,#my-intro-title,[data-tab-headline]).personal-tab-headline{
+ margin:0;color:#315f49;font-family:'Malsseum Gowun Dodum','Malsseum SUIT',sans-serif;font-size:var(--font-heading,23px);font-weight:400;font-synthesis:none;line-height:1.45;letter-spacing:-.65px;text-align:left
+}
+#main-content :is(#personal-greeting,.my-intro-subtitle,.meditation-subtitle,#prayer-screen>.prayer-heading>.prayer-intro,#gratitude-screen:not(.is-editor)>.prayer-heading:has([data-tab-headline])>.prayer-intro){
+ margin:7px 0 0!important;font-family:'Malsseum Gowun Dodum','Malsseum SUIT',sans-serif;font-size:var(--font-screen-support,17px)!important;color:#777d75!important;font-weight:400!important;line-height:var(--line-screen-support)!important;letter-spacing:-.2px;max-width:100%;overflow-wrap:break-word
+}
+@media(max-width:359px){
+ #main-content :is(#personal-greeting,.my-intro-subtitle,.meditation-subtitle,#prayer-screen>.prayer-heading>.prayer-intro,#gratitude-screen:not(.is-editor)>.prayer-heading:has([data-tab-headline])>.prayer-intro){min-height:2lh}
+}
+
+/* Scale only the concern drawing; keep the navigation SVG box and label spacing. */
+#bottom-nav [data-screen=home] svg{overflow:visible}
+#bottom-nav [data-screen=home] svg>path{transform:scale(1.1);transform-origin:12px 12px}
+
+#main-content :is(#personal-greeting,.my-intro-subtitle,.meditation-subtitle,#prayer-screen>.prayer-heading>.prayer-intro,#gratitude-screen:not(.is-editor)>.prayer-heading:has([data-tab-headline])>.prayer-intro):is(.app[data-text-size=large] *, .app[data-text-size=xlarge] *){min-height:2lh}
+
+/* Shared main-tab header: meditation metrics, independent of screen inheritance. */
+.app:has(>#main-content:not([hidden])>:is(#home-screen,#meditation-screen,#gratitude-screen,#prayer-screen,#my-screen):not([hidden]))>header{height:var(--app-header-height);min-height:var(--app-header-height);padding:var(--app-header-padding);background:var(--concern-paper);justify-content:flex-start;font-family:'Malsseum Gowun Dodum','Gowun Dodum',sans-serif;line-height:1.7}
+.app:has(>#main-content:not([hidden])>:is(#home-screen,#meditation-screen,#gratitude-screen,#prayer-screen,#my-screen):not([hidden]))>header .brand{display:flex;flex-direction:row;align-items:center;gap:var(--app-header-brand-gap);margin:0;color:#303633;font-family:'Malsseum Gowun Dodum',sans-serif;font-size:var(--app-header-brand-size);font-weight:400;line-height:1.5;letter-spacing:0}
+.app:has(>#main-content:not([hidden])>:is(#home-screen,#meditation-screen,#gratitude-screen,#prayer-screen,#my-screen):not([hidden]))>header :is(.brand-mark,.brand-mark svg){width:var(--app-header-icon-size);height:var(--app-header-icon-size);margin:0;background:none;color:#64856c}
+.app:has(>#main-content:not([hidden])>:is(#home-screen,#meditation-screen,#gratitude-screen,#prayer-screen,#my-screen):not([hidden]))>header #open-settings{position:static;margin-left:auto;padding:5px 10px;color:#303633;font-family:'Malsseum Gowun Dodum','Gowun Dodum',sans-serif;font-size:22px;font-weight:550;line-height:1.7;letter-spacing:0}
