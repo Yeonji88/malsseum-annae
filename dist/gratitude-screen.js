@@ -3,6 +3,8 @@
  const journal=window.Malsseum.services.gratitudeJournal;
  const root=element('section','gratitude-screen');root.id='gratitude-screen';root.hidden=true;root.setAttribute('aria-label','감사 기록');mainContent.append(root);
  let selected=localToday(),month=dateFromKey(selected),mode='main';
+ const diagnosticEnabled=new URLSearchParams(location.search).get('gratitude-debug')==='1';
+ function diagnose(entries,record){if(diagnosticEnabled)window.Malsseum.renderGratitudeDiagnostic?.({root,selected,mode,entries,record,fields:fields.map(([key])=>key)});}
  const fields=[['today','오늘의 감사','오늘 나의 마음을 따뜻하게 한 일은 무엇인가요?'],['self','나에게 감사','오늘 나 스스로에게 고마운 일은 무엇인가요?'],['grace','하나님께 감사','오늘 하나님의 은혜로 느껴진 것은 무엇인가요?']];
  const dateLabel=d=>new Intl.DateTimeFormat('ko-KR',{month:'long',day:'numeric',weekday:'short'}).format(dateFromKey(d));
  const button=(text,cls,fn)=>{const b=element('button',cls,text);b.type='button';b.addEventListener('click',fn);return b;};
@@ -14,7 +16,7 @@
  const legend=element('div','prayer-calendar-legend'),label=element('span','','감사를 기록한 날');label.prepend(element('i','gratitude-heart','♥'));legend.append(label);calendar.append(controls,weekdays,grid,legend);root.append(calendar);
  const day=element('section','prayer-day');day.setAttribute('aria-live','polite');const title=element('div','prayer-day-heading');title.append(element('h2','',dateLabel(selected)));if(selected===localToday())title.append(element('span','today-label','오늘'));day.append(title);const record=entries.find(e=>e.date===selected);
  if(record){for(const [i,[field,name]]of fields.entries())if(record[field].trim()){const card=element('div','gratitude-entry');const entryHeading=element('div','gratitude-entry-heading');entryHeading.append(element('h3','',String(i+1).padStart(2,'0')+' '+name));card.append(entryHeading,element('p','',record[field]));day.append(card);}day.append(button('수정하기','gratitude-edit button-compact management-action',()=>{mode='editor';render();top();}));}
- else{const empty=element('div','prayer-day-empty');empty.append(element('p','prayer-empty-title',selected===localToday()?'오늘의 감사를 남겨보세요.':'이날의 감사를 남겨보세요.'),element('p','prayer-empty-copy','한 줄의 감사도 충분해요.'),button('감사 기록하기','gratitude-cta prayer-record-button button-primary',()=>{mode='editor';render();top();}));day.append(empty);}root.append(day);
+ else{const empty=element('div','prayer-day-empty');empty.append(element('p','prayer-empty-title',selected===localToday()?'오늘의 감사를 남겨보세요.':'이날의 감사를 남겨보세요.'),element('p','prayer-empty-copy','한 줄의 감사도 충분해요.'),button('감사 기록하기','gratitude-cta prayer-record-button button-primary',()=>{mode='editor';render();top();}));day.append(empty);}root.append(day);diagnose(entries,record);
  }
  function editor(){const returnToCalendar=()=>{mode='main';render();top();};root.append(backButton('감사 달력 보기',returnToCalendar));let record;try{record=journal.list().find(e=>e.date===selected)||{};}catch{root.append(element('p','error','감사 기록을 읽지 못했어요.'));return;}
  const form=element('div','gratitude-form');for(const [i,[field,name,prompt]]of fields.entries()){
@@ -24,7 +26,7 @@
  const remove=button('삭제','gratitude-field-delete button-compact management-action',()=>{const dialog=element('dialog','gratitude-delete-dialog'),title=element('p','','이 감사를 삭제할까요?');title.id='gratitude-delete-title';dialog.setAttribute('aria-labelledby',title.id);const controls=element('div','gratitude-delete-actions');controls.append(button('취소','button-compact',()=>dialog.close()),button('삭제','button-compact management-action',()=>{try{journal.removeField(selected,field);savedValue='';input.value='';editing=true;status.textContent='';update();dialog.close();}catch(e){status.textContent=e.message||'삭제하지 못했어요.';dialog.close();}}));const description=element('p','gratitude-delete-description','삭제한 감사는 되돌릴 수 없어요.');description.id='gratitude-delete-description';dialog.setAttribute('aria-describedby',description.id);dialog.append(title,description,controls);root.append(dialog);dialog.addEventListener('close',()=>{dialog.remove();save.focus();},{once:true});dialog.showModal();controls.firstElementChild.focus();});
  function update(){remove.hidden=editing;input.readOnly=!editing;save.textContent=editing?'저장':'수정';save.classList.toggle('management-action',!editing);save.setAttribute('aria-label',name+' '+save.textContent);}
  input.addEventListener('input',()=>{status.textContent='';update();});update();const buttons=element('div','gratitude-field-buttons');buttons.append(save,remove);actions.append(status,buttons);card.append(label,help,input,actions);form.append(card);
- }root.append(form,button('감사 달력으로 돌아가기','meditation-journal-back',returnToCalendar));}
+ }root.append(form,button('감사 달력으로 돌아가기','meditation-journal-back',returnToCalendar));diagnose(journal.list(),record);}
 
  window.addEventListener('storage',e=>{if(e.key===journal.key&&mode==='main')render();});
  return {root,open(){mode='main';selected=localToday();month=dateFromKey(selected);render();}};

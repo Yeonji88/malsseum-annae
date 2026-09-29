@@ -14,8 +14,8 @@
 #gratitude-screen .prayer-intro{margin:var(--app-title-support-gap) 0 0;color:#777d75;font-size:var(--font-screen-support,17px);line-height:var(--line-screen-support)}
 #gratitude-screen .prayer-day-heading h2{margin:0;font-size:var(--font-body);font-weight:400;line-height:1.5}
 
-#gratitude-screen .gratitude-heart{color:#df928a;font-style:normal;font-size:12px;line-height:1}
-#gratitude-screen .calendar-day-marks .gratitude-heart{font-size:10px}
+#gratitude-screen{--gratitude-marker-size:10px}
+#gratitude-screen .gratitude-heart{color:#df928a;font-style:normal;font-size:var(--gratitude-marker-size);line-height:1}
 
 
 .gratitude-entry{padding:8px 0;border-bottom:1px solid #eee9df}.gratitude-entry h3{margin:0;color:#315f49;font-size:var(--font-support);font-weight:400}.gratitude-entry p{margin:6px 0 0;white-space:pre-wrap;overflow-wrap:anywhere;font-size:var(--font-body);line-height:var(--line-reading)}

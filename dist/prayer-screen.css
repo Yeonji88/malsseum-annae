@@ -8,7 +8,7 @@
 .app:has(#prayer-screen:not([hidden]))>header #open-settings{position:static;margin-left:auto;color:#303633}
 .app:has(#prayer-screen:not([hidden])) #main-content{padding:0 18px 1px}
 #prayer-screen[hidden]{display:none}
-#prayer-screen{--prayer-coral:var(--journal-cta-coral);--prayer-coral-soft:#f9e4df;--prayer-sage:#7f9f76;--prayer-sage-soft:#edf3e8;width:min(100%,430px);margin:0 auto;padding:var(--app-screen-top-gap) 4px 1px;box-sizing:border-box;font-family:'Malsseum Gowun Dodum','Malsseum SUIT',sans-serif;font-synthesis:none;color:#303633}
+#prayer-screen{--prayer-marker-size:5px;--prayer-coral:var(--journal-cta-coral);--prayer-coral-soft:#f9e4df;--prayer-sage:#7f9f76;--prayer-sage-soft:#edf3e8;width:min(100%,430px);margin:0 auto;padding:var(--app-screen-top-gap) 4px 1px;box-sizing:border-box;font-family:'Malsseum Gowun Dodum','Malsseum SUIT',sans-serif;font-synthesis:none;color:#303633}
 .prayer-heading{margin:0 0 var(--app-support-card-gap);padding:0}
 #prayer-screen h1{margin:0;color:#315f49;font-size:var(--font-heading);font-weight:400;line-height:var(--app-screen-title-line);letter-spacing:-.65px}
 #prayer-screen .prayer-intro{margin:var(--app-title-support-gap) 0 0;color:#777d75;font-size:var(--font-screen-support,17px);font-weight:var(--weight-screen-support);line-height:var(--line-screen-support)}
@@ -27,10 +27,10 @@
 .calendar-day.is-selected.is-today .calendar-day-number{border-color:#6f916d;background:#dfeadb}
 .calendar-day:focus-visible{outline:2px solid #789481;outline-offset:1px}
 .calendar-day-marks{display:flex;align-items:center;justify-content:center;gap:2px;height:8px;line-height:1}
-.prayer-dot{display:block;width:5px;height:5px;border-radius:50%;background:var(--prayer-sage)}
+.prayer-dot,.legend-prayer{display:block;flex-shrink:0;width:var(--prayer-marker-size);height:var(--prayer-marker-size);border-radius:50%;background:var(--prayer-sage)}
 .answer-check{display:block;color:var(--prayer-coral);font:700 9px/1 sans-serif}
 .prayer-calendar-legend{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:5px 14px;margin-top:7px;padding-top:7px;border-top:1px solid #f0ede7;color:#7a8078;font-size:var(--font-small);line-height:1.4}
-.prayer-calendar-legend span{display:flex;align-items:center;gap:4px}.prayer-calendar-legend i{font-style:normal}.legend-prayer{color:var(--prayer-sage);font-size:10px}.legend-answer{color:var(--prayer-coral);font:700 11px/1 sans-serif}.legend-today{color:#8da08b;font-size:14px}
+.prayer-calendar-legend span{display:flex;align-items:center;gap:4px}.prayer-calendar-legend i{font-style:normal}.legend-prayer{color:var(--prayer-sage);font-size:0}.legend-answer{color:var(--prayer-coral);font:700 11px/1 sans-serif}.legend-today{color:#8da08b;font-size:14px}
 .prayer-day{margin-top:9px;padding:12px;border:1px solid #ebe7df;border-radius:21px;background:#fffdfa;box-shadow:0 6px 18px #554d3c09}
 .prayer-day-heading{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:7px}
 #prayer-screen .prayer-day-heading h2,.meditation-today-preview .prayer-day-heading h2{margin:0;color:#303633;font-size:var(--font-body);font-weight:400;line-height:1.5}
@@ -62,4 +62,5 @@
 #prayer-screen .answer-form input[type=date],#prayer-screen .answer-form textarea{border-color:#f5e4df}
 #prayer-screen .answer-form-actions .button-compact{background:#fceeea!important;border:1px solid #edcec7!important;color:#c86f68!important}
 #prayer-screen .answer-form-actions button:focus-visible{outline-color:#c86f68}
-#prayer-screen .answer-form input[type=date]:focus,#prayer-screen .answer-form textarea:focus{border-color:#edc8c1;outline:none;box-shadow:none}
+/* Inherit the shared focus treatment with the answer card's coral palette. */
+#prayer-screen .answer-form{--input-focus-border:#edc8c1;--input-focus-shadow:0 0 0 3px #edc8c115}
