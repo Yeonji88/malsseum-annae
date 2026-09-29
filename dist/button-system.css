@@ -64,7 +64,7 @@
  white-space:normal;
  overflow-wrap:anywhere;
 }
-.button-compact.button-destructive{color:#a55b54!important}
+
 .button-compact:disabled,.button-secondary:disabled,.button-primary:disabled{opacity:.48;cursor:default}
 .button-primary:focus-visible,.button-secondary:focus-visible,.button-compact:focus-visible{outline:2px solid #315f49;outline-offset:3px}
 
@@ -79,3 +79,7 @@
 .meditation-back-icon{flex-basis:42px;width:42px;height:42px}
 .meditation-back-label,#result .meditation-back-label{font-size:var(--back-label-size);font-weight:var(--back-label-weight);line-height:var(--back-label-line-height)}
 .meditation-journal-back{min-height:44px;padding:9px 18px;border-radius:999px;font-size:var(--font-support,13px);line-height:1.4}
+
+/* One neutral visual role for record management, independent of action label. */
+:root{--management-bg:#f7f8f4;--management-ink:#52675a;--management-border:rgba(67,91,76,.12)}
+.button-compact.management-action{background:var(--management-bg)!important;color:var(--management-ink)!important;border:1px solid var(--management-border)!important;font-size:var(--font-support,13px)!important;font-weight:400!important;min-height:var(--button-compact-height)!important;border-radius:var(--button-compact-radius)!important}

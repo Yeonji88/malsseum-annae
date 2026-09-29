@@ -1,0 +1,10 @@
+/* Reuse the concern card focus treatment without changing resting field geometry. */
+:root{--input-focus-border:#a9bda8;--input-focus-shadow:0 0 0 3px #7d9e6015}
+/* The concern textarea uses its outer card; never add a second ring inside it.
+   Important overrides screen-specific focus/ focus-visible rules loaded at runtime. */
+:is(textarea:not(#heart),input:not([type]),input[type=text],input[type=date]):is(:focus,:focus-visible){
+ border-color:var(--input-focus-border)!important;
+ outline:0!important;
+ outline-offset:0!important;
+ box-shadow:var(--input-focus-shadow)!important;
+}

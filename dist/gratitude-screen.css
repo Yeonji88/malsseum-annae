@@ -15,10 +15,11 @@
 #gratitude-screen .prayer-day-heading h2{margin:0;font-size:var(--font-body);font-weight:400;line-height:1.5}
 
 #gratitude-screen .gratitude-heart{color:#df928a;font-style:normal;font-size:12px;line-height:1}
+#gratitude-screen .calendar-day-marks .gratitude-heart{font-size:10px}
 
 
-.gratitude-entry{padding:12px 0;border-bottom:1px solid #eee9df}.gratitude-entry h3{margin:0;color:#315f49;font-size:var(--font-support);font-weight:400}.gratitude-entry p{margin:8px 0 0;white-space:pre-wrap;overflow-wrap:anywhere;font-size:var(--font-body);line-height:var(--line-reading)}
-.gratitude-edit,.gratitude-back{min-height:44px;padding:8px 12px;border:0;background:transparent;color:#315f49;font:inherit;cursor:pointer}.gratitude-edit{display:block;margin:8px 0 0 auto}.gratitude-back{margin:0 0 12px -12px}
+.gratitude-entry{padding:8px 0;border-bottom:1px solid #eee9df}.gratitude-entry h3{margin:0;color:#315f49;font-size:var(--font-support);font-weight:400}.gratitude-entry p{margin:6px 0 0;white-space:pre-wrap;overflow-wrap:anywhere;font-size:var(--font-body);line-height:var(--line-reading)}
+.gratitude-edit,.gratitude-back{min-height:44px;padding:8px 12px;border:0;background:transparent;color:#315f49;font:inherit;cursor:pointer}.gratitude-edit.button-compact{display:flex!important;width:max-content;margin:8px 0 0 auto}.gratitude-back{margin:0 0 12px -12px}
 .gratitude-input-card{margin:0 0 10px;padding:10px 16px;border:1px solid #ebe7df;border-radius:18px;background:#fffdfa}.gratitude-input-card label{font-size:var(--font-body);color:#315f49}.gratitude-input-card p{margin:6px 0 8px;font-size:var(--font-support);line-height:1.6;color:#727970}.gratitude-input-card textarea{display:block;box-sizing:border-box;width:100%;height:auto;min-height:77px;padding:7px 12px;border:1px solid #e6e4db;border-radius:12px;resize:vertical;background:#fffefa;color:#303633;font:inherit;font-size:var(--font-body);line-height:1.6;overflow:auto}
 #gratitude-screen button:focus-visible,#gratitude-screen textarea:focus-visible{outline:2px solid #315f49;outline-offset:3px}
 
@@ -32,10 +33,13 @@
 /* Empty feedback must not reserve space above gratitude actions. */
 #gratitude-screen .meditation-journal-status:empty{display:none;height:0;min-height:0;margin:0;padding:0}
 
-.gratitude-entry-heading{min-height:44px;display:flex;align-items:center;justify-content:space-between;gap:8px}.gratitude-entry-heading h3{min-width:0}
+.gratitude-entry-heading{min-height:28px;display:flex;align-items:center;justify-content:space-between;gap:8px}.gratitude-entry-heading h3{min-width:0}
 
 .gratitude-field-actions{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:44px;margin-top:2px}.gratitude-field-status{color:#66806e;font-size:var(--font-small);line-height:1.4}.gratitude-field-save{flex-shrink:0}
 
 .gratitude-field-buttons,.gratitude-delete-actions{display:flex;gap:6px;justify-content:flex-end;flex-shrink:0}.gratitude-field-delete[hidden]{display:none!important}.gratitude-delete-dialog{box-sizing:border-box;width:300px;max-width:calc(100% - 48px);height:fit-content;min-height:0;max-height:calc(100dvh - 48px);margin:auto;padding:20px;border:1px solid #ebe7df;border-radius:18px;background:#fffdfa;color:#315f49;font-family:inherit}.gratitude-delete-dialog::backdrop{background:#25342d40}.gratitude-delete-dialog p{margin:0;font-size:var(--font-body);line-height:1.5}.gratitude-delete-dialog .gratitude-delete-description{margin:6px 0 18px;color:#777d75;font-size:var(--font-support);line-height:1.5}
 
 .gratitude-delete-dialog{text-align:center}.gratitude-delete-dialog .gratitude-delete-actions{justify-content:center}
+
+/* Keep the final saved entry and its edit action clear of the bottom navigation. */
+.app:has(#gratitude-screen:not([hidden]):not(.is-editor)) #main-content{padding-bottom:20px}

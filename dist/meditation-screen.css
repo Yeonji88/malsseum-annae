@@ -19,7 +19,7 @@
 .meditation-icon svg{display:block;width:100%;height:100%}
 .daily-verse-text{margin:0;color:#294337;font-size:var(--font-scripture,19px);line-height:var(--line-reading,1.66);letter-spacing:-.25px;word-break:keep-all;overflow-wrap:anywhere}
 .daily-verse-reference{margin:9px 0 0;color:#78837c;font-size:var(--font-small,12px);line-height:1.6;text-align:right}
-.meditation-primary{display:block;width:100%;min-height:44px;margin:12px 0 8px;padding:10px 14px;border:0;border-radius:14px;background:var(--meditation-coral);color:#fff;font-family:inherit;font-size:var(--font-action);font-weight:500;line-height:1.45;box-shadow:0 5px 12px rgba(213,111,101,.16)}
+.meditation-primary{display:block;width:100%;min-height:44px;margin:12px 0 8px;padding:10px 14px;border:0;border-radius:14px;background:var(--journal-cta-coral);color:#fff;font-family:inherit;font-size:var(--font-action);font-weight:500;line-height:1.45;box-shadow:0 5px 12px rgba(213,111,101,.16)}
 .meditation-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .meditation-secondary{display:flex;align-items:center;justify-content:center;gap:7px;min-height:38px;padding:8px 10px;border:1px solid rgba(67,91,76,.08);border-radius:13px;background:#f6f8f3;color:var(--green);font-family:inherit;font-size:var(--font-support);font-weight:400;line-height:1.45}
 .meditation-secondary.is-saved{background:var(--meditation-sage);color:var(--green)}
@@ -63,10 +63,10 @@
 .meditation-journal textarea::placeholder{color:#9aa39d}
 .meditation-journal-status{min-height:1.6em;margin:5px 0;color:#66806e;font-size:var(--font-support);line-height:var(--line-reading)}
 .meditation-journal-save{width:100%;min-height:44px;padding:10px 14px;border:0;border-radius:14px;background:var(--meditation-coral);color:#fff;font-family:inherit;font-size:var(--font-action);font-weight:500;line-height:1.45;box-shadow:0 5px 12px rgba(213,111,101,.14)}
-:is(.meditation-journal-back,.meditation-all-link){display:flex;align-items:center;justify-content:center;width:max-content;max-width:100%;min-height:44px;margin:13px auto 0;padding:9px 18px;border:0;background:transparent;color:#365d46;font-family:inherit;font-size:var(--font-support);font-weight:500;line-height:1.45;text-align:center;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:4px;cursor:pointer}
-:is(.meditation-journal-back,.meditation-all-link)>span:first-child{font-size:inherit;line-height:inherit}
-:is(.meditation-journal-back,.meditation-all-link):hover,:is(.meditation-journal-back,.meditation-all-link):focus-visible{background:transparent;color:#294d38}
-:is(.meditation-journal-back,.meditation-all-link):focus-visible{outline:2px solid #8aa091;outline-offset:2px}
+.meditation-journal-back{display:flex;align-items:center;justify-content:center;width:max-content;max-width:100%;min-height:44px;margin:13px auto 0;padding:9px 18px;border:0;background:transparent;color:#365d46;font-family:inherit;font-size:var(--font-support);font-weight:500;line-height:1.45;text-align:center;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:4px;cursor:pointer}
+.meditation-journal-back>span:first-child{font-size:inherit;line-height:inherit}
+.meditation-journal-back:hover,.meditation-journal-back:focus-visible{background:transparent;color:#294d38}
+.meditation-journal-back:focus-visible{outline:2px solid #8aa091;outline-offset:2px}
 .meditation-record-card{margin:0 0 11px;padding:14px 15px;border:1px solid rgba(82,104,88,.09);border-radius:16px;background:#fffefb;box-shadow:0 5px 15px rgba(54,73,61,.045)}
 .meditation-record-head{display:flex;align-items:center;justify-content:space-between;gap:12px}
 .meditation-record-head time{color:var(--meditation-coral);font-size:var(--font-caption,10px)}
@@ -76,7 +76,7 @@
 .meditation-record-detail p{margin:0;color:#3f4a44;font-size:var(--font-support,13px);line-height:var(--line-reading,1.75);white-space:pre-wrap;overflow-wrap:anywhere}
 .meditation-record-actions{display:flex;justify-content:flex-end;gap:7px}
 .meditation-record-actions button{min-height:36px;padding:7px 11px;border:1px solid rgba(67,91,76,.12);border-radius:10px;background:#f7f8f4;color:#52675a;font-family:inherit;font-size:var(--font-support);font-weight:400;line-height:1.45}
-.meditation-record-actions button:last-child{color:#a55b54}
+
 .meditation-record-actions button:disabled{opacity:.45}
 .meditation-record-view{padding:17px 16px;border:1px solid rgba(82,104,88,.09);border-radius:17px;background:#fffefb;box-shadow:0 6px 18px rgba(54,73,61,.05)}
 .meditation-record-view>time{display:block;color:var(--meditation-coral);font-size:var(--font-small,11px)}
@@ -98,11 +98,16 @@
 
 /* Shared line color only; text color and underline geometry stay unchanged. */
 :root{--link-underline-color:#c8d8cc}
-.meditation-back-label,:is(.meditation-journal-back,.meditation-all-link),.meditation-list-today-action.is-inline-link{text-decoration-color:var(--link-underline-color)}
+.meditation-back-label,.meditation-journal-back,.meditation-list-today-action.is-inline-link{text-decoration-color:var(--link-underline-color)}
 #meditation-list-screen .meditation-list-empty:has(+.meditation-record-card){margin-bottom:11px}
 
-.meditation-today-preview{--prayer-sage-soft:#edf3e8}
+/* Main journal card only; recorded content stays left-aligned. */
+#meditation-screen .meditation-mine-head{justify-content:center}
+#meditation-screen .meditation-mine .meditation-empty{text-align:center}
+#meditation-screen .meditation-mine>.meditation-view-all{display:block;margin:12px auto 0;color:#365d46;text-align:center;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:4px;text-decoration-color:var(--link-underline-color)}
 
-#meditation-screen>.daily-verse-card+.meditation-actions{margin-top:16px}
 
-.meditation-today-preview .meditation-actions>.meditation-secondary{background:var(--journal-cta-coral);color:#fff;font-size:calc(var(--font-support) + 1px)!important;font-weight:400!important;line-height:calc(var(--font-support) * 1.45)!important}
+
+.reflection-read-verse{display:block;width:100%;margin:14px 0 12px;border:1px solid rgba(67,91,76,.12);color:#52675a;background:#f7f8f4}
+#reflection-verse-screen .daily-verse-reference{margin:0 0 12px}
+#reflection-verse-screen .reflection-verse-note{font-size:var(--font-support);line-height:1.6;color:var(--muted);overflow-wrap:anywhere}

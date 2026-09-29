@@ -20,7 +20,7 @@ const cases=[{name:'empty',records:[],expected:[],prompt:true},{name:'past',reco
   assert.equal(await list.locator('h1').count(),0);
   assert.equal(await list.getByText('오늘 묵상 이어쓰기',{exact:true}).count(),0);
   assert.equal(await list.locator('.meditation-list-empty').count(),scenario.prompt?1:0);
-  if(scenario.prompt){assert.equal(await list.locator('.meditation-list-empty p').first().textContent(),'오늘 작성한 묵상이 없어요.');assert.equal(await list.locator('.meditation-back').evaluate(e=>e.nextElementSibling.classList.contains('meditation-list-empty')),true);}
+  if(scenario.prompt){assert.equal(await list.locator('.meditation-list-empty p').first().textContent(),'아직 작성한 묵상이 없어요.');assert.equal(await list.locator('.meditation-back').evaluate(e=>e.nextElementSibling.classList.contains('meditation-list-empty')),true);}
   assert.deepEqual(await list.locator('.meditation-record-excerpt').allTextContents(),scenario.expected);
   assert.equal(await page.evaluate(key=>localStorage.getItem(key),key),JSON.stringify(scenario.records),'render must not rewrite data');
   const layout=await list.evaluate(e=>{const main=document.querySelector('#main-content'),cards=[...e.querySelectorAll('.meditation-list-empty,.meditation-record-card')].map(e=>e.getBoundingClientRect());return {overflow:main.scrollWidth-main.clientWidth,overlap:cards.some((r,i)=>i&&cards[i-1].bottom>r.top)};});assert.ok(layout.overflow<=1&&!layout.overlap);

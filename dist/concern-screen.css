@@ -40,7 +40,7 @@
  position:relative;padding:15px 16px 10px;border:1px solid #ebe7df;border-radius:20px;
  background:#fffdfa;box-shadow:0 6px 18px #554d3c0a
 }
-#home-screen .input-card:focus-within{border-color:#a9bda8;box-shadow:0 0 0 3px #7d9e6015}
+#home-screen .input-card:focus-within{border-color:var(--input-focus-border);box-shadow:var(--input-focus-shadow)}
 #home-screen #heart{
  position:relative;z-index:1;display:block;width:100%;height:auto;min-height:max(138px,var(--textarea-min));
  max-height:none;margin:0;padding:1px 1px 6px;border:0;background:transparent;color:#303633;
