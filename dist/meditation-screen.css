@@ -108,6 +108,7 @@
 
 
 
-.reflection-read-verse{display:block;width:100%;margin:14px 0 12px;border:1px solid rgba(67,91,76,.12);color:#52675a;background:#f7f8f4}
+.reflection-detail-actions{margin-top:14px;gap:4px;flex-wrap:nowrap}
+.reflection-detail-actions .button-compact{--button-compact-padding:7px 4px;white-space:nowrap;overflow-wrap:normal;flex-shrink:0}
 #reflection-verse-screen .daily-verse-reference{margin:0 0 12px}
 #reflection-verse-screen .reflection-verse-note{font-size:var(--font-support);line-height:1.6;color:var(--muted);overflow-wrap:anywhere}

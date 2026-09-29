@@ -650,7 +650,7 @@ function openReflectionVerse(entry){
  reflectionVerseScreen.replaceChildren();const back=meditationBackButton('나의 묵상',()=>openReflectionRecord(entry));
  reflectionVerseScreen.append(back);
  const content=reflectionVerseContent(entry);
- if(content){const card=element('article','daily-verse-card');card.append(element('p','daily-verse-reference',content.reference),element('blockquote','daily-verse-text',content.text));reflectionVerseScreen.append(card);if(!content.historical)reflectionVerseScreen.append(element('p','reflection-verse-note','당시 본문이 저장되지 않은 기록으로, 현재 등록된 말씀을 보여드려요.'));}
+ if(content){const card=element('article','daily-verse-card');card.append(element('p','daily-verse-reference',content.reference),element('blockquote','daily-verse-text',content.text));reflectionVerseScreen.append(card);}
  else reflectionVerseScreen.append(element('p','reflection-verse-note','이 기록에 연결된 말씀을 찾을 수 없어요.'));
  displayScreen('reflection-verse');requestAnimationFrame(()=>{if(!reflectionVerseScreen.hidden)mainContent.scrollTop=0;});
 }
@@ -659,8 +659,8 @@ function openReflectionRecord(entry){
  const back=meditationBackButton('나의 묵상',()=>openReflectionList(entry.id));
  const content=reflectionVerseContent(entry);
  const card=element('article','meditation-record-view');card.append(element('time','',reflectionDateFormat.format(new Date(entry.createdAt))),element('strong','',content?.reference||verse?.reference||'묵상 기록'),element('p','',entry.content));
- const readVerse=element('button','reflection-read-verse button-secondary','그날의 말씀 보기');readVerse.type='button';readVerse.addEventListener('click',()=>openReflectionVerse(entry));card.append(readVerse);
- const actions=element('div','meditation-record-actions'),edit=element('button','button-compact management-action','수정'),remove=element('button','button-compact management-action','삭제');edit.type=remove.type='button';edit.disabled=!verse;edit.addEventListener('click',()=>{if(verse)openDailyMeditation(verse,entry);});remove.addEventListener('click',()=>{if(!confirm('이 묵상 기록을 삭제할까요?'))return;try{PersonalReflections.remove(entry.id);renderReflectionPreview();openReflectionList();}catch{document.getElementById('profile-status').textContent='묵상 기록을 삭제하지 못했어요.';}});actions.append(edit,remove);card.append(actions);meditationRecord.append(back,card);displayScreen('meditation-record');
+ const readVerse=element('button','reflection-read-verse button-compact management-action','그날의 말씀 보기');readVerse.type='button';readVerse.addEventListener('click',()=>openReflectionVerse(entry));
+ const actions=element('div','meditation-record-actions'),edit=element('button','button-compact management-action','수정'),remove=element('button','button-compact management-action','삭제');edit.type=remove.type='button';edit.disabled=!verse;edit.addEventListener('click',()=>{if(verse)openDailyMeditation(verse,entry);});remove.addEventListener('click',()=>{if(!confirm('이 묵상 기록을 삭제할까요?'))return;try{PersonalReflections.remove(entry.id);renderReflectionPreview();openReflectionList();}catch{document.getElementById('profile-status').textContent='묵상 기록을 삭제하지 못했어요.';}});actions.classList.add('reflection-detail-actions');actions.append(readVerse,edit,remove);card.append(actions);meditationRecord.append(back,card);displayScreen('meditation-record');
 }
 // Personal prayers are separate from scripture, recommendations, and saved verse IDs.
 const PrayerJournal=(()=>{
