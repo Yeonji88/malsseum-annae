@@ -479,7 +479,7 @@ function renderSavedList(){
    const savedDate=element('time','saved-verse-date',yearLabel+(date.getMonth()+1)+'월 '+date.getDate()+'일 저장');
    savedDate.dateTime=date.toISOString();footer.append(savedDate);
   }
-  card.append(element('span','saved-verse-text',displayVerseText(verse)),footer);
+  card.append(element('span','saved-verse-text',verse.verseEnd>verse.verseStart?displayVerseText(verse).replace(/\r?\n(?:[ \t]*\r?\n)+/g,'\n'):displayVerseText(verse)),footer);
   card.addEventListener('click',()=>{
    if(!editingSaved){openSavedVerse(id);return;}
    if(selectedSaved.has(id))selectedSaved.delete(id);else selectedSaved.add(id);

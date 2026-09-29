@@ -11,7 +11,7 @@
 
 /* Scale only the concern drawing; keep the navigation SVG box and label spacing. */
 #bottom-nav [data-screen=home] svg{overflow:visible}
-#bottom-nav [data-screen=home] svg>path{transform:scale(1.1);transform-origin:12px 12px}
+#bottom-nav [data-screen=home] svg>path{transform:translateY(-2px) scale(1.1);transform-origin:12px 12px}
 
 #main-content :is(#personal-greeting,.my-intro-subtitle,.meditation-subtitle,#prayer-screen>.prayer-heading>.prayer-intro,#gratitude-screen:not(.is-editor)>.prayer-heading:has([data-tab-headline])>.prayer-intro):is(.app[data-text-size=large] *, .app[data-text-size=xlarge] *){min-height:2lh}
 
@@ -20,3 +20,16 @@
 .app:has(>#main-content:not([hidden])>:is(#home-screen,#meditation-screen,#gratitude-screen,#prayer-screen,#my-screen):not([hidden]))>header .brand{display:flex;flex-direction:row;align-items:center;gap:var(--app-header-brand-gap);margin:0;color:#303633;font-family:'Malsseum Gowun Dodum',sans-serif;font-size:var(--app-header-brand-size);font-weight:400;line-height:1.5;letter-spacing:0}
 .app:has(>#main-content:not([hidden])>:is(#home-screen,#meditation-screen,#gratitude-screen,#prayer-screen,#my-screen):not([hidden]))>header :is(.brand-mark,.brand-mark svg){width:var(--app-header-icon-size);height:var(--app-header-icon-size);margin:0;background:none;color:#64856c}
 .app:has(>#main-content:not([hidden])>:is(#home-screen,#meditation-screen,#gratitude-screen,#prayer-screen,#my-screen):not([hidden]))>header #open-settings{position:static;margin-left:auto;padding:5px 10px;color:#303633;font-family:'Malsseum Gowun Dodum','Gowun Dodum',sans-serif;font-size:22px;font-weight:550;line-height:1.7;letter-spacing:0}
+
+/* Keep navigation geometry independent of the active main tab. */
+.app:has(>#main-content:not([hidden])>:is(#home-screen,#meditation-screen,#gratitude-screen,#prayer-screen,#my-screen):not([hidden]))>#bottom-nav#bottom-nav{min-height:72px;padding:8px 10px max(8px,env(safe-area-inset-bottom))}
+.app:has(>#main-content:not([hidden])>:is(#home-screen,#meditation-screen,#gratitude-screen,#prayer-screen,#my-screen):not([hidden]))>#bottom-nav#bottom-nav button{width:auto;justify-self:stretch;min-height:44px;padding:3px;gap:3px;font-size:12px;line-height:1.35}
+
+/* Match meditation's active treatment; only SVG artwork has an optical offset. */
+.app:has(>#main-content:not([hidden])>#home-screen:not([hidden]))>#bottom-nav#bottom-nav button{border-radius:0}
+.app:has(>#main-content:not([hidden])>#home-screen:not([hidden]))>#bottom-nav#bottom-nav button[aria-current=page]{background:transparent;font-weight:700}
+
+/* Navigation typography and colors belong to the navigation, not the active screen. */
+.app:has(>#main-content:not([hidden])>:is(#home-screen,#meditation-screen,#gratitude-screen,#prayer-screen,#my-screen):not([hidden]))>#bottom-nav#bottom-nav{background-color:#fffdfb;font-family:'Malsseum Gowun Dodum','Gowun Dodum',sans-serif}
+.app:has(>#main-content:not([hidden])>:is(#home-screen,#meditation-screen,#gratitude-screen,#prayer-screen,#my-screen):not([hidden]))>#bottom-nav#bottom-nav button{font-family:'Malsseum Gowun Dodum','Gowun Dodum',sans-serif;font-synthesis:none;font-weight:400;font-size:12px;line-height:1.35;letter-spacing:normal;color:#7b869b}
+.app:has(>#main-content:not([hidden])>:is(#home-screen,#meditation-screen,#gratitude-screen,#prayer-screen,#my-screen):not([hidden]))>#bottom-nav#bottom-nav button[aria-current=page]{font-weight:700;color:#356239}
