@@ -296,3 +296,5 @@ label,.speaker,.scripture-label,.explanation-label,.verse-actions summary{font-w
 #settings-dialog .ai-privacy-note{margin:20px 0 0;padding:14px 2px 0;border-top:1px solid var(--line);color:var(--muted)}
 #settings-dialog .ai-privacy-note h3{margin:0 0 7px;color:var(--green);font-size:13px;font-weight:550;line-height:1.5}
 #settings-dialog .ai-privacy-note p{margin:0;font-size:12px;line-height:1.8;overflow-wrap:anywhere}
+
+#onboarding .primary{border-radius:13px!important}

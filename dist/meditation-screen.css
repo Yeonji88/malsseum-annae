@@ -9,12 +9,11 @@
 .meditation-intro{margin:0 0 var(--app-support-card-gap)}
 .meditation-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
 .meditation-heading h1{margin:0;color:var(--green);font-size:var(--font-heading,24px);font-weight:600;line-height:var(--app-screen-title-line);letter-spacing:-.7px;white-space:pre-line}
-.meditation-date{flex:0 0 auto;margin-top:5px;padding:5px 9px;border-radius:999px;background:var(--meditation-coral-soft);color:#a7554e;font-size:var(--font-caption,11px);line-height:1.35;white-space:nowrap}
 .meditation-subtitle{margin:var(--app-title-support-gap) 0 0;color:var(--muted);font-size:var(--font-screen-support,17px);font-weight:var(--weight-screen-support);line-height:var(--line-screen-support)}
 .daily-verse-card{position:relative;margin:0;padding:16px 17px 14px;border:1px solid rgba(82,104,88,.1);border-radius:17px;background:#fffefb;box-shadow:0 7px 21px rgba(54,73,61,.065)}
-.daily-verse-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:9px}
-.daily-verse-label{color:var(--meditation-coral);font-size:var(--font-small,12px);font-weight:600}
-.daily-bookmark{display:grid;place-items:center;width:34px;height:34px;margin:-7px -7px -5px 0;padding:0;border:0;background:transparent;color:#8b9a91;border-radius:50%}
+.daily-verse-head{display:flex;gap:8px;align-items:center;justify-content:space-between;margin-bottom:9px}
+.daily-verse-label{color:#c46259;font-size:var(--font-small,12px);font-weight:600}
+.daily-bookmark{flex-shrink:0;display:grid;place-items:center;width:34px;height:34px;margin:-7px -7px -5px 0;padding:0;border:0;background:transparent;color:#8b9a91;border-radius:50%}
 .daily-bookmark.is-saved{color:var(--green);background:var(--meditation-sage)}
 .meditation-icon{display:inline-grid;place-items:center;width:18px;height:18px;flex:0 0 18px}
 .meditation-icon svg{display:block;width:100%;height:100%}
@@ -64,10 +63,10 @@
 .meditation-journal textarea::placeholder{color:#9aa39d}
 .meditation-journal-status{min-height:1.6em;margin:5px 0;color:#66806e;font-size:var(--font-support);line-height:var(--line-reading)}
 .meditation-journal-save{width:100%;min-height:44px;padding:10px 14px;border:0;border-radius:14px;background:var(--meditation-coral);color:#fff;font-family:inherit;font-size:var(--font-action);font-weight:500;line-height:1.45;box-shadow:0 5px 12px rgba(213,111,101,.14)}
-.meditation-journal-back{display:flex;align-items:center;justify-content:center;width:max-content;max-width:100%;min-height:44px;margin:13px auto 0;padding:9px 18px;border:0;background:transparent;color:#365d46;font-family:inherit;font-size:var(--font-support);font-weight:500;line-height:1.45;text-align:center;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:4px;cursor:pointer}
-.meditation-journal-back>span:first-child{font-size:inherit;line-height:inherit}
-.meditation-journal-back:hover,.meditation-journal-back:focus-visible{background:transparent;color:#294d38}
-.meditation-journal-back:focus-visible{outline:2px solid #8aa091;outline-offset:2px}
+:is(.meditation-journal-back,.meditation-all-link){display:flex;align-items:center;justify-content:center;width:max-content;max-width:100%;min-height:44px;margin:13px auto 0;padding:9px 18px;border:0;background:transparent;color:#365d46;font-family:inherit;font-size:var(--font-support);font-weight:500;line-height:1.45;text-align:center;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:4px;cursor:pointer}
+:is(.meditation-journal-back,.meditation-all-link)>span:first-child{font-size:inherit;line-height:inherit}
+:is(.meditation-journal-back,.meditation-all-link):hover,:is(.meditation-journal-back,.meditation-all-link):focus-visible{background:transparent;color:#294d38}
+:is(.meditation-journal-back,.meditation-all-link):focus-visible{outline:2px solid #8aa091;outline-offset:2px}
 .meditation-record-card{margin:0 0 11px;padding:14px 15px;border:1px solid rgba(82,104,88,.09);border-radius:16px;background:#fffefb;box-shadow:0 5px 15px rgba(54,73,61,.045)}
 .meditation-record-head{display:flex;align-items:center;justify-content:space-between;gap:12px}
 .meditation-record-head time{color:var(--meditation-coral);font-size:var(--font-caption,10px)}
@@ -90,7 +89,7 @@
 .meditation-list-today-action:hover,.meditation-list-today-action:focus-visible{background:#dce7d8}
 .meditation-list-today-action.is-inline-link:hover,.meditation-list-today-action.is-inline-link:focus-visible{background:transparent;color:#294d38}
 .meditation-list-today-action:focus-visible{outline:2px solid #8aa091;outline-offset:2px}
-@media(max-width:350px){.app:has(#meditation-screen:not([hidden])) #main-content{padding-left:13px;padding-right:13px}.meditation-screen{padding-left:2px;padding-right:2px}.meditation-detail,.meditation-list-screen,.meditation-record-screen{padding-left:13px;padding-right:13px}.meditation-heading{gap:7px}.meditation-date{padding:5px 7px}.daily-verse-card{padding-left:14px;padding-right:14px}}
+@media(max-width:350px){.app:has(#meditation-screen:not([hidden])) #main-content{padding-left:13px;padding-right:13px}.meditation-screen{padding-left:2px;padding-right:2px}.meditation-detail,.meditation-list-screen,.meditation-record-screen{padding-left:13px;padding-right:13px}.meditation-heading{gap:7px}.daily-verse-card{padding-left:14px;padding-right:14px}}
 @media(max-height:740px) and (min-width:351px){.daily-verse-card{padding-top:13px;padding-bottom:12px}.meditation-primary{margin-top:9px}.meditation-mine{margin-top:2px;padding-top:10px;padding-bottom:10px}}
 
 .meditation-journal-status.is-saved{text-align:center}
@@ -99,5 +98,11 @@
 
 /* Shared line color only; text color and underline geometry stay unchanged. */
 :root{--link-underline-color:#c8d8cc}
-.meditation-back-label,.meditation-journal-back,.meditation-list-today-action.is-inline-link{text-decoration-color:var(--link-underline-color)}
+.meditation-back-label,:is(.meditation-journal-back,.meditation-all-link),.meditation-list-today-action.is-inline-link{text-decoration-color:var(--link-underline-color)}
 #meditation-list-screen .meditation-list-empty:has(+.meditation-record-card){margin-bottom:11px}
+
+.meditation-today-preview{--prayer-sage-soft:#edf3e8}
+
+#meditation-screen>.daily-verse-card+.meditation-actions{margin-top:16px}
+
+.meditation-today-preview .meditation-actions>.meditation-secondary{background:var(--journal-cta-coral);color:#fff;font-size:calc(var(--font-support) + 1px)!important;font-weight:400!important;line-height:calc(var(--font-support) * 1.45)!important}

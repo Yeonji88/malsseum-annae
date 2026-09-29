@@ -33,7 +33,7 @@
 .prayer-calendar-legend span{display:flex;align-items:center;gap:4px}.prayer-calendar-legend i{font-style:normal}.legend-prayer{color:var(--prayer-sage);font-size:10px}.legend-answer{color:var(--prayer-coral);font:700 11px/1 sans-serif}.legend-today{color:#8da08b;font-size:14px}
 .prayer-day{margin-top:9px;padding:12px;border:1px solid #ebe7df;border-radius:21px;background:#fffdfa;box-shadow:0 6px 18px #554d3c09}
 .prayer-day-heading{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:7px}
-#prayer-screen .prayer-day-heading h2{margin:0;color:#303633;font-size:var(--font-body);font-weight:400;line-height:1.5}
+#prayer-screen .prayer-day-heading h2,.meditation-today-preview .prayer-day-heading h2{margin:0;color:#303633;font-size:var(--font-body);font-weight:400;line-height:1.5}
 .today-label{padding:4px 9px;border-radius:13px;background:var(--prayer-sage-soft);color:#617b5f;font-size:var(--font-caption);line-height:1.4}
 .prayer-day-empty{text-align:center;padding:4px 3px 0}.prayer-empty-title{margin:0;color:#315f49;font-size:var(--font-body);line-height:1.65}.prayer-empty-copy{margin:4px 0 9px;color:#858a82;font-size:var(--font-small);line-height:1.7;white-space:pre-line}
 .prayer-record-button,.prayer-add-button{display:block;width:100%;min-height:44px;padding:9px 15px;border:0;border-radius:24px;background:var(--prayer-coral);color:#fff;font-family:inherit;font-size:var(--font-action);font-weight:400;line-height:1.5;cursor:pointer;box-shadow:0 5px 13px #d978701c}

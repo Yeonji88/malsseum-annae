@@ -1,0 +1,5 @@
+const test=require('node:test'),assert=require('node:assert/strict'),vm=require('node:vm'),fs=require('node:fs');
+const source=fs.readFileSync('dist/app.js','utf8').split('const UserProfile = ')[1].split('const onboarding=')[0];
+function profile(initial){const values=new Map([['malsseum-annae.display-name.v1',initial]]);return vm.runInNewContext('('+source.trim().replace(/;$/,'')+')',{localStorage:{getItem:k=>values.get(k),setItem:(k,v)=>values.set(k,v),removeItem:k=>values.delete(k)}});}
+test('name saving accepts 1/10 characters and rejects 11 without replacing the saved name',()=>{const p=profile('연지');assert.equal(p.load(),'연지');assert.equal(p.save('가'),'가');assert.equal(p.save('가나다라마바사아자차'),'가나다라마바사아자차');assert.throws(()=>p.save('가나다라마바사아자차카'),/1~10/);assert.equal(p.load(),'가나다라마바사아자차');});
+test('previously saved 11–20 character names remain readable without migration',()=>{const name='가'.repeat(20),p=profile(name);assert.equal(p.load(),name);assert.throws(()=>p.save(name),/1~10/);assert.equal(p.load(),name);});

@@ -36,7 +36,7 @@ const fs=require('node:fs');
   await page.reload();await page.waitForSelector('.daily-bookmark');
   assert.equal(await save.locator('svg').getAttribute('fill'),'currentColor');
   assert.equal(await page.locator('.daily-bookmark svg').getAttribute('fill'),'currentColor');
-  await page.locator('.meditation-primary').click();
+  await page.getByRole('button',{name:'말씀 묵상하기',exact:true}).click();
   assert.equal(await page.locator('#meditation-detail .save-action svg').getAttribute('fill'),'currentColor');
   assert.equal(await page.locator('.meditation-back-label:visible').evaluate(e=>getComputedStyle(e).textDecorationThickness),'1px');
   for(const selector of ['.meditation-back-label:visible','.meditation-journal-back']){
