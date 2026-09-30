@@ -137,7 +137,7 @@ function renderTurn(message,selection,{source='concern'}={}) {
   if(isUnknownConcern(selection)){
    turn.classList.add('unknown-concern-turn');
    user.querySelector('.speaker').textContent='현재 마음';
-   user.querySelector('p').textContent=turnCount?input.value:message;
+   user.querySelector('p').textContent=message;
    turn.append(user);
    const scripture=element('figure','scripture'),quote=element('span','result-quote','“');quote.setAttribute('aria-hidden','true');
    scripture.append(quote,element('blockquote','',unknownConcernFallback.text),element('figcaption','',unknownConcernFallback.reference),element('span','translation','성경 본문 · 개역개정'));
@@ -245,6 +245,7 @@ async function playVerseTransition(){
  }finally{panel.close();panel.remove();}
 }
 async function showVerse(message,continueConversation=false,animate=false) {
+ const wasUnknown=conversation.querySelector('.unknown-concern-turn')!==null;
  const localAnalysis=classifyConcern(message);
  const aiAnalysis=await analyzeConcernWithAI(message,localAnalysis);
  const classification=window.Malsseum.services.resolveConcernRoles(message,aiAnalysis);
@@ -256,8 +257,9 @@ async function showVerse(message,continueConversation=false,animate=false) {
  setUnknownConcernInput(isUnknownConcern(selection));
  if(isUnknownConcern(selection))reply.placeholder='지금 가장 마음에 걸리는 일이나\n갖고 있는 고민이 있다면 편하게 들려주세요.';
  // The recommendation is already fixed; these decorative cards never select a verse.
- if(animate&&!continueConversation&&selection.verse)await playVerseTransition();
+ if(animate&&(!continueConversation||wasUnknown)&&selection.verse)await playVerseTransition();
  if(!continueConversation){previousId=null;turnCount=0;conversation.replaceChildren();}
+ if(isUnknownConcern(selection)||wasUnknown)conversation.replaceChildren();
  const turn=renderTurn(message,selection);conversation.append(turn);
  refreshSaveButtons();
  if(selection.verse&&(!continueConversation||previousId!==selection.verse.id))recommendationHistory.record(selection.verse.id);
