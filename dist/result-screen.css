@@ -22,13 +22,13 @@
 #result #conversation{order:0;margin:0;padding:0}
 #result .conversation-turn{margin:0 0 16px;padding:0;border:0;scroll-margin-top:0}
 #result .verse-result-turn .assistant-message{display:flex;flex-direction:column;gap:0}
-#result .verse-result-turn .scripture{position:relative;min-width:0;margin:0 0 10px;padding:22px 24px 20px 49px;background:#fffdfa;border:1px solid #ebe7df;border-radius:20px;box-shadow:0 7px 20px #554d3c0c;text-align:left;overflow-wrap:anywhere}
+#result :is(.verse-result-turn,.unknown-concern-turn) .scripture{position:relative;min-width:0;margin:0 0 10px;padding:22px 24px 20px 49px;background:#fffdfa;border:1px solid #ebe7df;border-radius:20px;box-shadow:0 7px 20px #554d3c0c;text-align:left;overflow-wrap:anywhere}
 #result .result-quote{position:absolute;top:16px;left:16px;font-size:38px;line-height:1;color:#a1b3a3}
 #result .scripture blockquote{margin:0 0 14px;font-size:clamp(17.5px,4.75vw,19.5px);line-height:1.46;letter-spacing:-.55px;color:#303633;text-align:left;white-space:pre-line;word-break:keep-all}
 #result .scripture figcaption{display:block;font-size:13px;line-height:1.55;color:#315f49}
 #result .scripture .translation{display:block;margin:2px 0 0;font-size:10px;line-height:1.45;color:#93958b}
 #result .scripture a{display:inline-block;margin:5px 0 0 8px;font-size:10px}
-#result .verse-result-turn .user-message{align-self:stretch;max-width:none;margin:0 0 12px;padding:7px 15px;border:1px solid #e8ecdf;border-radius:13px;background:#f0f3eb;color:#424941;box-shadow:none}
+#result :is(.verse-result-turn,.unknown-concern-turn) .user-message{align-self:stretch;max-width:none;margin:0 0 12px;padding:7px 15px;border:1px solid #e8ecdf;border-radius:13px;background:#f0f3eb;color:#424941;box-shadow:none}
 #result .user-message .speaker{font-size:12px;color:#55755e}
 #result .user-message p{margin:3px 0 0;font-size:14px;line-height:1.45;white-space:pre-wrap;overflow-wrap:anywhere}
 #result .verse-result-turn .explanation-card{margin:0 0 14px;padding:10px 17px;background:#fffdfa;border:1px solid #eeeae2;border-radius:16px;box-shadow:0 3px 12px #554d3c07}
@@ -78,15 +78,16 @@
 #result .verse-actions details>small{margin:0 16px 15px;font-size:11px}
 .result-back:focus-visible{outline:2px solid #315f49;outline-offset:3px}
 #result #reply-form{order:2;margin:12px 0 0;padding:var(--result-section-title-inset) 0 0;border:0;border-top:1px solid #eae7df;border-radius:0;background:none;box-shadow:none}
+#result.is-unknown-concern #reply-form{border-top-color:transparent;margin-top:0;padding-top:calc(var(--result-section-title-inset) - 16px)}
 .app:has(#result:not([hidden]))>#bottom-nav{background:#fffdfa}
 .app:has(#result:not([hidden]))>#bottom-nav button{font-family:'Malsseum Gowun Dodum','Malsseum SUIT',sans-serif;font-weight:400;font-synthesis:none}
-@media(max-width:359px){#result .verse-result-turn .scripture{padding:21px 17px 19px 39px}#result .result-quote{left:12px}#result .verse-actions{gap:5px}#result .verse-actions summary,:is(#result,#meditation-detail) .save-action{font-size:12px}#result .verse-actions small{font-size:9px}}
+@media(max-width:359px){#result :is(.verse-result-turn,.unknown-concern-turn) .scripture{padding:21px 17px 19px 39px}#result .result-quote{left:12px}#result .verse-actions{gap:5px}#result .verse-actions summary,:is(#result,#meditation-detail) .save-action{font-size:12px}#result .verse-actions small{font-size:9px}}
 
 /* Concern results read continuously; saved-verse details retain their disclosure UI. */
 #result .verse-actions.concern-guidance{grid-template-columns:minmax(0,1fr);gap:14px}
 #result .concern-guidance>section{min-width:0;padding:var(--result-section-title-inset) 16px;border:1px solid #eae6de;border-radius:16px;background:#fffdfa;box-shadow:0 5px 14px #554d3c0b}
 #result .concern-guidance .guidance-title,
-.app[data-text-size] #result:has(.concern-guidance) #reply-form label{width:fit-content;max-width:100%;margin:0 auto;text-align:center;color:var(--green);font-size:var(--font-subheading);line-height:1.5;background:linear-gradient(transparent 52%,var(--meditation-sage) 52%,var(--meditation-sage) 91%,transparent 91%);border-radius:2px}
+.app[data-text-size] #result:is(:has(.concern-guidance),.is-unknown-concern) #reply-form label{width:fit-content;max-width:100%;margin:0 auto;text-align:center;color:var(--green);font-size:var(--font-subheading);line-height:1.5;background:linear-gradient(transparent 52%,var(--meditation-sage) 52%,var(--meditation-sage) 91%,transparent 91%);border-radius:2px}
 #result .concern-guidance .guidance-subtitle{margin:4px 0 14px;text-align:center;color:var(--muted);font-size:var(--font-support);line-height:var(--line-reading)}
 #result .concern-guidance .guidance-copy{margin:0;white-space:pre-line;font-size:var(--font-body);line-height:var(--line-reading)}
 #result .concern-guidance .conversation-questions{margin:16px 0 0}

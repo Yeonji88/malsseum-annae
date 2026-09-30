@@ -19,7 +19,9 @@ const scenarios=[{name:'empty',records:[]},{name:'past',records:past},{name:'tod
   const expected=scenario.records.filter(r=>r.id.startsWith('today')).reverse().map(r=>r.content);
   assert.deepEqual(await card.locator('.meditation-preview-item p').allTextContents(),expected);
   if(!expected.length){assert.deepEqual(await card.locator('.meditation-empty p').allTextContents(),['오늘 작성한 묵상이 없어요.','오늘의 말씀을 조용히 묵상하고 마음을 남겨보세요.']);assert.equal(await card.locator('.meditation-mine-head').evaluate(e=>getComputedStyle(e).justifyContent),'center');}
-  assert.equal(await card.getByRole('button',{name:'묵상 기록하기',exact:true}).count(),1);
+  // Today's saved reflection opens editing; empty/past-only states start writing.
+  assert.equal(await card.getByRole('button',{name:'묵상 기록하기',exact:true}).count(),expected.length?0:1);
+  assert.equal(await card.getByRole('button',{name:'묵상 수정하기',exact:true}).count(),expected.length?1:0);
   assert.equal(await card.locator('.meditation-view-all').evaluate(e=>getComputedStyle(e).textDecorationLine),'underline');
   await card.scrollIntoViewIfNeeded();
   assert.ok(await page.locator('#main-content').evaluate(e=>e.scrollWidth<=e.clientWidth+1));
@@ -32,6 +34,8 @@ const scenarios=[{name:'empty',records:[]},{name:'past',records:past},{name:'tod
   // Seoul midnight is 15:00 UTC: yesterday's records disappear without navigation.
   await page.clock.fastForward(12*60*60*1000+100);
   assert.equal(await card.locator('.meditation-preview-item').count(),0);
+  assert.equal(await card.getByRole('button',{name:'묵상 기록하기',exact:true}).count(),1);
+  assert.equal(await card.getByRole('button',{name:'묵상 수정하기',exact:true}).count(),0);
   await card.locator('.meditation-view-all').click();assert.equal(await page.locator('.meditation-record-card').count(),scenario.records.length);
   assert.equal(await page.evaluate(key=>localStorage.getItem(key),key),JSON.stringify(scenario.records));
   await page.evaluate(()=>displayScreen('reflection'));

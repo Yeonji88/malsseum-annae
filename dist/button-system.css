@@ -10,7 +10,11 @@
  --button-compact-radius:11px;
  --button-compact-padding:7px 11px;
  --button-inline-gap:8px;
+ --font-underlined-action:calc(var(--font-small) + 2px);
 }
+/* Clickable underlined text: preserve each screen's other styles and hit areas. */
+#main-content :is(.meditation-back-label,.meditation-journal-back,.meditation-list-today-action.is-inline-link:not(.is-continue-writing)),
+#main-content .scripture a{font-size:var(--font-underlined-action)}
 .button-primary{
  display:flex!important;
  align-items:center;

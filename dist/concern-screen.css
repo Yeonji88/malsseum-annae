@@ -58,6 +58,7 @@
 #home-screen .input-foot{position:relative;z-index:2;justify-content:flex-end;padding-top:2px;color:#858d86;font-size:var(--font-small,12px)}
 #home-screen #reset-heart{color:#68766d}
 #home-screen #error{font-size:var(--font-support,13px)}
+#home-screen #error.empty-concern-validation{color:var(--muted);text-align:center}
 #home-screen #heart-form>.primary{
  margin-top:11px;border:0;background:var(--concern-coral);color:#fff;box-shadow:0 5px 13px #d978701c
 }

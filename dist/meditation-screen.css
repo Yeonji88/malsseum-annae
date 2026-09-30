@@ -98,7 +98,7 @@
 @media(max-height:740px) and (min-width:351px){.daily-verse-card{padding-top:13px;padding-bottom:12px}.meditation-primary{margin-top:9px}.meditation-mine{margin-top:2px;padding-top:10px;padding-bottom:10px}}
 
 .meditation-journal-status.is-saved{text-align:center}
-.meditation-back-label{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:4px}
+.meditation-back-label{text-decoration:none}
 .meditation-list-today-action.is-continue-writing{text-decoration:none}
 
 /* Shared line color only; text color and underline geometry stay unchanged. */
@@ -109,8 +109,8 @@
 /* Main journal card only; recorded content stays left-aligned. */
 #meditation-screen .meditation-mine-head{justify-content:center}
 #meditation-screen .meditation-mine .meditation-empty{text-align:center}
-#meditation-screen .meditation-mine-links{display:flex;justify-content:center;gap:12px;margin-top:12px}
-#meditation-screen .meditation-mine-links>:is(.meditation-view-all,.meditation-write-link){display:block;margin:0;white-space:nowrap;color:#365d46;text-align:center;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:4px;text-decoration-color:var(--link-underline-color)}
+#meditation-screen .meditation-mine-links{display:flex;justify-content:center;gap:24px;margin-top:12px}
+#meditation-screen .meditation-mine-links>:is(.meditation-view-all,.meditation-write-link){display:block;margin:0;min-height:44px;box-sizing:border-box;padding:9px 0;font-size:var(--font-underlined-action);white-space:nowrap;color:#365d46;text-align:center;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:4px;text-decoration-color:var(--link-underline-color)}
 
 
 
