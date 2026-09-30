@@ -583,8 +583,16 @@ const reflectionDateFormat=new Intl.DateTimeFormat('ko-KR',{year:'numeric',month
 function bookmarkIcon(){const icon=element('span','meditation-icon');icon.setAttribute('aria-hidden','true');icon.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12v18l-6-4-6 4V3Z"/></svg>';return icon;}
 async function shareDailyVerse(verse,status){
  const url='https://yeonji88.github.io/malsseum-annae/';
- const text=displayVerseText(verse)+'\n\n'+verse.reference;
+ const text=displayVerseText(verse)+'\n('+verse.reference+')';
  status.textContent='';
+if(typeof window.malsseumNativeShare==='function'){
+  try{
+    await window.malsseumNativeShare('', '💛 오늘의 말씀 💛\n'+text, url);
+    return;
+  }catch(error){
+    if(error?.name==='AbortError')return;
+  }
+}
  if(typeof navigator.share==='function'){
   try{await navigator.share({title:'말씀 안에 오늘의 말씀',text,url});return;}
   catch(error){if(error?.name==='AbortError')return;}
