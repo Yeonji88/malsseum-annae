@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">말씀 안에</string>
-    <string name="title_activity_main">말씀 안에</string>
+    <string name="app_name">말씀안에</string>
+    <string name="title_activity_main">말씀안에</string>
     <string name="package_name">com.malsseum.annae</string>
     <string name="custom_url_scheme">com.malsseum.annae</string>
 </resources>
