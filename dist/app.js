@@ -850,6 +850,9 @@ function displayScreen(screen){
  if(screen==='prayer')renderPrayerList();
  if(screen==='reflection')renderMeditationHome();
  resultScreen.hidden=screen!=='result'||!conversation.children.length;
+ const savedDetail=Boolean(conversation.querySelector('.saved-verse-turn'));
+ resultBack.querySelector('.meditation-back-label').textContent=savedDetail?'저장된 말씀 보기':'고민 입력하기';
+ document.getElementById('reply-form').hidden=savedDetail;
  emptyScreen.hidden=true;
  const activeScreen=['meditation-detail','meditation-list','meditation-record','reflection-verse'].includes(screen)?'reflection':screen;
  bottomNav.querySelectorAll('button').forEach(button=>{if(['home','reflection','prayer','gratitude','profile'].includes(activeScreen)&&button.dataset.screen===activeScreen)button.setAttribute('aria-current','page');else button.removeAttribute('aria-current');});
