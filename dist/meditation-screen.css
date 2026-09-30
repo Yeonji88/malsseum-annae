@@ -21,14 +21,19 @@
 .daily-verse-reference{margin:9px 0 0;color:#78837c;font-size:var(--font-small,12px);line-height:1.6;text-align:right}
 .meditation-primary{display:block;width:100%;min-height:44px;margin:12px 0 8px;padding:10px 14px;border:0;border-radius:14px;background:var(--journal-cta-coral);color:#fff;font-family:inherit;font-size:var(--font-action);font-weight:500;line-height:1.45;box-shadow:0 5px 12px rgba(213,111,101,.16)}
 .meditation-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+#meditation-screen>.daily-verse-card+.meditation-actions{margin-top:8px}
+#meditation-screen>.meditation-primary{margin-bottom:12px}
 .meditation-secondary{display:flex;align-items:center;justify-content:center;gap:7px;min-height:38px;padding:8px 10px;border:1px solid rgba(67,91,76,.08);border-radius:13px;background:#f6f8f3;color:var(--green);font-family:inherit;font-size:var(--font-support);font-weight:400;line-height:1.45}
 .meditation-secondary.is-saved{background:var(--meditation-sage);color:var(--green)}
 .meditation-share-status{min-height:1.6em;margin:4px 0 0;color:var(--muted);font-size:var(--font-small,11px);line-height:1.6;text-align:center}
+#meditation-screen>.meditation-share-status:empty{display:none}
 .meditation-mine{margin-top:5px;padding:13px 14px;border:1px solid rgba(82,104,88,.08);border-radius:16px;background:rgba(255,255,252,.7)}
 .meditation-mine-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:8px}
 .meditation-mine h2{margin:0;color:var(--green);font-size:var(--font-subheading,16px);font-weight:600}
-.meditation-view-all{padding:5px 0;border:0;background:transparent;color:#7c887f;font-family:inherit;font-size:var(--font-small);font-weight:400;line-height:1.4}
+:is(.meditation-view-all,.meditation-write-link){padding:5px 0;border:0;background:transparent;color:#7c887f;font-family:inherit;font-size:var(--font-small);font-weight:400;line-height:1.4}
 .meditation-empty{text-align:left;color:var(--muted)}
+.meditation-mine.is-today-empty .meditation-mine-head{justify-content:center}
+.meditation-mine.is-today-empty .meditation-empty{text-align:center}
 .meditation-empty p{margin:0;font-size:var(--font-support,12px);line-height:1.55}
 .meditation-empty p:first-child{margin-bottom:2px;color:#4f6659}
 .meditation-preview-item{display:block;width:100%;padding:9px 0;border:0;border-top:1px solid rgba(80,102,87,.09);background:transparent;text-align:left;font-family:inherit}
@@ -104,7 +109,8 @@
 /* Main journal card only; recorded content stays left-aligned. */
 #meditation-screen .meditation-mine-head{justify-content:center}
 #meditation-screen .meditation-mine .meditation-empty{text-align:center}
-#meditation-screen .meditation-mine>.meditation-view-all{display:block;margin:12px auto 0;color:#365d46;text-align:center;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:4px;text-decoration-color:var(--link-underline-color)}
+#meditation-screen .meditation-mine-links{display:flex;justify-content:center;gap:12px;margin-top:12px}
+#meditation-screen .meditation-mine-links>:is(.meditation-view-all,.meditation-write-link){display:block;margin:0;white-space:nowrap;color:#365d46;text-align:center;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:4px;text-decoration-color:var(--link-underline-color)}
 
 
 
