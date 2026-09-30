@@ -1,0 +1,23 @@
+#brand-splash {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  opacity: 1;
+  transition: opacity 0.35s ease;
+}
+
+#brand-splash.is-hiding {
+  opacity: 0;
+  pointer-events: none;
+}
+
+#brand-splash img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
