@@ -580,7 +580,7 @@ const meditationStyles=document.createElement('link');meditationStyles.rel='styl
 const reflectionDateFormat=new Intl.DateTimeFormat('ko-KR',{year:'numeric',month:'long',day:'numeric'});
 function bookmarkIcon(){const icon=element('span','meditation-icon');icon.setAttribute('aria-hidden','true');icon.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12v18l-6-4-6 4V3Z"/></svg>';return icon;}
 async function shareDailyVerse(verse,status){
- const url='https://yeonji88.github.io/malsseum-annae/';
+ const url='https://yeonji88.github.io/malsseum-annae/?verse='+encodeURIComponent(verse.id);
  const text=displayVerseText(verse)+'\n('+verse.reference+')';
  status.textContent='';
 if(typeof window.malsseumNativeShare==='function'){
@@ -868,7 +868,15 @@ function displayScreen(screen){
 }
 bottomNav.querySelectorAll('button').forEach(button=>button.addEventListener('click',()=>displayScreen(button.dataset.screen)));
 document.getElementById('empty-home').addEventListener('click',()=>displayScreen('home'));
-if(UserProfile.getName())displayScreen('reflection');
+if(UserProfile.getName()){
+  const sharedVerseId=new URLSearchParams(window.location.search).get('verse');
+  const sharedVerse=sharedVerseId?window.Malsseum.data.verses.find(verse=>verse.id===sharedVerseId):null;
+  if(sharedVerse){
+    openDailyMeditation(sharedVerse);
+  }else{
+    displayScreen('reflection');
+  }
+}
 new MutationObserver(()=>{
  gratitudeView.root.hidden=true;homeScreen.hidden=true;emptyScreen.hidden=true;myScreen.hidden=true;prayerScreen.hidden=true;meditationScreen.hidden=true;meditationDetail.hidden=true;meditationList.hidden=true;meditationRecord.hidden=true;resultScreen.hidden=false;
  bottomNav.querySelectorAll('button').forEach(button=>button.removeAttribute('aria-current'));
