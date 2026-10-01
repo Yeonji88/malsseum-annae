@@ -504,7 +504,7 @@ function renderSavedList(){
   }
   card.append(element('span','saved-verse-text',verse.verseEnd>verse.verseStart?displayVerseText(verse).replace(/\r?\n(?:[ \t]*\r?\n)+/g,'\n'):displayVerseText(verse)),footer);
   card.addEventListener('click',()=>{
-   if(!editingSaved){openSavedVerse(id);return;}
+   if(!editingSaved){return;}
    if(selectedSaved.has(id))selectedSaved.delete(id);else selectedSaved.add(id);
    renderSavedList();savedList.children[ids.indexOf(id)]?.focus();
   });savedList.append(card);
