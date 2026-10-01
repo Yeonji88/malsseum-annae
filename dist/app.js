@@ -534,20 +534,18 @@ const DailyVerse=(()=>{
  function history(){
   try{const stored=JSON.parse(localStorage.getItem(historyKey)||'[]');return Array.isArray(stored)?stored.filter(item=>item&&typeof item.date==='string'&&known.has(item.verseId)).slice(-14):[];}catch{return [];}
  }
- function get(){
+function get(){
   const today=dateKey(new Date());
-  try{const saved=JSON.parse(localStorage.getItem(currentKey)||'null');if(saved?.date===today&&known.has(saved.verseId))return catalogue.find(verse=>verse.id===saved.verseId); }catch{}
-  const recent=history(),blocked=new Set(recent.slice(-7).map(item=>item.verseId));
-  const available=catalogue.filter(verse=>!blocked.has(verse.id));
-  const pool=available.length?available:catalogue;
-  const verse=pool[hash('malsseum-annae:'+today)%pool.length];
+  const epoch=new Date(2026,0,1);
+const dayNumber=Math.floor((new Date(new Date().getFullYear(),new Date().getMonth(),new Date().getDate())-epoch)/86400000);
+const verse=catalogue[((dayNumber%catalogue.length)+catalogue.length)%catalogue.length];
   try{
-   localStorage.setItem(currentKey,JSON.stringify({date:today,verseId:verse.id}));
-   localStorage.setItem(historyKey,JSON.stringify([...recent.filter(item=>item.date!==today),{date:today,verseId:verse.id}].slice(-14)));
+    localStorage.setItem(currentKey,JSON.stringify({date:today,verseId:verse.id}));
+    localStorage.setItem(historyKey,JSON.stringify([...history().filter(item=>item.date!==today),{date:today,verseId:verse.id}].slice(-14)));
   }catch{}
   return verse;
- }
- return {get};
+}
+return {get};
 })();
 const PersonalReflections=(()=>{
  const key='malsseum-annae.personal-reflections.v1';
