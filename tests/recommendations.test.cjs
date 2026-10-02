@@ -40,7 +40,7 @@ test('catalogue has ten topics, 110 unique verses, all texts ready and optional 
   assert.equal(verse.textVerificationSource,verse.id==='psalm-46-1-3'?'korean_bible_society':'user_supplied');assert.equal(verse.recommendationEnabled,true);
   if(data.reflections[verse.id]){
    for(const key of (verse.requiresSpecificSituation?['reflection']:['reflection','question','prayer']))assert.ok(data.reflections[verse.id][key]);
-   assert.equal(verse.guidanceStatus,['matthew-11-28','psalm-56-3','psalm-34-18','1-corinthians-7-3-4','song-of-songs-7-10-12','ephesians-5-28','1-thessalonians-4-3-5'].includes(verse.id)?'ready':'pending');
+   assert.equal(verse.guidanceStatus,['matthew-11-28','psalm-56-3','psalm-34-18','1-corinthians-7-3-4','song-of-songs-7-10-12','ephesians-5-28','1-thessalonians-4-3-5','psalm-55-12-14','matthew-28-19-20','colossians-4-3-4','proverbs-12-18','ephesians-6-1-3','james-2-15-17'].includes(verse.id)?'ready':'pending');
   }else{
    assert.equal(verse.guidanceStatus,'pending');assert.equal(verse.metadataStatus,'draft');
    for(const key of ['reflection','question','prayer'])assert.equal(verse[key],undefined);

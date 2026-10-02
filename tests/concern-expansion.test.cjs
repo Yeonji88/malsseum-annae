@@ -30,7 +30,7 @@ test('approved first 100 entries and original Daily source remain unchanged (nor
  assert.equal(new Set(data.verses.map(v=>v.id)).size,110);
  assert.equal(new Set(Object.values(data.reflections).map(v=>v.reflection)).size,110);
 });
-test('new text and reflection exactly match user final source; optional drafts stay out of Production',()=>{
+test('new text, reflection, and approved guidance exactly match final source',()=>{
  const {data}=app();assert.deepEqual(Array.from(data.verses.slice(100),v=>v.id),approved.map(v=>v.id));
  for(const expected of approved){
   const v=data.verses.find(v=>v.id===expected.id),r=data.reflections[v.id];
@@ -39,8 +39,8 @@ test('new text and reflection exactly match user final source; optional drafts s
   assert.equal(v.text.split('\n').length,v.verseEnd-v.verseStart+1);
   assert.doesNotMatch(v.text,/\[(?:\d+|[ㄱ-ㅎ])\)\]/);
   assert.equal(v.translation,'개역개정');assert.equal(v.textVerificationSource,'user_supplied');
-  assert.equal(r.reflection,expected.reflection);assert.equal(r.question,expected.question||'');assert.equal(r.prayer,expected.prayer||'');
-  assert.equal(v.guidanceStatus,expected.question?'ready':'pending');const guidance=expected.question?r:drafts[v.id];assert.equal(guidance.question.split('\n').length,3);assert.ok(guidance.prayer);
+  assert.equal(r.reflection,expected.reflection);const approvedGuidance=expected.question?expected:drafts[v.id];assert.equal(r.question,approvedGuidance.question);assert.equal(r.prayer,approvedGuidance.prayer);
+  assert.equal(v.guidanceStatus,'ready');assert.equal(r.question.split('\n').length,3);assert.ok(r.prayer);
  }
  assert.match(data.verses.find(v=>v.id==='1-thessalonians-4-3-5').contextNote,/3–5절 범위를 유지/);
  assert.doesNotMatch(read('dist/index.html'),/concern-guidance-drafts|concern-preview|__concern/);

@@ -2665,7 +2665,7 @@ window.Malsseum.data.verses = Object.freeze([
     "textStatus": "verified",
     "textStatusLabel": "사용자 제공 최종 본문",
     "recommendationEnabled": true,
-    "guidanceStatus": "pending",
+    "guidanceStatus": "ready",
     "metadataStatus": "draft",
     "requiresSpecificSituation": true,
     "applicationGuidance": {
@@ -2706,7 +2706,7 @@ window.Malsseum.data.verses = Object.freeze([
     "textStatus": "verified",
     "textStatusLabel": "사용자 제공 최종 본문",
     "recommendationEnabled": true,
-    "guidanceStatus": "pending",
+    "guidanceStatus": "ready",
     "metadataStatus": "draft",
     "requiresSpecificSituation": true,
     "applicationGuidance": {
@@ -2747,7 +2747,7 @@ window.Malsseum.data.verses = Object.freeze([
     "textStatus": "verified",
     "textStatusLabel": "사용자 제공 최종 본문",
     "recommendationEnabled": true,
-    "guidanceStatus": "pending",
+    "guidanceStatus": "ready",
     "metadataStatus": "draft",
     "requiresSpecificSituation": true,
     "applicationGuidance": {
@@ -2788,7 +2788,7 @@ window.Malsseum.data.verses = Object.freeze([
     "textStatus": "verified",
     "textStatusLabel": "사용자 제공 최종 본문",
     "recommendationEnabled": true,
-    "guidanceStatus": "pending",
+    "guidanceStatus": "ready",
     "metadataStatus": "draft",
     "requiresSpecificSituation": true,
     "applicationGuidance": {
@@ -2831,7 +2831,7 @@ window.Malsseum.data.verses = Object.freeze([
     "textStatus": "verified",
     "textStatusLabel": "사용자 제공 최종 본문",
     "recommendationEnabled": true,
-    "guidanceStatus": "pending",
+    "guidanceStatus": "ready",
     "metadataStatus": "draft",
     "requiresSpecificSituation": true,
     "applicationGuidance": {
@@ -2874,7 +2874,7 @@ window.Malsseum.data.verses = Object.freeze([
     "textStatus": "verified",
     "textStatusLabel": "사용자 제공 최종 본문",
     "recommendationEnabled": true,
-    "guidanceStatus": "pending",
+    "guidanceStatus": "ready",
     "metadataStatus": "draft",
     "requiresSpecificSituation": true,
     "applicationGuidance": {
