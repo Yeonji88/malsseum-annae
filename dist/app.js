@@ -742,6 +742,7 @@ async function playVerseSpeech(verse,button,repeatButton,session){
   button.classList.remove('is-speaking');
   button.setAttribute('aria-label','말씀 읽어주기');
   button.setAttribute('aria-pressed','false');
+  repeatButton.hidden=true;
  }
 
  return true;
