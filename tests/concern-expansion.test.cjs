@@ -61,6 +61,17 @@ for(const [index,message] of [
  const follow=s.classifyConcern('고마워요');const continued=s.selectVerse(follow,s.findCandidates(follow),{previousId:result.verse.id,previousAnalysis:result.analysis,continueConversation:true});
  assert.equal(continued.verse?.id,result.verse.id);assert.equal(continued.continued,true);
 });
+for(const message of [
+ '남편이랑 성관계를 꼭 해야하나요?',
+ '부부라면 성관계를 꼭 해야 하나요?',
+ '아내와 잠자리를 가져야 할 의무가 있나요?'
+])test('marital mutual needs duty question: '+message,()=>{
+ const {choose,s}=app();
+ const analysis=s.classifyConcern(message);
+ assert.ok(analysis.situations.includes('marital_mutual_needs'),JSON.stringify(analysis));
+ const result=choose(message);
+ assert.equal(result.verse?.id,'1-corinthians-7-3-4',JSON.stringify(result));
+});
 const excludedCases=[
  [0,'남편과 섹스리스로 살아도 괜찮을까요?'],
  [0,'남편과 성관계 빈도가 달라 합의하고 싶지만 통증이 있어요'],

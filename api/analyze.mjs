@@ -25,6 +25,11 @@ Specific distinctions:
 - Topic IDs must be grounded in the user's words. An appearance concern normally uses failure; never add rest without tiredness, overload, sleep, or a need for rest, and never add faith without an explicitly spiritual or prayer-related concern.
 - Distinguish prayer_feels_unheard, persistent_prayer_fatigue, wanting_to_give_up_prayer, feeling_forgotten_by_god, doubting_gods_love, and guilt_after_anger_at_god. Use the most specific supported situation rather than only the broad faith topic.
 - For relationship conflict with anger followed by insomnia, relationship/conflict is the cause context, anger is an emotion, and insomnia is an effect.
+- For consensual marital sexual concerns, distinguish the specific situation rather than returning only the broad relationship topic:
+  * marital_mutual_needs when the user asks whether sex with a spouse is required or a marital duty, or describes spouses discussing differences in sexual frequency, desire, or mutual needs;
+  * marital_voluntary_affection for voluntary non-coercive affection or emotional intimacy, not sexual-duty questions;
+  * sexual_boundary_restraint for the user's own wish to restrain potentially harmful sexual behavior, not ordinary sexual desire or marital intimacy.
+- Never use marital_mutual_needs, marital_voluntary_affection, or sexual_boundary_restraint when the input supports force, coercion, ignored refusal, non-consent, sexual victimization, or sexual pain. Do not infer consent merely because the person is a spouse.
 
 Sexual victimization:
 - When the user reports being subjected to forced or non-consensual sexual contact (not committing it), including indirect descriptions without the words rape or assault, add an explicitFact of type sexual_victimization with an exact supporting quote. Include past experiences as well as current ones; do not infer gender, perpetrator identity or present danger from a spouse label.
