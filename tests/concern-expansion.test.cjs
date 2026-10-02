@@ -62,6 +62,22 @@ for(const [index,message] of [
  assert.equal(continued.verse?.id,result.verse.id);assert.equal(continued.continued,true);
 });
 for(const message of [
+ '힘든 사람을 외면한 게 마음에 걸려요',
+ '도움이 필요한 사람을 그냥 지나쳐서 후회돼요',
+ '어려운 사람을 보고도 모른 척했어요'
+])test('material help after overlooking need: '+message,()=>{
+ const {choose,s}=app();
+ const analysis=s.classifyConcern(message);
+ assert.ok(analysis.situations.includes('material_help_for_others'),JSON.stringify(analysis));
+ const result=choose(message);
+ assert.equal(result.verse?.id,'james-2-15-17',JSON.stringify(result));
+});
+test('material help does not capture person needing help',()=>{
+ const {choose,s}=app();
+ const analysis=s.classifyConcern('제가 생활비가 없어서 도움을 받고 싶어요');
+ assert.ok(!analysis.situations.includes('material_help_for_others'),JSON.stringify(analysis));
+});
+for(const message of [
  '남편이랑 성관계를 꼭 해야하나요?',
  '부부라면 성관계를 꼭 해야 하나요?',
  '아내와 잠자리를 가져야 할 의무가 있나요?'

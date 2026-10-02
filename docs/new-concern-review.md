@@ -244,71 +244,8 @@
 
 ### 승인 reflection
 
-경제적으로 어려운 사람을 만났을 때 어떤 도움을 줄 수 있을지 고민될 수 있어요. 야고보는 먹을 것과 입을 것이 필요한 사람에게 좋은 말만 하고 필요한 것을 주지 않는 모습을 통해, 믿음이 행동으로 이어져야 함을 말해요. 위로의 말을 건네는 데서 그치지 않고 상대에게 실제로 필요한 것이 무엇인지 살펴보세요. 그리고 내가 할 수 있는 도움이 있는지도 함께 생각해보세요.
+누군가의 어려움을 보며 도와주고 싶은 마음이 있어도 무엇을 해야 할지 막막할 수 있어요. 야고보는 도움이 필요한 사람에게 좋은 말만 건네고 실제 필요한 것을 외면하는 모습을 돌아보게 해요. 내가 모든 문제를 해결해야 하는 것은 아니에요. 상대에게 무엇이 필요한지 먼저 듣고, 내 형편 안에서 할 수 있는 도움이 무엇인지 살펴보세요. 작은 도움이라도 실제 행동으로 이어질 수 있어요.
 
-### 질문 초안 — 미승인
+입력 예: 생활비가 부족한 이웃에게 말뿐인 위로보다 실제 도움을 주고 싶어요.
 
-1. 도움을 주고 싶은 사람에게 지금 실제로 필요한 것은 무엇인가요?
-2. 내가 짐작하기보다 먼저 물어볼 수 있는 것은 무엇인가요?
-3. 내 형편 안에서 건네거나 연결할 수 있는 구체적인 도움은 무엇인가요?
-
-### 기도문 초안 — 미승인
-
-하나님, 어려운 이웃에게 좋은 말만 건네고 지나치지 않게 해주세요. 상대의 필요와 뜻을 먼저 듣게 해주세요. 제가 할 수 있는 도움을 살피고 필요한 지원과 연결할 수 있도록 지혜를 주세요. 아멘.
-
-### 추천 문맥
-
-먹을 것과 입을 것이 필요한 형제자매에게 말만 하고 실제 필요를 주지 않는 태도를 비판합니다. 가난한 당사자의 믿음이나 행함을 탓하는 본문이 아닙니다.
-
-입력 예: 생활비가 부족한 이웃에게 말뿐인 위로보다 실제 도움을 주고 싶어요
-
-## 최종 검증 결과
-
-- node --test tests/*.test.cjs: 295개 통과, 실패 0.
-- 신규 긴 본문 UI: 10개 × 319/390px × 기본/크게/더 크게 = 60개 통과. 실제 DOM 전체 본문 일치, 카드 확장, 잘림·겹침·가로 overflow, 스크롤 도달, 신규 북마크 저장/해제 확인.
-- 109 안전화면: 동일 6개 화면 조합에서 전화 링크와 말씀 미표시 확인.
-- 기존 mobile-ui.cjs: 6개 화면 조합 통과. 북마크·새로고침·개인 묵상·공유 분기 회귀.
-- reflection-list-ui.cjs: 18개 조합 통과. 기록 없음/과거만/오늘 있음 및 상세·수정·삭제 확인.
-- git diff --check: 통과.
-- 기존 첫 100개 말씀과 reflection은 JSON SHA-256, Daily 파일은 전체 SHA-256으로 보존 확인.
-- CSS, app.js, Daily 데이터 변경 없음. commit/push 없음.
-
-### 피해 맥락의 실제 선택 결과
-
-| 입력 유형 | 결과 |
-| --- | --- |
-| 성폭행 당한 기억 때문에 남편과 성관계가 힘들어요 | 기존 폭력 신호로 안전 안내 우선, 말씀 없음 |
-| 성적 피해/성적 트라우마 기억 + 남편 또는 아내 | 기존 시편 147:3 |
-| 싫다고 했는데 억지로/동의하지 않았는데/강제로 성관계/원하지 않는 성관계를 당함 + 배우자 | 기존 시편 147:3 (별도의 기존 위험 신호가 있으면 안전 안내 우선) |
-| 로컬 패턴에 없는 간접 표현을 AI가 sexual_victimization으로 분류하고 실제 인용 근거가 확인됨 | 기존 시편 147:3; 신규 성 관련 3개 제외 |
-
-AI 검증은 모의 응답을 이용한 계약·병합·선택 경로 테스트다. 실제 모델의 모든 표현에 대한 정확도 검증이나 Production 배포는 수행하지 않았다. 기도가 들리지 않는다는 기존 입력은 수정 전 HEAD와 동일한 로컬 결과(마태복음 11:28)를 유지한다. 과거 휴대폰의 시편 23:2–3 결과는 당시 AI/이력 상태를 재현한 것이 아니므로 동일하다고 주장하지 않는다.
-
-## 변경 파일
-
-- `api/analyze.mjs`
-- `dist/data/analysisContract.js`
-- `dist/data/reflections.js`
-- `dist/data/topics.js`
-- `dist/data/verses.js`
-- `dist/services/analyzeConcernWithAI.js`
-- `dist/services/classifyConcern.js`
-- `dist/services/findCandidates.js`
-- `dist/services/recommendationPolicy.js`
-- `dist/services/resolveConcernRoles.js`
-- `tests/daily-production.test.cjs`
-- `tests/daily-reflections.test.cjs`
-- `tests/recommendations.test.cjs`
-- `docs/new-concern-review.md`
-- `tests/concern-expansion-ui.cjs`
-- `tests/concern-expansion.test.cjs`
-- `tests/fixtures/approved-100-baseline.json`
-- `tests/fixtures/new-concern-approved.json`
-- `tools/concern-guidance-drafts.json`
-- `tools/concern-preview-server.cjs`
-
-## 휴대폰 Preview
-
-http://192.168.45.21:4176/concern-preview?verse=1-corinthians-7-3-4
-
-같은 네트워크에서 접속. 상단 선택기로 1–10번 및 글씨 크기를 변경한다. LAN IP로 HTTP 200 응답 확인. 실제 휴대폰 접속 여부는 사용자의 검수가 필요하다.
+추가 적용 예: 힘든 사람을 외면한 게 마음에 걸려요.
