@@ -2679,13 +2679,13 @@ window.Malsseum.data.verses = Object.freeze([
     "textVerificationSource": "user_supplied"
   },
   {
-    "id": "matthew-28-18-20",
+    "id": "matthew-28-19-20",
     "book": "마태복음",
     "chapter": 28,
-    "verseStart": 18,
+    "verseStart": 19,
     "verseEnd": 20,
-    "text": "예수께서 나아와 말씀하여 이르시되 하늘과 땅의 모든 권세를 내게 주셨으니\n그러므로 너희는 가서 모든 민족을 제자로 삼아 아버지와 아들과 성령의 이름으로 세례를 베풀고\n내가 너희에게 분부한 모든 것을 가르쳐 지키게 하라 볼지어다 내가 세상 끝날까지 너희와 항상 함께 있으리라 하시니라",
-    "reference": "마태복음 28:18–20",
+    "text": "그러므로 너희는 가서 모든 민족을 제자로 삼아 아버지와 아들과 성령의 이름으로 세례를 베풀고\n내가 너희에게 분부한 모든 것을 가르쳐 지키게 하라 볼지어다 내가 세상 끝날까지 너희와 항상 함께 있으리라 하시니라",
+    "reference": "마태복음 28:19–20",
     "translation": "개역개정",
     "recommendationNote": "부활하신 예수님이 제자들에게 제자 삼기와 가르침을 맡기고 함께하심을 약속합니다. 상대의 믿음이나 반응을 통제하는 기술이 아닙니다.",
     "cautionTags": [
@@ -2720,13 +2720,13 @@ window.Malsseum.data.verses = Object.freeze([
     "textVerificationSource": "user_supplied"
   },
   {
-    "id": "colossians-4-3-6",
+    "id": "colossians-4-3-4",
     "book": "골로새서",
     "chapter": 4,
     "verseStart": 3,
-    "verseEnd": 6,
-    "text": "또한 우리를 위하여 기도하되 하나님이 전도할 문을 우리에게 열어 주사 그리스도의 비밀을 말하게 하시기를 구하라 내가 이 일 때문에 매임을 당하였노라\n그리하면 내가 마땅히 할 말로써 이 비밀을 나타내리라\n외인에게 대해서는 지혜로 행하여 세월을 아끼라\n너희 말을 항상 은혜 가운데서 소금으로 맛을 냄과 같이 하라 그리하면 각 사람에게 마땅히 대답할 것을 알리라",
-    "reference": "골로새서 4:3–6",
+    "verseEnd": 4,
+    "text": "또한 우리를 위하여 기도하되 하나님이 전도할 문을 우리에게 열어 주사 그리스도의 비밀을 말하게 하시기를 구하라 내가 이 일 때문에 매임을 당하였노라\n그리하면 내가 마땅히 할 말로써 이 비밀을 나타내리라",
+    "reference": "골로새서 4:3–4",
     "translation": "개역개정",
     "recommendationNote": "바울의 복음 전할 기회를 위한 기도 부탁과 외인을 향한 지혜로운 행동·은혜로운 말의 권면입니다. 논쟁에서 이기거나 강요하는 방법이 아닙니다.",
     "cautionTags": [

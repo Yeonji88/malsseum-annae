@@ -416,8 +416,8 @@ for(const [message,kind] of reviewedContrasts)test('reviewed semantic contrast '
  if(kind==='repent'){assert.equal(a.primaryTopic,'guilt');assert.ok(['1-john-1-9','psalm-51-10','romans-8-1','isaiah-1-18'].includes(r.verse?.id));}
  if(kind==='relationship'){assert.equal(a.primaryTopic,'relationship');assert.ok(!a.situations.includes('acknowledging_wrong'));}
  if(kind==='burden'){assert.ok(cs.some(c=>c.verse.id==='psalm-55-22'));assert.ok(!a.situations.includes('evangelism_mission'));}
- if(kind==='noMission')assert.ok(!cs.some(c=>c.verse.id==='matthew-28-18-20'));
- if(kind==='mission')assert.equal(r.verse?.id,'matthew-28-18-20');
+ if(kind==='noMission')assert.ok(!cs.some(c=>c.verse.id==='matthew-28-19-20'));
+ if(kind==='mission')assert.equal(r.verse?.id,'matthew-28-19-20');
  if(kind==='betrayal')assert.equal(r.verse?.id,'psalm-55-12-14');
  if(kind==='noBetrayal')assert.ok(!cs.some(c=>c.verse.id==='psalm-55-12-14'));
  if(kind==='safety')assert.equal(r.status,'safety_first');
