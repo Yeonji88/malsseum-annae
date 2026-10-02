@@ -122,7 +122,7 @@ window.Malsseum.data.riskRules = [
   {id:'evangelism_mission',topic:'faith',matches:t=>(/전도|선교|복음/.test(t)&&mission.test(t))||(/(?:복음|예수님?)(?:을|를)?\s*전(?:하|할|해)/.test(t)&&/싶|사명|시작|참여/.test(t))||/선교[^.!?\n]{0,20}(?:하고|참여하고|시작하고)\s*싶/.test(t),exclude:t=>coercion.test(t)||speech.test(t)||testimony(t)},
   {id:'evangelism_conversation',topic:'faith',matches:t=>gospel.test(t)&&speech.test(t)&&/전도|복음|신앙.*(?:이야기|대화|전하)|믿지\s*않는/.test(t),exclude:t=>coercion.test(t)||testimony(t)},
   {id:'regret_after_hurtful_words',topic:'relationship',matches:t=>/(상처.*(?:말|줬|주었)|(?:심한|독한)\s*말|막말|말로\s*(?:상처|아프게)|내\s*말\s*때문)/.test(t)&&/(후회|미안|마음에\s*걸|잘못(?:한)?\s*말|상처.*(?:준|줬|주었))/.test(t),exclude:t=>unsafe.test(t)},
-  {id:'family_self_review',topic:'relationship',matches:t=>/부모|자녀|아이|아들|딸|어머니|아버지|엄마|아빠/.test(t)&&/공경|양육|훈육|대하는|화내|화를\s*내|내\s*태도|제\s*태도/.test(t)&&/돌아보|살펴보|바꾸|고치|어떻게|잘하고/.test(t),exclude:t=>unsafe.test(t)||gospel.test(t)},
+  {id:'parent_relationship_self_review',topic:'relationship',matches:t=>/부모|부모님|어머니|아버지|엄마|아빠/.test(t)&&/거짓말|속였|속인|속이|잘못|함부로|무례|정직하지|말대꾸|대들/.test(t)&&/후회|미안|마음에\s*걸|잘못|돌아보|바로잡|공경|존중/.test(t),exclude:t=>unsafe.test(t)||gospel.test(t)||/(?:부모|부모님|어머니|아버지|엄마|아빠)(?:가|이|는)[^.!?\n]{0,25}(?:나|저|내|제)(?:한테|에게)[^.!?\n]{0,15}(?:거짓말|속였|속인|함부로|무례)/.test(t)},
   {id:'material_help_for_others',topic:'relationship',matches:t=>/이웃|친구|타인|다른\s*사람|어려운\s*사람|형제|자매/.test(t)&&/생활비|생계|가난|경제|먹을|양식|형편|돈이\s*없/.test(t)&&/돕|도울|도움(?:을)?\s*주|지원|나눠\s*주/.test(t),exclude:t=>/(?:내|제)\s*(?:생활비|빚|생계)|(?:제가|내가|저는|나는)[^.!?\n]{0,12}(?:생활비|빚|돈이\s*없)|도움을?\s*받고/.test(t)}
  ];
  window.Malsseum.data.sexualHarmPerpetrator=/(?:내가|제가|나는|저는)[^.!?\n]{0,15}(?:성폭행|강간|성추행)(?:을)?\s*(?:했|저질)|(?:내가|제가)[^.!?\n]{0,15}강제로\s*성관계(?:를)?\s*(?:했|시켰)/;

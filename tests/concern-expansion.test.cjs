@@ -54,7 +54,7 @@ for(const [index,message] of [
  [5,'복음을 전하는 사명에 어떻게 참여할지 생각하고 싶어요'],
  [6,'전도할 때 상대의 질문에 어떻게 답하고 경청할지 고민이에요'],
  [7,'심한 말을 해서 상대에게 상처를 줬어요. 후회돼요.'],
- [8,'아이에게 화내는 내 양육 태도를 돌아보고 싶어요'],
+ [8,'엄마한테 거짓말을 해서 마음에 걸려요'],
  [9,'생활비가 부족한 이웃에게 말뿐인 위로보다 실제 도움을 주고 싶어요']
 ])test('specific concern selects '+approved[index].reference+' '+approved[index].id,()=>{
  const {choose,s}=app();const result=choose(message);assert.equal(result.verse?.id,approved[index].id,JSON.stringify(result));

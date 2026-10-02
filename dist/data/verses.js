@@ -2802,15 +2802,15 @@ window.Malsseum.data.verses = Object.freeze([
     "textVerificationSource": "user_supplied"
   },
   {
-    "id": "ephesians-6-1-4",
+    "id": "ephesians-6-1-3",
     "book": "에베소서",
     "chapter": 6,
     "verseStart": 1,
-    "verseEnd": 4,
-    "text": "자녀들아 주 안에서 너희 부모에게 순종하라 이것이 옳으니라\n네 아버지와 어머니를 공경하라 이것은 약속이 있는 첫 계명이니\n이로써 네가 잘되고 땅에서 장수하리라\n또 아비들아 너희 자녀를 노엽게 하지 말고 오직 주의 교훈과 훈계로 양육하라",
-    "reference": "에베소서 6:1–4",
+    "verseEnd": 3,
+    "text": "자녀들아 주 안에서 너희 부모에게 순종하라 이것이 옳으니라\n네 아버지와 어머니를 공경하라 이것은 약속이 있는 첫 계명이니\n이로써 네가 잘되고 땅에서 장수하리라",
+    "reference": "에베소서 6:1–3",
     "translation": "개역개정",
-    "recommendationNote": "자녀의 공경과 아버지의 양육 책임을 함께 권면합니다. 학대 상황에서 복종을 강요하거나 건강·장수·관계 회복을 보장하지 않습니다.",
+    "recommendationNote": "부모에게 잘못한 말이나 행동, 거짓말이나 속임 등을 돌아보고 부모를 공경하는 마음을 표현하고 싶은 상황에 연결합니다.",
     "cautionTags": [
       "coercive_application",
       "victim_blame",
@@ -2820,12 +2820,14 @@ window.Malsseum.data.verses = Object.freeze([
       "relationship"
     ],
     "situations": [
-      "family_self_review"
+      "parent_relationship_self_review"
     ],
     "expressions": [
-      "아이에게 화내는 내 양육 태도를 돌아보고 싶어요"
+      "엄마한테 거짓말을 해서 마음에 걸려요",
+      "부모님을 속인 게 후회돼요",
+      "아빠한테 함부로 말해서 잘못한 것 같아요"
     ],
-    "contextNote": "자녀의 공경과 아버지의 양육 책임을 함께 권면합니다. 학대 상황에서 복종을 강요하거나 건강·장수·관계 회복을 보장하지 않습니다.",
+    "contextNote": "바울이 자녀에게 주 안에서 부모에게 순종하고 부모를 공경하라고 권하는 말씀입니다. 부모에게 잘못한 자신의 말과 행동을 돌아보는 데 적용하며, 학대나 폭력 상황에서 복종을 강요하는 뜻으로 사용하지 않습니다.",
     "textStatus": "verified",
     "textStatusLabel": "사용자 제공 최종 본문",
     "recommendationEnabled": true,
@@ -2834,9 +2836,11 @@ window.Malsseum.data.verses = Object.freeze([
     "requiresSpecificSituation": true,
     "applicationGuidance": {
       "suitableSituations": [
-        "family_self_review"
+        "parent_relationship_self_review"
       ],
       "avoidApplications": [
+        "coercive_application",
+        "victim_blame",
         "guaranteed_outcome"
       ]
     },
