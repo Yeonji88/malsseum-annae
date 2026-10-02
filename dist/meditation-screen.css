@@ -159,3 +159,47 @@
  color:#4f5652;
  text-align:center;
 }
+
+/* 오늘의 말씀 > 나의 묵상 하단 액션 */
+#meditation-screen .meditation-mine-links{
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:10px;
+ width:100%;
+ margin-top:16px;
+}
+
+#meditation-screen .meditation-write-link,
+#meditation-screen .meditation-view-all{
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ width:100%;
+ min-height:48px;
+ margin:0;
+ padding:10px 12px;
+ box-sizing:border-box;
+ border:1px solid #dfe5dc;
+ border-radius:16px;
+ background:#fffdfa;
+ color:#365d46;
+ font-family:inherit;
+ font-size:var(--font-support);
+ font-weight:400;
+ line-height:1.4;
+ text-align:center;
+ text-decoration:none;
+ cursor:pointer;
+}
+
+#meditation-screen .meditation-write-link:focus-visible,
+#meditation-screen .meditation-view-all:focus-visible{
+ outline:2px solid #8aa091;
+ outline-offset:2px;
+}
+
+#meditation-screen .meditation-mine-links .meditation-write-link,
+#meditation-screen .meditation-mine-links .meditation-view-all{
+ text-decoration:none !important;
+ text-decoration-line:none !important;
+}
