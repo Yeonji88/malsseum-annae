@@ -2034,7 +2034,7 @@ window.Malsseum.data.verses = Object.freeze([
   },
   {
     id:'psalm-62-5-6',reference:'시편 62:5-6',book:'시편',chapter:62,verseStart:5,verseEnd:6,
-    text:'나의 영혼아 잠잠히 하나님만 바라라 무릇 나의 소망이 그로부터 나오는도다 오직 그만이 나의 반석이시요 나의 구원이시요 나의 요새이시니 내가 흔들리지 아니하리로다',translation:'개역개정',targetTranslation:'개역개정',
+    text:'나의 영혼아 잠잠히 하나님만 바라라 무릇 나의 소망이 그로부터 나오는도다\n오직 그만이 나의 반석이시요 나의 구원이시요 나의 요새이시니 내가 흔들리지 아니하리로다',translation:'개역개정',targetTranslation:'개역개정',
     topics:['fear','rest'],situations:['anxious_waiting'],expressions:['결과를 기다리고 있어요','기다리는데 너무 조급해요','결과가 어떻게 될지 신경 쓰여요','마음이 자꾸 흔들려요','기다리는 게 힘들어요'],
     recommendationNote:'결과를 기다리며 조급하고 마음이 흔들리는 상황에 연결합니다.',cautionTags:['guaranteed_outcome'],
     contextNote:'하나님께 소망을 두고 흔들리는 영혼을 잠잠히 하나님께 향하게 하는 고백.',
@@ -2043,7 +2043,7 @@ window.Malsseum.data.verses = Object.freeze([
   },
   {
     id:'psalm-121-1-2',reference:'시편 121:1-2',book:'시편',chapter:121,verseStart:1,verseEnd:2,
-    text:'내가 산을 향하여 눈을 들리라 나의 도움이 어디서 올까 나의 도움은 천지를 지으신 여호와에게서로다',translation:'개역개정',targetTranslation:'개역개정',
+    text:'내가 산을 향하여 눈을 들리라 나의 도움이 어디서 올까\n나의 도움은 천지를 지으신 여호와에게서로다',translation:'개역개정',targetTranslation:'개역개정',
     topics:['future'],situations:['seeking_help'],expressions:['도움이 필요해요','누구한테 도움을 받아야 할지 모르겠어요','어디에 의지해야 할지 모르겠어요','혼자 해결하기 어려워요','도와줄 사람이 없는 것 같아요'],
     recommendationNote:'어디에서 도움을 구해야 할지 막막한 상황에 연결합니다.',cautionTags:['coercive_application','endurance_in_danger'],
     contextNote:'순례자가 자신의 도움이 천지를 지으신 여호와에게서 온다고 고백하는 말씀.',
@@ -2079,7 +2079,7 @@ window.Malsseum.data.verses = Object.freeze([
   },
   {
     id:'psalm-131-1-2',reference:'시편 131:1-2',book:'시편',chapter:131,verseStart:1,verseEnd:2,
-    text:'여호와여 내 마음이 교만하지 아니하고 내 눈이 오만하지 아니하오며 내가 큰 일과 감당하지 못할 놀라운 일을 하려고 힘쓰지 아니하나이다 실로 내가 내 영혼으로 고요하고 평온하게 하기를 젖 뗀 아이가 그의 어머니 품에 있음 같게 하였나니 내 영혼이 젖 뗀 아이와 같도다',translation:'개역개정',targetTranslation:'개역개정',
+    text:'여호와여 내 마음이 교만하지 아니하고 내 눈이 오만하지 아니하오며 내가 큰 일과 감당하지 못할 놀라운 일을 하려고 힘쓰지 아니하나이다\n실로 내가 내 영혼으로 고요하고 평온하게 하기를 젖 뗀 아이가 그의 어머니 품에 있음 같게 하였나니 내 영혼이 젖 뗀 아이와 같도다',translation:'개역개정',targetTranslation:'개역개정',
     topics:['fear'],situations:['seeking_calm'],expressions:['마음을 좀 가라앉히고 싶어요','머리가 너무 복잡해요','마음이 진정이 안 돼요','생각을 멈추고 싶어요','마음이 편안해지고 싶어요'],
     recommendationNote:'복잡하고 들뜬 마음을 고요하게 가라앉히고 싶을 때 연결합니다.',cautionTags:['emotion_suppression'],
     contextNote:'시편 기자가 감당할 수 없는 큰일을 붙들려 하지 않고 자신의 영혼을 고요하고 평온하게 한 모습을 표현하는 말씀.',
@@ -2295,7 +2295,7 @@ window.Malsseum.data.verses = Object.freeze([
   },
   {
     id:'isaiah-55-8-9',reference:'이사야 55:8-9',book:'이사야',chapter:55,verseStart:8,verseEnd:9,
-    text:'이는 내 생각이 너희의 생각과 다르며 내 길은 너희의 길과 다름이니라 여호와의 말씀이니라\n\n이는 하늘이 땅보다 높음 같이 내 길은 너희의 길보다 높으며 내 생각은 너희의 생각보다 높음이니라',translation:'개역개정',targetTranslation:'개역개정',
+    text:'이는 내 생각이 너희의 생각과 다르며 내 길은 너희의 길과 다름이니라 여호와의 말씀이니라\n이는 하늘이 땅보다 높음 같이 내 길은 너희의 길보다 높으며 내 생각은 너희의 생각보다 높음이니라',translation:'개역개정',targetTranslation:'개역개정',
     topics:['faith'],situations:['unexplained_suffering'],expressions:['왜 이런 일이 생긴 건지 이해가 안 돼요','하나님이 왜 이런 일을 허락하셨는지 모르겠어요','아무리 생각해도 이유를 모르겠어요'],
     recommendationNote:'힘든 일이 생긴 이유를 이해하기 어렵고 답을 찾지 못하는 마음에 연결합니다.',cautionTags:['context_distortion','faith_shaming','victim_blame'],
     contextNote:'하나님의 긍휼과 돌아오라는 초대 속에서 하나님의 생각과 길이 사람의 생각보다 높다고 선포하는 말씀. 고통을 막아버리거나 학대·폭력·상실에 하나님의 의도를 임의로 부여하는 데 사용하지 않습니다.',
@@ -2322,7 +2322,7 @@ window.Malsseum.data.verses = Object.freeze([
   },
   {
     id:'psalm-37-5-6',reference:'시편 37:5-6',book:'시편',chapter:37,verseStart:5,verseEnd:6,
-    text:'네 길을 여호와께 맡기라 그를 의지하면 그가 이루시고\n\n네 의를 빛 같이 나타내시며 네 공의를 정오의 빛 같이 하시리로다',translation:'개역개정',targetTranslation:'개역개정',
+    text:'네 길을 여호와께 맡기라 그를 의지하면 그가 이루시고\n네 의를 빛 같이 나타내시며 네 공의를 정오의 빛 같이 하시리로다',translation:'개역개정',targetTranslation:'개역개정',
     topics:['relationship'],situations:['misunderstood_unfairly'],expressions:['하지도 않은 일로 오해받았어요','사람들이 저를 잘못 알고 있어서 너무 억울해요','내 진심을 아무도 알아주지 않는 것 같아요'],
     recommendationNote:'사실과 다르게 오해받거나 억울한 평가를 받아 힘든 마음에 연결합니다.',cautionTags:['coercive_application','guaranteed_outcome','accountability_erasure'],
     contextNote:'악인의 형통 때문에 흔들리는 이에게 길을 하나님께 맡기고 의와 공의를 드러내실 것을 신뢰하라고 권하는 시편. 현실적인 해명·도움 요청·정당한 대응을 포기하고 무조건 기다리라는 뜻으로 사용하지 않습니다.',
@@ -2349,7 +2349,7 @@ window.Malsseum.data.verses = Object.freeze([
   },
   {
     id:'james-1-19-20',reference:'야고보서 1:19-20',book:'야고보서',chapter:1,verseStart:19,verseEnd:20,
-    text:'내 사랑하는 형제들아 너희가 알지니 사람마다 듣기는 속히 하고 말하기는 더디 하며 성내기도 더디 하라\n\n사람이 성내는 것이 하나님의 의를 이루지 못함이라',translation:'개역개정',targetTranslation:'개역개정',
+    text:'내 사랑하는 형제들아 너희가 알지니 사람마다 듣기는 속히 하고 말하기는 더디 하며 성내기도 더디 하라\n사람이 성내는 것이 하나님의 의를 이루지 못함이라',translation:'개역개정',targetTranslation:'개역개정',
     topics:['relationship'],situations:['recurring_anger_in_conversation'],expressions:['그 사람이랑 얘기만 하면 화부터 나요','요즘 대화할 때 자꾸 화를 내게 돼요','상대 말을 듣기도 전에 짜증부터 나요'],
     recommendationNote:'관계의 대화에서 분노가 반복적으로 앞서고 듣기 전에 화부터 나는 상황에 연결합니다.',cautionTags:['emotion_suppression'],
     contextNote:'공동체 안에서 듣기와 말하기, 성내기를 다루는 야고보서의 권면. 한 번의 분노를 정죄하거나 감정 자체를 금지하는 데 사용하지 않습니다.',
