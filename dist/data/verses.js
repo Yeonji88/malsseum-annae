@@ -2761,30 +2761,30 @@ window.Malsseum.data.verses = Object.freeze([
     "textVerificationSource": "user_supplied"
   },
   {
-    "id": "mark-5-18-20",
-    "book": "마가복음",
-    "chapter": 5,
+    "id": "proverbs-12-18",
+    "book": "잠언",
+    "chapter": 12,
     "verseStart": 18,
-    "verseEnd": 20,
-    "text": "예수께서 배에 오르실 때에 귀신 들렸던 사람이 함께 있기를 간구하였으나\n허락하지 아니하시고 그에게 이르시되 집으로 돌아가 주께서 네게 어떻게 큰 일을 행하사 너를 불쌍히 여기신 것을 네 가족에게 알리라 하시니\n그가 가서 예수께서 자기에게 어떻게 큰 일 행하셨는지를 데가볼리에 전파하니 모든 사람이 놀랍게 여기더라",
-    "reference": "마가복음 5:18–20",
+    "verseEnd": 18,
+    "text": "칼로 찌름 같이 함부로 말하는 자가 있거니와 지혜로운 자의 혀는 양약과 같으니라",
+    "reference": "잠언 12:18",
     "translation": "개역개정",
-    "recommendationNote": "예수님이 귀신에게서 놓임 받은 특정 인물에게 가족에게 받은 긍휼을 알리라고 하신 사건입니다. 모든 가족이 믿게 된다는 일반적 보장이 아닙니다.",
+    "recommendationNote": "말로 상대에게 상처를 준 뒤 자신의 말을 돌아보고 지혜롭게 말하고 싶은 상황에 연결합니다.",
     "cautionTags": [
-      "coercive_application",
-      "victim_blame",
-      "context_distortion"
+      "emotion_suppression"
     ],
     "topics": [
-      "faith"
+      "relationship"
     ],
     "situations": [
-      "family_grace_testimony"
+      "regret_after_hurtful_words"
     ],
     "expressions": [
-      "가족에게 내가 받은 하나님의 은혜를 나누고 싶어요"
+      "심한 말을 해서 상처를 줬어요. 후회돼요.",
+      "화나서 막말했는데 미안해요.",
+      "내 말 때문에 그 사람이 상처받은 것 같아서 마음에 걸려요."
     ],
-    "contextNote": "예수님이 귀신에게서 놓임 받은 특정 인물에게 가족에게 받은 긍휼을 알리라고 하신 사건입니다. 모든 가족이 믿게 된다는 일반적 보장이 아닙니다.",
+    "contextNote": "함부로 하는 말이 사람을 해칠 수 있고 지혜로운 말은 치유를 줄 수 있음을 대조하는 잠언의 말씀입니다. 상대의 말을 판단하거나 훈계하기보다, 자신의 말을 돌아보고 지혜롭게 말하는 데 적용합니다.",
     "textStatus": "verified",
     "textStatusLabel": "사용자 제공 최종 본문",
     "recommendationEnabled": true,
@@ -2793,10 +2793,10 @@ window.Malsseum.data.verses = Object.freeze([
     "requiresSpecificSituation": true,
     "applicationGuidance": {
       "suitableSituations": [
-        "family_grace_testimony"
+        "regret_after_hurtful_words"
       ],
       "avoidApplications": [
-        "guaranteed_outcome"
+        "emotion_suppression"
       ]
     },
     "textVerificationSource": "user_supplied"

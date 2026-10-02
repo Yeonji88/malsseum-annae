@@ -121,7 +121,7 @@ window.Malsseum.data.riskRules = [
   {id:'close_person_betrayal',topic:'relationship',matches:t=>/친구|배우자|남편|아내|동료|가족|믿었던|가까운/.test(t)&&/(?:믿었던\s*사람에게\s*상처받|가까운\s*사람에게\s*배신당|배신당|배신했|배신해서|배신으로|비밀을\s*(?:퍼뜨|폭로)|(?:남편|아내|배우자)(?:이|가|의|는)[^.!?\n]{0,12}(?:외도|바람|불륜))/.test(t),exclude:t=>ownAffair.test(t)||/의심|일까|했을까|복수|보복/.test(t)},
   {id:'evangelism_mission',topic:'faith',matches:t=>(/전도|선교|복음/.test(t)&&mission.test(t))||(/(?:복음|예수님?)(?:을|를)?\s*전(?:하|할|해)/.test(t)&&/싶|사명|시작|참여/.test(t))||/선교[^.!?\n]{0,20}(?:하고|참여하고|시작하고)\s*싶/.test(t),exclude:t=>coercion.test(t)||speech.test(t)||testimony(t)},
   {id:'evangelism_conversation',topic:'faith',matches:t=>gospel.test(t)&&speech.test(t)&&/전도|복음|신앙.*(?:이야기|대화|전하)|믿지\s*않는/.test(t),exclude:t=>coercion.test(t)||testimony(t)},
-  {id:'family_grace_testimony',topic:'faith',matches:testimony,exclude:t=>coercion.test(t)||unsafe.test(t)||/꾸며|지어내|경험.*없|은혜.*없/.test(t)},
+  {id:'regret_after_hurtful_words',topic:'relationship',matches:t=>/(상처.*(?:말|줬|주었)|(?:심한|독한)\s*말|막말|말로\s*(?:상처|아프게)|내\s*말\s*때문)/.test(t)&&/(후회|미안|마음에\s*걸|잘못(?:한)?\s*말|상처.*(?:준|줬|주었))/.test(t),exclude:t=>unsafe.test(t)},
   {id:'family_self_review',topic:'relationship',matches:t=>/부모|자녀|아이|아들|딸|어머니|아버지|엄마|아빠/.test(t)&&/공경|양육|훈육|대하는|화내|화를\s*내|내\s*태도|제\s*태도/.test(t)&&/돌아보|살펴보|바꾸|고치|어떻게|잘하고/.test(t),exclude:t=>unsafe.test(t)||gospel.test(t)},
   {id:'material_help_for_others',topic:'relationship',matches:t=>/이웃|친구|타인|다른\s*사람|어려운\s*사람|형제|자매/.test(t)&&/생활비|생계|가난|경제|먹을|양식|형편|돈이\s*없/.test(t)&&/돕|도울|도움(?:을)?\s*주|지원|나눠\s*주/.test(t),exclude:t=>/(?:내|제)\s*(?:생활비|빚|생계)|(?:제가|내가|저는|나는)[^.!?\n]{0,12}(?:생활비|빚|돈이\s*없)|도움을?\s*받고/.test(t)}
  ];
