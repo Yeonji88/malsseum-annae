@@ -72,6 +72,22 @@ for(const message of [
  const result=choose(message);
  assert.equal(result.verse?.id,'james-2-15-17',JSON.stringify(result));
 });
+for(const message of [
+ '힘든 사람을 도와줄지 말지 고민돼요',
+ '도움이 필요한 사람을 도와야 할지 고민돼요',
+ '경제적으로 어려운 이웃을 도울지 고민돼요'
+])test('material help decision: '+message,()=>{
+ const {choose,s}=app();
+ const analysis=s.classifyConcern(message);
+ assert.ok(analysis.situations.includes('material_help_for_others'),JSON.stringify(analysis));
+ const result=choose(message);
+ assert.equal(result.verse?.id,'james-2-15-17',JSON.stringify(result));
+});
+test('material help decision requires recipient context',()=>{
+ const {s}=app();
+ const analysis=s.classifyConcern('도움을 줄지 말지 고민돼요');
+ assert.ok(!analysis.situations.includes('material_help_for_others'),JSON.stringify(analysis));
+});
 test('material help does not capture person needing help',()=>{
  const {choose,s}=app();
  const analysis=s.classifyConcern('제가 생활비가 없어서 도움을 받고 싶어요');
