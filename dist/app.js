@@ -666,12 +666,121 @@ function renderReflectionPreview(){
  const verses=new Map(window.Malsseum.data.verses.map(verse=>[verse.id,verse]));
  entries.forEach(entry=>{const item=element('button','meditation-preview-item');item.type='button';const verse=verses.get(entry.verseId);item.append(element('time','',reflectionDateFormat.format(new Date(entry.createdAt))),element('strong','',verse?.reference||'묵상 기록'),element('p','',entry.content));item.addEventListener('click',()=>openReflectionList(entry.id));preview.append(item);});
 }
+let activeVerseSpeech=null;
+let verseRepeatEnabled=false;
+let verseSpeechSession=0;
+
+function updateVerseRepeatButtons(){
+ document.querySelectorAll('.daily-verse-repeat').forEach(button=>{
+  button.setAttribute('aria-pressed',String(verseRepeatEnabled));
+  button.classList.toggle('is-active',verseRepeatEnabled);
+  button.textContent=verseRepeatEnabled?'반복 중':'반복 듣기';
+ });
+}
+
+async function stopVerseSpeech(){
+ verseSpeechSession++;
+ verseRepeatEnabled=false;
+ try{
+  if(typeof window.malsseumNativeStop==='function'){
+   await window.malsseumNativeStop();
+  }else if('speechSynthesis' in window){
+   window.speechSynthesis.cancel();
+  }
+ }catch{}
+ activeVerseSpeech=null;
+
+ document.querySelectorAll('.daily-verse-speak.is-speaking').forEach(button=>{
+  button.classList.remove('is-speaking');
+  button.setAttribute('aria-label','말씀 읽어주기');
+  button.setAttribute('aria-pressed','false');
+ });
+
+ document.querySelectorAll('.daily-verse-repeat').forEach(button=>{
+  button.hidden=true;
+ });
+ updateVerseRepeatButtons();
+}
+
+async function playVerseSpeech(verse,button,repeatButton,session){
+ const text=displayVerseText(verse);
+
+ while(session===verseSpeechSession){
+  if(typeof window.malsseumNativeSpeak==='function'){
+   activeVerseSpeech={native:true};
+   try{
+    await window.malsseumNativeSpeak(text);
+   }catch{
+    if(session===verseSpeechSession)await stopVerseSpeech();
+    return false;
+   }
+  }else{
+   if(!('speechSynthesis' in window)||typeof SpeechSynthesisUtterance==='undefined'){
+    await stopVerseSpeech();
+    return false;
+   }
+
+   const utterance=new SpeechSynthesisUtterance(text);
+   utterance.lang='ko-KR';
+   utterance.rate=0.9;
+   utterance.pitch=1;
+   activeVerseSpeech=utterance;
+
+   await new Promise(resolve=>{
+    utterance.onend=resolve;
+    utterance.onerror=resolve;
+    window.speechSynthesis.speak(utterance);
+   });
+  }
+
+  if(session!==verseSpeechSession)return true;
+  if(!verseRepeatEnabled)break;
+ }
+
+ if(session===verseSpeechSession){
+  activeVerseSpeech=null;
+  button.classList.remove('is-speaking');
+  button.setAttribute('aria-label','말씀 읽어주기');
+  button.setAttribute('aria-pressed','false');
+ }
+
+ return true;
+}
+
+async function speakVerse(verse,button,repeatButton){
+ if(button.classList.contains('is-speaking')){
+  await stopVerseSpeech();
+  return true;
+ }
+
+ await stopVerseSpeech();
+
+ const session=++verseSpeechSession;
+ button.classList.add('is-speaking');
+ button.setAttribute('aria-label','말씀 읽기 중지');
+ button.setAttribute('aria-pressed','true');
+
+ repeatButton.hidden=false;
+ updateVerseRepeatButtons();
+
+ return playVerseSpeech(verse,button,repeatButton,session);
+}
 function renderMeditationHome(){
  const verse=DailyVerse.get();meditationScreen.replaceChildren();
  const intro=element('section','meditation-intro');const heading=element('div','meditation-heading'),title=element('h1','', '오늘도,\n말씀 안에 머물러요.');title.id='meditation-title';title.tabIndex=-1;heading.append(title);intro.append(heading,element('p','meditation-subtitle','오늘의 말씀을 천천히 마음에 담아보세요.'));
  const card=element('article','daily-verse-card');const cardHead=element('div','daily-verse-head');cardHead.append(element('span','daily-verse-label','오늘의 말씀'));
  const iconSave=element('button','daily-bookmark');iconSave.type='button';iconSave.dataset.dailySave='';iconSave.setAttribute('aria-label','오늘의 말씀 저장하기');iconSave.append(bookmarkIcon());iconSave.addEventListener('click',()=>toggleDailyVerse(verse));cardHead.append(iconSave);
- card.append(cardHead,element('blockquote','daily-verse-text',displayVerseText(verse)),element('p','daily-verse-reference',verse.reference));
+ const verseFooter=element('div','daily-verse-footer');const speechControls=element('div','daily-verse-speech-controls');const speak=element('button','daily-verse-speak');speak.type='button';speak.setAttribute('aria-label','말씀 읽어주기');speak.setAttribute('aria-pressed','false');speak.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6.5 9H3v6h3.5L11 19V5Z"/><path d="M15 9.5a4 4 0 0 1 0 5"/><path d="M17.5 7a7.5 7.5 0 0 1 0 10"/></svg>';const repeat=element('button','daily-verse-repeat','반복 듣기');
+repeat.type='button';
+repeat.hidden=true;
+repeat.setAttribute('aria-pressed','false');
+speak.addEventListener('click',()=>speakVerse(verse,speak,repeat));
+repeat.addEventListener('click',()=>{
+ verseRepeatEnabled=!verseRepeatEnabled;
+ updateVerseRepeatButtons();
+});
+speechControls.append(repeat,speak);
+verseFooter.append(speechControls,element('p','daily-verse-reference',verse.reference));card.append(cardHead,element('blockquote','daily-verse-text',displayVerseText(verse)),verseFooter);
  const meditate=element('button','meditation-primary button-primary','이 말씀으로 묵상하기');meditate.type='button';meditate.addEventListener('click',()=>openDailyMeditation(verse));
  const actions=element('div','meditation-actions');const save=element('button','meditation-secondary button-secondary');save.type='button';save.dataset.dailySave='';save.append(bookmarkIcon(),element('span','daily-save-label','저장하기'));save.addEventListener('click',()=>toggleDailyVerse(verse));
  const share=element('button','meditation-secondary button-secondary');share.type='button';share.innerHTML='<span class="meditation-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="2.2"/><circle cx="6" cy="12" r="2.2"/><circle cx="18" cy="19" r="2.2"/><path d="m8 11 8-5M8 13l8 5"/></svg></span><span>공유하기</span>';

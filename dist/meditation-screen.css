@@ -203,3 +203,122 @@
  text-decoration:none !important;
  text-decoration-line:none !important;
 }
+
+/* 오늘의 말씀 읽어주기 */
+#meditation-screen .daily-verse-footer{
+ display:flex;
+ align-items:center;
+ justify-content:flex-end;
+ gap:8px;
+ margin-top:9px;
+}
+
+#meditation-screen .daily-verse-footer .daily-verse-reference{
+ margin:0;
+}
+
+#meditation-screen .daily-verse-speak{
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ width:30px;
+ height:30px;
+ padding:5px;
+ border:0;
+ border-radius:50%;
+ background:transparent;
+ color:#4f7460;
+ cursor:pointer;
+}
+
+#meditation-screen .daily-verse-speak svg{
+ display:block;
+ width:19px;
+ height:19px;
+}
+
+#meditation-screen .daily-verse-speak.is-speaking{
+ background:var(--meditation-sage);
+ color:#315f49;
+}
+
+#meditation-screen .daily-verse-speak:focus-visible{
+ outline:2px solid #8aa091;
+ outline-offset:2px;
+}
+
+#meditation-screen .daily-verse-speech-controls{
+ display:flex;
+ align-items:center;
+ gap:5px;
+}
+
+#meditation-screen .daily-verse-repeat{
+ min-height:30px;
+ padding:4px 8px;
+ border:0;
+ border-radius:10px;
+ background:transparent;
+ color:#6f7c74;
+ font-family:inherit;
+ font-size:11px;
+ font-weight:500;
+ line-height:1.3;
+ white-space:nowrap;
+ cursor:pointer;
+}
+
+#meditation-screen .daily-verse-repeat[hidden]{
+ display:none;
+}
+
+#meditation-screen .daily-verse-repeat.is-active{
+ background:var(--meditation-sage);
+ color:#315f49;
+}
+
+#meditation-screen .daily-verse-repeat:focus-visible{
+ outline:2px solid #8aa091;
+ outline-offset:2px;
+}
+
+/* 말씀 반복 듣기 - 독립 버튼 */
+#meditation-screen .daily-verse-repeat{
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ min-width:82px;
+ height:34px;
+ margin:0;
+ padding:0 12px;
+ box-sizing:border-box;
+ border:1px solid #d9e1d8 !important;
+ border-radius:12px !important;
+ background:#fffdfa !important;
+ color:#476052 !important;
+ font-family:inherit;
+ font-size:11px;
+ font-weight:400;
+ line-height:1;
+ text-decoration:none !important;
+ box-shadow:none;
+ white-space:nowrap;
+ cursor:pointer;
+}
+
+#meditation-screen .daily-verse-repeat[hidden]{
+ display:none !important;
+}
+
+#meditation-screen .daily-verse-repeat.is-active{
+ border-color:#bfd0c2 !important;
+ background:#edf3e9 !important;
+ color:#315f49 !important;
+}
+
+#meditation-screen .daily-verse-speech-controls{
+ display:flex;
+ flex-direction:row;
+ align-items:center;
+ gap:8px;
+}
