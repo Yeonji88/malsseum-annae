@@ -298,3 +298,18 @@ label,.speaker,.scripture-label,.explanation-label,.verse-actions summary{font-w
 #settings-dialog .ai-privacy-note p{margin:0;font-size:12px;line-height:1.8;overflow-wrap:anywhere}
 
 #onboarding .primary{border-radius:13px!important}
+
+#settings-dialog .name-reset-tools{
+ margin-top:24px;
+ text-align:center;
+}
+#settings-dialog .name-reset-tools #reset-name{
+ width:100%;
+}
+#settings-dialog .reset-all-help{
+ margin:8px 0 0;
+ color:#777f7a;
+ font-size:12px;
+ line-height:1.5;
+ text-align:center;
+}

@@ -601,6 +601,37 @@ if(typeof window.malsseumNativeShare==='function'){
   status.textContent='말씀을 복사했어요.';
  }catch{status.textContent='공유하거나 복사하지 못했어요. 잠시 후 다시 시도해주세요.';}
 }
+async function sharePersonalReflection(verse,record,status){
+ if(!record?.content)return false;
+ const url='https://yeonji88.github.io/malsseum-annae/?verse='+encodeURIComponent(verse.id);
+ const text='🙏 나의 묵상\n'+record.content;
+ status.textContent='';
+ if(typeof window.malsseumNativeShare==='function'){
+  try{
+   await window.malsseumNativeShare('',text,url);
+   return true;
+  }catch(error){
+   if(error?.name==='AbortError')return false;
+  }
+ }
+ if(typeof navigator.share==='function'){
+  try{
+   await navigator.share({text,url});
+   return true;
+  }catch(error){
+   if(error?.name==='AbortError')return false;
+  }
+ }
+ try{
+  if(!navigator.clipboard?.writeText)throw new Error('Clipboard unavailable');
+  await navigator.clipboard.writeText(text+'\n\n'+url);
+  status.textContent='묵상기록을 복사했어요.';
+  return true;
+ }catch{
+  status.textContent='묵상기록을 공유하거나 복사하지 못했어요.';
+  return false;
+ }
+}
 function meditationBackButton(label,action){const button=element('button','meditation-back');button.type='button';button.setAttribute('aria-label',label+' 화면으로 돌아가기');const icon=element('span','meditation-back-icon');icon.setAttribute('aria-hidden','true');icon.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5m6-6-6 6 6 6"/></svg>';button.append(icon,element('span','meditation-back-label',label));button.addEventListener('click',action);return button;}
 function syncDailySaveButtons(verse){
  const saved=SavedVerses.has(verse.id);
@@ -659,10 +690,13 @@ function openDailyMeditation(verse,record=null,{focusEditor=false,scrollToEditor
  const existing=record||PersonalReflections.forVerseToday(verse.id),journal=element('form','meditation-journal');const journalTitle=element('h2','','묵상 기록하기');
  const label=element('label','sr-only','묵상 기록하기');label.htmlFor='meditation-journal-input';const textarea=element('textarea','');textarea.id='meditation-journal-input';textarea.maxLength=3000;textarea.placeholder='오늘의 말씀을 읽고 마음에 떠오르는 생각을 천천히 적어보세요.';textarea.value=existing?.content||'';
  const status=element('p','meditation-journal-status');status.setAttribute('role','status');const save=element('button','meditation-journal-save button-primary',existing?'묵상 수정하기':'묵상 저장하기');save.type='submit';
- const bottomBack=element('button','meditation-journal-back');bottomBack.type='button';bottomBack.innerHTML='<span>오늘의 말씀으로 돌아가기</span>';bottomBack.addEventListener('click',()=>displayScreen('reflection'));
- journal.append(journalTitle,label,textarea,status,save,bottomBack);journal.addEventListener('submit',event=>{event.preventDefault();try{const saved=PersonalReflections.save(verse.id,textarea.value,record?.id||null,displayedVerseSnapshot);status.classList.add('is-saved');status.textContent='묵상을 저장했어요.';save.textContent='묵상 수정하기';renderReflectionPreview();record=saved;}catch(error){status.classList.remove('is-saved');status.textContent=error.message||'묵상을 저장하지 못했어요.';textarea.focus();}});textarea.addEventListener('input',()=>{status.textContent='';});body.append(journal);
+ journal.append(journalTitle,label,textarea,status,save);journal.addEventListener('submit',event=>{event.preventDefault();try{const saved=PersonalReflections.save(verse.id,textarea.value,record?.id||null,displayedVerseSnapshot);status.classList.add('is-saved');status.textContent='묵상을 저장했어요.';save.textContent='묵상 수정하기';renderReflectionPreview();record=saved;}catch(error){status.classList.remove('is-saved');status.textContent=error.message||'묵상을 저장하지 못했어요.';textarea.focus();}});textarea.addEventListener('input',()=>{status.textContent='';});body.append(journal);
  const saveRow=element('div','meditation-verse-save');saveRow.append(createVerseSaveButton(verse));
- meditationDetail.append(back,card,saveRow,body);refreshSaveButtons();displayScreen('meditation-detail');
+ const reflectionShare=element('button','meditation-reflection-share');
+ reflectionShare.type='button';
+ reflectionShare.innerHTML='<span class="meditation-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="2.2"/><circle cx="6" cy="12" r="2.2"/><circle cx="18" cy="19" r="2.2"/><path d="m8 11 8-5M8 13l8 5"/></svg></span><span>나의 묵상기록 공유하기</span>';
+ reflectionShare.addEventListener('click',async()=>{const savedReflection=record||existing;if(!savedReflection?.content){status.classList.remove('is-saved');status.textContent='묵상을 먼저 저장해주세요.';return;}await sharePersonalReflection(verse,savedReflection,status);});
+ meditationDetail.append(back,card,saveRow,body,reflectionShare);refreshSaveButtons();displayScreen('meditation-detail');
  if(focusEditor){
   try{textarea.focus({preventScroll:true});}catch{textarea.focus();}
   const revealEditor=()=>textarea.scrollIntoView({block:'center',behavior:'smooth'});
@@ -889,17 +923,48 @@ window.addEventListener('storage',event=>{if(event.key==='malsseum-annae.persona
 function syncNavigation(){bottomNav.hidden=mainContent.hidden;}
 new MutationObserver(syncNavigation).observe(mainContent,{attributes:true,attributeFilter:['hidden']});syncNavigation();
 
-// 테스트용 이름 초기화: 다른 로컬 데이터와 대화 기록은 건드리지 않습니다.
+// 이름과 앱에 저장된 사용자 기록을 처음 상태로 되돌립니다.
 document.getElementById('reset-name').addEventListener('click',()=>{
  const feedback=document.getElementById('reset-name-error');
+ const confirmed=confirm('이름, 저장한 말씀, 묵상, 기도, 감사 등 앱에 저장된 모든 기록이 삭제됩니다.\n삭제한 기록은 되돌릴 수 없어요.\n\n정말 전체 초기화할까요?');
+ if(!confirmed)return;
  try{
-  UserProfile.reset();feedback.textContent='';
-  for(const id of ['onboarding-name','settings-name']){const field=document.getElementById(id);field.value='';field.removeAttribute('aria-invalid');}
-  document.getElementById('onboarding-error').textContent='';document.getElementById('settings-error').textContent='';
-  displayScreen('home');refreshProfile();syncNavigation();settingsDialog.close();
-  onboarding.scrollTop=0;document.getElementById('onboarding-name').focus();
-  document.getElementById('profile-status').textContent='이름을 초기화했어요. 새 이름을 입력해주세요.';
- }catch(e){feedback.textContent=e.message;}
+  const keys=[
+   'malsseum-annae.display-name.v1',
+   'malsseum-annae.saved-verse-ids.v1',
+   'malsseum-annae.saved-verse-times.v1',
+   'malsseum-annae.personal-reflections.v1',
+   'malsseum-annae.personal-prayers.v1',
+   'malsseum-annae.gratitude.v1',
+   'malsseum-annae.daily-verse.v1',
+   'malsseum-annae.daily-verse-history.v1',
+   'malsseum-annae.text-size.v1'
+  ];
+  keys.forEach(key=>localStorage.removeItem(key));
+  UserProfile.load();
+  setTextSize('default');
+  feedback.textContent='';
+  for(const id of ['onboarding-name','settings-name']){
+   const field=document.getElementById(id);
+   field.value='';
+   field.removeAttribute('aria-invalid');
+  }
+  document.getElementById('onboarding-error').textContent='';
+  document.getElementById('settings-error').textContent='';
+  displayScreen('home');
+  refreshProfile();
+  renderSavedList();
+  renderReflectionPreview();
+  renderPrayerView();
+  gratitudeView.open();
+  syncNavigation();
+  settingsDialog.close();
+  onboarding.scrollTop=0;
+  document.getElementById('onboarding-name').focus();
+  document.getElementById('profile-status').textContent='이름과 모든 기록을 초기화했어요. 새 이름을 입력해주세요.';
+ }catch(e){
+  feedback.textContent='전체 초기화하지 못했어요. 다시 시도해주세요.';
+ }
 });
 settingsButton.addEventListener('click',()=>{document.getElementById('reset-name-error').textContent='';});
 

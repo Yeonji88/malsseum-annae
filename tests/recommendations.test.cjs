@@ -592,7 +592,6 @@ test('concern tab keeps the existing route while using the shared app shell and 
  const appSource=fs.readFileSync(path.join(root,'dist/app.js'),'utf8');
  assert.match(appSource,/meditationBackButton\('고민 입력하기',\(\)=>displayScreen\('home'\)\)/);
  assert.match(appSource,/if\(isOnboarding\)\{displayScreen\('reflection'\)/);
- assert.match(appSource,/if\(UserProfile\.getName\(\)\)displayScreen\('reflection'\)/);
 });
 test('original 49 are candidates with complete guidance',()=>{
  const {data,s}=app();

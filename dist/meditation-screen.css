@@ -118,3 +118,44 @@
 .reflection-detail-actions .button-compact{--button-compact-padding:7px 4px;white-space:nowrap;overflow-wrap:normal;flex-shrink:0}
 #reflection-verse-screen .daily-verse-reference{margin:0 0 12px}
 #reflection-verse-screen .reflection-verse-note{font-size:var(--font-support);line-height:1.6;color:var(--muted);overflow-wrap:anywhere}
+
+.meditation-journal-status:empty{display:block;min-height:0;height:12px;margin:0}
+
+#meditation-detail .meditation-reflection-share{
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ gap:9px;
+ width:100%;
+ min-height:49px;
+ margin:13px 0 0;
+ padding:10px 16px;
+ box-sizing:border-box;
+ border:1px solid #eae6de;
+ border-radius:16px;
+ background:#fffdfa;
+ color:#343a36;
+ box-shadow:0 5px 14px #554d3c0b;
+ font-family:inherit;
+ font-size:14px;
+ line-height:1.4;
+ font-weight:400;
+ cursor:pointer;
+}
+#meditation-detail .meditation-reflection-share .meditation-icon{
+ display:block;
+ width:21px;
+ height:21px;
+ margin:0;
+ color:#315f49;
+}
+#meditation-detail .meditation-reflection-share .meditation-icon svg{
+ display:block;
+ width:100%;
+ height:100%;
+}
+
+#meditation-detail .meditation-journal-status{
+ color:#4f5652;
+ text-align:center;
+}
