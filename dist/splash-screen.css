@@ -1,3 +1,10 @@
+@font-face {
+  font-family: "Malsseum Gowun Dodum";
+  src: url("GowunDodum-Regular.ttf") format("truetype");
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
 body.splash-loading > .app {
   visibility: hidden;
 }
@@ -23,4 +30,121 @@ body.splash-loading > .app {
   height: 100%;
   object-fit: contain;
   display: block;
+}
+/* Animated brand splash */
+#brand-splash {
+  background: #fafbf5;
+}
+
+#brand-splash .splash-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transform: translateY(-2vh);
+}
+
+#brand-splash .splash-symbol {
+  width: 108px;
+  height: 108px;
+  object-fit: contain;
+  margin-bottom: 12px;
+}
+
+#brand-splash .splash-title {
+  margin: 0;
+  color: #35634d;
+  font-family: "Malsseum Gowun Dodum", sans-serif;
+  font-size: 42px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+#brand-splash .splash-tagline-wrap {
+  position: relative;
+  margin-top: 10px;
+  min-width: 230px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#brand-splash .splash-tagline {
+  position: relative;
+  z-index: 2;
+  color: #78947a;
+  font-family: "Malsseum Gowun Dodum", sans-serif;
+  font-size: 21px;
+  font-weight: 400;
+  white-space: nowrap;
+}
+
+#brand-splash .splash-letter {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(3px);
+  animation: splashLetterIn 0.45s ease forwards;
+}
+
+#brand-splash .splash-wind {
+  position: absolute;
+  z-index: 1;
+  width: 270px;
+  height: 60px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-65%, -50%);
+  opacity: 0;
+  pointer-events: none;
+  animation: splashWind 1.25s ease-out 0.25s forwards;
+}
+
+#brand-splash .splash-wind path {
+  fill: none;
+  stroke: #b9dce5;
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+@keyframes splashLetterIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes splashWind {
+  0% {
+    opacity: 0;
+    transform: translate(-68%, -50%);
+  }
+
+  25% {
+    opacity: 0.42;
+  }
+
+  70% {
+    opacity: 0.25;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(-38%, -50%);
+  }
+}
+
+#brand-splash .splash-brand {
+  transform: none;
+}
+
+#brand-splash .splash-brand-image {
+  display: block;
+  width: 190px;
+  height: auto;
+  object-fit: contain;
+}
+
+#brand-splash .splash-tagline-wrap {
+  margin-top: 10px;
 }
