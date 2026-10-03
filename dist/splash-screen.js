@@ -1,14 +1,20 @@
 (function () {
+  const nativeSplash = window.MalsseumAndroidSplash;
   const splash = document.createElement('div');
   splash.id = 'brand-splash';
 
   const brand = document.createElement('div');
   brand.className = 'splash-brand';
 
-const brandImage = document.createElement('img');
-brandImage.className = 'splash-brand-image';
-brandImage.src = 'malsseum-brand.png';
-brandImage.alt = '말씀 안에';
+const brandImage = document.createElement(nativeSplash ? 'div' : 'img');
+if (nativeSplash) {
+  brandImage.className = 'native-logo-space';
+  brandImage.setAttribute('aria-hidden', 'true');
+} else {
+  brandImage.className = 'splash-brand-image';
+  brandImage.src = 'malsseum-brand.png';
+  brandImage.alt = '말씀 안에';
+}
 
   const taglineWrap = document.createElement('div');
   taglineWrap.className = 'splash-tagline-wrap';
@@ -45,11 +51,13 @@ brand.appendChild(taglineWrap);
   document.body.prepend(splash);
 
   setTimeout(() => {
+    if (nativeSplash) nativeSplash.startFade();
     splash.classList.add('is-hiding');
 
     setTimeout(() => {
       splash.remove();
       document.body.classList.remove('splash-loading');
+      if (nativeSplash) nativeSplash.finish();
     }, 350);
   }, 2100);
 })();

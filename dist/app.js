@@ -529,27 +529,14 @@ renderSavedList();
 // The reflection tab is an independent daily-reading space. Recommendation results
 // remain in their own result route and continue to return to the home screen.
 const DailyVerse=(()=>{
- const currentKey='malsseum-annae.daily-verse.v1',historyKey='malsseum-annae.daily-verse-history.v1';
- const dailyIds=Object.keys(window.Malsseum.data.dailyReflections).slice(0,100);
- const catalogue=dailyIds.map(id=>readableVerses().find(verse=>verse.id===id));
- const known=new Set(readableVerses().map(verse=>verse.id));
- const dateKey=date=>[date.getFullYear(),String(date.getMonth()+1).padStart(2,'0'),String(date.getDate()).padStart(2,'0')].join('-');
- const hash=value=>{let result=2166136261;for(const char of value){result^=char.codePointAt(0);result=Math.imul(result,16777619);}return result>>>0;};
- function history(){
-  try{const stored=JSON.parse(localStorage.getItem(historyKey)||'[]');return Array.isArray(stored)?stored.filter(item=>item&&typeof item.date==='string'&&known.has(item.verseId)).slice(-14):[];}catch{return [];}
+ const schedule=window.Malsseum.services.dailySelection;
+ function get(){
+  const selection=schedule.select();
+  const verse=readableVerses().find(verse=>verse.id===selection.verseId);
+  if(!verse||!window.Malsseum.data.dailyReflections[verse.id])throw new Error('Canonical Daily content is missing: '+selection.verseId);
+  schedule.remember(localStorage,selection);return verse;
  }
-function get(){
-  const today=dateKey(new Date());
-  const epoch=new Date(2026,0,1);
-const dayNumber=Math.floor((new Date(new Date().getFullYear(),new Date().getMonth(),new Date().getDate())-epoch)/86400000);
-const verse=catalogue[((dayNumber%catalogue.length)+catalogue.length)%catalogue.length];
-  try{
-    localStorage.setItem(currentKey,JSON.stringify({date:today,verseId:verse.id}));
-    localStorage.setItem(historyKey,JSON.stringify([...history().filter(item=>item.date!==today),{date:today,verseId:verse.id}].slice(-14)));
-  }catch{}
-  return verse;
-}
-return {get};
+ return {get};
 })();
 const PersonalReflections=(()=>{
  const key='malsseum-annae.personal-reflections.v1';
@@ -770,9 +757,9 @@ async function speakVerse(verse,button,repeatButton){
 
  return playVerseSpeech(verse,button,repeatButton,session);
 }
-let displayedDailyVerse=null;
+let displayedDailyVerse=null,displayedDailyDate=null;
 function renderMeditationHome(retainedVerse=null){
- const verse=retainedVerse||DailyVerse.get();displayedDailyVerse=verse;meditationScreen.replaceChildren();
+ const verse=retainedVerse||DailyVerse.get();displayedDailyVerse=verse;displayedDailyDate=window.Malsseum.services.dailySelection.dateKey();meditationScreen.replaceChildren();
  const intro=element('section','meditation-intro');const heading=element('div','meditation-heading'),title=element('h1','', '오늘도,\n말씀 안에 머물러요.');title.id='meditation-title';title.tabIndex=-1;heading.append(title);intro.append(heading,element('p','meditation-subtitle','오늘의 말씀을 천천히 마음에 담아보세요.'));
  const card=element('article','daily-verse-card');const cardHead=element('div','daily-verse-head');cardHead.append(element('span','daily-verse-label','오늘의 말씀'));
  const iconSave=element('button','daily-bookmark');iconSave.type='button';iconSave.dataset.dailySave='';iconSave.setAttribute('aria-label','오늘의 말씀 저장하기');iconSave.append(bookmarkIcon());iconSave.addEventListener('click',()=>toggleDailyVerse(verse));cardHead.append(iconSave);
@@ -807,12 +794,8 @@ function openDailyMeditation(verse,record=null,{focusEditor=false,scrollToEditor
  const status=element('p','meditation-journal-status');status.setAttribute('role','status');const save=element('button','meditation-journal-save button-primary',existing?'묵상 수정하기':'묵상 저장하기');save.type='submit';
  journal.append(journalTitle,label,textarea,status,save);journal.addEventListener('submit',event=>{event.preventDefault();try{const saved=PersonalReflections.save(verse.id,textarea.value,record?.id||null,displayedVerseSnapshot);status.classList.add('is-saved');status.textContent='묵상을 저장했어요.';save.textContent='묵상 수정하기';renderReflectionPreview();record=saved;}catch(error){status.classList.remove('is-saved');status.textContent=error.message||'묵상을 저장하지 못했어요.';textarea.focus();}});textarea.addEventListener('input',()=>{status.textContent='';});if(daily.questions.length===2)journal.classList.add('is-daily-checklist');body.append(journal);
  const saveRow=element('div','meditation-verse-save');saveRow.append(createVerseSaveButton(verse));
- const reflectionShare=element('button','meditation-reflection-share');
- reflectionShare.type='button';
- reflectionShare.innerHTML='<span class="meditation-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="2.2"/><circle cx="6" cy="12" r="2.2"/><circle cx="18" cy="19" r="2.2"/><path d="m8 11 8-5M8 13l8 5"/></svg></span><span>나의 묵상기록 공유하기</span>';
- reflectionShare.addEventListener('click',async()=>{const savedReflection=record||existing;if(!savedReflection?.content){status.classList.remove('is-saved');status.textContent='묵상을 먼저 저장해주세요.';return;}await sharePersonalReflection(verse,savedReflection,status);});
- const bottomBack=element('button','meditation-journal-back','오늘의 말씀으로 돌아가기');bottomBack.type='button';bottomBack.addEventListener('click',()=>displayScreen('reflection',displayedDailyVerse));
- meditationDetail.append(back,card,saveRow,body,reflectionShare,bottomBack);refreshSaveButtons();displayScreen('meditation-detail');
+ const bottomBack=element('button','meditation-journal-back','오늘의 말씀으로 돌아가기');bottomBack.type='button';bottomBack.addEventListener('click',()=>displayScreen('reflection',displayedDailyDate===window.Malsseum.services.dailySelection.dateKey()?displayedDailyVerse:null));
+ meditationDetail.append(back,card,saveRow,body,bottomBack);refreshSaveButtons();displayScreen('meditation-detail');
  if(focusEditor){
   try{textarea.focus({preventScroll:true});}catch{textarea.focus();}
   const revealEditor=()=>textarea.scrollIntoView({block:'center',behavior:'smooth'});
@@ -1095,3 +1078,16 @@ measureBottomNavigation();
 const typographyStyles=document.createElement('link');typographyStyles.rel='stylesheet';typographyStyles.href='typography.css';document.head.append(typographyStyles);
 const readingSizeStyles=document.createElement('link');readingSizeStyles.rel='stylesheet';readingSizeStyles.href='reading-size.css';document.head.append(readingSizeStyles);
 const buttonStyles=document.createElement('link');buttonStyles.rel='stylesheet';buttonStyles.href='button-system.css';document.head.append(buttonStyles);
+
+// Refresh only the Daily home at KST midnight; never rebuild an open journal.
+function refreshCanonicalDailyDate(){
+ if(displayedDailyDate!==window.Malsseum.services.dailySelection.dateKey()&&!meditationScreen.hidden)renderMeditationHome();
+}
+function scheduleCanonicalDailyDate(){
+ const now=new Date(),date=window.Malsseum.services.dailySelection.dateKey(now);
+ const nextMidnight=Date.parse(date+'T00:00:00Z')+86400000-9*3600000;
+ setTimeout(()=>{refreshCanonicalDailyDate();scheduleCanonicalDailyDate();},Math.max(1,nextMidnight-now.getTime()));
+}
+scheduleCanonicalDailyDate();
+window.addEventListener('focus',refreshCanonicalDailyDate);
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)refreshCanonicalDailyDate();});
