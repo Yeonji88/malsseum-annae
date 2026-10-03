@@ -30,7 +30,7 @@ test('preview route allows only samples and leaves normal app responses unchange
   for(const id of ids)assert.equal((await fetch(base+'/daily-preview?verse='+id)).status,200,id);
   const review=await(await fetch(base+'/__daily-review.js')).text();
   for(const id of ids)assert.ok(review.includes(id),id+' selectable');
-  const html=await(await fetch(base+'/daily-preview?verse=john-11-35')).text();
+  const html=await(await fetch(base+'/daily-preview?verse=psalm-143-8')).text();
   assert.match(html,/__daily-memory.js/);assert.match(html,/data\/daily-reflections.js/);
   assert.equal(await(await fetch(base+'/app.js')).text(),fs.readFileSync(path.join(__dirname,'../dist/app.js'),'utf8'));
   assert.doesNotMatch(await(await fetch(base+'/')).text(),/__daily/);

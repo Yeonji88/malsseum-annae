@@ -40,8 +40,9 @@ test('actual SavedVerses, DailyVerse and PersonalReflections consumers retain mi
  const record={id:'kept-record',verseId:oldId,content:'기록 내용 보존',createdAt:today.toISOString(),updatedAt:today.toISOString()};
  const s=setup({[keys.saved]:[oldId],[keys.current]:{date,verseId:oldId},[keys.records]:[record],[keys.history]:[{date,verseId:oldId}]});s.run();
  const c=vm.createContext({window:{},localStorage:s.storage});
- for(const f of ['topics','verses'])vm.runInContext(fs.readFileSync(path.join(root,'dist/data/'+f+'.js'),'utf8'),c);
+ for(const f of ['topics','verses','daily-reflections'])vm.runInContext(fs.readFileSync(path.join(root,'dist/data/'+f+'.js'),'utf8'),c);
  const app=fs.readFileSync(path.join(root,'dist/app.js'),'utf8');
+ vm.runInContext(app.slice(app.indexOf('function readableVerses('),app.indexOf('try{window.Malsseum.services.migrateVerseIds')),c);
  vm.runInContext(app.slice(app.indexOf('const SavedVerses='),app.indexOf('function refreshSaveButtons')),c);
  vm.runInContext(app.slice(app.indexOf('const DailyVerse='),app.indexOf('const PersonalReflections=')),c);
  const personal=app.slice(app.indexOf('const PersonalReflections='));vm.runInContext(personal.slice(0,personal.indexOf('})();')+5),c);
