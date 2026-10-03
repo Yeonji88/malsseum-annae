@@ -1,10 +1,26 @@
 import {createRequire} from 'node:module';
 const require = createRequire(import.meta.url);
 const contract = require('../dist/data/analysisContract.js');
+const situationCatalog = require('../dist/data/situation-catalog.json');
+const situationGuide = situationCatalog.map(item => ({
+  id: item.id,
+  topics: item.topics,
+  meaning: item.recommendationNotes
+}));
+const situationGuideText = JSON.stringify(situationGuide);
 export const maxDuration = 20;
 const schema = contract.schema;
 export const analysisInstructions = `You structure a Korean user's concern. Return only the schema fields. You do not counsel, diagnose, make decisions, or select religious content.
 
+Situation classification rules:
+- Use the supplied situation catalog as the authoritative semantic guide for situation IDs. Judge by each meaning, not by the ID name alone.
+- Example wording is never required to match literally. Classify semantically equivalent wording the same way when the user's own words support it.
+- Never invent an emotion, motive, regret, guilt, fear, or intention that the user did not state.
+- Distinguish actor, action, and target. Who did what to whom materially changes the classification.
+- A concrete action can support a specific situation even when the user does not explicitly state an emotion about that action.
+- Do not require words such as regret, apology, worry, or guilt when the concrete action itself establishes the situation meaning.
+- Do not force a specific situation when the user's meaning is materially uncertain.
+- Safety evidence takes priority over ordinary relationship, guilt, or other pastoral classifications.
 Evidence rule:
 - A cause or explicit fact is explicit only when the user's own words state it. Put an exact short quote from the input in evidence.
 - Never invent a job, relationship, financial, medical, pregnancy, loss, or safety context. If no real-world cause is stated, use cause.category "none", explicit false, empty evidence and no cause situation IDs.
@@ -77,7 +93,7 @@ export async function POST(request) {
       body: JSON.stringify({
         model: process.env.OPENAI_MODEL || 'gpt-4.1-mini', store: false,
         instructions: analysisInstructions,
-        input: message.trim(),
+        input: 'Situation catalog (classification reference only):\n' + situationGuideText + '\n\nUser concern:\n' + message.trim(),
         text: {format: {type: 'json_schema', name: 'concern_analysis', strict: true, schema}}
       })
     });

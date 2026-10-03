@@ -1,0 +1,105 @@
+﻿const fs = require('fs');
+const vm = require('vm');
+
+const versesPath = './dist/data/verses.js';
+const outputPath = './dist/data/situation-catalog.json';
+
+const context = {
+  window: {
+    Malsseum: {
+      data: {}
+    }
+  }
+};
+
+vm.createContext(context);
+vm.runInContext(fs.readFileSync(versesPath, 'utf8'), context);
+
+const verses = context.window.Malsseum.data.verses;
+if (!Array.isArray(verses)) throw new Error('verses not loaded');
+
+const supplementalDefinitions = [
+  {
+    id: 'physical_health_concern',
+    topics: [],
+    recommendationNotes: ['??, ??, ?? ??, ???? ?? ? ???? ?? ?? ?? ?? ??? ?? ?????.'],
+    expressions: [],
+    contextNotes: ['??? ???? ?? ??? ???? ??, ???? ??? ?? ?? ??? ?????.']
+  },
+  {
+    id: 'acute_hardship',
+    topics: [],
+    recommendationNotes: ['??, ??, ??, ?? ? ? ???? ??, ??, ?? ?? ??? ??? ?? ?????.'],
+    expressions: [],
+    contextNotes: ['??? ???? ????, ?? ????? ??? ??? ?? ? ?????.']
+  },
+  {
+    id: 'severe_exhaustion',
+    topics: ['rest'],
+    recommendationNotes: ['???, ??, ??? ?? ??? ??? ???? ?? ?? ??? ??? ??? ???? ?????.'],
+    expressions: [],
+    contextNotes: ['???? ????? ?? ???? ??? ??? ??? ?????.']
+  },
+  {
+    id: 'fresh_relationship_wound',
+    topics: ['relationship'],
+    recommendationNotes: ['??, ??, ??, ??? ??? ??, ??, ??? ???? ?? ?? ??? ?? ?? ?????.'],
+    expressions: [],
+    contextNotes: ['?? ??? ?? ????? ??? ??? ?? ? ?????.']
+  }
+];
+
+const catalog = {};
+
+for (const verse of verses) {
+  for (const situationId of verse.situations || []) {
+    if (!catalog[situationId]) {
+      catalog[situationId] = {
+        id: situationId,
+        topics: [],
+        recommendationNotes: [],
+        expressions: [],
+        contextNotes: []
+      };
+    }
+
+    const item = catalog[situationId];
+
+    for (const topic of verse.topics || []) {
+      if (topic && !item.topics.includes(topic)) item.topics.push(topic);
+    }
+
+    if (
+      verse.recommendationNote &&
+      !item.recommendationNotes.includes(verse.recommendationNote)
+    ) {
+      item.recommendationNotes.push(verse.recommendationNote);
+    }
+
+    for (const expression of verse.expressions || []) {
+      if (expression && !item.expressions.includes(expression)) {
+        item.expressions.push(expression);
+      }
+    }
+
+    if (
+      verse.contextNote &&
+      !item.contextNotes.includes(verse.contextNote)
+    ) {
+      item.contextNotes.push(verse.contextNote);
+    }
+  }
+}
+
+for (const item of supplementalDefinitions) {
+  if (!catalog[item.id]) catalog[item.id] = item;
+}
+
+fs.writeFileSync(
+  outputPath,
+  JSON.stringify(Object.values(catalog), null, 2) + '\n',
+  'utf8'
+);
+
+console.log('situation catalog generated:', Object.keys(catalog).length);
+console.log('output:', outputPath);
