@@ -770,8 +770,9 @@ async function speakVerse(verse,button,repeatButton){
 
  return playVerseSpeech(verse,button,repeatButton,session);
 }
-function renderMeditationHome(){
- const verse=DailyVerse.get();meditationScreen.replaceChildren();
+let displayedDailyVerse=null;
+function renderMeditationHome(retainedVerse=null){
+ const verse=retainedVerse||DailyVerse.get();displayedDailyVerse=verse;meditationScreen.replaceChildren();
  const intro=element('section','meditation-intro');const heading=element('div','meditation-heading'),title=element('h1','', '오늘도,\n말씀 안에 머물러요.');title.id='meditation-title';title.tabIndex=-1;heading.append(title);intro.append(heading,element('p','meditation-subtitle','오늘의 말씀을 천천히 마음에 담아보세요.'));
  const card=element('article','daily-verse-card');const cardHead=element('div','daily-verse-head');cardHead.append(element('span','daily-verse-label','오늘의 말씀'));
  const iconSave=element('button','daily-bookmark');iconSave.type='button';iconSave.dataset.dailySave='';iconSave.setAttribute('aria-label','오늘의 말씀 저장하기');iconSave.append(bookmarkIcon());iconSave.addEventListener('click',()=>toggleDailyVerse(verse));cardHead.append(iconSave);
@@ -810,7 +811,8 @@ function openDailyMeditation(verse,record=null,{focusEditor=false,scrollToEditor
  reflectionShare.type='button';
  reflectionShare.innerHTML='<span class="meditation-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="2.2"/><circle cx="6" cy="12" r="2.2"/><circle cx="18" cy="19" r="2.2"/><path d="m8 11 8-5M8 13l8 5"/></svg></span><span>나의 묵상기록 공유하기</span>';
  reflectionShare.addEventListener('click',async()=>{const savedReflection=record||existing;if(!savedReflection?.content){status.classList.remove('is-saved');status.textContent='묵상을 먼저 저장해주세요.';return;}await sharePersonalReflection(verse,savedReflection,status);});
- meditationDetail.append(back,card,saveRow,body,reflectionShare);refreshSaveButtons();displayScreen('meditation-detail');
+ const bottomBack=element('button','meditation-journal-back','오늘의 말씀으로 돌아가기');bottomBack.type='button';bottomBack.addEventListener('click',()=>displayScreen('reflection',displayedDailyVerse));
+ meditationDetail.append(back,card,saveRow,body,reflectionShare,bottomBack);refreshSaveButtons();displayScreen('meditation-detail');
  if(focusEditor){
   try{textarea.focus({preventScroll:true});}catch{textarea.focus();}
   const revealEditor=()=>textarea.scrollIntoView({block:'center',behavior:'smooth'});
@@ -989,7 +991,7 @@ const resultBack=meditationBackButton('고민 입력하기',()=>displayScreen('h
 resultScreen.prepend(resultBack);
 const gratitudeView=window.Malsseum.createGratitudeScreen({element,mainContent,localToday,dateFromKey,localDateKey,backButton:meditationBackButton});
 const gratitudeNav=element('button','','');gratitudeNav.type='button';gratitudeNav.dataset.screen='gratitude';gratitudeNav.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z"/></svg><span>감사</span>';bottomNav.insertBefore(gratitudeNav,bottomNav.querySelector('[data-screen=prayer]'));
-function displayScreen(screen){
+function displayScreen(screen,retainedDailyVerse=null){
  gratitudeView.root.hidden=screen!=='gratitude';if(screen==='gratitude')gratitudeView.open();
  if(screen!=='profile'&&editingSaved)exitSavedEdit();
  homeScreen.hidden=screen!=='home';
@@ -1002,7 +1004,7 @@ function displayScreen(screen){
  reflectionVerseScreen.hidden=screen!=='reflection-verse';
  if(screen==='profile')renderSavedList();
  if(screen==='prayer')renderPrayerList();
- if(screen==='reflection')renderMeditationHome();
+ if(screen==='reflection')renderMeditationHome(retainedDailyVerse);
  resultScreen.hidden=screen!=='result'||!conversation.children.length;
  const savedDetail=Boolean(conversation.querySelector('.saved-verse-turn'));
  resultBack.querySelector('.meditation-back-label').textContent=savedDetail?'저장된 말씀 보기':'고민 입력하기';
