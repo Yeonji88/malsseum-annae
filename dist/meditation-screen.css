@@ -338,3 +338,8 @@
 #meditation-detail>.detail-verse:has(+.meditation-actions){margin-bottom:0}
 
 #meditation-detail>.meditation-actions{width:100%;margin-left:0}
+
+/* Daily detail uses the same outer gutters as the Daily main. */
+#meditation-detail[data-daily-layout="true"]{padding-left:4px;padding-right:4px}
+#meditation-detail[data-daily-layout="true"]>.meditation-share-status{margin-top:-12px;margin-bottom:16px}
+@media(max-width:350px){#meditation-detail[data-daily-layout="true"]{padding-left:2px;padding-right:2px}}

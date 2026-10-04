@@ -788,6 +788,7 @@ verseFooter.append(speechControls,element('p','daily-verse-reference',verse.refe
 }
 function openDailyMeditation(verse,record=null,{focusEditor=false,scrollToEditor=false,fromConcern=false}={}){
  const displayedVerseSnapshot={reference:verse.reference,text:displayVerseText(verse)};
+ meditationDetail.dataset.dailyLayout=String(!fromConcern);
  const daily=window.Malsseum.data.dailyReflections[verse.id]||window.Malsseum.data.legacyDailyReflections?.[verse.id]||{reflection:verse.reflection||'',questions:(verse.question||'').split(/\r?\n/).filter(Boolean)};
  const reflection=fromConcern?{reflection:verse.reflection||'',question:verse.question||''}:{reflection:daily.reflection,question:daily.questions.join('\n')};const questionCount=fromConcern?reflection.question.split(/\r?\n/).filter(Boolean).length:daily.questions.length;meditationDetail.replaceChildren();
  const back=meditationBackButton(record?'나의 묵상':fromConcern?'말씀 결과':'오늘의 말씀',()=>record?openReflectionList(record.id):displayScreen(fromConcern?'result':'reflection'));
