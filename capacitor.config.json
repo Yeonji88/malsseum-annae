@@ -2,5 +2,10 @@
   "appId": "com.malsseum.annae",
   "appName": "말씀 안에",
   "webDir": "dist",
-  "backgroundColor": "#fafbf5"
+  "backgroundColor": "#fafbf5",
+  "plugins": {
+    "SystemBars": {
+      "style": "LIGHT"
+    }
+  }
 }

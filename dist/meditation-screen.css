@@ -326,3 +326,10 @@
 .meditation-questions.is-daily-checklist li{display:grid;grid-template-columns:max-content minmax(0,1fr);gap:0}
 .meditation-questions.is-daily-checklist li::before{content:'✓\00a0';font:inherit;color:inherit;padding:0}
 .meditation-journal.is-daily-checklist{margin-top:calc(var(--meditation-section-gap) / 2 + 4px);padding-top:calc(var(--meditation-section-gap) / 2 - 1px + 4px)}
+
+/* Temporary keyboard layout; normal tab bar styling remains unchanged. */
+.app.is-journal-keyboard-open{height:var(--journal-viewport-height);max-height:var(--journal-viewport-height)}
+.app.is-journal-keyboard-open>#bottom-nav{display:none!important}
+.app.is-journal-keyboard-open #main-content{min-height:0;overflow-y:auto;padding-bottom:16px}
+.app.is-journal-keyboard-open #meditation-journal-input{min-height:0;max-height:calc(var(--journal-viewport-height)*.45);scroll-margin-block:12px}
+.app.is-journal-keyboard-open .meditation-journal-save{scroll-margin-block:12px}

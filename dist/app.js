@@ -1067,6 +1067,45 @@ document.getElementById('reset-name').addEventListener('click',()=>{
 });
 settingsButton.addEventListener('click',()=>{document.getElementById('reset-name-error').textContent='';});
 
+// Only an open meditation editor reacts to a keyboard-sized viewport reduction.
+// Keep the form mounted: resizing/focus changes must never reset an unsaved draft.
+(()=>{
+ const viewport=window.visualViewport;
+ if(!viewport)return;
+ const app=mainContent.closest('.app');
+ let restingHeight=viewport.height,keyboardOpen=false,frame=0;
+ const update=()=>{
+  frame=0;
+  const editor=document.getElementById('meditation-journal-input');
+  const editing=!meditationDetail.hidden&&editor;
+  const focused=editing&&document.activeElement===editor;
+  const mobile=window.matchMedia('(pointer:coarse)').matches||window.Capacitor?.isNativePlatform?.();
+  const reduced=viewport.scale===1&&viewport.height<restingHeight*.8;
+  const next=Boolean(mobile&&editing&&reduced&&(focused||keyboardOpen));
+  const justOpened=next&&!keyboardOpen;
+  keyboardOpen=next;
+  app.classList.toggle('is-journal-keyboard-open',next);
+  if(next){
+   app.style.setProperty('--journal-viewport-height',viewport.height+'px');
+   if(justOpened)editor.scrollIntoView({block:'nearest'});
+  }else{
+   app.style.removeProperty('--journal-viewport-height');
+   if(!focused&&!reduced)restingHeight=viewport.height;
+   else restingHeight=Math.max(restingHeight,viewport.height);
+  }
+ };
+ const schedule=()=>{if(!frame)frame=requestAnimationFrame(update);};
+ viewport.addEventListener('resize',schedule);
+ window.addEventListener('resize',schedule);
+ document.addEventListener('focusin',schedule);
+ document.addEventListener('focusout',schedule);
+ new MutationObserver(schedule).observe(meditationDetail,{attributes:true,attributeFilter:['hidden']});
+ window.addEventListener('orientationchange',()=>{
+  restingHeight=viewport.height;
+  schedule();
+ });
+})();
+
 // 하단 여백 계산만 담당합니다. 크기·안전 영역 변경 시 실제 높이를 다시 반영합니다.
 function measureBottomNavigation(){
  const height=bottomNav.getBoundingClientRect().height;
