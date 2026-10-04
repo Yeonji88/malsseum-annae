@@ -9,7 +9,7 @@ test('approved Daily 1-5 matches exact copy, single-verse sources, and retained 
  assert.equal(data.dailyVerseOverrides['psalm-139-14'].text,data.verses.find(v=>v.id==='psalm-139-13-14').text.split('\n')[1]);
  for(const id of ['psalm-143-8','psalm-139-14'])assert.equal(data.dailyVerseOverrides[id].verseStart,data.dailyVerseOverrides[id].verseEnd);
  for(const id of ['john-11-35','psalm-139-13-14']){assert(!Object.hasOwn(data.dailyReflections,id));assert(data.legacyDailyReflections[id]);assert(data.verses.find(v=>v.id===id));}
- assert.equal(crypto.createHash('sha256').update(JSON.stringify(Object.entries(data.dailyReflections).slice(50))).digest('hex'),'c9c82bccc65fa0ef441336f7146a0b65b9f8e5d54c8470ca2dff4973ca57047b');
+ assert.equal(crypto.createHash('sha256').update(JSON.stringify(Object.entries(data.dailyReflections).slice(55))).digest('hex'),'d772b23a5d11ef6794a11b9a0dc25a6af4e77e82ed1be69a349d8230a8595cd8');
 });
 
 test('approved Daily 6-10 uses exact copy and Psalm 23:2 retains legacy range compatibility',()=>{
@@ -68,4 +68,15 @@ test('approved Daily 41-45 matches exact copy and retains original range guidanc
 
 test('approved Daily 46-50 matches exact copy and retains existing single-verse scripture',()=>{
  const c=vm.createContext({window:{Malsseum:{data:{}}}});for(const f of ['verses','daily-reflections'])vm.runInContext(fs.readFileSync('dist/data/'+f+'.js','utf8'),c);const d=c.window.Malsseum.data;const expected=require('./fixtures/daily-approved-forty-six-fifty.json');assert.deepEqual(JSON.parse(JSON.stringify(Object.fromEntries(Object.entries(d.dailyReflections).slice(45,50)))),expected);for(const id of Object.keys(expected)){const v=d.verses.find(v=>v.id===id);assert(v);assert.equal(v.verseStart,v.verseEnd);}
+});
+
+
+test('approved Daily 51-55 matches exact copy, source verse boundaries, and legacy guidance',()=>{
+ const c=vm.createContext({window:{Malsseum:{data:{}}}});for(const f of ['verses','daily-reflections'])vm.runInContext(fs.readFileSync('dist/data/'+f+'.js','utf8'),c);
+ const d=c.window.Malsseum.data,approved=require('./fixtures/daily-approved-fifty-one-five.json');
+ assert.deepEqual(JSON.parse(JSON.stringify(Object.fromEntries(Object.entries(d.dailyReflections).slice(50,55)))),approved);
+ for(const [id,old,line] of [['psalm-139-8','psalm-139-7-10',1],['philippians-4-6','philippians-4-6-7',0],['james-1-19','james-1-19-20',0]]){
+  const v=d.dailyVerseOverrides[id],source=d.verses.find(v=>v.id===old);assert.equal(v.text,source.text.split('\n')[line]);assert.equal(v.verseStart,v.verseEnd);assert.equal(v.translation,'개역개정');assert(d.legacyDailyReflections[old]);assert(!Object.hasOwn(d.dailyReflections,old));
+ }
+ for(const id of ['isaiah-40-31','galatians-6-9']){const v=d.verses.find(v=>v.id===id);assert.equal(v.verseStart,v.verseEnd);}
 });
