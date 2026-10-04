@@ -9,7 +9,7 @@ test('approved Daily 1-5 matches exact copy, single-verse sources, and retained 
  assert.equal(data.dailyVerseOverrides['psalm-139-14'].text,data.verses.find(v=>v.id==='psalm-139-13-14').text.split('\n')[1]);
  for(const id of ['psalm-143-8','psalm-139-14'])assert.equal(data.dailyVerseOverrides[id].verseStart,data.dailyVerseOverrides[id].verseEnd);
  for(const id of ['john-11-35','psalm-139-13-14']){assert(!Object.hasOwn(data.dailyReflections,id));assert(data.legacyDailyReflections[id]);assert(data.verses.find(v=>v.id===id));}
- assert.equal(crypto.createHash('sha256').update(JSON.stringify(Object.entries(data.dailyReflections).slice(55))).digest('hex'),'d772b23a5d11ef6794a11b9a0dc25a6af4e77e82ed1be69a349d8230a8595cd8');
+ assert.equal(crypto.createHash('sha256').update(JSON.stringify(Object.entries(data.dailyReflections).slice(60))).digest('hex'),'51e6195fe15a46afca5eea2a441b799b35602e8580ddcc9a8a0a6a6da73913cb');
 });
 
 test('approved Daily 6-10 uses exact copy and Psalm 23:2 retains legacy range compatibility',()=>{
@@ -79,4 +79,12 @@ test('approved Daily 51-55 matches exact copy, source verse boundaries, and lega
   const v=d.dailyVerseOverrides[id],source=d.verses.find(v=>v.id===old);assert.equal(v.text,source.text.split('\n')[line]);assert.equal(v.verseStart,v.verseEnd);assert.equal(v.translation,'개역개정');assert(d.legacyDailyReflections[old]);assert(!Object.hasOwn(d.dailyReflections,old));
  }
  for(const id of ['isaiah-40-31','galatians-6-9']){const v=d.verses.find(v=>v.id===id);assert.equal(v.verseStart,v.verseEnd);}
+});
+
+
+test('approved Daily 56-60 uses exact copy and Romans 8:39 retains source and legacy compatibility',()=>{
+ const c=vm.createContext({window:{Malsseum:{data:{}}}});for(const f of ['verses','daily-reflections'])vm.runInContext(fs.readFileSync('dist/data/'+f+'.js','utf8'),c);const d=c.window.Malsseum.data;
+ assert.deepEqual(JSON.parse(JSON.stringify(Object.fromEntries(Object.entries(d.dailyReflections).slice(55,60)))),require('./fixtures/daily-approved-fifty-six-sixty.json'));
+ const v=d.dailyVerseOverrides['romans-8-39'];assert.equal(v.text,d.verses.find(v=>v.id==='romans-8-38-39').text.split('\n')[1]);assert.equal(v.verseStart,39);assert.equal(v.verseEnd,39);assert.equal(v.translation,'개역개정');assert(d.legacyDailyReflections['romans-8-38-39']);assert(!Object.hasOwn(d.dailyReflections,'romans-8-38-39'));
+ for(const id of ['psalm-4-8','isaiah-41-10','2-corinthians-5-17','1-peter-5-7']){const v=d.verses.find(v=>v.id===id);assert.equal(v.verseStart,v.verseEnd);}
 });
