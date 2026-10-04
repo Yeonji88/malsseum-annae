@@ -9,7 +9,7 @@ test('approved Daily 1-5 matches exact copy, single-verse sources, and retained 
  assert.equal(data.dailyVerseOverrides['psalm-139-14'].text,data.verses.find(v=>v.id==='psalm-139-13-14').text.split('\n')[1]);
  for(const id of ['psalm-143-8','psalm-139-14'])assert.equal(data.dailyVerseOverrides[id].verseStart,data.dailyVerseOverrides[id].verseEnd);
  for(const id of ['john-11-35','psalm-139-13-14']){assert(!Object.hasOwn(data.dailyReflections,id));assert(data.legacyDailyReflections[id]);assert(data.verses.find(v=>v.id===id));}
- assert.equal(crypto.createHash('sha256').update(JSON.stringify(Object.entries(data.dailyReflections).slice(70))).digest('hex'),'d82aa34bbc03f471500d85496989d67075808a31830e223022b352efd626f1a6');
+ assert.equal(crypto.createHash('sha256').update(JSON.stringify(Object.entries(data.dailyReflections).slice(75))).digest('hex'),'373ce4a655c3aec2c14dba53ef4e5c15491de5e616b2c36f9073e2c89e7b7552');
 });
 
 test('approved Daily 6-10 uses exact copy and Psalm 23:2 retains legacy range compatibility',()=>{

@@ -34,7 +34,7 @@ const review = `(() => {
  select.value=new URLSearchParams(location.search).get('verse');select.onchange=()=>location.href='/daily-preview?verse='+select.value;
  label.append(select);const note=document.createElement('p');note.textContent='미리보기 저장은 이 페이지에서만 유지돼요. 새로고침하거나 샘플을 바꾸면 사라지며 실제 기록에는 저장되지 않아요.';note.style.margin='6px 0 0';
  panel.append(label,note);document.body.prepend(panel);displayScreen('reflection');
- if(ids.slice(0,70).includes(select.value))openDailyMeditation(DailyVerse.get());
+ if(ids.slice(0,75).includes(select.value))openDailyMeditation(DailyVerse.get());
 })();`;
 function createServer() {
   return http.createServer((req, res) => {
