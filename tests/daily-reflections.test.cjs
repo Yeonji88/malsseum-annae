@@ -24,11 +24,12 @@ test('daily review samples have exactly 101 known verse IDs and complete, distin
   assert.deepEqual(Object.keys(samples).sort(), [...expectedIds].sort());
   assert.deepEqual(Object.keys(samples).slice(0, approvedIds.length), approvedIds, 'approved Daily order must match');
   assert.doesNotMatch(JSON.stringify(samples), /[“”]/, 'Bible quotations use single curly quotes');
-  assert.equal(crypto.createHash('sha256').update(JSON.stringify(Object.entries(samples).slice(60))).digest('hex'),
-    '51e6195fe15a46afca5eea2a441b799b35602e8580ddcc9a8a0a6a6da73913cb','Daily 61 onward must remain unchanged');
+  assert.equal(crypto.createHash('sha256').update(JSON.stringify(Object.entries(samples).slice(65))).digest('hex'),
+    '266788f294494b821690bc0b99cf446e32927aa81cd35dae1d7f4be5f71be60d','Daily 66 onward must remain unchanged');
   assert.deepEqual(JSON.parse(JSON.stringify(Object.fromEntries(Object.entries(samples).slice(0,5)))),require('./fixtures/daily-approved-five.json'));
   assert.deepEqual(JSON.parse(JSON.stringify(Object.fromEntries(Object.entries(samples).slice(50,55)))),require('./fixtures/daily-approved-fifty-one-five.json'));
   assert.deepEqual(JSON.parse(JSON.stringify(Object.fromEntries(Object.entries(samples).slice(55,60)))),require('./fixtures/daily-approved-fifty-six-sixty.json'));
+  assert.deepEqual(JSON.parse(JSON.stringify(Object.fromEntries(Object.entries(samples).slice(60,65)))),require('./fixtures/daily-approved-sixty-one-five.json'));
   const known = new Set([...data.verses,...Object.values(data.dailyVerseOverrides)].map(verse=>verse.id));
   const reflections = new Set();
   const allQuestions = new Set();
@@ -40,14 +41,14 @@ test('daily review samples have exactly 101 known verse IDs and complete, distin
     assert.ok(!reflections.has(entry.reflection.trim()), id + ': duplicate reflection');
     reflections.add(entry.reflection.trim());
     assert.ok(Array.isArray(entry.questions), id);
-    assert.equal(entry.questions.length, (goldenIds.includes(id)||Object.hasOwn(require('./fixtures/daily-approved-six-ten.json'),id)||Object.hasOwn(require('./fixtures/daily-approved-eleven-fifteen.json'),id)||Object.hasOwn(require('./fixtures/daily-approved-sixteen-twenty.json'),id)||Object.hasOwn(require('./fixtures/daily-approved-twenty-one-five.json'),id)||Object.hasOwn(require('./fixtures/daily-approved-twenty-six-thirty.json'),id)||Object.hasOwn(require('./fixtures/daily-approved-thirty-one-five.json'),id)||Object.hasOwn(require('./fixtures/daily-approved-thirty-six-forty.json'),id)||Object.hasOwn(require('./fixtures/daily-approved-forty-one-five.json'),id)||Object.hasOwn(require('./fixtures/daily-approved-forty-six-fifty.json'),id)||Object.hasOwn(require('./fixtures/daily-approved-fifty-one-five.json'),id)||Object.hasOwn(require('./fixtures/daily-approved-fifty-six-sixty.json'),id))?2:3, id);
+    assert.equal(entry.questions.length, (goldenIds.includes(id)||Object.hasOwn(require('./fixtures/daily-approved-six-ten.json'),id)||Object.hasOwn(require('./fixtures/daily-approved-eleven-fifteen.json'),id)||Object.hasOwn(require('./fixtures/daily-approved-sixteen-twenty.json'),id)||Object.hasOwn(require('./fixtures/daily-approved-twenty-one-five.json'),id)||Object.hasOwn(require('./fixtures/daily-approved-twenty-six-thirty.json'),id)||Object.hasOwn(require('./fixtures/daily-approved-thirty-one-five.json'),id)||Object.hasOwn(require('./fixtures/daily-approved-thirty-six-forty.json'),id)||Object.hasOwn(require('./fixtures/daily-approved-forty-one-five.json'),id)||Object.hasOwn(require('./fixtures/daily-approved-forty-six-fifty.json'),id)||Object.hasOwn(require('./fixtures/daily-approved-fifty-one-five.json'),id)||Object.hasOwn(require('./fixtures/daily-approved-fifty-six-sixty.json'),id)||Object.hasOwn(require('./fixtures/daily-approved-sixty-one-five.json'),id))?2:3, id);
     for (const question of entry.questions) {
       assert.equal(typeof question, 'string', id);
       assert.ok(question.trim(), id + ': empty question');
       assert.ok(!allQuestions.has(question.trim()), id + ': duplicate question across samples');
       allQuestions.add(question.trim());
     }
-    assert.equal(new Set(entry.questions.map(question => question.trim())).size, (goldenIds.includes(id)||Object.hasOwn(require('./fixtures/daily-approved-six-ten.json'),id)||Object.hasOwn(require('./fixtures/daily-approved-eleven-fifteen.json'),id)||Object.hasOwn(require('./fixtures/daily-approved-sixteen-twenty.json'),id)||Object.hasOwn(require('./fixtures/daily-approved-twenty-one-five.json'),id)||Object.hasOwn(require('./fixtures/daily-approved-twenty-six-thirty.json'),id)||Object.hasOwn(require('./fixtures/daily-approved-thirty-one-five.json'),id)||Object.hasOwn(require('./fixtures/daily-approved-thirty-six-forty.json'),id)||Object.hasOwn(require('./fixtures/daily-approved-forty-one-five.json'),id)||Object.hasOwn(require('./fixtures/daily-approved-forty-six-fifty.json'),id)||Object.hasOwn(require('./fixtures/daily-approved-fifty-one-five.json'),id)||Object.hasOwn(require('./fixtures/daily-approved-fifty-six-sixty.json'),id))?2:3, id);
+    assert.equal(new Set(entry.questions.map(question => question.trim())).size, (goldenIds.includes(id)||Object.hasOwn(require('./fixtures/daily-approved-six-ten.json'),id)||Object.hasOwn(require('./fixtures/daily-approved-eleven-fifteen.json'),id)||Object.hasOwn(require('./fixtures/daily-approved-sixteen-twenty.json'),id)||Object.hasOwn(require('./fixtures/daily-approved-twenty-one-five.json'),id)||Object.hasOwn(require('./fixtures/daily-approved-twenty-six-thirty.json'),id)||Object.hasOwn(require('./fixtures/daily-approved-thirty-one-five.json'),id)||Object.hasOwn(require('./fixtures/daily-approved-thirty-six-forty.json'),id)||Object.hasOwn(require('./fixtures/daily-approved-forty-one-five.json'),id)||Object.hasOwn(require('./fixtures/daily-approved-forty-six-fifty.json'),id)||Object.hasOwn(require('./fixtures/daily-approved-fifty-one-five.json'),id)||Object.hasOwn(require('./fixtures/daily-approved-fifty-six-sixty.json'),id)||Object.hasOwn(require('./fixtures/daily-approved-sixty-one-five.json'),id))?2:3, id);
   }
   assert.equal(JSON.stringify(data.reflections), concernBefore);
   assert.equal(JSON.stringify(data.verses), versesBefore);
