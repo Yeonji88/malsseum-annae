@@ -13,6 +13,7 @@
 .daily-verse-card{position:relative;margin:0;padding:16px 17px 14px;border:1px solid rgba(82,104,88,.1);border-radius:17px;background:#fffefb;box-shadow:0 7px 21px rgba(54,73,61,.065)}
 .daily-verse-head{display:flex;gap:8px;align-items:center;justify-content:space-between;margin-bottom:9px}
 .daily-verse-label{color:#c46259;font-size:var(--font-small,12px);font-weight:600}
+#meditation-screen .daily-verse-label{color:var(--journal-cta-coral)}
 .daily-bookmark{flex-shrink:0;display:grid;place-items:center;width:34px;height:34px;margin:-7px -7px -5px 0;padding:0;border:0;background:transparent;color:#8b9a91;border-radius:50%}
 .daily-bookmark.is-saved{color:var(--green);background:var(--meditation-sage)}
 .meditation-icon{display:inline-grid;place-items:center;width:18px;height:18px;flex:0 0 18px}
