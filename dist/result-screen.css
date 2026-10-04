@@ -91,3 +91,8 @@
 #result .concern-guidance .guidance-subtitle{margin:4px 0 14px;text-align:center;color:var(--muted);font-size:var(--font-support);line-height:var(--line-reading)}
 #result .concern-guidance .guidance-copy{margin:0;white-space:pre-line;font-size:var(--font-body);line-height:var(--line-reading)}
 #result .concern-guidance .conversation-questions{margin:16px 0 0}
+
+/* Reuse the meditation actions directly beneath the recommended scripture. */
+#result .assistant-message>.meditation-actions{width:100%;min-width:0;margin:0 0 18px}
+#result .meditation-actions>button{min-width:0}
+#result .meditation-share-status:empty{display:none}

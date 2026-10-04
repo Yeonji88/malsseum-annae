@@ -64,3 +64,7 @@
 #prayer-screen .answer-form-actions button:focus-visible{outline-color:#c86f68}
 /* Inherit the shared focus treatment with the answer card's coral palette. */
 #prayer-screen .answer-form{--input-focus-border:#edc8c1;--input-focus-shadow:0 0 0 3px #edc8c115}
+
+/* Writing mode preserves the existing calendar and controls. */
+.prayer-form .error.is-empty-prayer{color:#303633;text-align:center;margin-left:0;margin-right:0;width:100%;box-sizing:border-box}
+.app.is-journal-keyboard-open #personal-prayer{min-height:0;max-height:calc(var(--journal-viewport-height)*.45);scroll-margin-block:12px}

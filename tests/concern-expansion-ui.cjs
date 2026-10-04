@@ -34,7 +34,7 @@ const drafts=require('../tools/concern-guidance-drafts.json');
    const reachable=await page.locator('#result .prayer-action .guidance-copy').evaluate(e=>{const r=e.getBoundingClientRect(),main=document.querySelector('#main-content').getBoundingClientRect();return r.bottom<=main.bottom+1&&r.top>=main.top-1});assert.ok(reachable,'prayer reachable by scrolling');
    if(id===ids[0]||id===ids[6]){await page.evaluate(()=>document.querySelector('#main-content').scrollTop=0);await page.screenshot({path:`tmp/concern-review/${id}-${width}-${size}.png`});}
    assert.equal(await page.evaluate(()=>localStorage.getItem('review-storage-sentinel')),null);
-   const save=page.locator('#result .save-action');await save.click();
+   const save=page.locator('#result .meditation-actions [data-daily-save]');await save.click();
    assert.equal(await save.locator('svg').getAttribute('fill'),'currentColor');
    assert.ok(await page.evaluate(id=>JSON.parse(localStorage.getItem('malsseum-annae.saved-verse-ids.v1')).includes(id),id));
    await save.click();assert.equal(await save.locator('svg').getAttribute('fill'),'none');

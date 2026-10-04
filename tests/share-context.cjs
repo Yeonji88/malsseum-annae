@@ -16,7 +16,7 @@ const {createServer}=require('../tools/daily-preview-server.cjs');
   assert.equal(insecure.secure,false);assert.equal(insecure.share,'undefined');assert.equal(insecure.clipboard,'undefined');
   console.log('LAN HTTP:',insecure);
   await context.addInitScript(()=>localStorage.setItem('malsseum-annae.display-name.v1','검수'));
-  await page.goto(`https://localhost:${tls.address().port}/`);await page.waitForSelector('.daily-bookmark');
+  await page.goto(`https://localhost:${tls.address().port}/`);await page.waitForSelector('.meditation-primary');await page.locator('.meditation-primary').click();
   assert.equal(await page.evaluate(()=>isSecureContext),true);
   await page.evaluate(()=>{window.shareTest=null;Object.defineProperty(navigator,'share',{configurable:true,value:async data=>{window.shareTest={data,active:navigator.userActivation.isActive,secure:isSecureContext};}});});
   await page.getByRole('button',{name:'공유하기',exact:true}).click();

@@ -21,12 +21,12 @@
 .daily-verse-reference{margin:9px 0 0;color:#78837c;font-size:var(--font-small,12px);line-height:1.6;text-align:right}
 .meditation-primary{display:block;width:100%;min-height:44px;margin:12px 0 8px;padding:10px 14px;border:0;border-radius:14px;background:var(--journal-cta-coral);color:#fff;font-family:inherit;font-size:var(--font-action);font-weight:500;line-height:1.45;box-shadow:0 5px 12px rgba(213,111,101,.16)}
 .meditation-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-#meditation-screen>.daily-verse-card+.meditation-actions{margin-top:8px}
+:is(#meditation-screen,#meditation-detail)>.daily-verse-card+.meditation-actions{margin-top:8px}
 #meditation-screen>.meditation-primary{margin-bottom:12px}
 .meditation-secondary{display:flex;align-items:center;justify-content:center;gap:7px;min-height:38px;padding:8px 10px;border:1px solid rgba(67,91,76,.08);border-radius:13px;background:#f6f8f3;color:var(--green);font-family:inherit;font-size:var(--font-support);font-weight:400;line-height:1.45}
 .meditation-secondary.is-saved{background:var(--meditation-sage);color:var(--green)}
 .meditation-share-status{min-height:1.6em;margin:4px 0 0;color:var(--muted);font-size:var(--font-small,11px);line-height:1.6;text-align:center}
-#meditation-screen>.meditation-share-status:empty{display:none}
+:is(#meditation-screen,#meditation-detail)>.meditation-share-status:empty{display:none}
 .meditation-mine{margin-top:5px;padding:13px 14px;border:1px solid rgba(82,104,88,.08);border-radius:16px;background:rgba(255,255,252,.7)}
 .meditation-mine-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:8px}
 .meditation-mine h2{margin:0;color:var(--green);font-size:var(--font-subheading,16px);font-weight:600}
@@ -333,3 +333,8 @@
 .app.is-journal-keyboard-open #main-content{min-height:0;overflow-y:auto;padding-bottom:16px}
 .app.is-journal-keyboard-open #meditation-journal-input{min-height:0;max-height:calc(var(--journal-viewport-height)*.45);scroll-margin-block:12px}
 .app.is-journal-keyboard-open .meditation-journal-save{scroll-margin-block:12px}
+
+#meditation-detail>.meditation-actions{margin-bottom:calc(var(--meditation-section-gap) - var(--meditation-reading-inset));min-width:0}
+#meditation-detail>.detail-verse:has(+.meditation-actions){margin-bottom:0}
+
+#meditation-detail>.meditation-actions{width:100%;margin-left:0}

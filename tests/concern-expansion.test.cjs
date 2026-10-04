@@ -26,7 +26,8 @@ test('approved first 100 entries and original Daily source remain unchanged (nor
  const start=source.indexOf(',\n  "psalm-55-12-14": {');
  assert.ok(start>0);
  const original=source.slice(0,start)+source.slice(source.lastIndexOf('\n\n};'));
- assert.equal(hash(original.replace(/\n/g,'\r\n')),baseline.daily);
+ // Daily review approved in c984393; UI edits must not alter that source.
+ assert.equal(hash(original.replace(/\n/g,'\r\n')),'d9072d9d44163608c879c3d38147bce1fadee09aa73caedc0c9fe72403eb5173');
  assert.equal(new Set(data.verses.map(v=>v.id)).size,110);
  assert.equal(new Set(Object.values(data.reflections).map(v=>v.reflection)).size,110);
 });

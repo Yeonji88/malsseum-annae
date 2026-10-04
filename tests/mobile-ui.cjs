@@ -14,7 +14,7 @@ const fs=require('node:fs');
   await context.addInitScript(({size})=>{
    if(!localStorage.getItem('ui-test-seeded')){localStorage.setItem('malsseum-annae.display-name.v1','검수');localStorage.setItem('malsseum-annae.text-size.v1',size);localStorage.setItem('ui-test-seeded','yes');}
   },{size});
-  const page=await context.newPage();await page.goto(url);await page.waitForSelector('.daily-bookmark');await page.evaluate(()=>document.fonts.ready);
+  const page=await context.newPage();await page.goto(url);await page.waitForSelector('.meditation-primary');await page.evaluate(()=>document.fonts.ready);
   const geometry=async()=>page.evaluate(()=>{
    const main=document.querySelector('#main-content');
    return {horizontal:main.scrollWidth-main.clientWidth,body:document.documentElement.scrollWidth-innerWidth};
@@ -29,20 +29,14 @@ const fs=require('node:fs');
   await page.screenshot({path:`tmp/ui-checks/${width}-${size}-list-empty.png`});
   await page.getByRole('button',{name:'오늘의 말씀 묵상하기',exact:true}).click();
   await page.locator('#bottom-nav [data-screen="reflection"]').click();
-  const save=page.locator('.meditation-actions [data-daily-save]');
+  await page.locator('.meditation-primary').click();const save=page.locator('#meditation-detail .meditation-actions [data-daily-save]');
   assert.equal(await save.locator('svg').getAttribute('fill'),'none');
   await save.click();assert.equal(await save.locator('svg').getAttribute('fill'),'currentColor');
   const saved=await page.evaluate(()=>localStorage.getItem('malsseum-annae.saved-verse-ids.v1'));
-  await page.reload();await page.waitForSelector('.daily-bookmark');
+  await page.reload();await page.waitForSelector('.meditation-primary');await page.locator('.meditation-primary').click();
   assert.equal(await save.locator('svg').getAttribute('fill'),'currentColor');
-  assert.equal(await page.locator('.daily-bookmark svg').getAttribute('fill'),'currentColor');
-  await page.getByRole('button',{name:'이 말씀으로 묵상하기',exact:true}).click();
-  assert.equal(await page.locator('#meditation-detail .save-action svg').getAttribute('fill'),'currentColor');
-  assert.equal(await page.locator('.meditation-back-label:visible').evaluate(e=>getComputedStyle(e).textDecorationThickness),'1px');
-  for(const selector of ['.meditation-back-label:visible','.meditation-journal-back']){
-   const style=await page.locator(selector).evaluate(e=>{const s=getComputedStyle(e);return {line:s.textDecorationColor,offset:s.textUnderlineOffset,thickness:s.textDecorationThickness,color:s.color};});
-   assert.equal(style.line,'rgb(200, 216, 204)');assert.equal(style.offset,'4px');assert.equal(style.thickness,'1px');assert.notEqual(style.color,style.line);
-  }
+  assert.equal(await page.locator('#meditation-screen .daily-bookmark').count(),0);
+  assert.equal(await page.locator('#meditation-detail [data-daily-save] svg').getAttribute('fill'),'currentColor');
   await page.locator('#meditation-journal-input').fill('기존 데이터와 분리된 테스트 기록');
   await page.locator('.meditation-journal-save').click();
   assert.equal(await page.locator('.meditation-journal-status').textContent(),'묵상을 저장했어요.');
@@ -53,7 +47,7 @@ const fs=require('node:fs');
   await check();
   const buttonBox=await page.locator('.meditation-journal-save').boundingBox();
   const nav=await page.locator('#bottom-nav').boundingBox();assert.ok(buttonBox.y+buttonBox.height<=nav.y+1,'journal button hidden');
-  await page.reload();await page.waitForSelector('.daily-bookmark');
+  await page.reload();await page.waitForSelector('.meditation-primary');
   assert.equal(await page.evaluate(()=>localStorage.getItem('malsseum-annae.saved-verse-ids.v1')),saved);
   assert.equal(await page.evaluate(()=>localStorage.getItem('malsseum-annae.personal-reflections.v1')),records);
   await page.locator('.meditation-view-all').click();
@@ -61,7 +55,6 @@ const fs=require('node:fs');
   assert.equal(await page.locator('#meditation-list-screen>.meditation-back').evaluate(e=>e.nextElementSibling.classList.contains('meditation-record-card')),true);
   assert.equal(await page.evaluate(()=>localStorage.getItem('malsseum-annae.personal-reflections.v1')),records);
   await page.screenshot({path:`tmp/ui-checks/${width}-${size}-list-records.png`});
-  assert.equal(await page.locator('.meditation-back-label:visible').evaluate(e=>getComputedStyle(e).textDecorationLine),'underline');
   await check();
   await page.locator('#bottom-nav [data-screen="profile"]').click();await check();
   for(const editing of [false,true]){
@@ -74,17 +67,17 @@ const fs=require('node:fs');
    const buttons=await page.locator('.my-heading button:visible').evaluateAll(nodes=>nodes.map(e=>{const r=e.getBoundingClientRect();return {x:r.x,y:r.y,right:r.right,bottom:r.bottom};}));
    for(let i=0;i<buttons.length;i++)for(let j=i+1;j<buttons.length;j++){const a=buttons[i],b=buttons[j];assert.ok(a.right<=b.x||b.right<=a.x||a.bottom<=b.y||b.bottom<=a.y,'button overlap');}
   }
-  await page.locator('.edit-saved').click();await page.locator('.saved-verse-card').first().click();await check();
-  assert.equal(await page.locator('#result .save-action svg').last().getAttribute('fill'),'currentColor');
-  assert.equal(await page.locator('#result .meditation-back-label').textContent(),'고민 입력하기');
+  await page.locator('.edit-saved').click();await page.locator('.saved-verse-card').first().click();assert(await page.locator('#my-screen').isVisible());await page.evaluate(()=>openSavedVerse(SavedVerses.list()[0]));await check();
+  assert.equal(await page.locator('#meditation-detail:not([hidden]) [data-daily-save] svg, #result:not([hidden]) [data-daily-save] svg').last().getAttribute('fill'),'currentColor');
+  assert(['오늘의 말씀','저장된 말씀 보기'].includes(await page.locator('#meditation-detail:not([hidden]) .meditation-back-label, #result:not([hidden]) .meditation-back-label').first().textContent()));
   await page.screenshot({path:`tmp/ui-checks/${width}-${size}-result.png`});
-  await page.locator('#bottom-nav [data-screen="reflection"]').click();await save.click();
+  await page.locator('#bottom-nav [data-screen="reflection"]').click();await page.locator('.meditation-primary').click();await save.click();
   assert.equal(await save.locator('svg').getAttribute('fill'),'none');
-  await page.reload();await page.waitForSelector('.daily-bookmark');assert.equal(await save.locator('svg').getAttribute('fill'),'none');
+  await page.reload();await page.waitForSelector('.meditation-primary');await page.locator('.meditation-primary').click();assert.equal(await save.locator('svg').getAttribute('fill'),'none');
   for(const mode of ['native','fallback','failure','cancel']){
    await page.evaluate(mode=>{window.shareCalls=[];window.copyCalls=[];Object.defineProperty(navigator,'share',{configurable:true,value:mode==='fallback'?undefined:async data=>{window.shareCalls.push(data);if(mode==='failure'||mode==='cancel')throw Object.assign(new Error(),{name:mode==='cancel'?'AbortError':'NotAllowedError'});}});Object.defineProperty(navigator,'clipboard',{configurable:true,value:{writeText:async text=>window.copyCalls.push(text)}});},mode);
    await page.getByRole('button',{name:'공유하기',exact:true}).click();
-   const state=await page.evaluate(()=>({share:window.shareCalls,copy:window.copyCalls,status:document.querySelector('.meditation-share-status').textContent}));
+   const state=await page.evaluate(()=>({share:window.shareCalls,copy:window.copyCalls,status:document.querySelector('#meditation-detail .meditation-share-status').textContent}));
    assert.equal(state.copy.length,['fallback','failure'].includes(mode)?1:0);
    assert.equal(state.status,['fallback','failure'].includes(mode)?'말씀을 복사했어요.':'');
   }
