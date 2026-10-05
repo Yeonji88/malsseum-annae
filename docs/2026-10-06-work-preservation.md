@@ -1,0 +1,13 @@
+# 2026-10-06 작업 보존
+- 사용자 요청으로 기존 AI 미커밋 작업, Daily, package-lock, IDE/리소스 및 평가 도구를 포함해 현재 상태 전체를 보존한다. AI 등 기존 작업은 별도 완성/배포 승인 의미가 아니다.
+- Daily 활성 100개, Preview 관리번호 1~100. 기존 97 제거, 이전 98~101은 97~100.
+- Daily 11 및 82~100 최신 확정본 보존. Daily 52 본문만 Daily 전용 텍스트 보정. Daily 35 미가 6:8로 교체.
+- 출애굽기 ID와 과거 묵상은 legacy 보존. verses.js와 dailySelection.js 변경 없음. 기존 1~50 날짜 스케줄은 유지하고 Daily 화면에서 35 교체를 매핑한다.
+- Daily 41 이사야 55:9는 미수정. 내일 재검수 시작점.
+- Preview 319/390 및 100개 라벨 확인, 35. 미가 6:8 일치. 현재 최신 Preview 포트 4176.
+- 전체 node --test tests/*.test.cjs: 555개 / 통과 546 / 실패 9 / 건너뜀 0.
+- 실패: concern-expansion의 예전 Daily 전체 소스 해시 1개; daily-first-preview의 82 이후 해시, Daily 11 이전 문구, Daily 35 출애굽기 기대값 3개; daily-preview의 101개 기대값 1개; daily-production의 82 이후 불변 해시 1개; daily-reflections의 이전 101개 ID 목록 및 기존 시편 55:12-14 활성 기대값 2개; daily-selection의 스케줄 ID와 현재 Preview 첫50 ID 동일 기대값 1개. 기대값 또는 구현을 저장 목적으로 변경하지 않았다.
+- package-lock은 기존 미커밋 상태에서 TTS/Share/esbuild 항목이 제거되어 package.json과 불일치한다. 보존만 하며 다음 배포/빌드 전 확인이 필요하다.
+- Android 추적파일 3개는 Git 정규화 기준 내용 차이가 없는 줄바꿈 상태. 실제 미추적 IDE 설정과 native_brand_logo.png는 보존.
+- 남은 B 검수: 13,20,27,41,44,53,61,67,75,77,78,79,88,89,94,96. 기존 B35는 확정 교체 완료.
+- Production 배포와 Android 빌드/설치는 실행하지 않는다.

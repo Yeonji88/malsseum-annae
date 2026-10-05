@@ -41,7 +41,34 @@
   if(!errors.length){const supported=item=>item.kind==='unknown'||item.kind==='cause'&&value.cause.explicit&&item.id===value.cause.category||item.kind==='effect'&&value.effects.some(effect=>effect.type===item.id)||item.kind==='emotion'&&value.emotions.includes(item.id)||item.kind==='situation'&&value.situations.includes(item.id)||item.kind==='fact'&&value.explicitFacts.some(fact=>fact.type===item.id);if(!supported(value.primaryConcern))fail('primaryConcern','supported_concern',value.primaryConcern.id,'Primary concern is not represented by the validated analysis.');value.secondaryConcerns.forEach((item,index)=>{if(!supported(item))fail(`secondaryConcerns[${index}]`,'supported_concern',item.id,'Secondary concern is not represented by the validated analysis.');});}
   return{ok:errors.length===0,errors};
  }
+
+ // A label alone never unlocks a restricted relationship passage. The model must
+ // supply an asserted event and the whole source clause must support its direction.
+ function verifiedRelationshipSituations(message,analysis){
+  const facts=analysis?.explicitFacts||[],text=String(message||'').normalize('NFKC');
+  const clauses=text.split(/[.!?。\n]+/).map(x=>x.trim()).filter(Boolean);
+  return facts.some(f=>{
+   if(f.type!=='relationship_event'||!['user|deceive|parent|asserted','user|disrespect|parent|asserted'].includes(f.value))return false;
+   const evidence=String(f.evidence||'').trim();
+   if(!evidence||!text.includes(evidence))return false;
+   const clause=clauses.find(c=>c.includes(evidence));if(!clause)return false;
+   // Negation, reported/quoted speech, hypothetical events and ambiguous actors
+   // fail closed. Existing exclusion and safety rules still run independently.
+   if(/[“”"'‘’]|아니|않|안\s*(?:했|하|속|숨)|못\s|적\s*없|만약|다면|더라면|라고|라는|다고|다는|하려|할\s*(?:생각|예정)|했대|했다고|했냐|했나요|할까|예문|소설|드라마|친구가|동생이|형이|언니가/.test(clause))return false;
+   if(/(?:엄마|아빠|부모님?|어머니|아버지)(?:께서|가|는|이)[^.!?\n]*(?:거짓말|속|숨|함부로|무례|말대꾸|대들)/.test(clause))return false;
+   const target=/(?:엄마|아빠|부모님?|어머니|아버지)(?:한테|에게|께|를|을)/.exec(clause);
+   if(!target)return false;
+   // Only a first-person or omitted-subject clause is eligible. Unrecognized
+   // actors/complex clauses remain closed instead of trusting the AI label.
+   const prefix=clause.slice(0,target.index).trim();
+   const ownActor=/^(?:(?:제가|내가|저는|나는|오늘|어제|아까|지난번에|사실|또|저도|나도|최근에)\s*)*$/.test(prefix);
+   const remainder=clause.slice(target.index+target[0].length);
+   const action=f.value.includes('|deceive|')?/거짓말|속였|속인|속여|속이|(?:사실|진실|비밀)[^.!?\n]{0,15}숨(?:겼|긴|겨)/:/함부로|무례|말대꾸|대들|막말/;
+   if(/(?:친구|동생|형|언니|오빠|누나)|[가-힣]+(?:이|가)\s/.test(remainder.slice(0,remainder.search(action)))||/한\s*건/.test(remainder))return false;
+   return ownActor&&action.test(remainder);
+  })?['parent_relationship_self_review']:[];
+ }
  const validate=(value,message='')=>validateDetailed(value,message).ok;
  const normalizeAnalysis=value=>value&&typeof value==='object'&&!Array.isArray(value)&&typeof value.primaryTopic==='string'&&Array.isArray(value.secondaryTopics)?{...value,secondaryTopics:value.secondaryTopics.filter(id=>id!==value.primaryTopic)}:value;
- return Object.freeze({topicIds:Object.freeze(topicIds),situationIds:Object.freeze(situationIds),riskIds:Object.freeze(riskIds),causeIds:Object.freeze(causeIds),effectIds:Object.freeze(effectIds),emotionIds:Object.freeze(emotionIds),factIds:Object.freeze(factIds),schema,normalizeAnalysis,validate,validateDetailed});
+ return Object.freeze({topicIds:Object.freeze(topicIds),situationIds:Object.freeze(situationIds),riskIds:Object.freeze(riskIds),causeIds:Object.freeze(causeIds),effectIds:Object.freeze(effectIds),emotionIds:Object.freeze(emotionIds),factIds:Object.freeze(factIds),schema,normalizeAnalysis,validate,validateDetailed,verifiedRelationshipSituations});
 });

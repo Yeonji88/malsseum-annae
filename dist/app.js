@@ -767,8 +767,14 @@ function createMeditationVerseActions(verse){
  const saved=SavedVerses.has(verse.id);save.setAttribute('aria-pressed',String(saved));save.classList.toggle('is-saved',saved);save.querySelector('svg').setAttribute('fill',saved?'currentColor':'none');save.querySelector('.daily-save-label').textContent=saved?'저장됨':'저장하기';
  return {actions,shareStatus};
 }
+function dailyDisplayVerse(verse){
+ const replacement=window.Malsseum.data.dailyVerseReplacements?.[verse.id];
+ if(replacement)verse=window.Malsseum.data.dailyVerseOverrides[replacement]||verse;
+ const text=window.Malsseum.data.dailyVerseTextOverrides?.[verse.id];
+ return text?{...verse,text}:verse;
+}
 function renderMeditationHome(retainedVerse=null){
- const verse=retainedVerse||DailyVerse.get();displayedDailyVerse=verse;displayedDailyDate=window.Malsseum.services.dailySelection.dateKey();meditationScreen.replaceChildren();
+ const verse=dailyDisplayVerse(retainedVerse||DailyVerse.get());displayedDailyVerse=verse;displayedDailyDate=window.Malsseum.services.dailySelection.dateKey();meditationScreen.replaceChildren();
  const intro=element('section','meditation-intro');const heading=element('div','meditation-heading'),title=element('h1','', '오늘도,\n말씀 안에 머물러요.');title.id='meditation-title';title.tabIndex=-1;heading.append(title);intro.append(heading,element('p','meditation-subtitle','오늘의 말씀을 천천히 마음에 담아보세요.'));
  const card=element('article','daily-verse-card');const cardHead=element('div','daily-verse-head');cardHead.append(element('span','daily-verse-label','오늘의 말씀'));
  const verseFooter=element('div','daily-verse-footer');const speechControls=element('div','daily-verse-speech-controls');const speak=element('button','daily-verse-speak');speak.type='button';speak.setAttribute('aria-label','말씀 읽어주기');speak.setAttribute('aria-pressed','false');speak.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6.5 9H3v6h3.5L11 19V5Z"/><path d="M15 9.5a4 4 0 0 1 0 5"/><path d="M17.5 7a7.5 7.5 0 0 1 0 10"/></svg>';const repeat=element('button','daily-verse-repeat','반복 듣기');
@@ -787,6 +793,7 @@ verseFooter.append(speechControls,element('p','daily-verse-reference',verse.refe
  meditationScreen.append(intro,card,meditate,mine);renderReflectionPreview();syncDailySaveButtons(verse);
 }
 function openDailyMeditation(verse,record=null,{focusEditor=false,scrollToEditor=false,fromConcern=false}={}){
+ if(!fromConcern&&!record)verse=dailyDisplayVerse(verse);
  const displayedVerseSnapshot={reference:verse.reference,text:displayVerseText(verse)};
  meditationDetail.dataset.dailyLayout=String(!fromConcern);
  const daily=window.Malsseum.data.dailyReflections[verse.id]||window.Malsseum.data.legacyDailyReflections?.[verse.id]||{reflection:verse.reflection||'',questions:(verse.question||'').split(/\r?\n/).filter(Boolean)};
