@@ -1,0 +1,49 @@
+// Content checks deliberately run on every build, including Android Studio builds.
+def webRoot = rootProject.file('../dist')
+def packagedRoot = file('src/main/assets/public')
+def generatedWebFiles = ['cordova.js', 'cordova_plugins.js'] as Set
+def digest = { byte[] bytes -> java.security.MessageDigest.getInstance('SHA-256').digest(bytes).encodeHex().toString() }
+def readTree = { File dir ->
+    if (!dir.isDirectory()) throw new GradleException("Missing web directory: ${dir}")
+    def result = [:]
+    dir.eachFileRecurse(groovy.io.FileType.FILES) { f ->
+        result[dir.toPath().relativize(f.toPath()).toString().replace('\\', '/')] = digest(f.bytes)
+    }
+    result
+}
+def verifyContent = { Map actual, String label ->
+    def expected = readTree(webRoot)
+    if (!expected.containsKey('index.html')) throw new GradleException('dist/index.html is missing')
+    def errors = []
+    expected.each { name, hash ->
+        if (!actual.containsKey(name)) errors << "missing: ${name}"
+        else if (actual[name] != hash) errors << "different: ${name}"
+    }
+    actual.keySet().each { name ->
+        if (!expected.containsKey(name) && !generatedWebFiles.contains(name)) errors << "unexpected: ${name}"
+    }
+    if (errors) throw new GradleException("${label} does not match dist. Run npm run android:apk.\n" + errors.join('\n'))
+    logger.lifecycle("Verified ${label}: ${expected.size()} dist files (SHA-256)")
+}
+tasks.register('verifyWebAssets') {
+    doLast { verifyContent(readTree(packagedRoot), 'Android assets') }
+}
+tasks.named('preBuild').configure { dependsOn('verifyWebAssets') }
+tasks.register('verifyDebugApkAssets') {
+    doLast {
+        def apk = layout.buildDirectory.file('outputs/apk/debug/app-debug.apk').get().asFile
+        if (!apk.isFile()) throw new GradleException("APK missing: ${apk}")
+        def actual = [:]
+        new java.util.zip.ZipFile(apk).withCloseable { zip ->
+            zip.entries().each { entry ->
+                if (!entry.directory && entry.name.startsWith('assets/public/')) {
+                    def name = entry.name.substring('assets/public/'.length())
+                    if (actual.containsKey(name)) throw new GradleException("Duplicate APK entry: ${name}")
+                    zip.getInputStream(entry).withCloseable { stream -> actual[name] = digest(stream.bytes) }
+                }
+            }
+        }
+        verifyContent(actual, 'APK assets/public')
+        logger.lifecycle("APK SHA-256: ${digest(apk.bytes)}")
+    }
+}
