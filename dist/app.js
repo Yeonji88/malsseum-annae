@@ -197,7 +197,7 @@ function renderTurn(message,selection,{source='concern'}={}) {
   prayerHeading.append(element('small','','이 말씀으로 기도해요'));
  }
  if(!verse.prayer)prayer.append(element('small','','이 말씀의 기도문은 아직 등록되지 않았어요.'));
- if(expandedGuidance){const meditate=element('button','meditation-secondary button-secondary','묵상하기');meditate.type='button';meditate.addEventListener('click',()=>openDailyMeditation(verse,null,{fromConcern:true}));question.append(meditate);}else questionHeading.addEventListener('click',event=>{event.preventDefault();openDailyMeditation(verse,null,{fromConcern:true});});
+ if(!expandedGuidance)questionHeading.addEventListener('click',event=>{event.preventDefault();openDailyMeditation(verse,null,{fromConcern:true});});
  const actionIcons={reflection:'<path d="M12 5v16M12 5C9 3 5 3 2 4v15c4-1 7-1 10 2 3-3 6-3 10-2V4c-3-1-7-1-10 1Z"/>',prayer:'<path d="m5 21-3-4 5-6 2-7c.5-2 3-1 3 1v8l-4 6m11 2 3-4-5-6-2-7c-.5-2-3-1-3 1v8l4 6"/>'};
  const iconTargets=expandedGuidance?[]:[[questionHeading,'reflection'],[prayerHeading,'prayer']];
  for(const [target,kind] of iconTargets){
