@@ -10,10 +10,10 @@ test('Daily 82 onward is preserved and the 100 production candidates have matchi
  const c=vm.createContext({window:{}});
  for(const f of ['topics','verses','daily-reflections'])vm.runInContext(read('dist/data/'+f+'.js'),c);
  const {verses,dailyReflections}=c.window.Malsseum.data;
- assert.equal(crypto.createHash('sha256').update(JSON.stringify(Object.entries(dailyReflections).slice(81))).digest('hex'),'03d474bdfa43a8de8f78b888d19dffdb43c92f2808b97172008768598272d8d9');
- assert.equal(verses.length,110);assert.equal(Object.keys(dailyReflections).length,101);
+ assert.equal(crypto.createHash('sha256').update(JSON.stringify(Object.entries(dailyReflections).slice(81))).digest('hex'),'6d859900f3e5c97e140829033d08dc660d19028c5eed0c2cecf17e6ce4bdb946');
+ assert.equal(verses.length,110);assert.equal(Object.keys(dailyReflections).length,100);
  const known=new Set([...verses,...Object.values(c.window.Malsseum.data.dailyVerseOverrides)].map(v=>v.id));
- for(const [i,id] of Object.keys(dailyReflections).slice(0,100).entries()){assert(known.has(id));assert.equal(dailyReflections[id].questions.length,i<81?2:3);}
+ for(const [i,id] of Object.keys(dailyReflections).slice(0,100).entries()){assert(known.has(id));assert.equal(dailyReflections[id].questions.length,2);}
 });
 test('production loads Daily before app and meditation uses matching ID without concern fallback',()=>{
  const html=read('dist/index.html'),app=read('dist/app.js');

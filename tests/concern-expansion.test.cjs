@@ -23,11 +23,8 @@ test('approved first 100 entries and original Daily source remain unchanged (nor
  const old=Object.fromEntries(Object.entries(data.reflections).slice(0,100));
  assert.equal(hash(JSON.stringify(old)),baseline.reflections);
  const source=read('dist/data/daily-reflections.js').replace(/\r\n/g,'\n');
- const start=source.indexOf(',\n  "psalm-55-12-14": {');
- assert.ok(start>0);
- const original=source.slice(0,start)+source.slice(source.lastIndexOf('\n\n};'));
- // Daily review approved in c984393; UI edits must not alter that source.
- assert.equal(hash(original.replace(/\n/g,'\r\n')),'d9072d9d44163608c879c3d38147bce1fadee09aa73caedc0c9fe72403eb5173');
+ // Locked Daily source approved in 989c781; concern/UI edits must not alter it.
+ assert.equal(hash(source),require('./fixtures/daily-locked-100.json').sourceSha256);
  assert.equal(new Set(data.verses.map(v=>v.id)).size,110);
  assert.equal(new Set(Object.values(data.reflections).map(v=>v.reflection)).size,110);
 });
