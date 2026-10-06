@@ -599,7 +599,10 @@ test('concern tab keeps the existing route while using the shared app shell and 
  assert.doesNotMatch(concern,/마음이 쉬어가는 곳|home-window-visual|home-reassurance/);
  assert.match(html,/<button type="button" data-screen="reflection" aria-current="page">[\s\S]*?<span>묵상<\/span><\/button><button type="button" data-screen="home">[\s\S]*?<span>고민<\/span><\/button><button type="button" data-screen="prayer">[\s\S]*?<span>기도<\/span><\/button><button type="button" data-screen="profile">[\s\S]*?<span>마이<\/span><\/button>/);
  const appSource=fs.readFileSync(path.join(root,'dist/app.js'),'utf8');
- assert.match(appSource,/meditationBackButton\('고민 입력하기',\(\)=>displayScreen\('home'\)\)/);
+ // Concern still returns home; shared saved-verse results return to their origin.
+ assert.match(appSource,/meditationBackButton\('고민 입력하기',\(\)=>displayScreen\(resultReturnScreen\)\)/);
+ assert.match(appSource,/resultReturnScreen='home'/);
+ assert.match(appSource,/resultReturnScreen=currentAppScreen/);
  assert.match(appSource,/if\(isOnboarding\)\{displayScreen\('reflection'\)/);
 });
 test('original 49 are candidates with complete guidance',()=>{
