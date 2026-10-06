@@ -9,9 +9,26 @@ const {chromium}=require('playwright'),assert=require('node:assert/strict'),{cre
   await p.addInitScript(size=>{localStorage.setItem('malsseum-annae.display-name.v1','검수');localStorage.setItem('malsseum-annae.text-size.v1',size);},size);
   await p.goto(`http://127.0.0.1:${server.address().port}/`);await p.waitForFunction(()=>window.backListeners?.backButton&&!document.body.classList.contains('splash-loading'));
   const back=()=>p.evaluate(()=>backListeners.backButton());
+  const bottomLayout=async(selector,last)=>{
+   assert.equal(await p.locator('.meditation-journal-back').count(),0);
+   await p.evaluate(async()=>{
+    await document.fonts.ready;
+    // Let the entry callback finish before issuing a competing scroll.
+    await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));
+    const scroller=document.querySelector('#main-content');
+    scroller.scrollTo({top:scroller.scrollHeight,behavior:'instant'});
+   });
+   await p.waitForFunction(()=>{
+    const scroller=document.querySelector('#main-content');
+    return Math.abs(scroller.scrollTop-(scroller.scrollHeight-scroller.clientHeight))<=1;
+   },null,{polling:'raf'});
+   assert(await p.locator(selector).evaluate(e=>e.scrollWidth<=e.clientWidth+1));
+   const end=await p.locator(last).boundingBox(),nav=await p.locator('#bottom-nav').boundingBox();
+   assert(end&&nav&&end.y+end.height<=nav.y+1,JSON.stringify({selector,end,nav}));
+  };
   const visible=selector=>p.locator(selector).isVisible();
   await p.evaluate(async()=>{await showVerse('너무 두려워요');displayScreen('result');});await back();assert(await visible('#home-screen'));
-  await p.evaluate(()=>{displayScreen('reflection');openDailyMeditation(DailyVerse.get());});await p.locator('#meditation-journal-input').fill('미저장');await back();assert(await visible('#meditation-screen'));assert.equal(await p.evaluate(()=>PersonalReflections.list().length),0);
+  await p.evaluate(()=>{displayScreen('reflection');openDailyMeditation(DailyVerse.get());});await bottomLayout('#meditation-detail','.meditation-journal-save');await p.locator('#meditation-journal-input').fill('미저장');await back();assert(await visible('#meditation-screen'));assert.equal(await p.evaluate(()=>PersonalReflections.list().length),0);
   await p.evaluate(()=>{const e=PersonalReflections.save(DailyVerse.get().id,'기존 기록');openReflectionRecord(e);});await back();assert(await visible('#meditation-list-screen'));
   await p.evaluate(()=>openReflectionRecord(PersonalReflections.list()[0]));await p.getByRole('button',{name:'수정',exact:true}).click();await p.locator('#meditation-journal-input').fill('저장하지 않는 수정');await back();assert(await visible('#meditation-record-screen'));assert.equal(await p.evaluate(()=>PersonalReflections.list()[0].content),'기존 기록');
   await p.evaluate(()=>openReflectionVerse(PersonalReflections.list()[0]));await back();assert(await visible('#meditation-record-screen'));
@@ -21,7 +38,7 @@ const {chromium}=require('playwright'),assert=require('node:assert/strict'),{cre
   }
   await p.locator('.answer-begin').first().click();await back();assert.equal(await p.evaluate(()=>activeAnswerId),null);
   await p.locator('#open-settings').click();await back();assert.equal(await p.locator('#settings-dialog').getAttribute('open'),null);assert(await visible('#prayer-screen'));
-  await p.evaluate(()=>displayScreen('gratitude'));const date=await p.locator('#gratitude-screen .calendar-day[data-date]').first().getAttribute('data-date');await p.locator(`#gratitude-screen [data-date="${date}"]`).click();await p.getByRole('button',{name:'감사 기록하기',exact:true}).click();await p.locator('#gratitude-today').fill('미저장 감사');await back();assert.equal(await p.locator('#gratitude-screen .is-selected').getAttribute('data-date'),date);assert.equal(await p.locator('#gratitude-screen .gratitude-form').count(),0);
+  await p.evaluate(()=>displayScreen('gratitude'));const date=await p.locator('#gratitude-screen .calendar-day[data-date]').first().getAttribute('data-date');await p.locator(`#gratitude-screen [data-date="${date}"]`).click();await p.getByRole('button',{name:'감사 기록하기',exact:true}).click();await bottomLayout('#gratitude-screen','.gratitude-input-card:last-child .gratitude-field-buttons');await p.locator('#gratitude-today').fill('미저장 감사');await back();assert.equal(await p.locator('#gratitude-screen .is-selected').getAttribute('data-date'),date);assert.equal(await p.locator('#gratitude-screen .gratitude-form').count(),0);
   await p.evaluate(date=>window.Malsseum.services.gratitudeJournal.saveField(date,'today','기존 감사'),date);await p.locator(`#gratitude-screen [data-date="${date}"]`).click();await p.getByRole('button',{name:'수정하기',exact:true}).click();await p.locator('.gratitude-field-delete').first().click();await back();assert.equal(await p.locator('dialog[open]').count(),0);assert(await visible('.gratitude-form'));await p.locator('.gratitude-field-save').first().click();await p.locator('#gratitude-today').fill('미저장 수정');await back();assert.equal(await p.locator('#gratitude-screen .is-selected').getAttribute('data-date'),date);assert.equal(await p.evaluate(date=>window.Malsseum.services.gratitudeJournal.list().find(e=>e.date===date).today,date),'기존 감사');
   await p.evaluate(()=>{displayScreen('profile');if(!SavedVerses.has('psalm-56-3'))SavedVerses.toggle('psalm-56-3');openSavedVerse('psalm-56-3');});await back();assert(await visible('#profile-screen, #my-screen'));
   await p.evaluate(()=>{const v=Object.values(window.Malsseum.data.dailyVerseOverrides)[0];if(!SavedVerses.has(v.id))SavedVerses.toggle(v.id);openSavedVerse(v.id);});await back();assert.equal(await p.evaluate(()=>currentAppScreen),'profile');

@@ -39,7 +39,7 @@ const scenarios=[{name:'empty',records:[]},{name:'past',records:past},{name:'tod
   await card.locator('.meditation-view-all').click();assert.equal(await page.locator('.meditation-record-card').count(),scenario.records.length);
   assert.equal(await page.evaluate(key=>localStorage.getItem(key),key),JSON.stringify(scenario.records));
   await page.evaluate(()=>displayScreen('reflection'));
-  await page.locator('.meditation-primary').click();await page.locator('#meditation-journal-input').fill('새 날짜의 묵상');await page.locator('.meditation-journal-save').click();await page.locator('.meditation-journal-back').click();
+  await page.locator('.meditation-primary').click();await page.locator('#meditation-journal-input').fill('새 날짜의 묵상');await page.locator('.meditation-journal-save').click();await page.locator('#meditation-detail .meditation-back').click();
   assert.deepEqual(await card.locator('.meditation-preview-item p').allTextContents(),['새 날짜의 묵상']);
   console.log(`PASS home ${scenario.name} ${width}px ${size}, midnight, new-day save, history preserved`);await context.close();
  }}finally{await browser.close();await new Promise(r=>server.close(r));}

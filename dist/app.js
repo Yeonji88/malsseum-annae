@@ -813,8 +813,7 @@ function openDailyMeditation(verse,record=null,{focusEditor=false,scrollToEditor
  const status=element('p','meditation-journal-status');status.setAttribute('role','status');const save=element('button','meditation-journal-save button-primary',existing?'묵상 수정하기':'묵상 저장하기');save.type='submit';
  journal.append(journalTitle,label,textarea,status,save);journal.addEventListener('submit',event=>{event.preventDefault();try{const saved=PersonalReflections.save(verse.id,textarea.value,record?.id||null,displayedVerseSnapshot);status.classList.add('is-saved');status.textContent='묵상을 저장했어요.';save.textContent='묵상 수정하기';renderReflectionPreview();record=saved;}catch(error){status.classList.remove('is-saved');status.textContent=error.message||'묵상을 저장하지 못했어요.';textarea.focus();}});textarea.addEventListener('input',()=>{status.textContent='';});if(questionCount===2)journal.classList.add('is-daily-checklist');body.append(journal);
  const {actions,shareStatus}=createMeditationVerseActions(verse);
- const bottomBack=element('button','meditation-journal-back',fromConcern?'말씀 결과로 돌아가기':'오늘의 말씀으로 돌아가기');bottomBack.type='button';bottomBack.addEventListener('click',returnFromDetail);
- meditationDetail.append(back,card,actions,shareStatus,body,bottomBack);refreshSaveButtons();syncDailySaveButtons(verse);displayScreen('meditation-detail');
+ meditationDetail.append(back,card,actions,shareStatus,body);refreshSaveButtons();syncDailySaveButtons(verse);displayScreen('meditation-detail');
  if(focusEditor){
   try{textarea.focus({preventScroll:true});}catch{textarea.focus();}
   const revealEditor=()=>textarea.scrollIntoView({block:'center',behavior:'smooth'});

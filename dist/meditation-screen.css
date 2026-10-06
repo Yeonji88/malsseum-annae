@@ -69,10 +69,6 @@
 .meditation-journal textarea::placeholder{color:#9aa39d}
 .meditation-journal-status{min-height:1.6em;margin:5px 0;color:#66806e;font-size:var(--font-support);line-height:var(--line-reading)}
 .meditation-journal-save{width:100%;min-height:44px;padding:10px 14px;border:0;border-radius:14px;background:var(--meditation-coral);color:#fff;font-family:inherit;font-size:var(--font-action);font-weight:500;line-height:1.45;box-shadow:0 5px 12px rgba(213,111,101,.14)}
-.meditation-journal-back{display:flex;align-items:center;justify-content:center;width:max-content;max-width:100%;min-height:44px;margin:13px auto 0;padding:9px 18px;border:0;background:transparent;color:#365d46;font-family:inherit;font-size:var(--font-support);font-weight:500;line-height:1.45;text-align:center;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:4px;cursor:pointer}
-.meditation-journal-back>span:first-child{font-size:inherit;line-height:inherit}
-.meditation-journal-back:hover,.meditation-journal-back:focus-visible{background:transparent;color:#294d38}
-.meditation-journal-back:focus-visible{outline:2px solid #8aa091;outline-offset:2px}
 .meditation-record-card{margin:0 0 11px;padding:14px 15px;border:1px solid rgba(82,104,88,.09);border-radius:16px;background:#fffefb;box-shadow:0 5px 15px rgba(54,73,61,.045)}
 .meditation-record-head{display:flex;align-items:center;justify-content:space-between;gap:12px}
 .meditation-record-head time{color:var(--meditation-coral);font-size:var(--font-caption,10px)}
@@ -104,7 +100,7 @@
 
 /* Shared line color only; text color and underline geometry stay unchanged. */
 :root{--link-underline-color:#c8d8cc}
-.meditation-back-label,.meditation-journal-back,.meditation-list-today-action.is-inline-link{text-decoration-color:var(--link-underline-color)}
+.meditation-back-label,.meditation-list-today-action.is-inline-link{text-decoration-color:var(--link-underline-color)}
 #meditation-list-screen .meditation-list-empty:has(+.meditation-record-card){margin-bottom:11px}
 
 /* Main journal card only; recorded content stays left-aligned. */
