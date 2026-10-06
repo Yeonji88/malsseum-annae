@@ -947,7 +947,7 @@ const prayerInput=element('textarea','');prayerInput.id='personal-prayer';prayer
 const prayerError=element('p','error');prayerError.setAttribute('role','alert');
 const prayerSave=element('button','prayer-save button-primary','기도 저장하기');prayerSave.type='submit';
 const prayerCancel=element('button','prayer-cancel button-compact','취소');prayerCancel.type='button';
-prayerForm.append(prayerLabel,prayerInput,prayerError,prayerSave,prayerCancel);
+prayerForm.append(prayerLabel,prayerInput,prayerError,prayerSave);
 const prayerList=element('div','prayer-list');
 prayerScreen.append(prayerHeading,prayerCalendar,prayerDaySection);mainContent.append(prayerScreen);
 const prayerStyles=document.createElement('link');prayerStyles.rel='stylesheet';prayerStyles.href='prayer-screen.css';document.head.append(prayerStyles);
