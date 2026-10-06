@@ -808,10 +808,27 @@ function openDailyMeditation(verse,record=null,{focusEditor=false,scrollToEditor
  const card=element('article','daily-verse-card detail-verse');card.append(element('blockquote','daily-verse-text',displayVerseText(verse)),element('p','daily-verse-reference',verse.reference));
  const body=element('div','meditation-reading');body.append(element('h2','','묵상 안내'),element('p','',reflection.reflection||'이 말씀의 묵상 안내를 준비하고 있어요.'));
  if(reflection.question){body.append(element('h2','','묵상해보기'));const list=element('ol','meditation-questions'+(questionCount===2?' is-daily-checklist':''));reflection.question.split(/\r?\n/).filter(Boolean).forEach(text=>list.append(element('li','',text)));body.append(list);}
- const existing=record||PersonalReflections.forVerseToday(verse.id),journal=element('form','meditation-journal');const journalTitle=element('h2','','묵상 기록하기');
- const label=element('label','sr-only','묵상 기록하기');label.htmlFor='meditation-journal-input';const textarea=element('textarea','');textarea.id='meditation-journal-input';textarea.maxLength=3000;textarea.placeholder='오늘의 말씀을 읽고 마음에 떠오르는 생각을 천천히 적어보세요.';textarea.value=existing?.content||'';
- const status=element('p','meditation-journal-status');status.setAttribute('role','status');const save=element('button','meditation-journal-save button-primary',existing?'묵상 수정하기':'묵상 저장하기');save.type='submit';
- journal.append(journalTitle,label,textarea,status,save);journal.addEventListener('submit',event=>{event.preventDefault();try{const saved=PersonalReflections.save(verse.id,textarea.value,record?.id||null,displayedVerseSnapshot);status.classList.add('is-saved');status.textContent='묵상을 저장했어요.';save.textContent='묵상 수정하기';renderReflectionPreview();record=saved;}catch(error){status.classList.remove('is-saved');status.textContent=error.message||'묵상을 저장하지 못했어요.';textarea.focus();}});textarea.addEventListener('input',()=>{status.textContent='';});if(questionCount===2)journal.classList.add('is-daily-checklist');body.append(journal);
+ let savedRecord=record||PersonalReflections.forVerseToday(verse.id),editingFromRead=false;
+ const journal=element('form','meditation-journal'),journalTitle=element('h2','','묵상 기록하기');
+ const label=element('label','sr-only','묵상 기록하기');label.htmlFor='meditation-journal-input';const textarea=element('textarea','');textarea.id='meditation-journal-input';textarea.maxLength=3000;textarea.placeholder='오늘의 말씀을 읽고 마음에 떠오르는 생각을 천천히 적어보세요.';
+ const status=element('p','meditation-journal-status');status.setAttribute('role','status');
+ const save=element('button','meditation-journal-save button-primary');save.type='submit';
+ const reading=element('article','prayer-entry meditation-journal-record'),content=element('p','prayer-content'),controls=element('div','prayer-entry-actions');
+ const edit=element('button','button-compact management-action','수정'),remove=element('button','button-compact management-action','삭제');edit.type=remove.type='button';controls.append(edit,remove);reading.append(content,controls);
+ function renderJournal(editing=false){
+  journal.dataset.editing=String(editing&&Boolean(savedRecord));status.classList.remove('is-saved');status.textContent='';
+  journal.replaceChildren(journalTitle);
+  if(savedRecord&&!editing){content.textContent=savedRecord.content;journal.append(reading);}
+  else{textarea.value=savedRecord?.content||'';save.textContent=savedRecord?'묵상 수정하기':'묵상 저장하기';journal.append(label,textarea,status,save);}
+ }
+ journal.cancelEdit=()=>{if(!editingFromRead||journal.dataset.editing!=='true')return false;editingFromRead=false;renderJournal();edit.focus({preventScroll:true});return true;};
+ edit.addEventListener('click',()=>{editingFromRead=true;renderJournal(true);textarea.focus({preventScroll:true});textarea.scrollIntoView({block:'nearest'});});
+ remove.addEventListener('click',()=>{
+  const dialog=element('dialog','gratitude-delete-dialog'),title=element('p','','이 묵상을 삭제할까요?'),description=element('p','gratitude-delete-description','삭제한 묵상은 되돌릴 수 없어요.');title.id='meditation-delete-title';description.id='meditation-delete-description';dialog.setAttribute('aria-labelledby',title.id);dialog.setAttribute('aria-describedby',description.id);
+  const actions=element('div','gratitude-delete-actions'),cancel=element('button','button-compact','취소'),confirmDelete=element('button','button-compact management-action','삭제');cancel.type=confirmDelete.type='button';cancel.addEventListener('click',()=>dialog.close());confirmDelete.addEventListener('click',()=>{try{PersonalReflections.remove(savedRecord.id);savedRecord=null;record=null;renderJournal();renderReflectionPreview();dialog.close();}catch{status.textContent='묵상 기록을 삭제하지 못했어요.';journal.append(status);dialog.close();}});actions.append(cancel,confirmDelete);dialog.append(title,description,actions);meditationDetail.append(dialog);dialog.addEventListener('close',()=>{dialog.remove();(savedRecord?remove:textarea).focus({preventScroll:true});},{once:true});dialog.showModal();cancel.focus();
+ });
+ journal.addEventListener('submit',event=>{event.preventDefault();try{savedRecord=PersonalReflections.save(verse.id,textarea.value,savedRecord?.id||null,displayedVerseSnapshot);record=savedRecord;renderJournal();renderReflectionPreview();}catch(error){status.classList.remove('is-saved');status.textContent=error.message||'묵상을 저장하지 못했어요.';textarea.focus();}});
+ textarea.addEventListener('input',()=>{status.textContent='';});renderJournal(focusEditor);if(questionCount===2)journal.classList.add('is-daily-checklist');body.append(journal);
  const {actions,shareStatus}=createMeditationVerseActions(verse);
  meditationDetail.append(back,card,actions,shareStatus,body);refreshSaveButtons();syncDailySaveButtons(verse);displayScreen('meditation-detail');
  if(focusEditor){
@@ -861,7 +878,7 @@ function openReflectionRecord(entry){
  const content=reflectionVerseContent(entry);
  const card=element('article','meditation-record-view');card.append(element('time','',reflectionDateFormat.format(new Date(entry.createdAt))),element('strong','',content?.reference||verse?.reference||'묵상 기록'),element('p','',entry.content));
  const readVerse=element('button','reflection-read-verse button-compact management-action','그날의 말씀 보기');readVerse.type='button';readVerse.addEventListener('click',()=>openReflectionVerse(entry));
- const actions=element('div','meditation-record-actions'),edit=element('button','button-compact management-action','수정'),remove=element('button','button-compact management-action','삭제');edit.type=remove.type='button';edit.disabled=!verse;edit.addEventListener('click',()=>{if(verse)openDailyMeditation(verse,entry);});remove.addEventListener('click',()=>{if(!confirm('이 묵상 기록을 삭제할까요?'))return;try{PersonalReflections.remove(entry.id);renderReflectionPreview();openReflectionList();}catch{document.getElementById('profile-status').textContent='묵상 기록을 삭제하지 못했어요.';}});actions.classList.add('reflection-detail-actions');actions.append(readVerse,edit,remove);card.append(actions);meditationRecord.append(back,card);displayScreen('meditation-record');
+ const actions=element('div','meditation-record-actions'),edit=element('button','button-compact management-action','수정'),remove=element('button','button-compact management-action','삭제');edit.type=remove.type='button';edit.disabled=!verse;edit.addEventListener('click',()=>{if(verse)openDailyMeditation(verse,entry,{focusEditor:true});});remove.addEventListener('click',()=>{if(!confirm('이 묵상 기록을 삭제할까요?'))return;try{PersonalReflections.remove(entry.id);renderReflectionPreview();openReflectionList();}catch{document.getElementById('profile-status').textContent='묵상 기록을 삭제하지 못했어요.';}});actions.classList.add('reflection-detail-actions');actions.append(readVerse,edit,remove);card.append(actions);meditationRecord.append(back,card);displayScreen('meditation-record');
 }
 // Personal prayers are separate from scripture, recommendations, and saved verse IDs.
 const PrayerJournal=(()=>{
@@ -1173,6 +1190,7 @@ document.addEventListener('visibilitychange',()=>{if(!document.hidden)refreshCan
    return true;
   },
   closeEditor(){
+   if(visible(meditationDetail)&&meditationDetail.querySelector('.meditation-journal')?.cancelEdit?.())return true;
    if(visible(prayerScreen)){
     if(activeAnswerId!==null){const cancel=prayerScreen.querySelector('.answer-form-actions button:last-child');if(cancel){cancel.click();return true;}}
     if(prayerEditorOpen){prayerCancel.click();return true;}
