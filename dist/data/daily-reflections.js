@@ -281,11 +281,11 @@ window.Malsseum.data.dailyReflections = {
       "내 계획과 하나님의 인도하심이 다를 때에도 나는 하나님을 따를 수 있나요?"
     ]
   },
-  "isaiah-55-9": {
-    "reflection": "하나님은 하늘이 땅보다 높듯 자신의 길과 생각이 우리의 길과 생각보다 높다고 말씀하세요. 내가 다 이해하지 못하는 순간에도 더 크신 하나님의 생각과 길을 바라보며 말씀을 묵상해보세요.",
+  "1-corinthians-6-19": {
+    "reflection": "바울은 우리의 몸이 하나님께 받은 것이며 성령이 거하시는 전이라고 말해요. 내 몸이 하나님께 속한 소중한 존재임을 기억하고, 몸과 마음을 깨끗하게 지키는 삶을 생각하며 말씀을 묵상해보세요.",
     "questions": [
-      "내 예상과 다르게 흘러갔던 삶의 순간들을 떠올려보세요.",
-      "내가 원하는 길과 다른 길로 인도하셔도 하나님을 신뢰할 수 있나요?"
+      "성령이 거하시는 전으로서 내 몸을 어떻게 대해야 할지 생각해보세요.",
+      "내 몸과 마음을 깨끗하게 지키기 위해 멀리해야 할 것은 무엇인가요?"
     ]
   },
   "jeremiah-29-11": {
@@ -705,6 +705,13 @@ window.Malsseum.data.dailyReflections = {
 };
 // Retain guidance for editing historical records without reintroducing these into Daily selection.
 window.Malsseum.data.legacyDailyReflections = {
+  "isaiah-55-9": {
+    "reflection": "하나님은 하늘이 땅보다 높듯 자신의 길과 생각이 우리의 길과 생각보다 높다고 말씀하세요. 내가 다 이해하지 못하는 순간에도 더 크신 하나님의 생각과 길을 바라보며 말씀을 묵상해보세요.",
+    "questions": [
+      "내 예상과 다르게 흘러갔던 삶의 순간들을 떠올려보세요.",
+      "내가 원하는 길과 다른 길로 인도하셔도 하나님을 신뢰할 수 있나요?"
+    ]
+  },
   "exodus-14-14": {
     "reflection": "앞에는 홍해가 있고 뒤에서는 애굽 군대가 쫓아오는 막막한 상황에 이스라엘 백성이 놓여 있었지만, 모세는 하나님께서 그들을 위해 싸우실 것이니 가만히 있으라고 말해요. 하나님의 일하심을 믿으며 말씀을 묵상해보세요.",
     "questions": [
@@ -943,6 +950,16 @@ window.Malsseum.data.dailyVerseTextOverrides = {
 };
 window.Malsseum.data.dailyVerseReplacements = {"exodus-14-14":"micah-6-8"};
 window.Malsseum.data.dailyVerseOverrides = {
+  "1-corinthians-6-19": {
+    "id": "1-corinthians-6-19",
+    "reference": "고린도전서 6:19",
+    "translation": "개역개정",
+    "book": "고린도전서",
+    "chapter": 6,
+    "verseStart": 19,
+    "verseEnd": 19,
+    "text": "너희 몸은 너희가 하나님께로부터 받은 바 너희 가운데 계신 성령의 전인 줄을 알지 못하느냐 너희는 너희 자신의 것이 아니라"
+  },
   "micah-6-8": {
     "id": "micah-6-8",
     "reference": "미가 6:8",

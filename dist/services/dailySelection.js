@@ -42,7 +42,7 @@
   "psalm-127-2",
   "proverbs-3-5",
   "proverbs-16-9",
-  "isaiah-55-9",
+  "1-corinthians-6-19",
   "jeremiah-29-11",
   "zephaniah-3-17",
   "matthew-5-4",
@@ -58,7 +58,9 @@
  function dateKey(now=new Date()){return new Date(now.getTime()+9*3600000).toISOString().slice(0,10);}
  function hash(value){let state=2166136261;for(const char of value){state^=char.codePointAt(0);state=Math.imul(state,16777619);}return state>>>0;}
  function rawOrder(cycle){
-  let state=hash(seed+':'+cycle+':'+pool.join('|'));
+  // Preserve the established schedule; only the former Daily 41 slot changes.
+  const scheduleIds=pool.map(id=>id==='1-corinthians-6-19'?'isaiah-55-9':id);
+  let state=hash(seed+':'+cycle+':'+scheduleIds.join('|'));
   const random=()=>{state=(state+0x6D2B79F5)>>>0;let t=state;t=Math.imul(t^(t>>>15),t|1);t^=t+Math.imul(t^(t>>>7),t|61);return ((t^(t>>>14))>>>0)/4294967296;};
   const order=[...pool];for(let i=order.length-1;i>0;i--){const j=Math.floor(random()*(i+1));[order[i],order[j]]=[order[j],order[i]];}return order;
  }
