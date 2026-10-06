@@ -652,11 +652,11 @@ window.Malsseum.data.dailyReflections = {
       "평범한 일도 하나님께 드리는 마음으로 한다면 무엇이 달라질까요?"
     ]
   },
-  "psalm-34-18": {
-    "reflection": "시편 기자는 하나님이 마음이 상한 사람에게 가까이하시고, 마음 깊이 뉘우치는 사람을 구원하신다고 고백해요. 애써 괜찮은 척하기보다 아픈 마음 그대로 하나님께 나아가며 말씀을 묵상해보세요.",
+  "psalm-96-4": {
+    "reflection": "시편 기자는 하나님이 모든 신들보다 위대하시며 찬양과 경외를 받으실 분이라고 고백해요. 무엇보다 높으신 하나님의 위대하심을 마음에 새기며 그분을 높이는 마음으로 말씀을 묵상해보세요.",
     "questions": [
-      "마음이 상한 순간 더 가까이 다가오시는 하나님을 의지해보세요.",
-      "그 하나님께 지금 가장 솔직하게 털어놓고 싶은 마음은 무엇인가요?"
+      "내 마음에서 하나님보다 더 큰 자리를 차지하고 있는 것은 없는지 돌아보세요.",
+      "무엇보다 높으신 하나님의 위대하심을 바라볼 때 내 마음에 어떤 찬양이 떠오르나요?"
     ]
   },
   "psalm-138-8": {
@@ -705,6 +705,13 @@ window.Malsseum.data.dailyReflections = {
 };
 // Retain guidance for editing historical records without reintroducing these into Daily selection.
 window.Malsseum.data.legacyDailyReflections = {
+  "psalm-34-18": {
+    "reflection": "시편 기자는 하나님이 마음이 상한 사람에게 가까이하시고, 마음 깊이 뉘우치는 사람을 구원하신다고 고백해요. 애써 괜찮은 척하기보다 아픈 마음 그대로 하나님께 나아가며 말씀을 묵상해보세요.",
+    "questions": [
+      "마음이 상한 순간 더 가까이 다가오시는 하나님을 의지해보세요.",
+      "그 하나님께 지금 가장 솔직하게 털어놓고 싶은 마음은 무엇인가요?"
+    ]
+  },
   "isaiah-55-9": {
     "reflection": "하나님은 하늘이 땅보다 높듯 자신의 길과 생각이 우리의 길과 생각보다 높다고 말씀하세요. 내가 다 이해하지 못하는 순간에도 더 크신 하나님의 생각과 길을 바라보며 말씀을 묵상해보세요.",
     "questions": [
@@ -948,8 +955,18 @@ window.Malsseum.data.legacyDailyReflections = {
 window.Malsseum.data.dailyVerseTextOverrides = {
   "isaiah-40-31": "오직 여호와를 앙망하는 자는 새 힘을 얻으리니 독수리가 날개치며 올라감 같을 것이요 달음박질하여도 곤비하지 아니하겠고 걸어가도 피곤하지 아니하리로다"
 };
-window.Malsseum.data.dailyVerseReplacements = {"exodus-14-14":"micah-6-8"};
+window.Malsseum.data.dailyVerseReplacements = {"exodus-14-14":"micah-6-8","psalm-34-18":"psalm-96-4"};
 window.Malsseum.data.dailyVerseOverrides = {
+  "psalm-96-4": {
+    "id": "psalm-96-4",
+    "reference": "시편 96:4",
+    "translation": "개역개정",
+    "book": "시편",
+    "chapter": 96,
+    "verseStart": 4,
+    "verseEnd": 4,
+    "text": "여호와는 위대하시니 지극히 찬양할 것이요 모든 신들보다 경외할 것임이여"
+  },
   "1-corinthians-6-19": {
     "id": "1-corinthians-6-19",
     "reference": "고린도전서 6:19",
