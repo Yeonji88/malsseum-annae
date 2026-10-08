@@ -792,7 +792,7 @@ repeat.addEventListener('click',()=>{
 speechControls.append(repeat,speak);
 verseFooter.append(speechControls,element('p','daily-verse-reference',verse.reference));card.append(cardHead,element('blockquote','daily-verse-text',displayVerseText(verse)),verseFooter);
  const meditate=element('button','meditation-primary button-primary','이 말씀으로 묵상하기');meditate.type='button';meditate.addEventListener('click',()=>openDailyMeditation(verse));
- const mine=element('section','meditation-mine');const mineHead=element('div','meditation-mine-head');mineHead.append(element('h2','','나의 묵상'));const links=element('div','meditation-mine-links'),write=element('button','meditation-write-link button-compact','묵상 기록하기'),all=element('button','meditation-view-all button-compact','묵상 전체보기');write.type=all.type='button';all.addEventListener('click',openReflectionList);links.append(write,all);mine.append(mineHead,element('div','meditation-preview-list'),links);
+ const mine=element('section','meditation-mine');const mineHead=element('div','meditation-mine-head');mineHead.append(element('h2','','나의 묵상'));const links=element('div','meditation-mine-links'),write=element('button','meditation-write-link','묵상 기록하기'),all=element('button','meditation-view-all','묵상 전체보기');write.type=all.type='button';all.addEventListener('click',openReflectionList);links.append(write,all);mine.append(mineHead,element('div','meditation-preview-list'),links);
  meditationScreen.append(intro,card,meditate,mine);renderReflectionPreview();syncDailySaveButtons(verse);
 }
 function openDailyMeditation(verse,record=null,{focusEditor=false,scrollToEditor=false,fromConcern=false}={}){

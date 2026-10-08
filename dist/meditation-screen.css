@@ -200,9 +200,6 @@
  text-decoration:none !important;
  text-decoration-line:none !important;
 }
-#meditation-screen .meditation-mine-links{min-height:48px;align-items:center;grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
-#meditation-screen .meditation-mine-links .button-compact{width:100%;min-width:0;color:#52675a}
-@media(max-width:319px){html[data-text-size="xlarge"] #meditation-screen .meditation-mine-links .button-compact{--button-compact-padding:7px 9px}}
 
 /* 오늘의 말씀 읽어주기 */
 #meditation-screen .daily-verse-footer{
