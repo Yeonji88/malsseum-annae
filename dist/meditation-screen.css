@@ -86,7 +86,7 @@
 .meditation-record-view>p{margin:15px 0 18px;color:#3f4a44;font-size:var(--font-body,15px);line-height:var(--line-reading,1.85);white-space:pre-wrap;overflow-wrap:anywhere}
 .meditation-list-empty{margin-top:6px;padding:24px 18px;border-radius:17px;background:#fffefb;text-align:center}
 .meditation-list-today-action{display:flex;align-items:center;justify-content:center;width:max-content;max-width:100%;min-height:42px;margin:0 0 13px;padding:9px 16px;border:1px solid rgba(67,91,76,.08);border-radius:999px;background:var(--meditation-sage);color:#365d46;font-family:inherit;font-size:var(--font-support);font-weight:500;line-height:1.45;text-align:center;cursor:pointer}
-.meditation-list-empty .meditation-list-today-action{margin:15px auto 0}
+.meditation-list-empty .meditation-list-today-action{width:calc(100% - 2 * var(--journal-empty-inset));margin:15px var(--journal-empty-inset) 0}
 .meditation-list-today-action.is-inline-link{justify-content:flex-start;min-height:44px;margin:-4px 0 5px;padding:8px 0;border:0;border-radius:0;background:transparent;color:#365d46;text-align:left;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:4px}
 .meditation-list-today-action:hover,.meditation-list-today-action:focus-visible{background:#dce7d8}
 .meditation-list-today-action.is-inline-link:hover,.meditation-list-today-action.is-inline-link:focus-visible{background:transparent;color:#294d38}
@@ -200,6 +200,9 @@
  text-decoration:none !important;
  text-decoration-line:none !important;
 }
+#meditation-screen .meditation-mine-links{min-height:48px;align-items:center;grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+#meditation-screen .meditation-mine-links .button-compact{width:100%;min-width:0;color:#52675a}
+@media(max-width:319px){html[data-text-size="xlarge"] #meditation-screen .meditation-mine-links .button-compact{--button-compact-padding:7px 9px}}
 
 /* 오늘의 말씀 읽어주기 */
 #meditation-screen .daily-verse-footer{

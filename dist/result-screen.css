@@ -79,6 +79,7 @@
 .result-back:focus-visible{outline:2px solid #315f49;outline-offset:3px}
 #result #reply-form{order:2;margin:12px 0 0;padding:var(--result-section-title-inset) 0 0;border:0;border-top:1px solid #eae7df;border-radius:0;background:none;box-shadow:none}
 #result.is-unknown-concern #reply-form{border-top-color:transparent;margin-top:0;padding-top:calc(var(--result-section-title-inset) - 16px)}
+#result #reply-form>.primary{background:#e98780}
 .app:has(#result:not([hidden]))>#bottom-nav{background:#fffdfa}
 .app:has(#result:not([hidden]))>#bottom-nav button{font-family:'Malsseum Gowun Dodum','Malsseum SUIT',sans-serif;font-weight:400;font-synthesis:none}
 @media(max-width:359px){#result :is(.verse-result-turn,.unknown-concern-turn) .scripture{padding:21px 17px 19px 39px}#result .result-quote{left:12px}#result .verse-actions{gap:5px}#result .verse-actions summary,:is(#result,#meditation-detail) .save-action{font-size:12px}#result .verse-actions small{font-size:9px}}

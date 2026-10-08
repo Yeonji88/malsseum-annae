@@ -792,7 +792,7 @@ repeat.addEventListener('click',()=>{
 speechControls.append(repeat,speak);
 verseFooter.append(speechControls,element('p','daily-verse-reference',verse.reference));card.append(cardHead,element('blockquote','daily-verse-text',displayVerseText(verse)),verseFooter);
  const meditate=element('button','meditation-primary button-primary','이 말씀으로 묵상하기');meditate.type='button';meditate.addEventListener('click',()=>openDailyMeditation(verse));
- const mine=element('section','meditation-mine');const mineHead=element('div','meditation-mine-head');mineHead.append(element('h2','','나의 묵상'));const links=element('div','meditation-mine-links'),write=element('button','meditation-write-link','묵상 기록하기'),all=element('button','meditation-view-all','묵상 전체보기');write.type=all.type='button';all.addEventListener('click',openReflectionList);links.append(write,all);mine.append(mineHead,element('div','meditation-preview-list'),links);
+ const mine=element('section','meditation-mine');const mineHead=element('div','meditation-mine-head');mineHead.append(element('h2','','나의 묵상'));const links=element('div','meditation-mine-links'),write=element('button','meditation-write-link button-compact','묵상 기록하기'),all=element('button','meditation-view-all button-compact','묵상 전체보기');write.type=all.type='button';all.addEventListener('click',openReflectionList);links.append(write,all);mine.append(mineHead,element('div','meditation-preview-list'),links);
  meditationScreen.append(intro,card,meditate,mine);renderReflectionPreview();syncDailySaveButtons(verse);
 }
 function openDailyMeditation(verse,record=null,{focusEditor=false,scrollToEditor=false,fromConcern=false}={}){
@@ -897,13 +897,14 @@ const PrayerJournal=(()=>{
  }
  return {
   list,
-  save(content,id,dateKey){
+  save(content,id,dateKey,title){
    const prayer=content.trim();if(!prayer)throw new Error('기도 내용을 적어주세요.');
    const entries=list();
    if(id){
     const existing=entries.find(item=>item.id===id);
     if(!existing)throw new Error('수정할 기도를 찾지 못했어요.');
-    existing.content=prayer;
+    if(content.replace(/\r\n?/g,'\n')!==existing.content.replace(/\r\n?/g,'\n'))existing.content=prayer;
+    if(title!==undefined){const value=title.trim();if(value)existing.title=value;else delete existing.title;}
    }else{
     let nextId;
     do{nextId=globalThis.crypto?.randomUUID?.()||Date.now().toString(36)+'-'+Math.random().toString(36).slice(2);}
@@ -913,7 +914,9 @@ const PrayerJournal=(()=>{
      const [year,month,day]=dateKey.split('-').map(Number),now=new Date();
      createdAt=new Date(year,month-1,day,now.getHours(),now.getMinutes(),now.getSeconds(),now.getMilliseconds()).toISOString();
     }
-    entries.unshift({id:nextId,content:prayer,createdAt});
+    const entry={id:nextId,content:prayer,createdAt};
+    if(typeof title==='string'&&title.trim())entry.title=title.trim();
+    entries.unshift(entry);
    }
    localStorage.setItem(key,JSON.stringify(entries));
   },
@@ -942,12 +945,14 @@ const prayerIntro=element('p','prayer-intro','작은 기도도 하나님은 기�
 const prayerCalendar=element('section','prayer-calendar');prayerCalendar.setAttribute('aria-label','기도 기록 달력');
 const prayerDaySection=element('section','prayer-day');prayerDaySection.setAttribute('aria-live','polite');
 const prayerForm=element('form','prayer-form');prayerForm.hidden=true;
+const prayerSubjectLabel=element('label','prayer-subject-label','기도제목 (선택)');prayerSubjectLabel.htmlFor='prayer-subject';
+const prayerSubject=element('input','prayer-subject');prayerSubject.id='prayer-subject';prayerSubject.type='text';
 const prayerLabel=element('label','sr-only','나의 기도 내용');prayerLabel.htmlFor='personal-prayer';
 const prayerInput=element('textarea','');prayerInput.id='personal-prayer';prayerInput.placeholder='오늘의 마음을 천천히 적어보세요.';
 const prayerError=element('p','error');prayerError.setAttribute('role','alert');
 const prayerSave=element('button','prayer-save button-primary','기도 저장하기');prayerSave.type='submit';
 const prayerCancel=element('button','prayer-cancel button-compact','취소');prayerCancel.type='button';
-prayerForm.append(prayerLabel,prayerInput,prayerError,prayerSave);
+prayerForm.append(prayerSubjectLabel,prayerSubject,prayerLabel,prayerInput,prayerError,prayerSave);
 const prayerList=element('div','prayer-list');
 prayerScreen.append(prayerHeading,prayerCalendar,prayerDaySection);mainContent.append(prayerScreen);
 const prayerStyles=document.createElement('link');prayerStyles.rel='stylesheet';prayerStyles.href='prayer-screen.css';document.head.append(prayerStyles);
@@ -957,8 +962,8 @@ function localToday(){return localDateKey();}
 let selectedPrayerDate=localToday(),prayerCalendarMonth=(()=>{const now=new Date();return new Date(now.getFullYear(),now.getMonth(),1);})();
 const prayerDateHeadingFormat=new Intl.DateTimeFormat('ko-KR',{month:'long',day:'numeric',weekday:'short'}),prayerTimeFormat=new Intl.DateTimeFormat('ko-KR',{hour:'numeric',minute:'2-digit'}),prayerFullDateFormat=new Intl.DateTimeFormat('ko-KR',{year:'numeric',month:'long',day:'numeric'});
 function dateFromKey(key){const [year,month,day]=key.split('-').map(Number);return new Date(year,month-1,day,12);}
-function clearPrayerEditor(close=true){editingPrayerId=null;prayerInput.value='';prayerError.textContent='';prayerSave.textContent='기도 저장하기';if(close)prayerEditorOpen=false;}
-function openPrayerEditor(entry){if(!prayerEditorOpen)prayerReturnScroll=mainContent.scrollTop;prayerEditorOpen=true;editingPrayerId=entry?.id||null;prayerInput.value=entry?.content||'';prayerError.textContent='';prayerSave.textContent=entry?'수정 저장하기':'기도 저장하기';renderPrayerDay();prayerInput.focus({preventScroll:true});prayerForm.scrollIntoView({block:'nearest',behavior:'smooth'});}
+function clearPrayerEditor(close=true){editingPrayerId=null;prayerSubject.value='';prayerInput.value='';prayerError.textContent='';prayerSave.textContent='기도 저장하기';if(close)prayerEditorOpen=false;}
+function openPrayerEditor(entry){if(!prayerEditorOpen)prayerReturnScroll=mainContent.scrollTop;prayerEditorOpen=true;activeAnswerId=null;editingPrayerId=entry?.id||null;prayerSubject.value=typeof entry?.title==='string'?entry.title:'';prayerInput.value=entry?.content||'';prayerError.textContent='';prayerSave.textContent=entry?'수정 완료':'기도 저장하기';renderPrayerDay();prayerInput.focus({preventScroll:true});prayerForm.scrollIntoView({block:'nearest',behavior:'smooth'});}
 function entriesForDate(entries,key){return entries.filter(entry=>localDateKey(entry.createdAt)===key);}
 function renderPrayerCalendar(){
  prayerCalendar.replaceChildren();const entries=PrayerJournal.list(),prayerDays=new Set(entries.map(entry=>localDateKey(entry.createdAt))),answeredDays=new Set(entries.map(entry=>PrayerJournal.answerFor(entry)?.date).filter(Boolean));
@@ -989,7 +994,8 @@ function confirmPrayerDeletion(kind,trigger,onDelete){
 function createPrayerCard(entry){
  const card=element('article','prayer-entry'),date=element('time','prayer-date',prayerTimeFormat.format(new Date(entry.createdAt))),body=element('p','prayer-content',entry.content),actions=element('div','prayer-entry-actions');date.dateTime=entry.createdAt;
  const edit=element('button','button-compact management-action','수정');edit.type='button';edit.addEventListener('click',()=>openPrayerEditor(entry));const remove=element('button','button-compact management-action','삭제');remove.type='button';remove.addEventListener('click',()=>confirmPrayerDeletion('기도',remove,()=>{try{PrayerJournal.remove(entry.id);if(editingPrayerId===entry.id)clearPrayerEditor();if(activeAnswerId===entry.id)activeAnswerId=null;renderPrayerView();}catch{prayerError.textContent='기도를 삭제하지 못했어요. 브라우저 저장 설정을 확인해주세요.';}}));
- const answer=PrayerJournal.answerFor(entry);if(!answer){const begin=element('button','answer-begin button-compact','응답받았어요');begin.type='button';begin.addEventListener('click',()=>{activeAnswerId=entry.id;clearPrayerEditor();renderPrayerDay();prayerList.querySelector('.answer-form textarea')?.focus();});actions.append(begin);}actions.append(edit,remove);card.append(date,body,actions);
+ const answer=PrayerJournal.answerFor(entry);if(!answer){const begin=element('button','answer-begin button-compact','응답받았어요');begin.type='button';begin.addEventListener('click',()=>{activeAnswerId=entry.id;clearPrayerEditor();renderPrayerDay();prayerList.querySelector('.answer-form textarea')?.focus();});actions.append(begin);}actions.append(edit,remove);card.dataset.prayerId=entry.id;card.append(date);
+ if(prayerEditorOpen&&editingPrayerId===entry.id){card.append(prayerForm);}else{if(typeof entry.title==='string'&&entry.title.trim())card.append(element('p','prayer-subject-text',entry.title));card.append(body,actions);}
  if(answer&&activeAnswerId!==entry.id){const answered=element('div','answered-prayer');answered.append(element('strong','answered-label','✓ 응답받은 기도'));const answeredDate=element('time','answered-date',prayerFullDateFormat.format(dateFromKey(answer.date)));answeredDate.dateTime=answer.date;answered.append(answeredDate,element('p','answered-content',answer.content));const answerActions=element('div','answer-actions'),revise=element('button','button-compact management-action','응답 수정'),discard=element('button','button-compact management-action','응답 삭제');revise.type=discard.type='button';revise.addEventListener('click',()=>{activeAnswerId=entry.id;clearPrayerEditor();renderPrayerDay();prayerList.querySelector('.answer-form textarea')?.focus();});discard.addEventListener('click',()=>confirmPrayerDeletion('응답',discard,()=>{try{PrayerJournal.removeAnswer(entry.id);renderPrayerView();}catch{prayerError.textContent='응답 기록을 삭제하지 못했어요. 브라우저 저장 설정을 확인해주세요.';}}));answerActions.append(revise,discard);answered.append(answerActions);card.append(answered);}
  if(activeAnswerId===entry.id){const answerForm=element('form','answer-form'),dateLabel=element('label','','응답받은 날짜'),answerDate=element('input','');answerDate.type='date';answerDate.value=answer?.date||localToday();dateLabel.append(answerDate);const contentLabel=element('label','sr-only','응답 내용'),answerInput=element('textarea','');answerInput.placeholder='어떻게 응답받았는지 기록해보세요.';answerInput.value=answer?.content||'';const feedback=element('p','answer-error');feedback.setAttribute('role','alert');const controls=element('div','answer-form-actions'),submit=element('button','button-compact','응답 기록하기'),cancel=element('button','button-compact','취소');submit.type='submit';cancel.type='button';cancel.addEventListener('click',()=>{activeAnswerId=null;renderPrayerDay();});controls.append(submit,cancel);answerForm.append(dateLabel,contentLabel,answerInput,feedback,controls);answerForm.addEventListener('submit',event=>{event.preventDefault();try{PrayerJournal.saveAnswer(entry.id,answerDate.value,answerInput.value);activeAnswerId=null;renderPrayerView();}catch(error){feedback.textContent=['기도를 찾지 못했어요.','응답받은 날짜와 내용을 적어주세요.'].includes(error.message)?error.message:'응답 기록을 저장하지 못했어요. 브라우저 저장 설정을 확인해주세요.';}});card.append(answerForm);}
  return card;
@@ -997,13 +1003,16 @@ function createPrayerCard(entry){
 function renderPrayerDay(){
  prayerDaySection.replaceChildren();prayerList.replaceChildren();const selectedDate=dateFromKey(selectedPrayerDate),entries=entriesForDate(PrayerJournal.list(),selectedPrayerDate),headingRow=element('div','prayer-day-heading'),heading=element('h2','',prayerDateHeadingFormat.format(selectedDate));heading.id='selected-prayer-date';headingRow.append(heading);if(selectedPrayerDate===localToday())headingRow.append(element('span','today-label','오늘'));prayerDaySection.setAttribute('aria-labelledby','selected-prayer-date');prayerDaySection.append(headingRow);
  prayerForm.hidden=!prayerEditorOpen;
+ prayerForm.classList.toggle('is-inline-edit',Boolean(editingPrayerId));
+ prayerForm.querySelector('.prayer-edit-actions')?.remove();
+ if(editingPrayerId){const controls=element('div','prayer-edit-actions');controls.append(prayerCancel,prayerSave);prayerForm.append(controls);}else{prayerCancel.remove();prayerForm.append(prayerSave);}
  if(!entries.length&&!prayerEditorOpen){const empty=element('div','prayer-day-empty'),isToday=selectedPrayerDate===localToday(),isPast=selectedDate<dateFromKey(localToday());empty.append(element('p','prayer-empty-title',isToday?'오늘의 기도를 남겨보세요.':isPast?'이 날의 기도를 남겨보세요.':'이 날을 위한 기도를 남겨보세요.'));empty.append(element('p','prayer-empty-copy',isToday?'지금 마음에 있는 이야기를\n하나님께 올려드려요.':isPast?'그날 마음에 머물렀던 이야기를\n하나님께 올려드려요.':'앞으로의 마음과 바람을\n하나님께 올려드려요.'));const add=element('button','prayer-record-button button-primary','기도 기록하기');add.type='button';add.addEventListener('click',()=>openPrayerEditor());empty.append(add);prayerDaySection.append(empty);return;}
- for(const entry of entries)prayerList.append(createPrayerCard(entry));prayerDaySection.append(prayerList);if(prayerEditorOpen){prayerDaySection.append(prayerForm);}if(entries.length&&!prayerEditorOpen){const add=element('button','prayer-add-button button-secondary','＋ 기도 추가하기');add.type='button';add.addEventListener('click',()=>openPrayerEditor());prayerDaySection.append(add);}
+ for(const entry of entries)prayerList.append(createPrayerCard(entry));prayerDaySection.append(prayerList);if(prayerEditorOpen&&!editingPrayerId){prayerDaySection.append(prayerForm);}if(entries.length&&!prayerEditorOpen){const add=element('button','prayer-add-button prayer-record-button button-primary','기도 추가하기');add.type='button';add.addEventListener('click',()=>openPrayerEditor());prayerDaySection.append(add);}
 }
 function renderPrayerView(){renderPrayerCalendar();renderPrayerDay();}
 function renderPrayerList(){renderPrayerView();}
-prayerInput.addEventListener('input',()=>{prayerError.textContent='';});prayerCancel.addEventListener('click',()=>{clearPrayerEditor();prayerInput.blur();renderPrayerDay();mainContent.scrollTo({top:prayerReturnScroll,behavior:'smooth'});});
-prayerForm.addEventListener('submit',event=>{event.preventDefault();if(!prayerInput.value.trim()){prayerError.classList.add('is-empty-prayer');prayerError.textContent='기도 내용을 적어주세요.';prayerInput.focus();return;}try{PrayerJournal.save(prayerInput.value,editingPrayerId,selectedPrayerDate);clearPrayerEditor();prayerInput.blur();renderPrayerView();mainContent.scrollTo({top:prayerReturnScroll,behavior:'smooth'});}catch(error){prayerError.classList.remove('is-empty-prayer');prayerError.textContent=error.message==='수정할 기도를 찾지 못했어요.'?error.message:'기도를 저장하지 못했어요. 브라우저 저장 설정을 확인해주세요.';}});
+prayerInput.addEventListener('input',()=>{prayerError.textContent='';});prayerCancel.addEventListener('click',()=>{clearPrayerEditor();prayerSubject.blur();prayerInput.blur();renderPrayerDay();mainContent.scrollTo({top:prayerReturnScroll,behavior:'smooth'});});
+prayerForm.addEventListener('submit',event=>{event.preventDefault();if(!prayerInput.value.trim()){prayerError.classList.add('is-empty-prayer');prayerError.textContent='기도 내용을 적어주세요.';prayerInput.focus();return;}try{PrayerJournal.save(prayerInput.value,editingPrayerId,selectedPrayerDate,prayerSubject.value);clearPrayerEditor();prayerSubject.blur();prayerInput.blur();renderPrayerView();mainContent.scrollTo({top:prayerReturnScroll,behavior:'smooth'});}catch(error){prayerError.classList.remove('is-empty-prayer');prayerError.textContent=error.message==='수정할 기도를 찾지 못했어요.'?error.message:'기도를 저장하지 못했어요. 브라우저 저장 설정을 확인해주세요.';}});
 renderPrayerView();
 const resultBack=meditationBackButton('고민 입력하기',()=>displayScreen(resultReturnScreen));resultBack.classList.add('result-back');resultBack.setAttribute('aria-label','고민 입력 화면으로 돌아가기');
 resultScreen.prepend(resultBack);
@@ -1117,7 +1126,7 @@ settingsButton.addEventListener('click',()=>{document.getElementById('reset-name
   const prayerEditing=!prayerScreen.hidden&&prayerEditorOpen;
   const editor=prayerEditing?prayerInput:meditationEditor;
   const editing=prayerEditing||(!meditationDetail.hidden&&meditationEditor);
-  const focused=editing&&document.activeElement===editor;
+  const focused=editing&&(document.activeElement===editor||(prayerEditing&&document.activeElement===prayerSubject));
   const mobile=window.matchMedia('(pointer:coarse)').matches||window.Capacitor?.isNativePlatform?.();
   const reduced=viewport.scale===1&&viewport.height<restingHeight*.8;
   const next=Boolean(mobile&&editing&&reduced&&(focused||keyboardOpen));
