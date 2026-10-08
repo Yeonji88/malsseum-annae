@@ -105,3 +105,7 @@
  font-size:var(--font-support,13px)!important;font-weight:400!important;line-height:1.45!important;
  box-shadow:none;
 }
+.record-pagination{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:6px;margin:20px 0 0}
+.record-pagination button{flex:0 0 auto}
+.record-pagination button[aria-current="page"]{text-decoration:underline;text-underline-offset:4px}
+.record-pagination button:disabled{opacity:.45;cursor:default}

@@ -453,6 +453,34 @@ savedEditTools.append(selectAll,bulkRemove);
 myHeading.append(savedEditTools);
 myScreen.append(myIntro,myHeading,savedList);mainContent.append(myScreen);
 const myStyles=document.createElement('link');myStyles.rel='stylesheet';myStyles.href='my-screen.css';document.head.append(myStyles);
+const recordPages={saved:1,reflections:1};
+const recordsPerPage=10;
+function pageRecords(records,kind,recordId=null){
+ const total=Math.max(1,Math.ceil(records.length/recordsPerPage));
+ if(typeof recordId==='string'){
+  const index=records.findIndex(record=>record.id===recordId);
+  if(index>=0)recordPages[kind]=Math.floor(index/recordsPerPage)+1;
+ }
+ recordPages[kind]=Math.max(1,Math.min(recordPages[kind],total));
+ return records.slice((recordPages[kind]-1)*recordsPerPage,recordPages[kind]*recordsPerPage);
+}
+function recordPagination(count,kind,render){
+ const total=Math.ceil(count/recordsPerPage);if(total<=1)return null;
+ const nav=element('nav','record-pagination');nav.setAttribute('aria-label',kind==='saved'?'저장한 말씀 페이지':'묵상 기록 페이지');
+ const page=recordPages[kind];
+ const button=(text,target,disabled=false)=>{
+  const item=element('button','button-compact management-action',text);item.type='button';item.disabled=disabled;
+  item.addEventListener('click',()=>{recordPages[kind]=target;render();mainContent.scrollTop=0;document.querySelector('[data-record-pages="'+kind+'"] [aria-current="page"]')?.focus({preventScroll:true});});return item;
+ };
+ nav.dataset.recordPages=kind;nav.append(button('이전',page-1,page===1));
+ const start=Math.max(1,Math.min(page-2,total-4)),end=Math.min(total,start+4);
+ for(let number=start;number<=end;number++){
+  const item=button(String(number),number);item.setAttribute('aria-label',number+'페이지');
+  if(number===page)item.setAttribute('aria-current','page');nav.append(item);
+ }
+ nav.append(button('다음',page+1,page===total));return nav;
+}
+const savedPagination=element('div','saved-pagination');myScreen.append(savedPagination);
 let editingSaved=false;
 const selectedSaved=new Set();
 function exitSavedEdit(){editingSaved=false;selectedSaved.clear();renderSavedList();}
@@ -475,9 +503,9 @@ bulkRemove.addEventListener('click',()=>{
  }catch{document.getElementById('profile-status').textContent='선택한 말씀의 저장을 취소하지 못했어요. 브라우저 저장 설정을 확인해주세요.';}
 });
 function renderSavedList(){
- savedList.replaceChildren();
+ savedList.replaceChildren();savedPagination.replaceChildren();
  const verses=new Map(readableVerses().map(verse=>[verse.id,verse]));
- const ids=SavedVerses.list();
+ const ids=SavedVerses.list(),visibleIds=pageRecords(ids,'saved');
  for(const id of selectedSaved)if(!ids.includes(id))selectedSaved.delete(id);
  editSaved.hidden=!ids.length;editSaved.textContent=editingSaved?'완료':'편집';
  savedEditTools.hidden=!editingSaved||!ids.length;
@@ -490,9 +518,9 @@ function renderSavedList(){
   empty.append(element('p','','아직 저장한 말씀이 없어요.'),element('p','','마음에 오래 간직하고 싶은 말씀을 저장해보세요.'));
   savedList.append(empty);return;
  }
- for(const id of ids){
+ for(const id of visibleIds){
   const verse=verses.get(id);
-  const card=element('button','saved-verse-card');card.type='button';
+  const card=element('button','saved-verse-card');card.type='button';card.dataset.savedVerseId=id;
   if(editingSaved){
    const chosen=selectedSaved.has(id);
    card.classList.add('is-editing');card.setAttribute('aria-pressed',String(chosen));
@@ -512,9 +540,10 @@ function renderSavedList(){
   card.addEventListener('click',()=>{
    if(!editingSaved){return;}
    if(selectedSaved.has(id))selectedSaved.delete(id);else selectedSaved.add(id);
-   renderSavedList();savedList.children[ids.indexOf(id)]?.focus();
+   renderSavedList();[...savedList.children].find(card=>card.dataset.savedVerseId===id)?.focus({preventScroll:true});
   });savedList.append(card);
  }
+ const pages=recordPagination(ids.length,'saved',renderSavedList);if(pages)savedPagination.append(pages);
 }
 function openSavedVerse(id){
  const verse=readableVerses().find(item=>item.id===id);
@@ -798,7 +827,7 @@ verseFooter.append(speechControls,element('p','daily-verse-reference',verse.refe
 function openDailyMeditation(verse,record=null,{focusEditor=false,scrollToEditor=false,fromConcern=false}={}){
  const origin=currentAppScreen;
  const returnToDaily=()=>displayScreen('reflection',displayedDailyDate===window.Malsseum.services.dailySelection.dateKey()?displayedDailyVerse:null);
- const returnFromDetail=origin==='profile'?()=>displayScreen('profile'):origin==='meditation-record'&&record?()=>openReflectionRecord(record):origin==='reflection'?returnToDaily:record?()=>openReflectionList(record.id):fromConcern?()=>displayScreen('result'):returnToDaily;
+ const returnFromDetail=origin==='profile'?()=>displayScreen('profile'):origin==='meditation-record'&&record?()=>openReflectionRecord(record):origin==='reflection'?returnToDaily:record?()=>openReflectionList(record.id,{keepPage:true}):fromConcern?()=>displayScreen('result'):returnToDaily;
  if(!fromConcern&&!record)verse=dailyDisplayVerse(verse);
  const displayedVerseSnapshot={reference:verse.reference,text:displayVerseText(verse)};
  meditationDetail.dataset.dailyLayout=String(!fromConcern);
@@ -842,7 +871,7 @@ function openDailyMeditation(verse,record=null,{focusEditor=false,scrollToEditor
   requestAnimationFrame(()=>{if(!meditationDetail.hidden)mainContent.scrollTop=0;});
  }
 }
-function openReflectionList(expandedId=null){
+function openReflectionList(expandedId=null,{keepPage=false}={}){
  meditationList.replaceChildren();const back=meditationBackButton('오늘의 말씀',()=>displayScreen('reflection'));meditationList.append(back);
  const verses=new Map(readableVerses().map(verse=>[verse.id,verse])),entries=PersonalReflections.list();
  const todayEntries=entries.filter(entry=>PersonalReflections.isToday(entry));
@@ -851,10 +880,12 @@ function openReflectionList(expandedId=null){
   const dailyVerse=DailyVerse.get(),todayAction=element('button','meditation-list-today-action','오늘의 말씀 묵상하기');todayAction.type='button';todayAction.addEventListener('click',()=>openDailyMeditation(dailyVerse));empty.append(todayAction);meditationList.append(empty);
  }
  const newestFirst=(a,b)=>PersonalReflections.savedDay(b).localeCompare(PersonalReflections.savedDay(a))||Date.parse(b.updatedAt)-Date.parse(a.updatedAt)||Date.parse(b.createdAt)-Date.parse(a.createdAt);
- [...todayEntries.sort(newestFirst),...entries.filter(entry=>!PersonalReflections.isToday(entry)).sort(newestFirst)].forEach(entry=>{
+ const ordered=[...todayEntries.sort(newestFirst),...entries.filter(entry=>!PersonalReflections.isToday(entry)).sort(newestFirst)];
+ pageRecords(ordered,'reflections',keepPage?null:expandedId).forEach(entry=>{
   const verse=verses.get(entry.verseId),item=element('article','meditation-record-card'),head=element('div','meditation-record-head');head.append(element('time','',reflectionDateFormat.format(new Date(entry.createdAt))),element('strong','',verse?.reference||'묵상 기록'));const excerpt=element('p','meditation-record-excerpt',entry.content);
   const actions=element('div','meditation-record-actions'),open=element('button','button-compact management-action','상세보기'),edit=element('button','button-compact management-action','수정'),remove=element('button','button-compact management-action','삭제');open.type=edit.type=remove.type='button';open.addEventListener('click',()=>openReflectionRecord(entry));edit.disabled=!verse;edit.addEventListener('click',()=>{if(verse)openDailyMeditation(verse,entry,{focusEditor:true});});remove.addEventListener('click',()=>{if(!confirm('이 묵상 기록을 삭제할까요?'))return;try{PersonalReflections.remove(entry.id);openReflectionList();renderReflectionPreview();}catch{document.getElementById('profile-status').textContent='묵상 기록을 삭제하지 못했어요.';}});actions.append(open,edit,remove);item.append(head,excerpt,actions);meditationList.append(item);
  });
+ const pages=recordPagination(ordered.length,'reflections',()=>openReflectionList());if(pages)meditationList.append(pages);
  displayScreen('meditation-list');
 }
 function reflectionVerseContent(entry){
@@ -874,7 +905,7 @@ function openReflectionVerse(entry){
 }
 function openReflectionRecord(entry){
  const verse=readableVerses().find(item=>item.id===entry.verseId);meditationRecord.replaceChildren();
- const back=meditationBackButton('나의 묵상',()=>openReflectionList(entry.id));
+ const back=meditationBackButton('나의 묵상',()=>openReflectionList(entry.id,{keepPage:true}));
  const content=reflectionVerseContent(entry);
  const card=element('article','meditation-record-view');card.append(element('time','',reflectionDateFormat.format(new Date(entry.createdAt))),element('strong','',content?.reference||verse?.reference||'묵상 기록'),element('p','',entry.content));
  const readVerse=element('button','reflection-read-verse button-compact management-action','그날의 말씀 보기');readVerse.type='button';readVerse.addEventListener('click',()=>openReflectionVerse(entry));
