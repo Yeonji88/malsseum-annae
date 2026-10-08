@@ -327,6 +327,8 @@
 .meditation-questions.is-daily-checklist li::before{content:'✓\00a0';font:inherit;color:inherit;padding:0}
 .meditation-journal.is-daily-checklist{margin-top:calc(var(--meditation-section-gap) / 2 + 4px);padding-top:calc(var(--meditation-section-gap) / 2 - 1px + 4px)}
 
+/* Contain the absolute screen-reader label inside the scrolling journal. */
+.meditation-journal{position:relative}
 /* Temporary keyboard layout; normal tab bar styling remains unchanged. */
 .app.is-journal-keyboard-open{height:var(--journal-viewport-height);max-height:var(--journal-viewport-height)}
 .app.is-journal-keyboard-open>#bottom-nav{display:none!important}
